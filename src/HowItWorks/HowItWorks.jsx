@@ -11,9 +11,11 @@ function HowItWorks() {
             <div className={Style.title}>Benifits of Claw for Lawyers & Charted Accountants</div>
             <div className={Style.features}>
                 <div className={Style.networkContainer}>
-                    <img src={network} />
-                    <h5>Increased Visibility</h5>
-                    <p>When you join Claw, you showcase your expertise & attract clients who are actively seeking your services.</p>
+                    <div>
+                        <img src={network} />
+                        <h5>Increased Visibility</h5>
+                        <p>When you join Claw, you showcase your expertise & attract clients who are actively seeking your services.</p>
+                    </div>
                 </div>
                 <div className={Style.visibilityContainer}>
                     <img src={visibility} />

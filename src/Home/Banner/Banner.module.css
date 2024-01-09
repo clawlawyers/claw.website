@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     border-radius: 10px;
+    margin-top: 2vh;
 }
 
 .leftBlock .title{
@@ -28,4 +29,26 @@
 .rightBlock img{
     width: 30vw;
     height: 40vh;
+}
+
+@media (max-width: 799px) {
+    .banner{
+        display: block;
+    }
+
+    .rightBlock img{
+        width: 60vw;
+        height: 20vh;
+        margin-left: 20vw;
+    }
+
+    .leftBlock img{
+        height: 6vh;
+        width: 40vw;
+    }
+
+    .leftBlock .title{
+        margin-top: 3vh;
+        font-size: 25px;
+    }
 }

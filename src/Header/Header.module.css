@@ -30,11 +30,19 @@
     color: white;
     border: none;
     font-size: 14px;
-    width: 10vw;
+    width: 12vw;
     height: 5vh;
 }
 
-.register p{
-    font-size: 12px;
-    color: #8940FF;
+
+@media (max-width: 799px) {
+
+    .register button{
+        width: 30vw;
+        font-size: 10px;
+        padding: 0;
+    }
+   .categories{
+    display: none;
+   }
 }

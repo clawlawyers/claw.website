@@ -26,3 +26,22 @@
     height: 8vh;
     margin-top: 2vh;
 }
+
+@media (max-width: 799px) {
+
+    .footerBanner{
+        display: block;
+    }
+
+   .header{
+    margin-left: 5vw;
+    width: 70vw;
+    font-size: 20px;
+   }
+
+   .footerBanner img{
+    margin-left: 5vw;
+     width: 40vw;
+     height: 6vh;
+   }
+}

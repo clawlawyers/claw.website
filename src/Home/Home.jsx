@@ -4,6 +4,7 @@ import Banner from './Banner/Banner'
 import HowItWorks from '../HowItWorks/HowItWorks'
 import Testimonials from '../Testimonials/Testimonials'
 import FooterBanner from '../FooterBanner/FooterBanner'
+import GigForm from '../GigForm/GigForm'
 
 function Home() {
     return (
@@ -12,6 +13,7 @@ function Home() {
             <Banner />
             <HowItWorks />
             <Testimonials />
+            <GigForm />
             <FooterBanner />
         </div>
     )

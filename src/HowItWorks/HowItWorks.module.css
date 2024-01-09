@@ -61,3 +61,31 @@
     animation: moveUp 0.3s ease forwards;
     cursor: pointer;
 }
+
+@media (max-width: 799px) {
+    .features{
+        display: block;
+        /* margin-left: 20vw; */
+    }
+
+    .features div{
+        width: 80vw;
+    }
+    
+    .features img{
+        margin-left: 20vw;
+        width: 30vw;
+    }
+    
+    .features h5{
+        margin-left: 20vw;
+        width: 50vw;
+    }
+
+    .features p{
+        text-align: center;
+        margin-left: 10vw;
+        margin-right: 10vw;
+        font-size: 15px;
+    }
+}

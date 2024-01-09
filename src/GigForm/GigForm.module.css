@@ -1,0 +1,75 @@
+.main{
+    margin-left: 5vw;
+    margin-top: 5vh;
+}
+
+.formContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header h2,p{
+   text-align: center;
+}
+
+.main label{
+    display: block;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.formItem{
+   margin-top: 4vh;
+}
+
+.formItem input{
+    height: 4vh;
+    border: 1px solid #8940FF;
+    background-color: white;
+}
+
+.formItem select{
+    border: 1px solid #8940FF;
+}
+
+.country_pincode{
+    display: flex;
+}
+
+.countryContainer input{
+    width: 14vw;
+}
+
+.pincodeContainer{
+    margin-left: 3vw;
+}
+
+.pincodeContainer input{
+    width: 15vw;
+}
+
+.postGig{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4vh;
+}
+
+.postGig button{
+    background-color: #8940FF;
+    border-radius: 2px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    width: 10vw;
+    height: 5vh;
+}
+
+@media (max-width: 799px) {
+    .postGig button{
+        width: 30vw;
+    }
+
+}

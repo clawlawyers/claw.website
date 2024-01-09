@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import Style from './Testimonials.module.css'
+import starInvertedComma from '../assets/images/startInvertedComma.png'
+import endComma from '../assets/images/endComma.png'
 
 function Testimonials() {
     const [itemNumber, setItemNumber] = useState(0)
@@ -12,7 +14,8 @@ function Testimonials() {
             <div className={Style.allTestimonials}>
                 <div className={Style.eachTestimonial}>
                     <div className={Style.userTestimonial}>
-                        <h4><span>"</span>{testimonials[itemNumber].msg}<span>"</span></h4>
+                        <span><img src={starInvertedComma} /></span>
+                        <h4>{testimonials[itemNumber].msg}</h4>  <div className={Style.endInvertedComma}><img src={endComma} /></div>
                         <p>~{testimonials[itemNumber].user}</p>
                     </div>
                     <div className={Style.buttons}>

@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 35vh;
+    height: 45vh;
     padding-bottom: 5vh;
 }
 
@@ -38,6 +38,20 @@
     height: 20vh;
 }
 
+.userTestimonial span{
+    margin-left: -3vw;
+}
+
+.userTestimonial img{
+    width: 3vw;
+    
+}
+
+
+.endInvertedComma{
+    margin-left: 28vw;
+    margin-top: -3vh;
+}
 
 .allTestimonials h4{
     text-align: center;
@@ -49,6 +63,7 @@
 }
 
 .buttons{
+    margin-top: 9vh;
     justify-content: space-between;
 }
 
@@ -65,4 +80,17 @@
     background-color: #8940FF;
     color: white;
     cursor: pointer;
+}
+
+@media (max-width: 799px) {
+    .eachTestimonial{
+        width: 80vw;
+    }
+    .buttons{
+        margin-left: 20vw;
+    }
+
+    .endInvertedComma{
+        margin-left: 70vw;
+    }
 }

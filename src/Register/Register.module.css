@@ -48,11 +48,7 @@
     justify-content: center;
 }
 
-form{
-    border: 2px solid gainsboro;
-    padding: 20px;
-    border-radius: 2px;
-}
+
 .inputItem{
     margin-top: 2vh;
 }

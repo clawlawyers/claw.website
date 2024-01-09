@@ -7,12 +7,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Home/Home";
 import Register from "./Register/Register";
+import Testimonials from "./Testimonials/Testimonials";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
   },
+
   {
     path: "/register",
     element: <Register />,
