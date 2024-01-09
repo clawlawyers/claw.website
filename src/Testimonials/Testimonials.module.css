@@ -1,0 +1,68 @@
+
+.title{
+    text-align: center;
+    color: #8940FF;
+}
+
+.main{
+    margin-top: 5vh;
+}
+
+.header{
+    text-align: center;
+}
+
+.allTestimonials{
+    background-color: 
+    #D8D8FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35vh;
+    padding-bottom: 5vh;
+}
+
+.eachTestimonial{
+    margin-top: 2vh;
+    padding: 5px;
+    width: 30vw;
+    border-radius: 5px;
+}
+
+.eachTestimonial span{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.userTestimonial{
+    height: 20vh;
+}
+
+
+.allTestimonials h4{
+    text-align: center;
+}
+
+.allTestimonials p{
+    text-align: center;
+    font-weight: 500;
+}
+
+.buttons{
+    justify-content: space-between;
+}
+
+.prev{
+    border-radius: 10px;
+    background-color: #8940FF;
+    color: white;
+    cursor: pointer;
+}
+
+.next{
+    border-radius: 10px;
+    margin-left: 22vw;
+    background-color: #8940FF;
+    color: white;
+    cursor: pointer;
+}

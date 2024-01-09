@@ -1,0 +1,63 @@
+
+.main{
+    margin-top: 5vh;
+}
+
+.header{
+    text-align: center;
+    font-size: 15px;
+    color:#8940FF;
+}
+
+.title{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+
+}
+
+.features{
+    display: flex;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.features div{
+    width: 15vw;
+}
+
+.features img{
+    width: 15vw;
+}
+
+.features p{
+    text-align: center;
+    margin-left: -2vw;
+    font-size: 12px;
+}
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px); 
+    }
+}
+
+.networkContainer:hover{
+    animation: moveUp 0.3s ease forwards;
+    cursor: pointer;
+}
+
+.visibilityContainer:hover{
+    animation: moveUp 0.3s ease forwards;
+    cursor: pointer;
+}
+
+.businessContainer:hover{
+    animation: moveUp 0.3s ease forwards;
+    cursor: pointer;
+}

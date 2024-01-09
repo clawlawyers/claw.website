@@ -1,0 +1,28 @@
+
+
+.footerBanner{
+    margin-top: 3vh;
+    width: 80vw;
+    margin-left: 10vw;
+    border-radius: 10px;
+    background-color: #A5A6F6;
+    display: flex;
+    align-items: center;
+    height: 30vh;
+    margin-bottom: 5vh;
+    
+}
+
+.header{
+    color: white;
+    width: 60vw;
+    font-size: 38px;
+    font-weight: 500;
+    margin-left: 2vw;
+}
+
+.footerBanner img{
+    width: 15vw;
+    height: 8vh;
+    margin-top: 2vh;
+}
