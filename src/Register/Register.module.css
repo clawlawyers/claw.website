@@ -57,7 +57,7 @@
    display: block;
 }
 
-input{
+.form input{
     width: 40vw;
     background-color:
     #F8FAFC;
@@ -77,4 +77,33 @@ input{
     color: white;
     cursor: pointer;
     border: none;
+}
+
+@media (max-width: 799px) {
+    .lawyer{
+        width: 20vw;
+    }
+
+    .accountant{
+        width: 40vw;
+    }
+
+    .form{
+        margin-top: 3vh;
+    }
+    .form input{
+       width: 60vw;
+    }
+
+    .inputItem{
+        margin-top: 4vh;
+    }
+
+    .registerButton{
+        margin-top: 5vh;
+    }
+
+    .registerButton button{
+        width: 20vw;
+    }
 }

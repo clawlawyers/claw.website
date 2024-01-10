@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Style from './GigForm.module.css'
 
 function GigForm() {
@@ -6,11 +6,38 @@ function GigForm() {
     const [profession, setProfession] = useState("profession")
     const [jobtitle, setJobTitle] = useState('');
     const [jobdescription, setJobDescription] = useState('');
-    const [pricerange, setPrice] = useState("")
-    const [pincode, setPincode] = useState("")
+    const [pricerange, setPrice] = useState(null)
+    const [pincode, setPincode] = useState(null)
+    const [submit, setSubmit] = useState(false)
+
+    useEffect(() => {
+        setJobTitle("");
+        setJobDescription('');
+        setCountry("country");
+        setPincode(null);
+        setPrice(null);
+        setProfession('profession');
+        setSubmit(false)
+    }, [submit])
 
     function postgig(e) {
         e.preventDefault();
+        if (jobtitle.length == 0) {
+            alert("Please enter job title")
+        } else if (jobdescription.length == 0) {
+            alert("Please enter job description")
+        } else if (pricerange == null) {
+            alert("Please enter price range")
+        } else if (country == 'country') {
+            alert("Please select your country")
+        } else if (pincode == null) {
+            alert("Please enter pincode")
+        } else if (profession == 'profession') {
+            alert("Please select your profession")
+        } else {
+            alert(jobtitle + " " + jobdescription + " " + pricerange + " " + " " + country + " " + pincode + " " + profession)
+            setSubmit(true)
+        }
         console.log(country, profession, jobtitle, jobdescription, pricerange, pincode)
     }
     return (
@@ -23,15 +50,15 @@ function GigForm() {
                 <form>
                     <div className={Style.formItem}>
                         <label>Job title:</label>
-                        <input onChange={(e) => { setJobTitle(e.target.value) }} type='text' placeholder='Enter your job title' />
+                        <input value={jobtitle} onChange={(e) => { setJobTitle(e.target.value) }} type='text' placeholder='Enter your job title' />
                     </div>
                     <div className={Style.formItem}>
                         <label>Job Description:</label>
-                        <input onChange={(e) => { setJobDescription(e.target.value) }} type='text' placeholder='Enter your job Description' />
+                        <input value={jobdescription} onChange={(e) => { setJobDescription(e.target.value) }} type='text' placeholder='Enter your job Description' />
                     </div>
                     <div className={Style.formItem}>
                         <label>Price Range:</label>
-                        <input onChange={(e) => { setPrice(e.target.value) }} type='text' placeholder='Enter the price for your project' />
+                        <input value={pricerange || ''} onChange={(e) => { setPrice(e.target.value) }} type='text' placeholder='Enter the price for your project' />
                     </div>
                     <div className={Style.formItem}>
                         <div className={Style.country_pincode}>
@@ -52,7 +79,7 @@ function GigForm() {
                             </div>
                             <div className={Style.pincodeContainer}>
                                 <label>Pincode:</label>
-                                <input onChange={(e) => { setPincode(e.target.value) }} type='number' placeholder='Enter your pincode' />
+                                <input value={pincode || ''} onChange={(e) => { setPincode(e.target.value) }} type='number' placeholder='Enter your pincode' />
                             </div>
                         </div>
                     </div>

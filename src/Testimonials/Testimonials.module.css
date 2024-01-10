@@ -30,8 +30,8 @@
 }
 
 .eachTestimonial span{
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 400;
 }
 
 .userTestimonial{
@@ -50,11 +50,14 @@
 
 .endInvertedComma{
     margin-left: 28vw;
-    margin-top: -3vh;
+   
 }
 
-.allTestimonials h4{
+.testimonialMessage{
     text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    height: 16vh;
 }
 
 .allTestimonials p{
@@ -62,35 +65,64 @@
     font-weight: 500;
 }
 
-.buttons{
-    margin-top: 9vh;
+.buttonsContainer{
+    display: flex;
+    margin-top: 12vh;
     justify-content: space-between;
 }
 
 .prev{
-    border-radius: 10px;
+    border-radius: 50%;
     background-color: #8940FF;
     color: white;
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .next{
-    border-radius: 10px;
-    margin-left: 22vw;
+    border-radius: 50%;
     background-color: #8940FF;
     color: white;
     cursor: pointer;
+    margin-left: 5px;
 }
 
+
 @media (max-width: 799px) {
+    
+    .allTestimonials{
+        height: 60vh;
+    }
+
+    .testimonialMessage{
+       height: 30vh;
+    }
+
     .eachTestimonial{
         width: 80vw;
     }
-    .buttons{
-        margin-left: 20vw;
+    .buttonsContainer{
+        margin-top: 25vh;
+        /* margin-left: 20vw; */
+    }
+     
+    .userTestimonial img{
+         width: 6vw;
+    }
+    .endInvertedComma{
+        margin-left: 65vw;
+        margin-top: -4vh;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .allTestimonials{
+        height: 60vh;
+    }
+    .testimonialMessage{
+        font-size: 20px;
     }
 
-    .endInvertedComma{
-        margin-left: 70vw;
-    }
+    
 }

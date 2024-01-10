@@ -24,8 +24,8 @@ function Banner() {
                 <img src={iphoneImage} />
             </div>
             {isMobile && <div className={Style.leftBlock}>
-                <img src={playStore} />
-                <img src={appStore} />
+                <div> <img src={playStore} /></div>
+                <div> <img src={appStore} /></div>
             </div>}
         </div>
     )

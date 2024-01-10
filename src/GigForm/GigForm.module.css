@@ -9,6 +9,15 @@
     justify-content: center;
 }
 
+.formContainer form{
+    border: 1px solid #d3bdf7;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 1vh;
+    padding-bottom: 3vh;
+    border-radius: 10px;
+}
+
 .header h2,p{
    text-align: center;
 }
@@ -25,12 +34,21 @@
 
 .formItem input{
     height: 4vh;
-    border: 1px solid #8940FF;
+    border: 0.3px solid #c3c0c9;
     background-color: white;
+    outline: none;
+    border-radius: 5px;
+    width: 30vw;
+}
+
+.formItem input::placeholder{
+    font-size: 13px;
+    padding: 2px;
 }
 
 .formItem select{
-    border: 1px solid #8940FF;
+    border: 1px solid #d3bdf7;
+    border-radius: 5px;
 }
 
 .country_pincode{
@@ -58,7 +76,7 @@
 
 .postGig button{
     background-color: #8940FF;
-    border-radius: 2px;
+    border-radius: 5px;
     font-size: 18px;
     font-weight: 600;
     color: white;
@@ -72,4 +90,16 @@
         width: 30vw;
     }
 
+    .formContainer form{
+       padding-left: 5vw;
+       width: 70vw;
+    }
+
+    .formItem input{
+       width: 60vw;
+    }
+
+    .pincodeContainer input{
+        width: 30vw;
+    }
 }

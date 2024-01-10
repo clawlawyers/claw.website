@@ -6,15 +6,20 @@ function Register() {
     const [lawyer, setLawyer] = useState(true)
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
-    const [mobile, setMobile] = useState()
+    const [mobile, setMobile] = useState(null)
     const [location, setLocation] = useState("")
-    const [graduation, setGraduation] = useState()
-    const [experience, setExperience] = useState()
+    const [graduation, setGraduation] = useState(null)
+    const [experience, setExperience] = useState(null)
     const navigate = useNavigate()
     const selected = {
         backgroundColor: '#8940FF',
         color: 'white'
     }
+
+    const isValidMobile = (mobile) => {
+        const mobileNumber = mobile.toString();
+        return /^\d{10}$/.test(mobileNumber);
+    };
 
     function submit(e) {
         e.preventDefault();
@@ -22,13 +27,15 @@ function Register() {
             alert("plase enter name")
         } else if (email.length == 0) {
             alert("plase enter email")
-        } else if (mobile.length == 0) {
+        } else if (mobile === null) {
             alert("plase enter mobile number")
+        } else if (isValidMobile(mobile)) {
+            alert(" please enter 10 digits mobile number!")
         } else if (location.length == 0) {
             alert("plase enter location")
-        } else if (lawyer && graduation.length == 0) {
+        } else if (lawyer && graduation === null) {
             alert("plase enter graduation year")
-        } else if (!lawyer && experience.length == 0) {
+        } else if (!lawyer && experience === null) {
             alert("plase enter experience")
         } else {
             localStorage.setItem("registereduser", name)

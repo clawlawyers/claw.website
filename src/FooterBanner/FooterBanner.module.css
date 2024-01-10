@@ -1,7 +1,7 @@
 
 
 .footerBanner{
-    margin-top: 3vh;
+    margin-top: 8vh;
     width: 80vw;
     margin-left: 10vw;
     border-radius: 10px;
@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     height: 30vh;
-    margin-bottom: 5vh;
+    margin-bottom: 35vh;
     
 }
 
@@ -31,6 +31,7 @@
 
     .footerBanner{
         display: block;
+        margin-bottom: 10vh;
     }
 
    .header{
@@ -44,4 +45,14 @@
      width: 40vw;
      height: 6vh;
    }
+}
+
+@media (max-width: 400px) {
+    .header{
+        padding-top: 2vh;
+        font-size: 15px;
+    }
+    .footerBanner img{
+        height: 7vh;
+    }
 }
