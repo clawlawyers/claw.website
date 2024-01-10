@@ -9,14 +9,16 @@
     background-color: #8940FF;
     display: flex;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 30px;
     margin-top: 2vh;
 }
 
 .leftBlock .title{
-   font-size: 60px;
-   font-weight: 500;
+   font-size: 50px;
+   font-weight: 600;
+   padding: 10px;
    color: white;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .leftBlock img{
@@ -28,28 +30,30 @@
 
 .rightBlock img{
     width: 35vw;
-    height: 40vh;
+    height: 50vh;
 }
 
 @media (max-width: 799px) {
     .banner{
         display: block;
+        height: 85vh;
     }
 
     .rightBlock img{
-        width: 55vw;
-        height: 25vh;
+        width: 50vw;
+        height: 40vh;
         margin-left: 20vw;
     }
 
     .leftBlock img{
-        height: 10vh;
+        height: 7vh;
         width: 40vw;
+        margin-top: 10px;
     }
 
     .leftBlock .title{
         margin-top: 6vh;
-        font-size: 30px;
+        font-size: 25px;
         padding-top: 2vh;
     }
 }

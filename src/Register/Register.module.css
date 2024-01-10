@@ -5,6 +5,11 @@
     height: 100vh;
 }
 
+.logoContainer img{
+    width: 8vw;
+    height: 10vh;
+}
+
 .register h3{
     margin-top: 3vh;
     text-align: center;

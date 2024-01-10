@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Style from './Register.module.css'
 import { useNavigate } from 'react-router-dom'
+import logo from '../assets/icons/logo.png'
 
 function Register() {
     const [lawyer, setLawyer] = useState(true)

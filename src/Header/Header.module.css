@@ -1,7 +1,8 @@
 
 .header{
-    margin-left: 2vw;
-    margin-right: 2vw;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    width: 80vw;
     margin-top: 2vh;
     display: flex;
     justify-content: space-between;
@@ -22,10 +23,14 @@
 }
 
 .title img{
-    width: 2vw;
-    height: 3vh;
+    width: 8vw;
+    height: 6vh;
     border-radius: 20%;
+     object-fit: contain; 
+    /* margin-left: 8vw; */
 }
+
+
 
 .categories{
     color: gainsboro;
@@ -39,17 +44,28 @@
 }
 
 .register button{
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #8940FF;
     color: white;
     border: none;
     font-size: 14px;
     width: 12vw;
     height: 5vh;
+    margin-top: 5px;
+    margin-left: -2vw;
+    /* margin-left: -20vw; */
 }
 
 
 @media (max-width: 799px) {
+
+    .title img{
+        width: 15vw;
+        height: 6vh;
+         object-fit: contain; 
+        padding: 0;
+        /* border: 1px solid grey; */
+    }
 
     .register button{
         width: 30vw;
