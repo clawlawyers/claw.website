@@ -25,6 +25,7 @@
     color:#8940FF;
     border-radius: 3px;
     cursor: pointer;
+    text-align: center;
 }
 
 .accountant{
@@ -33,7 +34,7 @@
     color: #8940FF;
     border-radius: 3px;
     cursor: pointer;
-
+    text-align: center;
 }
 .selectorContainer{
     display: flex;
@@ -89,7 +90,7 @@
     }
 
     .form{
-        margin-top: 3vh;
+        margin-top: 2vh;
     }
     .form input{
        width: 60vw;
@@ -100,7 +101,7 @@
     }
 
     .registerButton{
-        margin-top: 5vh;
+        margin-top: 3vh;
     }
 
     .registerButton button{

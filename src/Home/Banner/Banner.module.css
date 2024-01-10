@@ -5,7 +5,7 @@
     padding-left: 2vw;
     padding-right: 2vw;
     width: 80vw;
-    height: 50vh;
+    height: 90vh;
     background-color: #8940FF;
     display: flex;
     align-items: center;
@@ -14,20 +14,20 @@
 }
 
 .leftBlock .title{
-   font-size: 40px;
+   font-size: 60px;
    font-weight: 500;
    color: white;
 }
 
 .leftBlock img{
-    margin-top: 2vh;
-    width: 12vw;
-    height: 6vh;
+    margin-top: 4vh;
+    width: 15vw;
+    height: 10vh;
     margin-left: 2vw;
 }
 
 .rightBlock img{
-    width: 30vw;
+    width: 35vw;
     height: 40vh;
 }
 
@@ -38,18 +38,19 @@
 
     .rightBlock img{
         width: 55vw;
-        height: 16vh;
+        height: 25vh;
         margin-left: 20vw;
     }
 
     .leftBlock img{
-        height: 6vh;
-        width: 30vw;
+        height: 10vh;
+        width: 40vw;
     }
 
     .leftBlock .title{
-        margin-top: 3vh;
-        font-size: 25px;
+        margin-top: 6vh;
+        font-size: 30px;
+        padding-top: 2vh;
     }
 }
 

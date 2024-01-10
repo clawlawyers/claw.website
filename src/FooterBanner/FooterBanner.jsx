@@ -8,10 +8,10 @@ function FooterBanner() {
         <div className={Style.footerBanner}>
             <div className={Style.header}>Join us on this exciting journey to become successful with Claw</div>
             <div>
-                <div>
+                <div className={Style.appStoreImages}>
                     <img src={iphoneStore} />
                 </div>
-                <div>
+                <div className={Style.appStoreImages}>
                     <img src={playstore} />
                 </div>
 
