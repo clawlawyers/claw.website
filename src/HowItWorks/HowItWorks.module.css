@@ -13,7 +13,7 @@
     text-align: center;
     font-size: 25px;
     font-weight: 500;
-
+    font-family: 'Lexend Deca'
 }
 
 .features{
@@ -25,17 +25,27 @@
 }
 
 .features div{
-    width: 15vw;
+    width: 18vw;
 }
 
 .features img{
     width: 15vw;
 }
 
+.features h5{
+    font-family: 'Lexend Deca';
+    font-size: 20px;
+}
+
 .features p{
     text-align: center;
     margin-left: -2vw;
     font-size: 12px;
+    font-family: 'Lexend Deca'
+}
+
+.businessContainer h5{
+    margin-left: 2vw;
 }
 
 @keyframes moveUp {
@@ -79,7 +89,11 @@
     
     .features h5{
         margin-left: 20vw;
-        width: 50vw;
+        width: 60vw;
+    }
+
+    .visibilityContainer h5{
+        margin-left: 15vw;
     }
 
     .features p{

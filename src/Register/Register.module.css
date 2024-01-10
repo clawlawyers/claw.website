@@ -14,6 +14,7 @@
     margin-top: 3vh;
     text-align: center;
     color: #8940FF;
+    font-family: 'Lexend Deca'
 
 }
 
@@ -31,6 +32,7 @@
     border-radius: 3px;
     cursor: pointer;
     text-align: center;
+    font-family: 'Lexend Deca'
 }
 
 .accountant{
@@ -40,6 +42,7 @@
     border-radius: 3px;
     cursor: pointer;
     text-align: center;
+    font-family: 'Lexend Deca'
 }
 .selectorContainer{
     display: flex;
@@ -61,6 +64,7 @@
 
 .inputItem label{
    display: block;
+   font-family: 'Lexend Deca'
 }
 
 .form input{
@@ -68,6 +72,7 @@
     background-color:
     #F8FAFC;
     border: none;
+    font-family: 'Lexend Deca'
 }
 
 .registerButton {
@@ -83,6 +88,7 @@
     color: white;
     cursor: pointer;
     border: none;
+    font-family: 'Lexend Deca'
 }
 
 @media (max-width: 799px) {
@@ -111,5 +117,20 @@
 
     .registerButton button{
         width: 20vw;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .form{
+        margin-top: 1vh;
+    }
+
+    .lawyer{
+        font-size: 12px;
+    }
+
+    .accountant{
+        font-size: 12px;
     }
 }

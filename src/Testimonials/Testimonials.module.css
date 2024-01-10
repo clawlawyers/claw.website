@@ -10,6 +10,7 @@
 
 .header{
     text-align: center;
+    font-family: 'Lexend Deca';
 }
 
 .allTestimonials{
@@ -55,9 +56,10 @@
 
 .testimonialMessage{
     text-align: center;
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 500;
     height: 16vh;
+    font-family: 'Lexend Deca'
 }
 
 .allTestimonials p{

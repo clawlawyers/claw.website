@@ -30,7 +30,7 @@ function Register() {
             alert("plase enter email")
         } else if (mobile === null) {
             alert("plase enter mobile number")
-        } else if (isValidMobile(mobile)) {
+        } else if (!isValidMobile(mobile)) {
             alert(" please enter 10 digits mobile number!")
         } else if (location.length == 0) {
             alert("plase enter location")

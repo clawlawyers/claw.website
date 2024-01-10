@@ -49,10 +49,11 @@
     color: white;
     border: none;
     font-size: 14px;
-    width: 12vw;
+    width: 20vw;
     height: 5vh;
     margin-top: 5px;
     margin-left: -2vw;
+    font-family: 'Lexend Deca';
     /* margin-left: -20vw; */
 }
 
@@ -74,5 +75,11 @@
     }
    .categories{
     display: none;
+   }
+}
+
+@media (max-width: 350px) {
+   .register button{
+    width: 40vw;
    }
 }

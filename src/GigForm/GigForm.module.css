@@ -25,12 +25,14 @@
 
 .header h2,p{
    text-align: center;
+   font-family: 'Lexend Deca'
 }
 
 .main label{
     display: block;
     font-weight: 500;
     font-size: 18px;
+    font-family: 'Lexend Deca'
 }
 
 .formItem{
@@ -44,6 +46,7 @@
     outline: none;
     border-radius: 15px;
     width: 60vw;
+    font-family: 'Lexend Deca'
 }
 
 .jobDescription input{
@@ -53,11 +56,13 @@
     border-radius: 15px;
     width: 30vw;
     height: 10vh;
+    font-family: 'Lexend Deca'
 }
 
 .formItem input::placeholder{
     font-size: 13px;
     padding: 2px;
+    font-family: 'Lexend Deca'
 }
 
 .formItem select{
@@ -71,6 +76,7 @@
 
 .countryContainer input{
     width: 14vw;
+    font-family: 'Lexend Deca'
 }
 
 .pincodeContainer{
@@ -79,6 +85,7 @@
 
 .pincodeContainer input{
     width: 15vw;
+    font-family: 'Lexend Deca'
 }
 
 .postGig{
@@ -97,6 +104,7 @@
     border: none;
     width: 10vw;
     height: 5vh;
+    font-family: 'Lexend Deca'
 }
 
 @media (max-width: 799px) {
