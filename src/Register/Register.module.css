@@ -133,4 +133,9 @@
     .accountant{
         font-size: 12px;
     }
+
+    .registerButton button{
+        width: 25vw;
+        font-size: 15px;
+    }
 }

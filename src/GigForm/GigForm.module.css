@@ -110,6 +110,7 @@
 @media (max-width: 799px) {
     .postGig button{
         width: 30vw;
+        font-size: 14px;
     }
 
     .formContainer form{

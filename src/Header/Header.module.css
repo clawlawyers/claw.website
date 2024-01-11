@@ -70,12 +70,18 @@
 
     .register button{
         width: 30vw;
-        font-size: 10px;
+        font-size: 9px;
         padding: 0;
     }
    .categories{
     display: none;
    }
+}
+
+@media (max-width: 400px) {
+    .register button{
+        width: 38vw;
+       }
 }
 
 @media (max-width: 350px) {
