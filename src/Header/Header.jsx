@@ -15,7 +15,7 @@ function Header({ home, howItworks, testimonial }) {
     return (
         <div className={Style.header}>
             <div className={Style.title}><img src={clawLogo} /></div>
-            <div className={Style.categories}><span onClick={home}>Home </span> |<span onClick={howItworks}> How it works </span>|<span onClick={testimonial}> Testimonials</span></div>
+            <div className={Style.categories}><span onClick={home}>Home </span> |<span onClick={howItworks}> How it works </span>|<span onClick={testimonial}> Testimonials </span>|<span onClick={() => navigate("/legalGPT")}> LegalGPT</span></div>
             <div className={Style.register}>
                 {user?.length <= 0 ? <div>
                     <button onClick={() => {

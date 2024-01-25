@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Home/Home";
 import Register from "./Register/Register";
 import Testimonials from "./Testimonials/Testimonials";
+import LegalGPT from "./LegalGPT/LegalGPT";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/legalGPT",
+    element: <LegalGPT />
   },
 ]);
 
