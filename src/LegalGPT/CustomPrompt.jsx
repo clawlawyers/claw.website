@@ -7,7 +7,7 @@ export function CustomPrompt({ heading, subHeading, onClick }) {
     return (
         <div onClick={onClick} className={Style.customPrompt}>
             <button>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", textAlign: "left" }}>
                     <div style={{ display: "flex", flexDirection: "column" }}>
                         <div>{heading}</div>
                         <div>{subHeading}</div>

@@ -48,7 +48,16 @@ function LegalGPT() {
             </div>
 
             <div className={Style.promptInput}>
-                
+                <div className={Style.customPrompts}>
+                    <div>
+                        <CustomPrompt heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
+                        <CustomPrompt heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
+                    </div>
+                    <div>
+                        <CustomPrompt heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
+                        <CustomPrompt heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
+                    </div>
+                </div>
                 <form onSubmit={submitPrompt}>
                     <textarea
                         value={query}
