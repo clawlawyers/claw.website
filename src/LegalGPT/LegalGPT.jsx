@@ -48,16 +48,16 @@ function LegalGPT() {
             </div>
 
             <div className={Style.promptInput}>
-                <div className={Style.customPrompts}>
+                {prompts.length === 0 && (<div className={Style.customPrompts}>
                     <div>
-                        <CustomPrompt heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
-                        <CustomPrompt heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
+                        <CustomPrompt onClick={() => submitCustomPrompt("Main Prompt heading")} heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
+                        <CustomPrompt onClick={() => submitCustomPrompt("Main Prompt heading")} heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
                     </div>
                     <div>
-                        <CustomPrompt heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
-                        <CustomPrompt heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
+                        <CustomPrompt onClick={() => submitCustomPrompt("Main Prompt heading")} heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
+                        <CustomPrompt onClick={() => submitCustomPrompt("Main Prompt heading")} heading={"Main Prompt heading"} subHeading={"subheading giving some explaination"} />
                     </div>
-                </div>
+                </div>)}
                 <form onSubmit={submitPrompt}>
                     <textarea
                         value={query}
