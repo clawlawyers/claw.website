@@ -1,6 +1,6 @@
 import clawLogo from '../assets/icons/logoIcon.jpeg';
 
-export function Prompt({ isUser, text }) {
+export function Prompt({ role, text }) {
     return (
         <div style={{ padding: "4px 8px 4px 8px", marginBottom: 2 }}>
             <div style={{ display: "flex" }}>
@@ -9,7 +9,7 @@ export function Prompt({ isUser, text }) {
                     height: 30,
                     borderRadius: "50%",
                     marginRight: "15px",
-                    border: "1px solid black",
+                    backgroundColor:'white',
                     overflow: "hidden",
                     position: "relative"
                 }}>
@@ -24,7 +24,7 @@ export function Prompt({ isUser, text }) {
                     }} src={clawLogo} />
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                    <div style={{ fontWeight: 500, fontSize: "20px" }}>{isUser ? "User" : "GPT"}</div>
+                    <div style={{ fontWeight: 500, fontSize: "20px" }}>{role === 'user' ? "User" : "GPT"}</div>
                     <div style={{ overflowWrap: "break-word" }}>{text}</div>
                 </div>
             </div>
