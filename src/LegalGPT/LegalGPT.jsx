@@ -4,12 +4,60 @@ import { Prompt } from "./Prompt";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown, faPaperPlane, faPlus, faSun } from '@fortawesome/free-solid-svg-icons'
 import { CustomPrompt } from "./CustomPrompt";
+import { fetchEventSource } from "@microsoft/fetch-event-source";
+import { CustomLoader } from "./CustomLoader";
+class FatalError extends Error { }
 
 function LegalGPT() {
     const [prompts, setPrompts] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState();
     const promptsRef = useRef(null);
     const [query, setQuery] = useState("");
+
+    async function stream() {
+        await fetchEventSource("http://localhost:5000/api/v1/legalGPT/stream", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "text/event-stream"
+            },
+            body: JSON.stringify({
+                assistant_id: "asst_sroPU88IYxF153uSSqhrfy9b",
+                thread_id: "thread_Muo4zyiGt0UKvCGoOKZSFAkM",
+                question: "hello gpt"
+            }),
+            onopen(res) {
+                if (res.ok && res.status === 200) {
+                    console.log("Connection made ", res);
+                } else if (
+                    res.status >= 400 &&
+                    res.status < 500 &&
+                    res.status !== 429
+                ) {
+                    console.log("Client side error ", res);
+                }
+            },
+            onmessage(event) {
+                try {
+                    if (event.event === 'completed') console.log(JSON.parse(event.data));
+                } catch (error) {
+                    console.log(error)
+                }
+            },
+            onclose() {
+                console.log("Connection closed by the server");
+            },
+            onerror(err) {
+                if (err instanceof FatalError) {
+                    throw err; // rethrow to stop the operation
+                } else {
+                    // do nothing to automatically retry. You can also
+                    // return a specific retry interval here.
+                    console.log("retrying.......")
+                }
+            },
+        })
+    }
 
     async function getGPTReponse(query) {
         try {
@@ -107,8 +155,12 @@ function LegalGPT() {
                         ) : (
                             <div style={{ width: "100%", height: "100%" }}>
                                 {prompts.map(({ id, text, role }) => <Prompt key={id} text={text} role={role} />)}
-                                {/* TODO: implement custom loading to show facts */}
-                                {isLoading && (<div style={{ width: "100%", height: "100%" }}>Loading ......</div>)}
+
+                                {isLoading && (
+                                    <div style={{ width: "100%", height: "100%" }}>
+                                        <CustomLoader />
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
@@ -124,22 +176,22 @@ function LegalGPT() {
                             <div className={Style.customPrompts}>
                                 <div>
                                     <CustomPrompt
-                                        onClick={() => submitCustomPrompt("Explain: Fundamental Rights in the Indian Constitution")}
-                                        heading={"Fundamental Rights in the Indian Constitution"}
+                                        onClick={() => submitCustomPrompt("How does the legal system handle cases of workplace discrimination?")}
+                                        heading={"How does the legal system handle cases of workplace discrimination?"}
                                     />
                                     <CustomPrompt
-                                        onClick={() => submitCustomPrompt("Directive Principles of State Policy in the Indian Constitution")}
-                                        heading={"Directive Principles of State Policy in the Indian Constitution"}
+                                        onClick={() => submitCustomPrompt("Can I be held liable for sharing memes or content online without permission?")}
+                                        heading={"Can I be held liable for sharing memes or content online without permission?"}
                                     />
                                 </div>
                                 <div>
                                     <CustomPrompt
-                                        onClick={() => submitCustomPrompt("Explain: Fundamental Rights in the Indian Constitution")}
-                                        heading={"Fundamental Rights in the Indian Constitution"}
+                                        onClick={() => submitCustomPrompt("What are the legal implications of signing a lease agreement?")}
+                                        heading={"What are the legal implications of signing a lease agreement?"}
                                     />
                                     <CustomPrompt
-                                        onClick={() => submitCustomPrompt("Directive Principles of State Policy in the Indian Constitution")}
-                                        heading={"Directive Principles of State Policy in the Indian Constitution"}
+                                        onClick={() => submitCustomPrompt("What legal rights do I have as a tenant if my landlord fails to make necessary repairs?")}
+                                        heading={"What legal rights do I have as a tenant if my landlord fails to make necessary repairs?"}
                                     />
                                 </div>
                             </div>
