@@ -6,6 +6,7 @@ import { faArrowDown, faPaperPlane, faPlus, faSun } from '@fortawesome/free-soli
 import { CustomPrompt } from "./CustomPrompt";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { CustomLoader } from "./CustomLoader";
+import { API_ENDPOINT } from "../utils/utils";
 class FatalError extends Error { }
 
 function LegalGPT() {
@@ -13,9 +14,9 @@ function LegalGPT() {
     const [isLoading, setIsLoading] = useState();
     const promptsRef = useRef(null);
     const [query, setQuery] = useState("");
-
+    
     async function stream() {
-        await fetchEventSource("http://localhost:5000/api/v1/legalGPT/stream", {
+        await fetchEventSource(`${API_ENDPOINT}api/v1/legalGPT/stream`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -61,7 +62,7 @@ function LegalGPT() {
 
     async function getGPTReponse(query) {
         try {
-            const res = await fetch("http://localhost:5000/api/v1/legalGPT/generateResponse", {
+            const res = await fetch(`${API_ENDPOINT}api/v1/legalGPT/generateResponse`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -83,7 +84,7 @@ function LegalGPT() {
 
     async function getChatHistory() {
         try {
-            const res = await fetch("http://localhost:5000/api/v1/legalGPT/conversationHistory", {
+            const res = await fetch(`${API_ENDPOINT}api/v1/legalGPT/conversationHistory`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

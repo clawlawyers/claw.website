@@ -1,0 +1,1 @@
+export const API_ENDPOINT = process.env.NODE_ENV === "production" ? "https://claw-backend.vercel.app/" : "http://localhost:5000/";
