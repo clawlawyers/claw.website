@@ -129,7 +129,7 @@ function LegalGPT() {
 
     return (
         <div style={{ position: "relative" }}>
-            <div style={{ position: "absolute", width: "260px", height: "100%", backgroundColor: "rgb(96,44,164)" }}>
+            <div className={Style.sidebar}>
                 <div style={{ display: "flex", flexDirection: 'column', height: "100%", padding: "15px", justifyContent: "space-between", alignItems: "center" }}>
                     <button style={{ padding: 10, borderRadius: "6px", width: "100%", border: "1px solid white", backgroundColor: "transparent" }}>
                         <div style={{ display: "flex", gap: 12, alignItems: "center", color: "white", justifyContent: "start" }}>
@@ -147,7 +147,7 @@ function LegalGPT() {
             </div>
             <div className={Style.container}>
                 <div ref={promptsRef} className={Style.prompts}>
-                    <div style={{ width: "80%", margin: "auto" }}>
+                    <div className={Style.subContainer} style={{ width: "80%", margin: "auto" }}>
                         {prompts.length === 0 ? (
                             <div className={Style.welcome}>
                                 <div>Legal GPT</div>
@@ -168,7 +168,7 @@ function LegalGPT() {
 
                 <div className={Style.promptInput}>
                     {prompts.length === 0 && (
-                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", gap: 10 }}>
+                        <div className={Style.customPromptsContainer}>
                             <div style={{ fontSize: "20px", display: "flex", gap: 20, alignItems: "center" }}>
                                 <FontAwesomeIcon icon={faSun} />
                                 <div>Prompt Examples</div>

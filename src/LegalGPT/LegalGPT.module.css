@@ -9,6 +9,14 @@
   margin-left: 260px;
 }
 
+.sidebar {
+  display: block;
+  position: absolute;
+  width: 260px;
+  height: 100%;
+  background-color: rgb(96, 44, 164);
+}
+
 .prompts {
   flex: 1;
   overflow-y: scroll;
@@ -124,6 +132,38 @@
 
 .customPrompt button:hover .sendCustomPrompt {
   opacity: 100;
+}
+
+.customPromptsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10;
+}
+.subContainer {
+  width: 80%;
+  margin: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    margin: 0;
+  }
+  .sidebar {
+    display: none;
+  }
+  .customPromptsContainer {
+    display: none;
+  }
+  .subContainer {
+    width: 100%;
+    margin: 0;
+  }
+  .prompts {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 
 /* Scrollbar Styling */
