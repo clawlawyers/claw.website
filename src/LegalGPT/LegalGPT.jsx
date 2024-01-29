@@ -12,9 +12,32 @@ class FatalError extends Error { }
 function LegalGPT() {
     const [prompts, setPrompts] = useState([]);
     const [isLoading, setIsLoading] = useState();
+    const [threadId, setThreadId] = useState();
     const promptsRef = useRef(null);
     const [query, setQuery] = useState("");
-    
+    useEffect(() => {
+        const createThread = async function () {
+            try {
+                const res = await fetch(`${API_ENDPOINT}api/v1/legalGPT/createThread`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                })
+                const newThread = await res.json();
+                localStorage.setItem("thread_id_claw", newThread.thread.id);
+                setThreadId(newThread.thread.id);
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        const storedThread = localStorage.getItem("thread_id_claw");
+        if (storedThread) setThreadId(storedThread);
+        else createThread();
+    }, [])
+
     async function stream() {
         await fetchEventSource(`${API_ENDPOINT}api/v1/legalGPT/stream`, {
             method: "POST",
@@ -24,7 +47,7 @@ function LegalGPT() {
             },
             body: JSON.stringify({
                 assistant_id: "asst_sroPU88IYxF153uSSqhrfy9b",
-                thread_id: "thread_Muo4zyiGt0UKvCGoOKZSFAkM",
+                thread_id: threadId,
                 question: "hello gpt"
             }),
             onopen(res) {
@@ -70,7 +93,7 @@ function LegalGPT() {
                 },
                 body: JSON.stringify({
                     assistant_id: "asst_sroPU88IYxF153uSSqhrfy9b",
-                    thread_id: "thread_Muo4zyiGt0UKvCGoOKZSFAkM",
+                    thread_id: threadId,
                     question: query
                 })
             })
@@ -91,7 +114,7 @@ function LegalGPT() {
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify({
-                    thread_id: "thread_Muo4zyiGt0UKvCGoOKZSFAkM",
+                    thread_id: threadId,
                 })
             })
             const parsed = await res.json();

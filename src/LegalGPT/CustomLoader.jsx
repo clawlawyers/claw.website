@@ -1,6 +1,7 @@
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useMemo } from 'react';
 
 const facts = [
     "India has the world's longest written constitution, adopted on January 26, 1950.",
@@ -16,12 +17,15 @@ const facts = [
 ]
 
 export function CustomLoader() {
+    const getFact = useMemo(() => {
+        return facts[Math.floor(Math.random() * (facts.length - 1))]
+    }, []);
     return (
         <div style={{ padding: "8px 16px", display: "flex", color: "rgba(255,255,255,0.75)", alignItems: "center", justifyContent: "center", gap: 12 }}>
             <CircularProgress size="16px" color="inherit" />
             <FontAwesomeIcon icon={faLightbulb} />
             <div>
-                {facts[Math.floor(Math.random() * (facts.length - 1))]}
+                {getFact}
             </div>
         </div>
     )
