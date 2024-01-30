@@ -46,7 +46,7 @@ function LegalGPT() {
                 Accept: "text/event-stream"
             },
             body: JSON.stringify({
-                assistant_id: "asst_sroPU88IYxF153uSSqhrfy9b",
+                assistant_id: "asst_lRfVIFyhHb5icI9FETGabYB3",
                 thread_id: threadId,
                 question: "hello gpt"
             }),
@@ -92,7 +92,7 @@ function LegalGPT() {
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify({
-                    assistant_id: "asst_sroPU88IYxF153uSSqhrfy9b",
+                    assistant_id: "asst_lRfVIFyhHb5icI9FETGabYB3",
                     thread_id: threadId,
                     question: query
                 })
@@ -182,6 +182,7 @@ function LegalGPT() {
 
                                 {isLoading && (
                                     <div style={{ width: "100%", height: "100%" }}>
+                                        <Prompt role={'gpt'} />
                                         <CustomLoader />
                                     </div>
                                 )}
