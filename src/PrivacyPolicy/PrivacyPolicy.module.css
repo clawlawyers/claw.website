@@ -1,0 +1,8 @@
+ul {
+  text-align: "start";
+  list-style-type: disc;
+}
+
+li p {
+    text-align: left;
+}

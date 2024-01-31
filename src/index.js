@@ -9,6 +9,7 @@ import Home from "./Home/Home";
 import Register from "./Register/Register";
 import Testimonials from "./Testimonials/Testimonials";
 import LegalGPT from "./LegalGPT/LegalGPT";
+import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/legalGPT",
     element: <LegalGPT />
+  },
+  {
+    path: "/privacyPolicy",
+    element: <PrivacyPolicy />
   },
 ]);
 
