@@ -101,15 +101,15 @@ export default function BlogDetail() {
     const { id } = useParams()
     const { heading, subHeading, content, imageSrc } = blogs[id]
     return (
-        <div style={{ marginTop: 25 }}>
-            <div className={Styles.blogDetailContainer}>
+        <div className={Styles.blogDetailContainer}>
+            <div className={Styles.blogDetailContent}>
                 <div className={Styles.blogDetailHeading}>
                     {heading}
                 </div>
                 <div className={Styles.blogDetailSubHeading}>
                     {subHeading}
                 </div>
-                <div style={{ fontSize: 40, fontWeight: 600, display: "flex", width: "100%", height: 329, borderRadius: 20, marginTop: 25, justifyContent: "center", alignItems: "center", backgroundImage: imageSrc, backgroundRepeat: "no-repeat", backgroundSize: "cover", textAlign: "center" }}>
+                <div style={{ fontSize: 39, fontWeight: 600, display: "flex", width: "100%", height: 329, borderRadius: 20, marginTop: 25, justifyContent: "center", alignItems: "center", backgroundImage: imageSrc, backgroundRepeat: "no-repeat", backgroundSize: "cover", textAlign: "center" }}>
                     {heading}
                 </div>
 
