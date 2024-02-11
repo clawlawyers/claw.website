@@ -3,10 +3,10 @@ import BlogCard from './BlogCard'
 
 export default function Blogs() {
     return (
-        <div style={{ width: "100%", paddingTop: 50, color: "white" }}>
-            <div style={{ width: "100%", textAlign: "center", fontSize: 70, fontWeight: 600 }}>
+        <div style={{ zIndex: 2, backgroundColor: "transparent", width: "100%", paddingTop: 50, color: "white" }}>
+            <div style={{ width: "100%", textAlign: "center", backgroundColor: "transparent", fontSize: 70, fontWeight: 600 }}>
                 Insights and
-                <span style={{ position: "relative", display: "inline-block" }}>
+                <span style={{ position: "relative", display: "inline-block", backgroundColor: "transparent" }}>
                     <span style={{ position: "relative", background: "transparent", zIndex: 10 }}>Update</span>
                     <div style={{ position: "absolute", width: "96%", bottom: 20, left: "2%", height: 12, backgroundColor: "#8940FF" }} />
                 </span>

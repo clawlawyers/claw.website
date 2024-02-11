@@ -3,7 +3,7 @@ import SearchOutlined from '@mui/icons-material/SearchOutlined';
 
 export default function SearchGPT() {
     return (
-        <div style={{ width: "100%", paddingTop: 45 }}>
+        <div style={{ zIndex: 2, position: "relative", width: "100%", paddingTop: 45, background: "transparent" }}>
             <div style={{ backgroundColor: "white", width: "50%", margin: "auto", borderRadius: 30 }}>
                 <div style={{ backgroundColor: "transparent", display: "flex", padding: 10 }}>
                     <div style={{ flex: 1, backgroundColor: "transparent", display: "flex", alignItems: "center" }}>

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function BlogCard({ imageHeading, imageSubHeading, heading, subHeading, blogNo }) {
     return (
-        <div style={{ display: "flex", padding: 5, width: "80%", margin: "auto", paddingTop: 25 }}>
+        <div style={{ zIndex: 2, position: "relative", display: "flex", padding: 5, width: "80%", margin: "auto", marginTop: 25, borderRadius: 25 }}>
             <div style={{ minWidth: "359px", minHeight: "329px", background: `var(--image-blog${blogNo})` }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center", fontSize: 47, fontWeight: 600, backgroundColor: "transparent" }}>
                     <div style={{ backgroundColor: "transparent" }}>
