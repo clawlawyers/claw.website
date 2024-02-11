@@ -6,8 +6,8 @@ export default function BlogCard({ imageHeading, imageSubHeading, heading, subHe
             <div style={{ minWidth: "359px", minHeight: "329px", background: `var(--image-blog${blogNo})` }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center", fontSize: 47, fontWeight: 600, backgroundColor: "transparent" }}>
                     <div style={{ backgroundColor: "transparent" }}>
-                        <div style={{ textDecoration: "underline", backgroundColor: "transparent" }}>{imageHeading}</div>
-                        <div style={{ backgroundColor: "transparent" }}>{imageSubHeading}</div>
+                        <div style={{ textDecoration: "underline", backgroundColor: "transparent", fontFamily: "Syne" }}>{imageHeading}</div>
+                        <div style={{ backgroundColor: "transparent", fontFamily: "Syne" }}>{imageSubHeading}</div>
                     </div>
                 </div>
             </div>
