@@ -3,6 +3,8 @@ import Header from '../Header/Header'
 import FooterBanner from '../FooterBanner/FooterBanner'
 import BlogDetail from './BlogDetail'
 
+import "./Blog.module.css";
+
 export default function Blog() {
     return (
         <div style={{ position: "relative" }}>

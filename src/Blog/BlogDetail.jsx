@@ -1,13 +1,11 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import blog1 from "../assets/images/blog1.png";
-import blog2 from "../assets/images/blog2.png";
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const blogs = [
     {
         heading: "Claw’s Quick Guide",
         subHeading: "Effortlessly navigate Claw’s user-friendly interface and discover the seamless journey of hiring the perfect legal expert tailored to your needs.",
-        imageSrc: blog1,
+        imageSrc: "var(--image-blogpost-0)",
         content: <div style={{ fontSize: 20, backgroundColor: 'transparent' }}>
             <div style={{ marginTop: 20, backgroundColor: 'transparent' }}>
                 In the fast-paced world of legal services, finding the right lawyer for your specific needs can be a daunting task. Enter Claw, a groundbreaking startup that aims to connect professional lawyers with individuals and businesses seeking legal expertise. Think of Claw as the Upwork or Fiverr of legal services, but with a unique twist – an in-built LegalGPT, a powerful tool designed to navigate the intricacies of legal issues.
@@ -56,7 +54,7 @@ const blogs = [
     {
         heading: "LegalGPT: Transformative Insight",
         subHeading: "Explore the cutting-edge integration of Legal GPT on CLAW, unlocking a world of intelligent and insightful legal assistance for your every query and concern.",
-        imageSrc: blog2,
+        imageSrc: "var(--image-blogpost-1)",
         content: <div style={{ fontSize: 20, backgroundColor: "transparent" }}>
             <div style={{ marginTop: 20, backgroundColor: 'transparent' }}>
                 In the fast-evolving realm of law and technology, LegalGPT has emerged as a transformative force, reshaping the landscape of legal assistance. This cutting-edge AI, powered by state-of-the-art Natural Language Processing (NLP), is not merely a tool; it's a revolutionary guide, offering unparalleled insights and efficiency in navigating the complexities of the legal world.
@@ -110,8 +108,8 @@ export default function BlogDetail() {
                 <div style={{ fontSize: 25, color: "#777", lineHeight: 1, overflowWrap: "break-word", width: "100%", backgroundColor: "transparent" }}>
                     {subHeading}
                 </div>
-                <div style={{ display: "flex", marginTop: 25, justifyContent: "center", backgroundColor: "transparent" }}>
-                    <img src={imageSrc} />
+                <div style={{ fontSize: 40, fontWeight: 600, display: "flex", width: "100%", height: 329, borderRadius: 20, marginTop: 25, justifyContent: "center", alignItems: "center", backgroundImage: imageSrc, backgroundRepeat: "no-repeat", backgroundSize: "cover", textAlign: "center" }}>
+                    {heading}
                 </div>
 
                 {content}

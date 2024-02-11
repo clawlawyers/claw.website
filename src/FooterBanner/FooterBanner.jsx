@@ -1,9 +1,11 @@
 import React from 'react';
 import SendIcon from '@mui/icons-material/Send';
 
+import Styles from "./FooterBanner.module.css";
+
 function FooterBanner() {
     return (
-        <div style={{ width: "100%", padding: "60px 50px 80px 50px", marginTop: 25, display: "flex", justifyContent: "space-around", color: "white" }}>
+        <div className={Styles.footerContainer}>
             <div>
                 <div style={{ fontSize: 40, fontWeight: 600 }}>Claw</div>
 

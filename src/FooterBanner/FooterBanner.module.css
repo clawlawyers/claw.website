@@ -1,63 +1,17 @@
-.footerBanner {
-  margin-top: 8vh;
-  width: 80vw;
-  margin-left: 10vw;
-  border-radius: 10px;
-  background-color: #a5a6f6;
+.footerContainer {
+  width: 100%;
+  padding: 60px 50px 80px 50px;
+  margin-top: 25px;
   display: flex;
-  align-items: center;
-  height: 30vh;
-  margin-bottom: 35vh;
-}
-
-.header {
+  justify-content: space-around;
   color: white;
-  width: 60vw;
-  font-size: 38px;
-  font-weight: 500;
-  margin-left: 2vw;
-  font-family: "Lexend Deca";
 }
 
-.footerBanner img {
-  width: 15vw;
-  height: 8vh;
-  margin-top: 2vh;
-}
-
-@media (max-width: 799px) {
-  .footerBanner {
-    display: block;
-    margin-bottom: 10vh;
-    height: 40vh;
-    padding-top: 1vh;
+@media only screen and (max-width: 768px) {
+  .footerContainer {
+    flex-direction: column;
   }
-
-  .header {
-    margin-left: 5vw;
-    width: 70vw;
-    font-size: 20px;
-  }
-
-  .appStoreImages {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .footerBanner img {
-    width: 40vw;
-    height: 9vh;
-    padding-bottom: 1vh;
-  }
-}
-
-@media (max-width: 400px) {
-  .header {
-    padding-top: 2vh;
-    font-size: 15px;
-  }
-  .footerBanner img {
-    height: 7vh;
+  .footerContainer > div {
+    margin-top: 20px;
   }
 }

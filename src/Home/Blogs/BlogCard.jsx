@@ -1,17 +1,19 @@
 import React from 'react';
 
+import Styles from "./BlogCard.module.css";
+
 export default function BlogCard({ imageHeading, imageSubHeading, heading, subHeading, blogNo }) {
     return (
-        <div style={{ zIndex: 2, position: "relative", display: "flex", padding: 5, width: "80%", margin: "auto", marginTop: 25, borderRadius: 25 }}>
-            <div style={{ minWidth: "359px", minHeight: "329px", background: `var(--image-blog${blogNo})` }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center", fontSize: 47, fontWeight: 600, backgroundColor: "transparent" }}>
-                    <div style={{ backgroundColor: "transparent" }}>
+        <div className={Styles.blogCardContainer}>
+            <div style={{ minWidth: "359px", height: "329px", backgroundImage: `var(--image-blog${blogNo})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                <div style={{ height: "100%", width: "100%", fontSize: 47, fontWeight: 600, backgroundColor: "transparent" }}>
+                    <div style={{ backgroundColor: "transparent", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center" }}>
                         <div style={{ textDecoration: "underline", backgroundColor: "transparent", fontFamily: "Syne" }}>{imageHeading}</div>
                         <div style={{ backgroundColor: "transparent", fontFamily: "Syne" }}>{imageSubHeading}</div>
                     </div>
                 </div>
             </div>
-            <div style={{ marginLeft: 15, marginRight: 100, textWrap: "wrap" }}>
+            <div style={{ marginLeft: 15, marginRight: 50, textWrap: "wrap" }}>
                 <div style={{ fontSize: 45, fontWeight: 600 }}>
                     {heading}
                 </div>

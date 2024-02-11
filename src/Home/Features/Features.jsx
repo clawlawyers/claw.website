@@ -1,5 +1,10 @@
 import React from 'react'
-import FeatureCard from './FeatureCard'
+
+
+import FeatureCard from './FeatureCard';
+import Styles from "./Features.module.css";
+
+
 import banner1 from "../../assets/icons/banner1.png";
 import banner2 from "../../assets/icons/banner2.png";
 import banner3 from "../../assets/icons/banner3.png";
@@ -19,7 +24,7 @@ export default function Features() {
                     </span>
                 </div>
             </div>
-            <div style={{ display: "flex", flexWrap: "wrap", width: "80%", margin: "auto", justifyContent: "space-between", paddingTop: 45 }}>
+            <div className={Styles.featuresCardContainer}>
 
                 <FeatureCard imageSrc={banner1} heading={"Automation"} subHeading={"Streamline legal workflows effortlessly with intelligent automation, saving time and reducing manual tasks."} />
                 <FeatureCard imageSrc={banner2} heading={"Precision"} subHeading={"Experience pinpoint accuracy in legal insights and advice, ensuring your solutions are tailored to your exact needs."} />

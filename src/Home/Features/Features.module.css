@@ -1,0 +1,26 @@
+.featuresCardContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  grid-auto-rows: auto;
+  width: 80%;
+  margin: auto;
+  justify-items: center;
+  padding-top: 45px;
+}
+
+.featuresCardContainer > div {
+  height: 100%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .featuresCardContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .featuresCardContainer {
+    grid-template-columns: 1fr;
+  }
+}

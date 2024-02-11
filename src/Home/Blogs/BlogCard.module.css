@@ -1,0 +1,16 @@
+.blogCardContainer {
+  z-index: 2px;
+  position: relative;
+  display: flex;
+  padding: 5px;
+  width: 80%;
+  margin: auto;
+  margin-top: 25px;
+  border-radius: 25px;
+}
+
+@media only screen and (max-width: 768px) {
+  .blogCardContainer {
+    flex-direction: column;
+  }
+}
