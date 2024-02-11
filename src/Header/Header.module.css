@@ -64,4 +64,8 @@
   .headerGPT > button {
     font-size: 14px;
   }
+  .headerContent {
+    width: 90%;
+    padding: 15px;
+  }
 }
