@@ -13,10 +13,10 @@ export default function Features() {
     return (
         <div style={{ width: "100%", paddingTop: 80, color: "white" }}>
             <div style={{ width: "100%" }}>
-                <div style={{ textAlign: "center", fontSize: 30, fontWeight: 500, color: "#777" }}>
+                <div className={Styles.featuresSubHeading}>
                     Seamless Tool, Trusted Guidance
                 </div>
-                <div style={{ fontSize: 70, fontWeight: 600, width: "50%", textAlign: "center", textWrap: "wrap", margin: "auto", lineHeight: 1 }}>
+                <div className={Styles.featuresHeading}>
                     Explore Powerful
                     <span style={{ position: "relative", display: "inline-block" }}>
                         <span style={{ position: "relative", background: "transparent", zIndex: 10 }}>Features</span>

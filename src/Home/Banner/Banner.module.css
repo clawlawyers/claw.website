@@ -24,3 +24,10 @@
   background-clip: text !important;
   background: linear-gradient(rgb(137, 64, 255), rgb(229, 131, 245));
 }
+
+@media only screen and (max-width: 768px) {
+  .banner {
+    font-size: 52px;
+    width: 100%;
+  }
+}

@@ -1,14 +1,16 @@
 import React from 'react'
-import BlogCard from './BlogCard'
+import BlogCard from './BlogCard';
+
+import Styles from "./Blogs.module.css";
 
 export default function Blogs() {
     return (
-        <div style={{ zIndex: 2, backgroundColor: "transparent", width: "100%", paddingTop: 50, color: "white" }}>
-            <div style={{ width: "100%", textAlign: "center", backgroundColor: "transparent", fontSize: 70, fontWeight: 600 }}>
+        <div className={Styles.blogsContainer}>
+            <div className={Styles.blogsHeading}>
                 Insights and
                 <span style={{ position: "relative", display: "inline-block", backgroundColor: "transparent" }}>
                     <span style={{ position: "relative", background: "transparent", zIndex: 10 }}>Update</span>
-                    <div style={{ position: "absolute", width: "96%", bottom: 20, left: "2%", height: 12, backgroundColor: "#8940FF" }} />
+                    <div style={{ position: "absolute", width: "96%", bottom: 15, left: "2%", height: 12, backgroundColor: "#8940FF" }} />
                 </span>
             </div>
             <div style={{ width: "100%" }}>

@@ -1,0 +1,36 @@
+.blogDetailContainer {
+  width: 80%;
+  margin: auto;
+  padding: 50px;
+  color: white;
+  border-radius: 30px;
+  position: relative;
+  z-index: 2;
+  background-color: #171e26;
+}
+
+.blogDetailHeading {
+  font-weight: 600;
+  font-size: 45px;
+  background-color: transparent;
+}
+.blogDetailSubHeading {
+  font-size: 25px;
+  color: #777;
+  line-height: 1;
+  overflow-wrap: break-word;
+  width: 100%;
+  background-color: transparent;
+}
+
+@media only screen and (max-width: 768px) {
+  .blogDetailContainer {
+    padding: 20px;
+  }
+  .blogDetailHeading {
+    font-size: 40px;
+  }
+  .blogDetailSubHeading {
+    font-size: 20px;
+  }
+}

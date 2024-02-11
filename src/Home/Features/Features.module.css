@@ -13,6 +13,23 @@
   height: 100%;
 }
 
+.featuresSubHeading {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+  color: #777;
+}
+
+.featuresHeading {
+  font-size: 70px;
+  font-weight: 600;
+  width: 50%;
+  text-align: center;
+  text-wrap: wrap;
+  margin: auto;
+  line-height: 1;
+}
+
 @media only screen and (max-width: 1200px) {
   .featuresCardContainer {
     grid-template-columns: 1fr 1fr;
@@ -22,5 +39,12 @@
 @media only screen and (max-width: 768px) {
   .featuresCardContainer {
     grid-template-columns: 1fr;
+  }
+  .featuresSubHeading {
+    font-size: 20px;
+  }
+  .featuresHeading {
+    font-size: 40px;
+    width: 90%;
   }
 }

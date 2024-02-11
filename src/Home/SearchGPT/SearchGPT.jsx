@@ -1,10 +1,12 @@
 import React from 'react';
 import SearchOutlined from '@mui/icons-material/SearchOutlined';
 
+import Styles from "./SearchGPT.module.css";
+
 export default function SearchGPT() {
     return (
-        <div style={{ zIndex: 2, position: "relative", width: "100%", paddingTop: 45, background: "transparent" }}>
-            <div style={{ backgroundColor: "white", width: "50%", margin: "auto", borderRadius: 30 }}>
+        <div className={Styles.searchContainer}>
+            <div className={Styles.searchContent}>
                 <div style={{ backgroundColor: "transparent", display: "flex", padding: 10 }}>
                     <div style={{ flex: 1, backgroundColor: "transparent", display: "flex", alignItems: "center" }}>
                         <SearchOutlined style={{ backgroundColor: "transparent", color: "#777", paddingRight: 5 }} />

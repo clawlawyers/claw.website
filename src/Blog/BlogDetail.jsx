@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import Styles from "./BlogDetail.module.css";
 
 const blogs = [
     {
@@ -101,11 +102,11 @@ export default function BlogDetail() {
     const { heading, subHeading, content, imageSrc } = blogs[id]
     return (
         <div style={{ marginTop: 25 }}>
-            <div style={{ width: "80%", margin: "auto", padding: 50, color: "white", borderRadius: 30, position: "relative", zIndex: 2, backgroundColor: "#171E26" }}>
-                <div style={{ fontWeight: 600, fontSize: 45, backgroundColor: "transparent" }}>
+            <div className={Styles.blogDetailContainer}>
+                <div className={Styles.blogDetailHeading}>
                     {heading}
                 </div>
-                <div style={{ fontSize: 25, color: "#777", lineHeight: 1, overflowWrap: "break-word", width: "100%", backgroundColor: "transparent" }}>
+                <div className={Styles.blogDetailSubHeading}>
                     {subHeading}
                 </div>
                 <div style={{ fontSize: 40, fontWeight: 600, display: "flex", width: "100%", height: 329, borderRadius: 20, marginTop: 25, justifyContent: "center", alignItems: "center", backgroundImage: imageSrc, backgroundRepeat: "no-repeat", backgroundSize: "cover", textAlign: "center" }}>

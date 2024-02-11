@@ -43,4 +43,7 @@
   .headerLinks {
     display: none;
   }
+  .headerGPT > button {
+    font-size: 14px;
+  }
 }

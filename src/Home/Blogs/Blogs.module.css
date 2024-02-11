@@ -1,0 +1,21 @@
+.blogsContainer {
+  z-index: 2;
+  background-color: "transparent";
+  width: 100%;
+  padding-top: 50px;
+  color: white;
+}
+
+.blogsHeading {
+  width: 100%;
+  text-align: center;
+  background-color: transparent;
+  font-size: 70px;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 768px) {
+  .blogsHeading {
+    font-size: 40px;
+  }
+}
