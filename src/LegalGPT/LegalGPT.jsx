@@ -4,7 +4,6 @@ import { Prompt } from "./Prompt";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown, faPaperPlane, faPlus, faSun } from '@fortawesome/free-solid-svg-icons'
 import { CustomPrompt } from "./CustomPrompt";
-import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { CustomLoader } from "./CustomLoader";
 import { API_ENDPOINT } from "../utils/utils";
 class FatalError extends Error { }
@@ -38,50 +37,50 @@ function LegalGPT() {
         else createThread();
     }, [])
 
-    async function stream() {
-        await fetchEventSource(`${API_ENDPOINT}api/v1/legalGPT/stream`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "text/event-stream"
-            },
-            body: JSON.stringify({
-                assistant_id: "asst_lRfVIFyhHb5icI9FETGabYB3",
-                thread_id: threadId,
-                question: "hello gpt"
-            }),
-            onopen(res) {
-                if (res.ok && res.status === 200) {
-                    console.log("Connection made ", res);
-                } else if (
-                    res.status >= 400 &&
-                    res.status < 500 &&
-                    res.status !== 429
-                ) {
-                    console.log("Client side error ", res);
-                }
-            },
-            onmessage(event) {
-                try {
-                    if (event.event === 'completed') console.log(JSON.parse(event.data));
-                } catch (error) {
-                    console.log(error)
-                }
-            },
-            onclose() {
-                console.log("Connection closed by the server");
-            },
-            onerror(err) {
-                if (err instanceof FatalError) {
-                    throw err; // rethrow to stop the operation
-                } else {
-                    // do nothing to automatically retry. You can also
-                    // return a specific retry interval here.
-                    console.log("retrying.......")
-                }
-            },
-        })
-    }
+    // async function stream() {
+    //     await fetchEventSource(`${API_ENDPOINT}api/v1/legalGPT/stream`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Accept: "text/event-stream"
+    //         },
+    //         body: JSON.stringify({
+    //             assistant_id: "asst_lRfVIFyhHb5icI9FETGabYB3",
+    //             thread_id: threadId,
+    //             question: "hello gpt"
+    //         }),
+    //         onopen(res) {
+    //             if (res.ok && res.status === 200) {
+    //                 console.log("Connection made ", res);
+    //             } else if (
+    //                 res.status >= 400 &&
+    //                 res.status < 500 &&
+    //                 res.status !== 429
+    //             ) {
+    //                 console.log("Client side error ", res);
+    //             }
+    //         },
+    //         onmessage(event) {
+    //             try {
+    //                 if (event.event === 'completed') console.log(JSON.parse(event.data));
+    //             } catch (error) {
+    //                 console.log(error)
+    //             }
+    //         },
+    //         onclose() {
+    //             console.log("Connection closed by the server");
+    //         },
+    //         onerror(err) {
+    //             if (err instanceof FatalError) {
+    //                 throw err; // rethrow to stop the operation
+    //             } else {
+    //                 // do nothing to automatically retry. You can also
+    //                 // return a specific retry interval here.
+    //                 console.log("retrying.......")
+    //             }
+    //         },
+    //     })
+    // }
 
     async function getGPTReponse(query) {
         try {

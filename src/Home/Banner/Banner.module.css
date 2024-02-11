@@ -1,92 +1,23 @@
-
-
-.banner{
-    margin-left: 10vw;
-    padding-left: 2vw;
-    padding-right: 2vw;
-    width: 80vw;
-    height: 88vh;
-    background-color: #8940FF;
-    display: flex;
-    align-items: center;
-    border-radius: 30px;
-    margin-top: 2vh;
+.bannerContainer {
+  width: 100%;
+  padding-top: 40px;
+  color: white;
 }
 
-.leftBlock .title{
-   font-size: 50px;
-   font-weight: 600;
-   padding: 10px;
-   color: white;
-   font-family: 'Lexend Deca'
+.banner {
+  width: 65%;
+  margin: auto;
+  text-wrap: wrap;
+  font-size: 82px;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -4px;
+  line-height: 1;
 }
 
-.leftBlock img{
-    margin-top: 4vh;
-    width: 15vw;
-    height: 10vh;
-    margin-left: 2vw;
-}
-
-.rightBlock img{
-    width: 35vw;
-    height: 50vh;
-}
-
-@media (max-width: 799px) {
-    .banner{
-        display: block;
-        height: 83vh;
-    }
-
-    /* .title{
-        font-weight: 500;
-        font-size: 60px;
-    } */
-
-    .rightBlock img{
-        width: 60vw;
-        height: 33vh;
-        margin-left: 10vw;
-        object-fit: cover;
-    }
-
-    .leftBlock img{
-        height: 7vh;
-        width: 40vw;
-        margin-top: 10px;
-    }
-
-    .leftBlock .title{
-        margin-top: 6vh;
-        font-size: 30px;
-        padding-top: 2vh;
-    }
-}
-
-@media (max-width: 400px) {
-    .leftBlock .title{
-        margin-top: 3vh;
-        font-size: 25px;
-    }
-
-    .leftBlock img{
-        height: 6vh;
-    }
-
-    .rightBlock img{
-
-    }
-}
-
-@media (max-width: 350px) {
-    
-    .leftBlock .title{
-        margin-top: 3vh;
-        font-size: 24px;
-    }
-
-    .rightBlock img{
-      height: 30vh;
-    }
+.banner > span {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text !important;
+  background: linear-gradient(rgb(137, 64, 255), rgb(229, 131, 245));
 }

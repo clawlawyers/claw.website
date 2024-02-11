@@ -1,31 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import Style from './Header.module.css'
-import { useNavigate } from 'react-router-dom'
-import clawLogo from '../assets/icons/logoIcon.jpeg'
+import React from 'react'
 
-function Header({ home, howItworks, testimonial }) {
-    const navigate = useNavigate()
-    const [user, setUser] = useState("")
-    useEffect(() => {
-        const user = localStorage.getItem("registereduser")
-        if (user) {
-            setUser(user)
-        }
-    })
+function Header() {
     return (
-        <div className={Style.header}>
-            <div className={Style.title}><img src={clawLogo} /></div>
-            <div className={Style.categories}><span onClick={home}>Home </span> |<span onClick={howItworks}> How it works </span>|<span onClick={testimonial}> Testimonials </span>|<span onClick={() => navigate("/legalGPT")}> LegalGPT</span></div>
-            <div className={Style.register}>
-                {user?.length <= 0 ? <div>
-                    <button onClick={() => {
-                        navigate('/register')
-                    }}>Register as a CA/Lawyer</button>
+        <div style={{ width: "100%", paddingTop: 45, paddingBottom: 45, backgroundColor: "transparent" }}>
+            <div style={{ width: "80%", margin: "auto", alignItems: "center", display: "flex", justifyContent: "space-between", padding: 20, borderRadius: 20, backgroundColor: "rgba(14, 16, 29,0.6)", color: "white" }}>
+                <div style={{ fontWeight: 600, fontSize: 30 }}>
+                    <a href='/' style={{ textDecoration: "none", color: "white" }}>Claw</a>
                 </div>
-
-                    : <div className={Style.user}>Welcome {user}! </div>}
+                <div style={{ display: "flex", fontWeight: 500, fontSize: 22 }}>
+                    <div style={{ marginRight: 60 }}>
+                        Features
+                    </div>
+                    <div>
+                        Blog
+                    </div>
+                </div>
+                <div style={{ width: 170, height: 53, borderRadius: 12, overflow: "hidden" }}>
+                    <button style={{ width: "100%", height: "100%", backgroundColor: "#8940FF", border: "none", fontWeight: 700, fontSize: 16, color: "white" }}>Try LegalGPT</button>
+                </div>
             </div>
-        </div >
+        </div>
     )
 }
 

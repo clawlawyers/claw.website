@@ -1,20 +1,48 @@
-import React from 'react'
-import Style from './FooterBanner.module.css'
-import iphoneStore from '../assets/images/istore.png'
-import playstore from '../assets/images/appStore.png'
+import React from 'react';
+import SendIcon from '@mui/icons-material/Send';
 
 function FooterBanner() {
     return (
-        <div className={Style.footerBanner}>
-            <div className={Style.header}>Join us on this exciting journey to become successful with Claw</div>
+        <div style={{ width: "100%", padding: "60px 50px 80px 50px", marginTop: 25, display: "flex", justifyContent: "space-around", color: "white" }}>
             <div>
-                <div className={Style.appStoreImages}>
-                    <img src={iphoneStore} />
+                <div style={{ fontSize: 40, fontWeight: 600 }}>Claw</div>
+
+                <div style={{ fontSize: 18, color: "#777" }}>
+                    Empowering Legal Solutions
                 </div>
-                <div className={Style.appStoreImages}>
-                    <img src={playstore} />
+                <div style={{ fontSize: 18, color: "#777" }}>
+                    Instantly
+                </div>
+                <div style={{ fontSize: 18, color: "#777", marginTop: 10 }}>
+                    Linkedin
                 </div>
 
+            </div>
+            <div>
+                <div style={{ fontSize: 25, fontWeight: 700, color: "#b384ff" }}>
+                    Contact
+                </div>
+
+                <div style={{ marginTop: 10 }}>+91 9950866260</div>
+                <div style={{ marginTop: 10 }}>Claw.lawyers@gmail.com</div>
+                <div style={{ marginTop: 10 }}>Shela, Ahmedabad, Gujarat</div>
+
+            </div>
+            <div>
+                <div style={{ color: "#b384ff", fontWeight: 700, fontSize: 20 }}>
+                    Get the latest information
+                </div>
+                <div style={{ display: "flex", overflow: "hidden", borderRadius: 5, backgroundColor: "white", marginTop: 15 }}>
+                    <div style={{ flex: 1, backgroundColor: "transparent", padding: 4 }}>
+                        <input placeholder='Email Address' style={{ height: "100%", width: "100%", backgroundColor: "transparent", fontSize: 16, padding: 0, border: "none", outline: "none" }} />
+                    </div>
+                    <button style={{ padding: 5, backgroundColor: "#8940ff", border: "none" }}>
+                        <SendIcon style={{ color: "white", backgroundColor: "transparent" }} />
+                    </button>
+                </div>
+                <div style={{ color: "#777", marginTop: 10, fontSize: 15 }}>
+                    Subscribe to our newsletter
+                </div>
             </div>
         </div>
     )
