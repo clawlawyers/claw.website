@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
+.container {
+  padding: 12px 12px 12px 321px;
+  height: 100%;
+  background-color: black;
+}
+
 .chatContainer div {
   font-family: "Inter";
 }
@@ -132,7 +138,7 @@
 
 @media only screen and (max-width: 768px) {
   .container {
-    margin: 0;
+    padding-left: 12px;
   }
   .sidebar {
     display: none;
