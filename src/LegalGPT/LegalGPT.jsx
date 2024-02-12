@@ -9,6 +9,7 @@ import { API_ENDPOINT } from "../utils/utils";
 
 import Sidebar from "./Sidebar";
 import Welcome from "./Welcome";
+import CustomInputForm from "./CustomInputForm";
 class FatalError extends Error { }
 
 function LegalGPT() {
@@ -126,12 +127,11 @@ function LegalGPT() {
         }
     }
     async function submitPrompt(e) {
-        e.preventDefault();
         // do the api call for prompt
-        setPrompts((prompts) => [...prompts, { role: 'user', text: query, id: Math.random() * 1000 }]);
+
+        setPrompts((prompts) => [...prompts, { role: 'user', text: e.query, id: Math.random() * 1000 }]);
         setIsLoading(true);
-        getGPTReponse(query).then(() => setIsLoading(false));
-        setQuery("");
+        getGPTReponse(e.query).then(() => setIsLoading(false));
     }
 
     function submitCustomPrompt(customPrompt) {
@@ -157,47 +157,28 @@ function LegalGPT() {
         <div style={{ position: "relative", height: "100%", width: "100%" }}>
             <Sidebar retrieveChat={retrieveChat} />
             <div style={{ padding: "12px 12px 12px 321px", height: "100%", backgroundColor: "black" }}>
-                <div style={{ height: "100%", width: "100%", backgroundColor: "#222222", color: "white" }}>
+                <div style={{ height: "100%", width: "100%", backgroundColor: "#222222", color: "white", borderRadius: "16px", overflow: "hidden" }}>
                     {prompts.length === 0 ? (
                         <Welcome submitPrompt={submitPrompt} />
                     ) : (
-                        <>
+                        <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", padding: 40, backgroundColor: "#222222" }}>
                             <div ref={promptsRef} className={Style.prompts}>
                                 <div className={Style.subContainer} style={{ width: "80%", margin: "auto" }}>
-                                    {prompts.length === 0 ? (
-                                        <div className={Style.welcome}>
-                                            <div>Legal GPT</div>
-                                        </div>
-                                    ) : (
-                                        <div style={{ width: "100%", height: "100%" }}>
-                                            {prompts.map(({ id, text, role }) => <Prompt key={id} text={text} role={role} />)}
+                                    <div style={{ width: "100%", height: "100%" }}>
+                                        {prompts.map(({ id, text, role }) => <Prompt key={id} text={text} role={role} />)}
 
-                                            {isLoading && (
-                                                <div style={{ width: "100%", height: "100%" }}>
-                                                    <Prompt role={'gpt'} />
-                                                    <CustomLoader />
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
+                                        {isLoading && (
+                                            <div style={{ width: "100%", height: "100%" }}>
+                                                <Prompt role={'gpt'} />
+                                                <CustomLoader />
+                                            </div>
+                                        )}
+                                    </div>
+
                                 </div>
                             </div>
-
-                            <div className={Style.promptInput}>
-                                <form onSubmit={submitPrompt}>
-                                    <textarea
-                                        value={query}
-                                        style={{ backgroundColor: "transparent", color: "white" }}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                        placeholder="Message LegalGPT..."
-                                        rows="2"
-                                    />
-                                    <button disabled={isLoading} style={{ backgroundColor: "transparent", border: "none", borderRadius: "5px", padding: "10px" }} type="submit">
-                                        <FontAwesomeIcon style={{ height: 20, width: 24 }} icon={faPaperPlane} color="white" />
-                                    </button>
-                                </form>
-                            </div>
-                        </>
+                            <CustomInputForm onSubmit={submitPrompt} />
+                        </div>
                     )}
                 </div>
             </div>

@@ -18,6 +18,10 @@
   overflow-y: scroll;
   padding-left: 50px;
   padding-right: 50px;
+  background-color: transparent;
+}
+.prompts div {
+  background-color: transparent;
 }
 
 .welcome {
@@ -45,22 +49,6 @@
   height: auto;
   display: block;
   transform: translate(-50%, -50%);
-}
-
-.promptInput {
-  align-items: center;
-  width: 80%;
-  margin: auto;
-}
-
-.promptInput form {
-  display: flex;
-  align-items: center;
-  background-color: rgba(60, 28, 112, 255);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 10px;
-  padding: 10px;
-  overflow: hidden;
 }
 
 .promptInput ::placeholder {
