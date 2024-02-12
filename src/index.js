@@ -4,38 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Home/Home";
-import Register from "./Register/Register";
-import Testimonials from "./Testimonials/Testimonials";
-import LegalGPT from "./LegalGPT/LegalGPT";
-import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
-import Blog from "./Blog/Blog";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
 
-  {
-    path: "/blog/:id",
-    element: <Blog />,
-  },
-  {
-    path: "/legalGPT",
-    element: <LegalGPT />
-  },
-  {
-    path: "/privacyPolicy",
-    element: <PrivacyPolicy />
-  },
-]);
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <App />
   </React.StrictMode>
 );
 

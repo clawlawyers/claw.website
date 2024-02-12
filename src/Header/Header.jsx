@@ -18,7 +18,7 @@ function Header() {
                     </div>
                 </div>
                 <div className={Styles.headerGPT}>
-                    <button>Try LegalGPT</button>
+                    <button><a href='/legalGPT' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Try LegalGPT</a></button>
                 </div>
             </div>
         </div>

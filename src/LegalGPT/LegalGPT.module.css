@@ -1,20 +1,16 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow-y: hidden;
-  padding: 15px;
-  background: rgb(37, 15, 66);
-  color: #ffff;
-  margin-left: 260px;
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+.chatContainer div {
+  font-family: "Inter";
+}
+.chatContainer {
+  height: 100%;
+  background: black;
 }
 
-.sidebar {
-  display: block;
-  position: absolute;
-  width: 260px;
-  height: 100%;
-  background-color: rgb(96, 44, 164);
+.chatSubContainer {
+  margin: 12px 12px 12px 321px;
+  border: 1px solid white;
 }
 
 .prompts {

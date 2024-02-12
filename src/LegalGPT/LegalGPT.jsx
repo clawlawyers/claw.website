@@ -6,6 +6,9 @@ import { faArrowDown, faPaperPlane, faPlus, faSun } from '@fortawesome/free-soli
 import { CustomPrompt } from "./CustomPrompt";
 import { CustomLoader } from "./CustomLoader";
 import { API_ENDPOINT } from "../utils/utils";
+
+import Sidebar from "./Sidebar";
+import Welcome from "./Welcome";
 class FatalError extends Error { }
 
 function LegalGPT() {
@@ -151,89 +154,52 @@ function LegalGPT() {
     }, [prompts]);
 
     return (
-        <div style={{ position: "relative" }}>
-            <div className={Style.sidebar}>
-                <div style={{ display: "flex", flexDirection: 'column', height: "100%", padding: "15px", justifyContent: "space-between", alignItems: "center" }}>
-                    <button style={{ padding: 10, borderRadius: "6px", width: "100%", border: "1px solid white", backgroundColor: "transparent" }}>
-                        <div style={{ display: "flex", gap: 12, alignItems: "center", color: "white", justifyContent: "start" }}>
-                            <FontAwesomeIcon icon={faPlus} />
-                            <div>New Chat</div>
-                        </div>
-                    </button>
-                    <div style={{ borderTop: "1px solid white", width: "100%", padding: 10 }}>
-                        <button onClick={retrieveChat} style={{ display: "flex", gap: 12, color: "white", alignItems: "center", border: "none", backgroundColor: "transparent" }}>
-                            <FontAwesomeIcon icon={faArrowDown} />
-                            <div>Retrieve Chat</div>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div className={Style.container}>
-                <div ref={promptsRef} className={Style.prompts}>
-                    <div className={Style.subContainer} style={{ width: "80%", margin: "auto" }}>
-                        {prompts.length === 0 ? (
-                            <div className={Style.welcome}>
-                                <div>Legal GPT</div>
-                            </div>
-                        ) : (
-                            <div style={{ width: "100%", height: "100%" }}>
-                                {prompts.map(({ id, text, role }) => <Prompt key={id} text={text} role={role} />)}
+        <div style={{ position: "relative", height: "100%", width: "100%" }}>
+            <Sidebar retrieveChat={retrieveChat} />
+            <div style={{ padding: "12px 12px 12px 321px", height: "100%", backgroundColor: "black" }}>
+                <div style={{ height: "100%", width: "100%", backgroundColor: "#222222", color: "white" }}>
+                    {prompts.length === 0 ? (
+                        <Welcome submitPrompt={submitPrompt} />
+                    ) : (
+                        <>
+                            <div ref={promptsRef} className={Style.prompts}>
+                                <div className={Style.subContainer} style={{ width: "80%", margin: "auto" }}>
+                                    {prompts.length === 0 ? (
+                                        <div className={Style.welcome}>
+                                            <div>Legal GPT</div>
+                                        </div>
+                                    ) : (
+                                        <div style={{ width: "100%", height: "100%" }}>
+                                            {prompts.map(({ id, text, role }) => <Prompt key={id} text={text} role={role} />)}
 
-                                {isLoading && (
-                                    <div style={{ width: "100%", height: "100%" }}>
-                                        <Prompt role={'gpt'} />
-                                        <CustomLoader />
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className={Style.promptInput}>
-                    {prompts.length === 0 && (
-                        <div className={Style.customPromptsContainer}>
-                            <div style={{ fontSize: "20px", display: "flex", gap: 20, alignItems: "center" }}>
-                                <FontAwesomeIcon icon={faSun} />
-                                <div>Prompt Examples</div>
-                            </div>
-                            <div className={Style.customPrompts}>
-                                <div>
-                                    <CustomPrompt
-                                        onClick={() => submitCustomPrompt("How does the legal system handle cases of workplace discrimination?")}
-                                        heading={"How does the legal system handle cases of workplace discrimination?"}
-                                    />
-                                    <CustomPrompt
-                                        onClick={() => submitCustomPrompt("Can I be held liable for sharing memes or content online without permission?")}
-                                        heading={"Can I be held liable for sharing memes or content online without permission?"}
-                                    />
-                                </div>
-                                <div>
-                                    <CustomPrompt
-                                        onClick={() => submitCustomPrompt("What are the legal implications of signing a lease agreement?")}
-                                        heading={"What are the legal implications of signing a lease agreement?"}
-                                    />
-                                    <CustomPrompt
-                                        onClick={() => submitCustomPrompt("What legal rights do I have as a tenant if my landlord fails to make necessary repairs?")}
-                                        heading={"What legal rights do I have as a tenant if my landlord fails to make necessary repairs?"}
-                                    />
+                                            {isLoading && (
+                                                <div style={{ width: "100%", height: "100%" }}>
+                                                    <Prompt role={'gpt'} />
+                                                    <CustomLoader />
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                        </div>)}
-                    <form onSubmit={submitPrompt}>
-                        <textarea
-                            value={query}
-                            style={{ backgroundColor: "transparent", color: "white" }}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Message LegalGPT..."
-                            rows="2"
-                        />
-                        <button disabled={isLoading} style={{ backgroundColor: "transparent", border: "none", borderRadius: "5px", padding: "10px" }} type="submit">
-                            <FontAwesomeIcon style={{ height: 20, width: 24 }} icon={faPaperPlane} color="white" />
-                        </button>
-                    </form>
-                </div>
 
+                            <div className={Style.promptInput}>
+                                <form onSubmit={submitPrompt}>
+                                    <textarea
+                                        value={query}
+                                        style={{ backgroundColor: "transparent", color: "white" }}
+                                        onChange={(e) => setQuery(e.target.value)}
+                                        placeholder="Message LegalGPT..."
+                                        rows="2"
+                                    />
+                                    <button disabled={isLoading} style={{ backgroundColor: "transparent", border: "none", borderRadius: "5px", padding: "10px" }} type="submit">
+                                        <FontAwesomeIcon style={{ height: 20, width: 24 }} icon={faPaperPlane} color="white" />
+                                    </button>
+                                </form>
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     )
