@@ -6,6 +6,25 @@
   background-color: black;
 }
 
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  background-color: #222222;
+}
+
+.gptContainer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: #222222;
+  color: white;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
 .chatContainer div {
   font-family: "Inter";
 }
@@ -22,8 +41,8 @@
 .prompts {
   flex: 1;
   overflow-y: scroll;
-  padding-left: 50px;
-  padding-right: 50px;
+  width: 90%;
+  margin: auto;
   background-color: transparent;
 }
 .prompts div {
@@ -137,8 +156,14 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .gptContainer {
+    border-radius: 0;
+  }
+  .formContainer {
+    padding: 25px 5px 40px 5px;
+  }
   .container {
-    padding-left: 12px;
+    padding: 0;
   }
   .sidebar {
     display: none;
@@ -151,8 +176,7 @@
     margin: 0;
   }
   .prompts {
-    padding-left: 25px;
-    padding-right: 25px;
+    padding: 0;
   }
 }
 

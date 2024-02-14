@@ -157,7 +157,7 @@ function LegalGPT() {
         <div style={{ position: "relative", height: "100%", width: "100%" }}>
             <Sidebar retrieveChat={retrieveChat} />
             <div className={Style.container}>
-                <div style={{ position: "relative", height: "100%", width: "100%", backgroundColor: "#222222", color: "white", borderRadius: "16px", overflow: "hidden" }}>
+                <div className={Style.gptContainer}>
 
                     {prompts.length === 0 ? (
                         <>
@@ -165,9 +165,9 @@ function LegalGPT() {
                             <Welcome submitPrompt={submitPrompt} />
                         </>
                     ) : (
-                        <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", padding: 40, backgroundColor: "#222222" }}>
+                        <div className={Style.formContainer}>
                             <div ref={promptsRef} className={Style.prompts}>
-                                <div className={Style.subContainer} style={{ width: "80%", margin: "auto" }}>
+                                <div className={Style.subContainer} >
                                     <div style={{ width: "100%", height: "100%" }}>
                                         {prompts.map(({ id, text, role }) => <Prompt key={id} text={text} role={role} />)}
 

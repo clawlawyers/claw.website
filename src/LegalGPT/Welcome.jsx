@@ -5,6 +5,8 @@ import AdjustIcon from '@mui/icons-material/Adjust';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import CustomInputForm from './CustomInputForm';
 
+import Styles from "./Welcome.module.css";
+
 export default function Welcome({ submitPrompt }) {
     return (
         <div style={{ backgroundColor: "transparent", height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -17,11 +19,13 @@ export default function Welcome({ submitPrompt }) {
                         The power of AI at your Legal service
                     </div>
                 </div>
-                <CustomInputForm onSubmit={submitPrompt} />
-                <div style={{ backgroundColor: "transparent", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 50, paddingTop: 100 }}>
-                    <WelcomePointers icon={AutoAwesomeIcon} heading={"Efficiency"} subHeading={"Accelerates legal workflows."} />
-                    <WelcomePointers icon={TrendingUpIcon} heading={"Precision"} subHeading={"Provides accurate legal insights."} />
-                    <WelcomePointers icon={AdjustIcon} heading={"Accessibility"} subHeading={"Enhances legal information access."} />
+                <div className={Styles.secondaryContainer}>
+                    <CustomInputForm onSubmit={submitPrompt} />
+                    <div className={Styles.welcomePointerContainer}>
+                        <WelcomePointers icon={AutoAwesomeIcon} heading={"Efficiency"} subHeading={"Accelerates legal workflows."} />
+                        <WelcomePointers icon={TrendingUpIcon} heading={"Precision"} subHeading={"Provides accurate legal insights."} />
+                        <WelcomePointers icon={AdjustIcon} heading={"Accessibility"} subHeading={"Enhances legal information access."} />
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,16 +1,17 @@
-import React from 'react'
+import React from 'react';
+import Styles from "./WelcomePointers.module.css";
 
 export default function WelcomePointers({ icon: Icon, heading, subHeading }) {
     return (
-        <div style={{ backgroundColor: "transparent", display: "flex", flexDirection: "column", maxWidth: "202px" }}>
-            <div style={{ backgroundColor: "transparent", display: "flex", justifyContent: "center" }}>
-                <Icon style={{ backgroundColor: "transparent" }} />
+        <div className={Styles.container}>
+            <div className={Styles.iconContainer}>
+                <Icon className={Styles.icon} />
             </div>
-            <div style={{ backgroundColor: "transparent", textAlign: "center", display: "flex", flexDirection: "column", gap: 5 }}>
-                <div style={{ backgroundColor: "transparent" }}>
+            <div className={Styles.contentContainer}>
+                <div className={Styles.heading}>
                     {heading}
                 </div>
-                <div style={{ backgroundColor: "transparent", fontSize: "14px", color: "#777" }}>
+                <div className={Styles.subHeading}>
                     {subHeading}
                 </div>
             </div>

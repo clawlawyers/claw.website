@@ -1,0 +1,13 @@
+.container {
+  background-color: transparent;
+  width: 60%;
+  margin: auto;
+  padding-top: 50px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}

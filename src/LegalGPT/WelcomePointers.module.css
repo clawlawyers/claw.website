@@ -1,0 +1,34 @@
+.container {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  max-width: 202px;
+}
+
+.iconContainer {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+}
+
+.icon {
+  background-color: transparent;
+}
+
+.contentContainer {
+  background-color: transparent;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5;
+}
+
+.heading {
+  background-color: transparent;
+}
+
+.subHeading {
+  background-color: transparent;
+  font-size: 14px;
+  color: #777;
+}

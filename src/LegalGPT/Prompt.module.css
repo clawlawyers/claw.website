@@ -1,0 +1,15 @@
+.container {
+  padding: 4px 8px 4px 8px;
+  margin-bottom: 21px;
+  border-radius: 10px;
+}
+
+.gptResponse {
+  background-color: #8940ff !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: 0;
+  }
+}

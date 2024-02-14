@@ -1,0 +1,28 @@
+.secondaryContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  gap: 100px;
+}
+
+.welcomePointerContainer {
+  background-color: transparent;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .secondaryContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0px;
+  }
+  .welcomePointerContainer {
+    gap: 25px;
+    padding-top: 25px;
+  }
+}

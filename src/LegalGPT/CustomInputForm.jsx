@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 import SendIcon from '@mui/icons-material/Send';
-
+import Styles from "./CustomInputForm.module.css";
 
 export default function CustomInputForm({ onSubmit }) {
   const [query, setQuery] = useState("");
-  function onFormSubmission(e){
+  function onFormSubmission(e) {
     e.query = query;
     setQuery("");
     e.preventDefault();
@@ -13,7 +13,7 @@ export default function CustomInputForm({ onSubmit }) {
     return;
   }
   return (
-    <div style={{ backgroundColor: "transparent", width: "60%", margin: "auto", paddingTop: 50 }}>
+    <div className={Styles.container}>
       <form onSubmit={onFormSubmission} style={{ width: "100%", borderRadius: 10, overflow: "hidden", border: "1px solid rgba(255, 255, 255, 0.15)", backgroundColor: "rgba(255,255,255,0.05)", padding: 5, display: "flex" }}>
         <input
           placeholder='Type Your Legal Queries...'

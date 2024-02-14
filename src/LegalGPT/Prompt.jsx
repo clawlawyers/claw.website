@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clawLogo from '../assets/icons/logoIcon.jpeg';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Styles from "./Prompt.module.css";
 
 export function Prompt({ role, text }) {
-    console.log(role, text)
+    const highlighted = role !== 'user';
     return (
-        <div style={{ padding: "4px 8px 4px 8px", marginBottom: 2 }}>
+        <div className={Styles.container} style={(highlighted ? { backgroundColor: "#8940FF" } : {})}>
             <div style={{ display: "flex" }}>
                 <div style={{
                     width: 30,
@@ -40,11 +41,9 @@ export function Prompt({ role, text }) {
                     )}
 
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", flex: 1, color: "white" }}>
-                    <div style={{ fontWeight: 500, fontSize: "20px" }}>{role === 'user' ? "User" : "GPT"}</div>
-                    <div style={{ overflowWrap: "break-word", whiteSpace: "pre-line" }}>{text}</div>
-                </div>
+                <div style={{ overflowWrap: "break-word", width: "100%", whiteSpace: "pre-line" }}>{text}</div>
             </div>
+
         </div>
     )
 };
