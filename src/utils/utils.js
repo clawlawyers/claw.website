@@ -1,1 +1,1 @@
-export const API_ENDPOINT = process.env.NODE_ENV === "production" ? "http://52.66.200.58/" : "http://localhost:5000/";
+export const API_ENDPOINT = process.env.NODE_ENV === "production" ? "https://gpt.clawlaw.in/" : "http://localhost:5000/";
