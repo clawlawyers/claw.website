@@ -16,6 +16,7 @@ export default function CustomInputForm({ onSubmit, containerStyles = {} }) {
     <div className={Styles.container} style={containerStyles}>
       <form onSubmit={onFormSubmission} style={{ width: "100%", borderRadius: 10, overflow: "hidden", border: "1px solid rgba(255, 255, 255, 0.15)", backgroundColor: "rgba(255,255,255,0.05)", padding: 5, display: "flex" }}>
         <input
+          type="text"
           placeholder='Type Your Legal Queries...'
           style={{ flex: 1, outline: "none", border: "none", backgroundColor: "transparent", color: "white" }}
           onChange={(e) => setQuery(e.target.value)}
