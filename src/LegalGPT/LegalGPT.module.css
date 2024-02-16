@@ -41,6 +41,7 @@
 .prompts {
   flex: 1;
   overflow-y: scroll;
+  background: no-repeat top/80% url("../assets/images/gptclaw.PNG");
   width: 90%;
   margin: auto;
   background-color: transparent;

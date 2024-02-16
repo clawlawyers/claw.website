@@ -6,13 +6,13 @@ import Styles from "./Prompt.module.css";
 export function Prompt({ role, text }) {
     const highlighted = role !== 'user';
     return (
-        <div className={Styles.container} style={(highlighted ? { backgroundColor: "#8940FF" } : {})}>
+        <div className={Styles.container} style={(highlighted ? { backgroundColor: "#8940FF", padding: 25 } : {})}>
             <div style={{ display: "flex" }}>
                 <div style={{
                     width: 30,
                     height: 30,
                     borderRadius: "50%",
-                    marginRight: "15px",
+                    marginRight: "25px",
                     backgroundColor: 'white',
                     overflow: "hidden",
                     position: "relative",
@@ -32,6 +32,7 @@ export function Prompt({ role, text }) {
                         <img alt="source image" style={{
                             position: "absolute",
                             top: "50%",
+                            backgroundColor:"#0FA47F",
                             left: "50%",
                             width: "100%",
                             height: "auto",

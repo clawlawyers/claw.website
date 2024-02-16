@@ -21,8 +21,8 @@ export function CustomLoader() {
         return facts[Math.floor(Math.random() * (facts.length - 1))]
     }, []);
     return (
-        <div style={{ padding: "8px 16px", display: "flex", color: "rgba(255,255,255,0.75)", alignItems: "center", justifyContent: "center", gap: 12 }}>
-            <CircularProgress size="16px" color="inherit" />
+        <div style={{ padding: "8px 16px", display: "flex", backgroundColor: "transparent", color: "rgba(255,255,255,0.75)", alignItems: "center", justifyContent: "center", gap: 12 }}>
+            <CircularProgress style={{ backgroundColor: "transparent" }} size="16px" color="inherit" />
             <FontAwesomeIcon icon={faLightbulb} />
             <div>
                 {getFact}
