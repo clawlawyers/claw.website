@@ -7,6 +7,10 @@
   overflow-x: hidden;
 }
 
+::-webkit-scrollbar {
+  width: 0px;
+}
+
 * {
   background: #13161f;
   font-family: "Plus Jakarta Sans", "sans-serif";
