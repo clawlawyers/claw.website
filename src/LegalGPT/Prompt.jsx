@@ -6,7 +6,7 @@ import Styles from "./Prompt.module.css";
 export function Prompt({ role, text }) {
     const highlighted = role !== 'user';
     return (
-        <div className={Styles.container} style={(highlighted ? { backgroundColor: "#8940FF", padding: 25 } : {})}>
+        <div className={Styles.container} style={(highlighted ? { backgroundColor: "#8940FF", padding: 10 } : {})}>
             <div style={{ display: "flex" }}>
                 <div style={{
                     width: 30,
@@ -32,7 +32,7 @@ export function Prompt({ role, text }) {
                         <img alt="source image" style={{
                             position: "absolute",
                             top: "50%",
-                            backgroundColor:"#0FA47F",
+                            backgroundColor: "#0FA47F",
                             left: "50%",
                             width: "100%",
                             height: "auto",
@@ -42,7 +42,7 @@ export function Prompt({ role, text }) {
                     )}
 
                 </div>
-                <div style={{ overflowWrap: "break-word", width: "100%", whiteSpace: "pre-line" }}>{text}</div>
+                <div className={Styles.promptText}>{text}</div>
             </div>
 
         </div>

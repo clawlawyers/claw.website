@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import Style from "./LegalGPT.module.css";
 import { Prompt } from "./Prompt";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDown, faPaperPlane, faPlus, faSun } from '@fortawesome/free-solid-svg-icons'
-import { CustomPrompt } from "./CustomPrompt";
 import { CustomLoader } from "./CustomLoader";
 import { API_ENDPOINT } from "../utils/utils";
 
 import Sidebar from "./Sidebar";
 import Welcome from "./Welcome";
 import CustomInputForm from "./CustomInputForm";
+import clawImg from "../assets/images/gptclaw.PNG";
 class FatalError extends Error { }
 
 function LegalGPT() {
@@ -153,6 +151,7 @@ function LegalGPT() {
                     ) : (
                         <div className={Style.formContainer}>
                             <div ref={promptsRef} className={Style.prompts}>
+                                <div className={Style.clawBackdrop}><img src={clawImg} /></div>
                                 <div className={Style.subContainer} >
                                     <div style={{ width: "100%", height: "100%" }}>
                                         {prompts.map(({ text, role }, idx) => <Prompt key={idx} text={text} role={role} />)}

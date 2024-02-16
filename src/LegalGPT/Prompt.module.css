@@ -8,8 +8,16 @@
   background-color: #8940ff !important;
 }
 
+.promptText {
+  font-family: 'Lato';
+  overflow-wrap: break-word;
+  width: 100%;
+  white-space: pre-line;
+  font-size: 15;
+}
+
 @media only screen and (max-width: 768px) {
   .container {
-    padding: 0;
+    padding: 10px;
   }
 }
