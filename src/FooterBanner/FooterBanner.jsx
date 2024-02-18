@@ -1,5 +1,6 @@
 import React from 'react';
 import SendIcon from '@mui/icons-material/Send';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 import Styles from "./FooterBanner.module.css";
 
@@ -15,7 +16,8 @@ function FooterBanner() {
                 <div style={{ fontSize: 18, color: "#777" }}>
                     Instantly
                 </div>
-                <div style={{ fontSize: 18, color: "#777", marginTop: 10 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10 }}>
+                    <LinkedInIcon />
                     Linkedin
                 </div>
 
@@ -34,11 +36,11 @@ function FooterBanner() {
                 <div style={{ color: "#b384ff", fontWeight: 700, fontSize: 20 }}>
                     Get the latest information
                 </div>
-                <div style={{ display: "flex", overflow: "hidden", borderRadius: 5, backgroundColor: "white", marginTop: 15 }}>
-                    <div style={{ flex: 1, backgroundColor: "transparent", padding: 4 }}>
+                <div style={{ display: "flex", overflow: "hidden", borderRadius: 14, backgroundColor: "white", marginTop: 15 }}>
+                    <div style={{ flex: 1, backgroundColor: "transparent", padding: 14 }}>
                         <input placeholder='Email Address' style={{ height: "100%", width: "100%", backgroundColor: "transparent", fontSize: 16, padding: 0, border: "none", outline: "none" }} />
                     </div>
-                    <button style={{ padding: 5, backgroundColor: "#8940ff", border: "none" }}>
+                    <button style={{ padding: 11, backgroundColor: "#8940ff", border: "none" }}>
                         <SendIcon style={{ color: "white", backgroundColor: "transparent" }} />
                     </button>
                 </div>

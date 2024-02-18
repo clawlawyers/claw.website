@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Styles from "./Header.module.css";
 
-function Header() {
+function Header({ onClickFeatures, onClickBlogs }) {
     return (
         <div className={Styles.headerContainer}>
             <div className={Styles.headerContent}>
@@ -9,11 +9,11 @@ function Header() {
                     <a href='/' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Claw</a>
                 </div>
                 <div className={Styles.headerLinks}>
-                    <div style={{ marginRight: 60, backgroundColor: "transparent" }}>
-                        Features
+                    <div style={{ marginRight: 30, backgroundColor: "transparent" }}>
+                        <button onClick={onClickFeatures} >Features</button>
                     </div>
                     <div style={{ backgroundColor: "transparent" }}>
-                        Blog
+                        <button onClick={onClickBlogs} >Blog</button>
                     </div>
                 </div>
                 <div className={Styles.headerGPT}>

@@ -29,7 +29,7 @@ export function Prompt({ role, text }) {
                             transform: "translate(-50%, -50%)",
                         }} color='white' icon={faUser} />
                     ) : (
-                        <img alt="source image" style={{
+                        <img alt="claw icon" style={{
                             position: "absolute",
                             top: "50%",
                             backgroundColor: "#0FA47F",

@@ -1,8 +1,6 @@
 import "./App.css";
 import Home from "./Home/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Register from "./Register/Register";
-import Testimonials from "./Testimonials/Testimonials";
 import LegalGPT from "./LegalGPT/LegalGPT";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 import Blog from "./Blog/Blog";

@@ -5,9 +5,9 @@ function Banner() {
 
     return (
         <div className={Style.bannerContainer}>
-            <div className={Style.banner}>
+            <h1 className={Style.banner}>
                 Unlock Legal Assistance with <span>LegalGPT</span>
-            </div>
+            </h1>
         </div >
     )
 }

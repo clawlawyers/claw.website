@@ -22,11 +22,9 @@ export function CustomLoader() {
     }, []);
     return (
         <div style={{ padding: "8px 16px", display: "flex", backgroundColor: "transparent", color: "rgba(255,255,255,0.75)", alignItems: "center", justifyContent: "center", gap: 12 }}>
-            <CircularProgress style={{ backgroundColor: "transparent" }} size="16px" color="inherit" />
+            <CircularProgress size="20px" style={{ color: "white", backgroundColor: "white" }} />
             <FontAwesomeIcon icon={faLightbulb} />
-            <div>
-                {getFact}
-            </div>
+
         </div>
     )
 }

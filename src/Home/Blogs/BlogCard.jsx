@@ -14,12 +14,12 @@ export default function BlogCard({ imageHeading, imageSubHeading, heading, subHe
                 </div>
             </div>
             <div className={Styles.blogCardContent}>
-                <div className={Styles.blogCardHeading}>
+                <h3 className={Styles.blogCardHeading}>
                     {heading}
-                </div>
-                <div className={Styles.blogCardSubHeading}>
+                </h3>
+                <h4 className={Styles.blogCardSubHeading}>
                     {subHeading}
-                </div>
+                </h4>
                 <div style={{ borderRadius: 15, backgroundColor: "#8940ff", padding: 10, width: "fit-content", marginTop: 15 }}>
                     <a href={'/blog/' + blogNo} style={{ color: "white", fontSize: 17, fontWeight: 600, border: "none", backgroundColor: "transparent", textDecoration: "none" }}>Read more</a>
                 </div>

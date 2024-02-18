@@ -1,0 +1,14 @@
+.cardContainer {
+  z-index: 2;
+  flex: 1;
+  padding: 15px;
+  background-color: #171e26;
+  border-radius: 10px;
+  color: white;
+  transition: transform 0.5s;
+  cursor: pointer;
+}
+
+.cardContainer:hover {
+  transform: scaleY(1.05);
+}

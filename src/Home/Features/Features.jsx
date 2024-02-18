@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 
 import FeatureCard from './FeatureCard';
@@ -9,20 +9,20 @@ import banner1 from "../../assets/icons/banner1.png";
 import banner2 from "../../assets/icons/banner2.png";
 import banner3 from "../../assets/icons/banner3.png";
 
-export default function Features() {
+export default forwardRef(function Features(props, ref) {
     return (
-        <div style={{ width: "100%", paddingTop: 80, color: "white" }}>
+        <div ref={ref} style={{ width: "100%", paddingTop: 80, color: "white" }}>
             <div style={{ width: "100%" }}>
-                <div className={Styles.featuresSubHeading}>
+                <h3 className={Styles.featuresSubHeading}>
                     Seamless Tool, Trusted Guidance
-                </div>
-                <div className={Styles.featuresHeading}>
+                </h3>
+                <h1 className={Styles.featuresHeading}>
                     Explore Powerful
                     <span style={{ position: "relative", display: "inline-block" }}>
                         <span style={{ position: "relative", background: "transparent", zIndex: 10 }}>Features</span>
                         <div style={{ position: "absolute", width: "100%", bottom: 0, left: 0, height: 12, backgroundColor: "#8940FF" }} />
                     </span>
-                </div>
+                </h1>
             </div>
             <div className={Styles.featuresCardContainer}>
 
@@ -32,4 +32,4 @@ export default function Features() {
             </div>
         </div >
     )
-}
+})

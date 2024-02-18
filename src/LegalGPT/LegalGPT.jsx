@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useLocation } from 'react-router-dom';
 import Style from "./LegalGPT.module.css";
 import { Prompt } from "./Prompt";
 import { CustomLoader } from "./CustomLoader";
@@ -8,22 +9,69 @@ import Sidebar from "./Sidebar";
 import Welcome from "./Welcome";
 import CustomInputForm from "./CustomInputForm";
 import clawImg from "../assets/images/gptclaw.PNG";
-class FatalError extends Error { }
 
 function LegalGPT() {
+    const location = useLocation();
     const [prompts, setPrompts] = useState([]);
     const [isLoading, setIsLoading] = useState();
     const [threadId, setThreadId] = useState();
     const promptsRef = useRef(null);
-    const [query, setQuery] = useState("");
-    const [userId, setUserId] = useState(null);
-    const [sessionId, setSessionId] = useState(null);
+    const userId = useRef(null);
+    const sessionId = useRef(null);
+
+    const getGPTResponse = useCallback(async function (query) {
+        try {
+            const formData = new FormData();
+            formData.append("user_input", query);
+            formData.append("user_id", userId.current ? userId.current : parseInt(Math.random() * 100000));
+            if (sessionId.current) formData.append("session_id", sessionId.current);
+
+            const res = await fetch(`${API_ENDPOINT}api/v1/gpt/chat`, {
+                method: "POST",
+                body: formData
+            })
+            const parsed = await res.json();
+            if (!sessionId.current) {
+                localStorage.setItem("claw_session_id", parsed.session_id);
+                sessionId.current = parsed.session_id;
+            }
+            if (!userId.current) {
+                localStorage.setItem("claw_user_id", parsed.user_id);
+                userId.current = parsed.user_id;
+            }
+            const text = parsed.gptResponse.message;
+            const role = parsed.gptResponse.sender;
+            setPrompts((prompts) => [...prompts, { text, role }]);
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }, [])
+
+    const submitPrompt = useCallback(async function (e) {
+        // do the api call for prompt
+
+        setPrompts((prompts) => [...prompts, { role: 'user', text: e.query }]);
+        setIsLoading(true);
+        getGPTResponse(e.query).then(() => setIsLoading(false));
+    }, [getGPTResponse]);
+
+
     useEffect(() => {
+        if (promptsRef.current) {
+            promptsRef.current.scrollTop = promptsRef.current.scrollHeight;
+        }
+    }, [prompts]);
+
+    useEffect(() => {
+        if (location.state?.query) {
+            submitPrompt(location.state);
+        }
         const storedUserId = localStorage.getItem("claw_user_id");
         const storedSessionId = localStorage.getItem("claw_session_id");
-        if (storedUserId) setUserId(storedUserId);
-        if (storedSessionId) setSessionId(storedSessionId);
-    }, [])
+        if (storedUserId) userId.current = storedUserId;
+        if (storedSessionId) sessionId.current = storedSessionId;
+    }, [location, submitPrompt])
     // async function stream() {
     //     await fetchEventSource(`${API_ENDPOINT}api/v1/legalGPT/stream`, {
     //         method: "POST",
@@ -69,34 +117,7 @@ function LegalGPT() {
     //     })
     // }
 
-    async function getGPTReponse(query) {
-        try {
-            const formData = new FormData();
-            formData.append("user_input", query);
-            formData.append("user_id", userId ? userId : parseInt(Math.random() * 100000));
-            if (sessionId) formData.append("session_id", sessionId);
 
-            const res = await fetch(`${API_ENDPOINT}api/v1/gpt/chat`, {
-                method: "POST",
-                body: formData
-            })
-            const parsed = await res.json();
-            if (!sessionId) {
-                localStorage.setItem("claw_session_id", parsed.session_id);
-                setSessionId(parsed.session_id);
-            }
-            if (!userId) {
-                localStorage.setItem("claw_user_id", parsed.user_id);
-                setUserId(parsed.user_id);
-            }
-            const text = parsed.gptResponse.message;
-            const role = parsed.gptResponse.sender;
-            setPrompts((prompts) => [...prompts, { text, role }]);
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
 
     async function getChatHistory() {
         try {
@@ -116,30 +137,12 @@ function LegalGPT() {
             console.log(error)
         }
     }
-    async function submitPrompt(e) {
-        // do the api call for prompt
-
-        setPrompts((prompts) => [...prompts, { role: 'user', text: e.query }]);
-        setIsLoading(true);
-        getGPTReponse(e.query).then(() => setIsLoading(false));
-    }
 
 
-    function retrieveChat() {
-        setQuery("");
-        setIsLoading(true);
-        getChatHistory().then(setIsLoading(false));
-    }
-
-    useEffect(() => {
-        if (promptsRef.current) {
-            promptsRef.current.scrollTop = promptsRef.current.scrollHeight;
-        }
-    }, [prompts]);
 
     return (
         <div style={{ position: "relative", height: "100%", width: "100%" }}>
-            <Sidebar retrieveChat={retrieveChat} />
+            <Sidebar retrieveChat={() => console.log("to be implemented")} />
             <div className={Style.container}>
                 <div className={Style.gptContainer}>
 
@@ -151,7 +154,7 @@ function LegalGPT() {
                     ) : (
                         <div className={Style.formContainer}>
                             <div ref={promptsRef} className={Style.prompts}>
-                                <div className={Style.clawBackdrop}><img src={clawImg} /></div>
+                                <div className={Style.clawBackdrop}><img alt="claw icon" src={clawImg} /></div>
                                 <div className={Style.subContainer} >
                                     <div style={{ width: "100%", height: "100%" }}>
                                         {prompts.map(({ text, role }, idx) => <Prompt key={idx} text={text} role={role} />)}
@@ -165,7 +168,7 @@ function LegalGPT() {
 
                                 </div>
                             </div>
-                            <CustomInputForm containerStyles={{ paddingTop: "10px" }} onSubmit={submitPrompt} />
+                            <CustomInputForm isLoading={isLoading} containerStyles={{ paddingTop: "10px" }} onSubmit={submitPrompt} />
                         </div>
                     )}
                 </div>
