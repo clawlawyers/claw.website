@@ -14,7 +14,6 @@ function LegalGPT() {
     const location = useLocation();
     const [prompts, setPrompts] = useState([]);
     const [isLoading, setIsLoading] = useState();
-    const [threadId, setThreadId] = useState();
     const promptsRef = useRef(null);
     const userId = useRef(null);
     const sessionId = useRef(null);
@@ -64,8 +63,9 @@ function LegalGPT() {
     }, [prompts]);
 
     useEffect(() => {
-        if (location.state?.query) {
-            submitPrompt(location.state);
+        const query = new URLSearchParams(location.search).get('query');
+        if (query) {
+            submitPrompt({query});
         }
         const storedUserId = localStorage.getItem("claw_user_id");
         const storedSessionId = localStorage.getItem("claw_session_id");
@@ -119,24 +119,24 @@ function LegalGPT() {
 
 
 
-    async function getChatHistory() {
-        try {
-            const res = await fetch(`${API_ENDPOINT}api/v1/legalGPT/conversationHistory`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: JSON.stringify({
-                    thread_id: threadId,
-                })
-            })
-            const parsed = await res.json();
-            setPrompts([...parsed.conversationHistory]);
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // async function getChatHistory() {
+    //     try {
+    //         const res = await fetch(`${API_ENDPOINT}api/v1/legalGPT/conversationHistory`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 // 'Content-Type': 'application/x-www-form-urlencoded',
+    //             },
+    //             body: JSON.stringify({
+    //                 thread_id: threadId,
+    //             })
+    //         })
+    //         const parsed = await res.json();
+    //         setPrompts([...parsed.conversationHistory]);
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
 
 

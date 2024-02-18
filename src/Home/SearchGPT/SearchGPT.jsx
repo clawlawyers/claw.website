@@ -20,7 +20,7 @@ export default function SearchGPT() {
                         />
                     </div>
                     <div className={Styles.buttonContainer}>
-                        <Link state={{ query }} to={"/legalGPT"} style={{ border: "none", color: "inherit", backgroundColor: "inherit", textDecoration: "none", width: "100%", height: "100%" }}>
+                        <Link to={`/legalGPT?query=${query}`} style={{ border: "none", color: "inherit", backgroundColor: "inherit", textDecoration: "none", width: "100%", height: "100%" }}>
                             <button>
                                 Ask LegalGPT
                             </button>
