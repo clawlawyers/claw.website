@@ -13,7 +13,7 @@ function App() {
     },
 
     {
-      path: "/blog/:id",
+      path: "/legalGPT-intro",
       element: <Blog />,
     },
     {

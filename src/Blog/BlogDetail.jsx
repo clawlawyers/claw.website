@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Styles from "./BlogDetail.module.css";
 
 const blogs = [
@@ -98,8 +98,22 @@ const blogs = [
 ]
 
 export default function BlogDetail() {
-    const { id } = useParams()
-    const { heading, subHeading, content, imageSrc } = blogs[id]
+    const location = useLocation();
+    const blogNo = location.state?.blogNo;
+    useEffect(() => {
+        // make api call
+        async function fetchBlog() {
+            console.log(blogNo);
+            if (blogNo) {
+                const response = await fetch({ url: "http://localhost:8000/blogs/", method: "POST", body: JSON.stringify({ blogNo }) });
+                const blogs = await JSON.parse(response);
+                console.log(blogs);
+            }
+
+        }
+
+    }, [])
+    const { heading, subHeading, content, imageSrc } = blogs[blogNo]
     return (
         <div className={Styles.blogDetailContainer}>
             <div className={Styles.blogDetailContent}>

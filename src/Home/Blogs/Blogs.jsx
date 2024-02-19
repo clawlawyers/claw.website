@@ -1,5 +1,6 @@
-import React, { forwardRef } from 'react'
-import BlogCard from './BlogCard';
+import React, { Suspense, forwardRef } from 'react';
+import { BlogCard, BlogCardSkeleton } from './BlogCard';
+import { NODE_API_ENDPOINT } from '../../utils/utils';
 
 import Styles from "./Blogs.module.css";
 
@@ -13,10 +14,78 @@ export default forwardRef(function Blogs(props, ref) {
                     <div style={{ position: "absolute", width: "96%", bottom: 15, left: "2%", height: 12, backgroundColor: "#8940FF" }} />
                 </span>
             </h1>
-            <div style={{ width: "100%" }}>
-                <BlogCard blogNo={0} imageHeading={"Claw's"} imageSubHeading={"Quick Guide"} heading={"Claw’s Quick Guide"} subHeading={"Effortlessly navigate CLAW's user-friendly interface and discover the seamless journey of hiring the perfect legal expert tailored to your needs."} />
-                <BlogCard blogNo={1} imageHeading={"LegalGPT: "} imageSubHeading={"Transformative Insights"} heading={"LegalGPT: Transformative Insight"} subHeading={"Explore the cutting-edge integration of Legal GPT on CLAW, unlocking a world of intelligent and insightful legal assistance for your every query and concern."} />
-            </div>
+            <Suspense fallback={<BlogCardsSkeleton />}>
+                <BlogCards />
+            </Suspense>
         </div>
     )
 })
+
+async function fetchBlogs() {
+    const response = await fetch(`${NODE_API_ENDPOINT}/blog`);
+    const parsed = await response.json();
+    return parsed;
+}
+
+function fetchData() {
+    return wrapPromise(fetchBlogs());
+}
+
+function wrapPromise(promise) {
+    let status = "pending";
+    let result;
+    let suspend = promise.then(
+        (res) => {
+            status = "success";
+            result = res;
+        },
+        (err) => {
+            status = "error";
+            result = err;
+        }
+    );
+
+    return {
+        read() {
+            if (status === "pending") {
+                throw suspend;
+            } else if (status === "error") {
+                throw result;
+            } else if (status === "success") {
+                return result;
+            }
+        }
+    }
+}
+
+const resource = fetchData();
+
+function BlogCards() {
+    const blogs = resource.read();
+
+    return <div style={{ width: "100%" }}>
+
+        {blogs.data.map(({ heading, subHeading, _id }, idx) => {
+            const temp = heading.split(" ");
+            const imageHeading = temp[0];
+            const imageSubHeading = temp.slice(1).join(" ");
+            return <BlogCard
+                key={_id}
+                imageHeading={imageHeading}
+                imageSubHeading={imageSubHeading}
+                heading={heading}
+                blogNo={idx}
+                subHeading={subHeading}
+            />
+        })}
+    </div>
+}
+
+function BlogCardsSkeleton() {
+    return (
+        <div style={{ width: "100%" }}>
+            <BlogCardSkeleton />
+            <BlogCardSkeleton />
+        </div>
+    )
+}

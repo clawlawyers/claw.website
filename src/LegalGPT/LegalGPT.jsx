@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Style from "./LegalGPT.module.css";
 import { Prompt } from "./Prompt";
 import { CustomLoader } from "./CustomLoader";
-import { API_ENDPOINT } from "../utils/utils";
+import { FLASK_API_ENDPOINT } from "../utils/utils";
 
 import Sidebar from "./Sidebar";
 import Welcome from "./Welcome";
@@ -25,7 +25,7 @@ function LegalGPT() {
             formData.append("user_id", userId.current ? userId.current : parseInt(Math.random() * 100000));
             if (sessionId.current) formData.append("session_id", sessionId.current);
 
-            const res = await fetch(`${API_ENDPOINT}api/v1/gpt/chat`, {
+            const res = await fetch(`${FLASK_API_ENDPOINT}/gpt/chat`, {
                 method: "POST",
                 body: formData
             })
@@ -73,7 +73,7 @@ function LegalGPT() {
         if (storedSessionId) sessionId.current = storedSessionId;
     }, [location, submitPrompt])
     // async function stream() {
-    //     await fetchEventSource(`${API_ENDPOINT}api/v1/legalGPT/stream`, {
+    //     await fetchEventSource(`${FLASK_API_ENDPOINT}api/v1/legalGPT/stream`, {
     //         method: "POST",
     //         headers: {
     //             "Content-Type": "application/json",
@@ -121,7 +121,7 @@ function LegalGPT() {
 
     // async function getChatHistory() {
     //     try {
-    //         const res = await fetch(`${API_ENDPOINT}api/v1/legalGPT/conversationHistory`, {
+    //         const res = await fetch(`${FLASK_API_ENDPOINT}api/v1/legalGPT/conversationHistory`, {
     //             method: "POST",
     //             headers: {
     //                 "Content-Type": "application/json",
