@@ -17,7 +17,7 @@ export default function Sidebar({ retrieveChat }) {
     return (
         <div className={Style.sidebarContainer}>
             {collapsed && (
-                <div style={{ position: "absolute", top: 20, left: 10, backgroundColor: "transparent" }}>
+                <div style={{ position: "absolute", top: 20, left: 10, backgroundColor: "transparent", zIndex:4 }}>
 
                     <MenuOutlinedIcon onClick={() => setCollapsed((collapsed) => !collapsed)} style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }} />
                 </div>
