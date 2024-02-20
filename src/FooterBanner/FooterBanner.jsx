@@ -16,9 +16,11 @@ function FooterBanner() {
                 <div style={{ fontSize: 18, color: "#777" }}>
                     Instantly
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10 }}>
-                    <LinkedInIcon />
-                    Linkedin
+                <div>
+                    <a href='https://www.linkedin.com/company/claw-lawyers/' target='_blank' style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10, textDecoration: "none" }}>
+                        <LinkedInIcon />
+                        Linkedin
+                    </a>
                 </div>
 
             </div>

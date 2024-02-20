@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+
 import Styles from "./BlogDetail.module.css";
+
 
 const blogs = [
     {
@@ -97,23 +98,15 @@ const blogs = [
     }
 ]
 
-export default function BlogDetail() {
-    const location = useLocation();
-    const blogNo = location.state?.blogNo;
-    useEffect(() => {
-        // make api call
-        async function fetchBlog() {
-            console.log(blogNo);
-            if (blogNo) {
-                const response = await fetch({ url: "http://localhost:8000/blogs/", method: "POST", body: JSON.stringify({ blogNo }) });
-                const blogs = await JSON.parse(response);
-                console.log(blogs);
-            }
 
-        }
 
-    }, [])
-    const { heading, subHeading, content, imageSrc } = blogs[blogNo]
+
+
+export function BlogDetail({ resource }) {
+    const blog = resource.read();
+    console.log(blog);
+
+    const { heading, subHeading, content, imageSrc } = blogs[0]
     return (
         <div className={Styles.blogDetailContainer}>
             <div className={Styles.blogDetailContent}>
@@ -126,10 +119,22 @@ export default function BlogDetail() {
                 <div style={{ fontSize: 39, fontWeight: 600, display: "flex", width: "100%", height: 329, borderRadius: 20, marginTop: 25, justifyContent: "center", alignItems: "center", backgroundImage: imageSrc, backgroundRepeat: "no-repeat", backgroundSize: "cover", textAlign: "center" }}>
                     {heading}
                 </div>
-
                 {content}
-
             </div>
         </div >
+    )
+}
+
+
+export function BlogDetailSkeleton() {
+    return (
+        <div className={Styles.blogDetailContainer}>
+            <div className={Styles.blogDetailContent}>
+                <div className={Styles.shimmer} style={{ width: "90%", height: 45, marginBottom: 25 }} />
+                <div className={Styles.shimmer} style={{ width: "100%", height: 50 }} />
+                <div className={Styles.shimmer} style={{ width: "100%", height: 329, borderRadius: 20, marginTop: 25, marginBottom: 25 }} />
+                <div className={Styles.shimmer} style={{ width: "100%", height: 400 }} />
+            </div>
+        </div>
     )
 }

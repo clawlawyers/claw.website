@@ -3,6 +3,7 @@ import { BlogCard, BlogCardSkeleton } from './BlogCard';
 import { NODE_API_ENDPOINT } from '../../utils/utils';
 
 import Styles from "./Blogs.module.css";
+import {wrapPromise} from '../../utils/promiseWrapper';
 
 export default forwardRef(function Blogs(props, ref) {
     return (
@@ -31,38 +32,10 @@ function fetchData() {
     return wrapPromise(fetchBlogs());
 }
 
-function wrapPromise(promise) {
-    let status = "pending";
-    let result;
-    let suspend = promise.then(
-        (res) => {
-            status = "success";
-            result = res;
-        },
-        (err) => {
-            status = "error";
-            result = err;
-        }
-    );
-
-    return {
-        read() {
-            if (status === "pending") {
-                throw suspend;
-            } else if (status === "error") {
-                throw result;
-            } else if (status === "success") {
-                return result;
-            }
-        }
-    }
-}
-
 const resource = fetchData();
 
 function BlogCards() {
     const blogs = resource.read();
-
     return <div style={{ width: "100%" }}>
 
         {blogs.data.map(({ heading, subHeading, _id }, idx) => {
@@ -71,6 +44,7 @@ function BlogCards() {
             const imageSubHeading = temp.slice(1).join(" ");
             return <BlogCard
                 key={_id}
+                blogId={_id}
                 imageHeading={imageHeading}
                 imageSubHeading={imageSubHeading}
                 heading={heading}

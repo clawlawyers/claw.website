@@ -1,16 +1,32 @@
-.sidebar {
+.sidebarContainer {
   position: absolute;
   width: 309px;
   height: 100%;
-  background-color: #222222;
+  background: transparent;
 }
-
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  background: #222222;
+  width: 309px;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  z-index: 6;
+}
 .sidebar div {
   background-color: transparent;
 }
 
 @media only screen and (max-width: 768px) {
   .sidebar {
-    display: none;
+    z-index: 6;
+    width: 260px;
+  }
+  .sidebarContainer {
+    width: 100%;
+    z-index: 4;
   }
 }
