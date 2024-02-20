@@ -1,5 +1,5 @@
 import React, { Suspense, forwardRef } from 'react';
-import { BlogCard, BlogCardSkeleton } from './BlogCard';
+import { BlogCard, BlogCardSkeleton } from '../../components/blogCard';
 import { NODE_API_ENDPOINT } from '../../utils/utils';
 
 import Styles from "./Blogs.module.css";
