@@ -4,23 +4,24 @@ import Styles from "./BlogDetail.module.css";
 
 export function BlogDetail({ resource }) {
     const blog = resource.read();
-    const { heading, subHeading, content, imageSrc } = blog.data;
+    const { heading, subHeading, content } = blog.data;
+    const imageSrc = `var(--image-blogpost-${parseInt(Math.random() * 10) % 2})`
     return (
         <div className={Styles.blogDetailContainer}>
             <div className={Styles.blogDetailContent}>
-                <div className={Styles.blogDetailHeading}>
+                <h2 className={Styles.blogDetailHeading}>
                     {heading}
-                </div>
-                <div className={Styles.blogDetailSubHeading}>
+                </h2>
+                <h3 className={Styles.blogDetailSubHeading}>
                     {subHeading}
-                </div>
-                <div style={{ fontSize: 39, fontWeight: 600, display: "flex", width: "100%", height: 329, borderRadius: 20, marginTop: 25, justifyContent: "center", alignItems: "center", backgroundImage: imageSrc, backgroundRepeat: "no-repeat", backgroundSize: "cover", textAlign: "center" }}>
+                </h3>
+                <div className={Styles.imageHeading} style={{ backgroundImage: imageSrc, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
                     {heading}
                 </div>
-                <div dangerouslySetInnerHTML={{__html: content}}>
+                <div className={Styles.blogContent} dangerouslySetInnerHTML={{ __html: content }}>
 
                 </div>
-                
+
             </div>
         </div >
     )
