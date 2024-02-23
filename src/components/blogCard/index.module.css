@@ -1,5 +1,5 @@
 .blogCardContainer {
-  z-index: 2px;
+  z-index: 2;
   position: relative;
   display: flex;
   padding: 5px;
