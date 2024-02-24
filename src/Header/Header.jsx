@@ -1,12 +1,15 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import Styles from "./Header.module.css";
+import clawLogo from "../assets/icons/clawlogo.png"
 
 function Header({ onClickFeatures, onClickBlogs }) {
     return (
         <div className={Styles.headerContainer}>
             <div className={Styles.headerContent}>
                 <div className={Styles.headerLogo} >
-                    <a href='/' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Claw</a>
+                    <a href='/' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>
+                        <img alt="Claw" style={{ backgroundColor: "transparent", height: 50 }} src={clawLogo} />
+                    </a>
                 </div>
                 <div className={Styles.headerLinks}>
                     <div style={{ marginRight: 30, backgroundColor: "transparent" }}>
