@@ -1,11 +1,43 @@
 import React, { Suspense, forwardRef } from 'react';
-import { BlogCard, BlogCardSkeleton } from '../../components/blogCard';
+import { ExpandedBlogCard, ExpandedBlogCardSkeleton } from '../../components/ExpandedBlogCard';
 import { NODE_API_ENDPOINT } from '../../utils/utils';
 
 import Styles from "./Blogs.module.css";
-import {wrapPromise} from '../../utils/promiseWrapper';
+import { createResource } from '../../utils/promiseWrapper';
+import { CardsGroup, CardsGroupSkeleton } from '../../components/CardsGroup/index';
 
+async function fetchBlogs() {
+    const response = await fetch(`${NODE_API_ENDPOINT}/blog`);
+    const parsed = await response.json();
+    return parsed;
+}
+
+const mapping = [
+    {
+        key: "blogId",
+        value: "_id"
+    },
+    {
+        key: "imageHeading",
+        value: "heading",
+        transform: (value) => value.split(" ")[0]
+    },
+    {
+        key: "imageSubHeading",
+        value: "heading",
+        transform: (value) => value.split(" ").slice(1).join(" ")
+    },
+    {
+        key: "heading",
+        value: "heading"
+    },
+    {
+        key: "subHeading",
+        value: "subHeading"
+    },
+]
 export default forwardRef(function Blogs(props, ref) {
+    const fetchBlogsResource = createResource(fetchBlogs);
     return (
         <div ref={ref} className={Styles.blogsContainer}>
             <h1 className={Styles.blogsHeading}>
@@ -15,51 +47,13 @@ export default forwardRef(function Blogs(props, ref) {
                     <div style={{ position: "absolute", width: "96%", bottom: 15, left: "2%", height: 12, backgroundColor: "#8940FF" }} />
                 </span>
             </h1>
-            <Suspense fallback={<BlogCardsSkeleton />}>
-                <BlogCards />
+            <Suspense fallback={<CardsGroupSkeleton component={ExpandedBlogCardSkeleton} count={2} />}>
+                <CardsGroup
+                    component={ExpandedBlogCard}
+                    resource={fetchBlogsResource}
+                    propsDataMapping={mapping}
+                />
             </Suspense>
         </div>
     )
 })
-
-async function fetchBlogs() {
-    const response = await fetch(`${NODE_API_ENDPOINT}/blog`);
-    const parsed = await response.json();
-    return parsed;
-}
-
-function fetchData() {
-    return wrapPromise(fetchBlogs());
-}
-
-const resource = fetchData();
-
-function BlogCards() {
-    const blogs = resource.read();
-    return <div style={{ width: "100%" }}>
-
-        {blogs.data.map(({ heading, subHeading, _id }, idx) => {
-            const temp = heading.split(" ");
-            const imageHeading = temp[0];
-            const imageSubHeading = temp.slice(1).join(" ");
-            return <BlogCard
-                key={_id}
-                blogId={_id}
-                imageHeading={imageHeading}
-                imageSubHeading={imageSubHeading}
-                heading={heading}
-                blogNo={idx}
-                subHeading={subHeading}
-            />
-        })}
-    </div>
-}
-
-function BlogCardsSkeleton() {
-    return (
-        <div style={{ width: "100%" }}>
-            <BlogCardSkeleton />
-            <BlogCardSkeleton />
-        </div>
-    )
-}

@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LegalGPT from "./LegalGPT/LegalGPT";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 import Blog from "./Blog/Blog";
+import AllBlogs from "./AllBlogs/AllBlogs";
 
 function App() {
   const router = createBrowserRouter([
@@ -13,7 +14,7 @@ function App() {
     },
 
     {
-      path: "/legalGPT-intro/:blogId",
+      path: "/legalGPT-intro/:blogName",
       element: <Blog />,
     },
     {
@@ -24,6 +25,10 @@ function App() {
       path: "/privacyPolicy",
       element: <PrivacyPolicy />
     },
+    {
+      path: "/blogs",
+      element: <AllBlogs />
+    }
   ]);
   return (
     <div className="App">

@@ -1,16 +1,16 @@
 import React from 'react';
 
-import Styles from "./BlogCard.module.css";
+import Styles from "./index.module.css";
 import { Link } from 'react-router-dom';
 
-export function BlogCard({ blogId, imageHeading, imageSubHeading, heading, subHeading, blogNo = 0 }) {
+export function CollapsedBlogCard({ imageHeading, imageSubHeading, heading, blogNo = 0 }) {
     return (
         <div className={Styles.blogCardContainer}>
-            <div style={{ minWidth: "min(100%,359px)", height: "329px", borderRadius: 20, backgroundImage: `var(--image-blog${parseInt(blogNo % 2)})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+            <div style={{ width: "100%", height: "329px", borderRadius: 20, backgroundImage: `var(--image-blog${parseInt(blogNo % 2)})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
                 <div className={Styles.blogCardOverlay}>
                     <div style={{ backgroundColor: "transparent", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center" }}>
-                        <div style={{ textDecoration: "underline", backgroundColor: "transparent", fontFamily: "Syne" }}>{imageHeading}</div>
-                        <div style={{ backgroundColor: "transparent", fontFamily: "Syne" }}>{imageSubHeading}</div>
+                        <div style={{ textDecoration: "underline", backgroundColor: "transparent", fontFamily: "Syne", fontSize: 40 }}>{imageHeading}</div>
+                        <div style={{ backgroundColor: "transparent", fontFamily: "Syne", fontSize: 40 }}>{imageSubHeading}</div>
                     </div>
                 </div>
             </div>
@@ -18,11 +18,8 @@ export function BlogCard({ blogId, imageHeading, imageSubHeading, heading, subHe
                 <h3 className={Styles.blogCardHeading}>
                     {heading}
                 </h3>
-                <h4 className={Styles.blogCardSubHeading}>
-                    {subHeading}
-                </h4>
-                <div style={{ borderRadius: 15, backgroundColor: "#8940ff", padding: 10, width: "fit-content", marginTop: 15 }}>
-                    <Link to={`/legalGPT-intro/${blogId}`} state={{ blogNo }} style={{ color: "white", fontSize: 17, fontWeight: 600, border: "none", backgroundColor: "transparent", textDecoration: "none" }}>Read more</Link>
+                <div style={{ borderRadius: 15, backgroundColor: "#8940ff", padding: 10, width: "fit-content", marginTop: 50 }}>
+                    <Link to={`/legalGPT-intro/${heading}`} state={{ blogNo }} style={{ color: "white", fontSize: 17, fontWeight: 600, border: "none", backgroundColor: "transparent", textDecoration: "none" }}>Read more</Link>
                 </div>
             </div>
         </div >
@@ -30,7 +27,7 @@ export function BlogCard({ blogId, imageHeading, imageSubHeading, heading, subHe
 }
 
 
-export function BlogCardSkeleton() {
+export function CollapsedBlogCardSkeleton() {
     return (
         <div className={Styles.blogCardContainer}>
             <div className={Styles.shimmer} style={{ minWidth: "min(100%,359px)", height: "329px", borderRadius: 20 }} />

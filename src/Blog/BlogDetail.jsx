@@ -4,7 +4,7 @@ import Styles from "./BlogDetail.module.css";
 
 export function BlogDetail({ resource }) {
     const blog = resource.read();
-    const { heading, subHeading, content } = blog.data;
+    const { heading, subHeading, content } = blog.data[0];
     const imageSrc = `var(--image-blogpost-${parseInt(Math.random() * 10) % 2})`
     return (
         <div className={Styles.blogDetailContainer}>
