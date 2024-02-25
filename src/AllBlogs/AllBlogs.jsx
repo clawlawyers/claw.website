@@ -54,8 +54,8 @@ export default function AllBlogs() {
             <Header />
             <div style={{ width: "80%", margin: "auto", color: "white", zIndex: 2, position: "inherit", background: "transparent" }}>
                 <h1 className={Styles.animatedText}>The Legal Pioneer</h1>
-                <h3 style={{ backgroundColor: "transparent", fontSize: 32, fontWeight: 700 }}>Navigating the Future of Legal Services – Insights from Claw and Our Global Legal Community</h3>
-                <h1 style={{ backgroundColor: "transparent", fontSize: 52, fontWeight: 600, paddingTop: 87 }}>Featured</h1>
+                <h3 className={Styles.subHeading} >Navigating the Future of Legal Services – Insights from Claw and Our Global Legal Community</h3>
+                <h1 className={Styles.contentHeader}>Featured</h1>
             </div>
 
             <Suspense fallback={<CardsGroupSkeleton component={ExpandedBlogCardSkeleton} count={1} />}>

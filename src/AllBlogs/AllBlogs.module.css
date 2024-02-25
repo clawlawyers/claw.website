@@ -6,3 +6,30 @@
   font-size: 82px;
   font-weight: 700;
 }
+
+.subHeading {
+  background-color: transparent;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.contentHeader {
+  background-color: transparent;
+  font-size: 52px;
+  font-weight: 600;
+  padding-top: 87px;
+}
+
+@media only screen and (max-width: 768px) {
+  .animatedText {
+    font-size: 48px;
+  }
+  .subHeading {
+    font-size: 13px;
+  }
+
+  .contentHeader {
+    font-size: 32px;
+    padding-top: 40px;
+  }
+}
