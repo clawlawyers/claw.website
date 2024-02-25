@@ -5,6 +5,7 @@ import LegalGPT from "./LegalGPT/LegalGPT";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 import Blog from "./Blog/Blog";
 import AllBlogs from "./AllBlogs/AllBlogs";
+import CreateBlog from "./CreateBlog/CreateBlog";
 
 function App() {
   const router = createBrowserRouter([
@@ -14,7 +15,7 @@ function App() {
     },
 
     {
-      path: "/legalGPT-intro/:blogName",
+      path: "/blog/:blogName",
       element: <Blog />,
     },
     {
@@ -26,8 +27,12 @@ function App() {
       element: <PrivacyPolicy />
     },
     {
-      path: "/blogs",
+      path: "/blog",
       element: <AllBlogs />
+    },
+    {
+      path: "/create/blog",
+      element: <CreateBlog />
     }
   ]);
   return (

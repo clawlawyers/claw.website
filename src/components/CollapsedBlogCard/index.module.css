@@ -6,6 +6,7 @@
   margin: auto;
   margin-top: 25px;
   border-radius: 25px;
+  background: #13161f;
   transition: 0.5s ease;
   color: white;
 }

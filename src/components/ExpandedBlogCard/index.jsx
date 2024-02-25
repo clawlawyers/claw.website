@@ -22,7 +22,7 @@ export function ExpandedBlogCard({ imageHeading, imageSubHeading, heading, subHe
                     {subHeading}
                 </h4>
                 <div style={{ borderRadius: 15, backgroundColor: "#8940ff", padding: 10, width: "fit-content", marginTop: 15 }}>
-                    <Link to={`/legalGPT-intro/${heading}`} state={{ blogNo }} style={{ color: "white", fontSize: 17, fontWeight: 600, border: "none", backgroundColor: "transparent", textDecoration: "none" }}>Read more</Link>
+                    <Link to={`/blog/${heading}`} state={{ blogNo }} style={{ color: "white", fontSize: 17, fontWeight: 600, border: "none", backgroundColor: "transparent", textDecoration: "none" }}>Read more</Link>
                 </div>
             </div>
         </div >

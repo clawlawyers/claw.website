@@ -6,6 +6,7 @@ import { CardsGroup, CardsGroupGrid, CardsGroupSkeleton } from '../components/Ca
 import { ExpandedBlogCard, ExpandedBlogCardSkeleton } from '../components/ExpandedBlogCard';
 import { CollapsedBlogCard, CollapsedBlogCardSkeleton } from '../components/CollapsedBlogCard';
 import FooterBanner from '../FooterBanner/FooterBanner';
+import Styles from "./AllBlogs.module.css";
 
 async function getIntroBlog() {
     const response = await fetch(`${NODE_API_ENDPOINT}/blog/Quick Guide`);
@@ -48,17 +49,11 @@ export default function AllBlogs() {
     const allBlogsResource = createResource(getAllBlogs);
 
     return (
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", backgroundColor: "#13161f" }}>
             <div style={{ position: "absolute", marginLeft: "calc(50vw - 400px)", height: 943, width: 761, background: "radial-gradient(circle, rgba(137, 64, 255,0.45) 0%, rgba(137, 64, 255, 0.15) 65%)", boxShadow: "0 0 100px 100px rgba(137, 64, 255, 0.15)", top: "-500px", borderRadius: 500 }} />
             <Header />
             <div style={{ width: "80%", margin: "auto", color: "white", zIndex: 2, position: "inherit", background: "transparent" }}>
-                <h1 style={{
-                    color: "transparent",
-                    backgroundClip: "text",
-                    background: "linear-gradient(rgb(137, 64, 255), rgb(229, 131, 245))",
-                    fontSize: 82,
-                    fontWeight: 600
-                }}>The Legal Pioneer</h1>
+                <h1 className={Styles.animatedText}>The Legal Pioneer</h1>
                 <h3 style={{ backgroundColor: "transparent", fontSize: 32, fontWeight: 700 }}>Navigating the Future of Legal Services – Insights from Claw and Our Global Legal Community</h3>
                 <h1 style={{ backgroundColor: "transparent", fontSize: 52, fontWeight: 600, paddingTop: 87 }}>Featured</h1>
             </div>
