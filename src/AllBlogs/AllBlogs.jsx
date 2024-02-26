@@ -41,6 +41,11 @@ const mapping = [
         key: "subHeading",
         value: "subHeading"
     },
+    {
+        key: "createdAt",
+        value: "createdAt",
+        transform: (date) => new Date(date).toDateString(),
+    }
 ]
 
 
@@ -66,7 +71,7 @@ export default function AllBlogs() {
                 />
             </Suspense>
 
-            <div style={{ width: "80%", margin: "auto", color: "white", marginTop: "50px", zIndex: 2, position: "inherit", backgroundColor: "transparent" }}>
+            <div className={Styles.recentContainer} >
                 <h1 style={{ backgroundColor: "transparent", fontSize: 52, fontWeight: 600 }}>Recent</h1>
                 <Suspense fallback={<CardsGroupSkeleton component={CollapsedBlogCardSkeleton} count={3} />}>
                     <CardsGroupGrid

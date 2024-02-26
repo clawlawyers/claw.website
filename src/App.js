@@ -6,6 +6,7 @@ import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 import Blog from "./Blog/Blog";
 import AllBlogs from "./AllBlogs/AllBlogs";
 import CreateBlog from "./CreateBlog/CreateBlog";
+import Pricing from "./Pricing/Pricing";
 
 function App() {
   const router = createBrowserRouter([
@@ -33,6 +34,10 @@ function App() {
     {
       path: "/create/blog",
       element: <CreateBlog />
+    },
+    {
+      path: "/pricing",
+      element: <Pricing />
     }
   ]);
   return (

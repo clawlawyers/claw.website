@@ -20,6 +20,16 @@
   padding-top: 87px;
 }
 
+.recentContainer {
+  width: 80%;
+  margin: auto;
+  color: white;
+  margin-top: 50px;
+  z-index: 2;
+  position: inherit;
+  background-color: transparent;
+}
+
 @media only screen and (max-width: 768px) {
   .animatedText {
     font-size: 48px;
@@ -31,5 +41,8 @@
   .contentHeader {
     font-size: 32px;
     padding-top: 40px;
+  }
+  .recentContainer {
+    width: 90%;
   }
 }

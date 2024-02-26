@@ -2,7 +2,7 @@ import React from 'react';
 import Styles from "./Header.module.css";
 import clawLogo from "../assets/icons/clawlogo.png"
 
-function Header({ onClickFeatures, onClickBlogs }) {
+function Header({ onClickFeatures }) {
     return (
         <div className={Styles.headerContainer}>
             <div className={Styles.headerContent}>
@@ -16,7 +16,7 @@ function Header({ onClickFeatures, onClickBlogs }) {
                         <button onClick={onClickFeatures} >Features</button>
                     </div>
                     <div style={{ backgroundColor: "transparent" }}>
-                        <button onClick={onClickBlogs} >Blog</button>
+                        <button><a href='/blog' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Blog</a></button>
                     </div>
                 </div>
                 <div className={Styles.headerGPT}>
