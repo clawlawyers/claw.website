@@ -1,13 +1,18 @@
 import React from 'react';
+import { Helmet } from "react-helmet";
 
 import Styles from "./BlogDetail.module.css";
 
 export function BlogDetail({ resource }) {
     const blog = resource.read();
-    const { content, heading } = blog.data[0];
-    const imageSrc = `var(--image-blogpost-${parseInt(Math.random() * 10) % 2})`
+    const { content, heading, subHeading } = blog.data[0];
+    const imageSrc = `var(--image-blogpost-${parseInt(Math.random() * 10) % 2})`;
     return (
         <div className={Styles.blogDetailContainer}>
+            <Helmet>
+                <meta charSet='utf-8' />
+                <title>{heading}: {subHeading}</title>
+            </Helmet>
             <div className={Styles.blogDetailContent}>
                 <ElementRenderer elementTree={content.slice(0, 2)} />
                 <div className={Styles.imageHeading} style={{ backgroundImage: imageSrc, backgroundRepeat: "no-repeat", backgroundSize: "cover", margin: "20px 0px 30px 0px" }}>
