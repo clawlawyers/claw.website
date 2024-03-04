@@ -39,7 +39,7 @@ export function CardsGroupGrid({ resource, propsDataMapping = [], component: Car
 export function CardsGroupSkeleton({ count = 1, component: Card }) {
     return (
         <div style={{ width: "100%" }}>
-            {Array(count).map((_, i) => <Card />)}
+            {Array(count).map((_, i) => <Card key={i} />)}
         </div>
     )
 }

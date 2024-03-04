@@ -1,14 +1,14 @@
 .animatedText {
   color: transparent;
-  -webkit-background-clip: text;
+  -webkit-background-clip: text !important;
   background-clip: text !important;
   background: linear-gradient(rgb(137, 64, 255), rgb(229, 131, 245));
   font-size: 82px;
+  padding-bottom: 10px;
   font-weight: 700;
 }
 
 .subHeading {
-  background-color: transparent;
   font-size: 32px;
   font-weight: 700;
 }

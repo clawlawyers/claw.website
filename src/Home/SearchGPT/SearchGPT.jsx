@@ -16,7 +16,7 @@ export default function SearchGPT() {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             style={{ backgroundColor: "transparent", width: "100%", fontSize: 14, outline: "none", border: "none" }}
-                            placeholder='Ask Your Legal Questions Here...'
+                            placeholder='Ask Your Legal Questions Here ...'
                         />
                     </div>
                     <div className={Styles.buttonContainer}>

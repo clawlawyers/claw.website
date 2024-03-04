@@ -6,7 +6,14 @@ function Banner() {
     return (
         <div className={Style.bannerContainer}>
             <h1 className={Style.banner}>
-                Unlock Legal Assistance with <span>LegalGPT</span>
+                <div>
+                    Unlock Legal Assistance
+                </div>
+                <div style={{display:"flex", flexDirection:"column"}}>
+                    <div style={{ flex: 1 }} />
+                    <div className={Style.typed}>with LegalGPT</div>
+                    <div style={{ flex: 1 }} />
+                </div>
             </h1>
         </div >
     )
