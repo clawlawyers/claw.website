@@ -1,5 +1,4 @@
 .container {
-  padding: 4px 25px 4px 25px;
   margin-bottom: 21px;
   border-radius: 10px;
 }
@@ -9,7 +8,7 @@
 }
 
 .promptText {
-  font-family: 'Lato';
+  font-family: "Lato";
   overflow-wrap: break-word;
   width: 100%;
   white-space: pre-line;

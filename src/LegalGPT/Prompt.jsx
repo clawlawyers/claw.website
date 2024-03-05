@@ -1,44 +1,31 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import clawLogo from '../assets/icons/logoIcon.jpeg';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Styles from "./Prompt.module.css";
+import AssistantIcon from '@mui/icons-material/Assistant';
+import PersonIcon from '@mui/icons-material/Person';
 
 export function Prompt({ role, text }) {
     const highlighted = role !== 'user';
     return (
-        <div className={Styles.container} style={(highlighted ? { backgroundColor: "#8940FF", padding: 10 } : {})}>
+        <div className={Styles.container} style={(highlighted ? { backgroundColor: "#8940FF", padding: "15px 10px" } : { padding: "5px 10px" })}>
             <div style={{ display: "flex" }}>
                 <div style={{
                     width: 30,
                     height: 30,
-                    borderRadius: "50%",
                     marginRight: "25px",
-                    backgroundColor: 'white',
-                    overflow: "hidden",
-                    position: "relative",
-                    backgroundColor: "#5536DA",
+                    display: "flex",
+                    alignItems: 'center',
+                    justifyContent: "center",
+                    backgroundColor: (role === 'user') ? "#5536DA" : "#0FA47F",
                 }}>
                     {role === 'user' ? (
-                        <FontAwesomeIcon style={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            height: "auto",
-                            display: "block",
-                            backgroundColor: "#5536DA",
-                            transform: "translate(-50%, -50%)",
+                        <PersonIcon style={{
+                            fontSize: 20
                         }} color='white' icon={faUser} />
                     ) : (
-                        <img alt="claw icon" style={{
-                            position: "absolute",
-                            top: "50%",
-                            backgroundColor: "#0FA47F",
-                            left: "50%",
-                            width: "100%",
-                            height: "auto",
-                            display: "block",
-                            transform: "translate(-50%, -50%)",
-                        }} src={clawLogo} />
+                        <AssistantIcon alt="claw icon" style={{
+                            fontSize: 20,
+                            backgroundColor: "#0FA47F"
+                        }} />
                     )}
 
                 </div>
