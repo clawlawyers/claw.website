@@ -168,7 +168,7 @@ function LegalGPT() {
 
                                 </div>
                             </div>
-                            <CustomInputForm isLoading={isLoading} containerStyles={{ paddingTop: "10px" }} onSubmit={submitPrompt} />
+                            <CustomInputForm isLoading={isLoading} onSubmit={submitPrompt} />
                         </div>
                     )}
                 </div>
