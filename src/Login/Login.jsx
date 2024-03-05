@@ -7,12 +7,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import { login } from "../features/user/userSlice";
 import CircularProgress from '@mui/material/CircularProgress';
+import ErrorIcon from '@mui/icons-material/Error';
 
 export default function Login() {
     const [otp, setOtp] = useState("");
     const [hasFilled, setHasFilled] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("+91");
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const currentUser = useSelector(state => state.user.current);
     const navigate = useNavigate();
 
@@ -41,17 +43,24 @@ export default function Login() {
         }).catch((error) => console.log(error));
     }
 
-    const verifyOtp = (e) => {
+    const verifyOtp = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        if (otp.length === 6) {
-            const confirmationResult = window.confirmationResult;
-            confirmationResult.confirm(otp).then((result) => {
+        try {
+            if (otp.length === 6) {
+                const confirmationResult = window.confirmationResult;
+                const result = await confirmationResult.confirm(otp)
                 const { uid, phoneNumber, stsTokenManager } = result.user;
                 const { accessToken, expirationTime, refreshToken } = stsTokenManager;
                 dispatch(login({ uid, phoneNumber, sessionTokens: { accessToken, expirationTime, refreshToken } }));
                 navigate("/");
-            }).catch((error) => console.log(error)).finally(setIsLoading(false));
+            }
+            else throw new Error("Otp length should be of 6")
+        } catch (error) {
+            setError(error.message || "Invalid Otp!")
+        }
+        finally {
+            setIsLoading(false);
         }
     }
 
@@ -63,6 +72,13 @@ export default function Login() {
                     <h1 style={{ fontSize: 60, fontWeight: 700, marginBottom: 25, textAlign: "center" }}>
                         Welcome back!
                     </h1>
+                    <div>
+                        {error ? <div style={{ display: "flex", fontSize: 13, paddingBottom: 5, color: "red", alignItems: "center" }}>
+                            <ErrorIcon style={{ fontSize: 13 }} />
+                            {error}
+                        </div>
+                            : null}
+                    </div>
                     {hasFilled && (
                         <form style={{ width: "50%" }} onSubmit={verifyOtp}>
                             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -70,7 +86,7 @@ export default function Login() {
                                 <input style={{ background: "#32353c", color: "white", padding: 10, fontSize: 15, borderRadius: 2, outline: "none", border: "none" }} type="text" value={otp} onChange={(e) => setOtp(e.target.value)} />
                             </div>
                             <button disabled={isLoading} style={{ backgroundColor: "#8940ff", color: "white", border: "none", marginTop: 45, padding: "10px 45px", fontSize: 15, fontWeight: 600 }} type="submit">
-                                {isLoading ? <CircularProgress color="secondary" /> : <>Verify otp</>}
+                                {isLoading ? <CircularProgress size={15} style={{ color: "white" }} /> : <>Verify otp</>}
                             </button>
                         </form>
                     )}
@@ -82,7 +98,7 @@ export default function Login() {
                                 <input style={{ background: "#32353c", color: "white", padding: 10, fontSize: 15, borderRadius: 2, outline: "none", border: "none" }} type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                             </div>
                             <button disabled={isLoading} style={{ backgroundColor: "#8940ff", color: "white", border: "none", marginTop: 45, padding: "10px 45px", fontSize: 15, fontWeight: 600 }} type="submit">
-                                {isLoading ? <CircularProgress color="secondary" /> : <>Send otp</>}
+                                Send otp
                             </button>
                         </form>
                     )}

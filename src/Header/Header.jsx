@@ -30,6 +30,16 @@ function Header({ onClickFeatures }) {
                             <Link to='/blog' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Blog</Link>
                         </button>
                     </div>
+                    <div style={{ backgroundColor: "transparent" }}>
+                        <button>
+                            <Link to='/pricing' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Pricing</Link>
+                        </button>
+                    </div>
+                    <div style={{ backgroundColor: "transparent" }}>
+                        <button>
+                            <Link to='/blog' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Ambassordship</Link>
+                        </button>
+                    </div>
                 </div>
                 <div className={Styles.headerGPT}>
                     <Link className={Styles.headerButton} to='/legalGPT' >
