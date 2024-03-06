@@ -13,6 +13,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist';
+import Payment from "./Payment/Payment";
+import Ambassadorship from "./Ambassadorship/Ambassadorship";
 
 function App() {
   const router = createBrowserRouter([
@@ -47,6 +49,14 @@ function App() {
         {
           path: "login",
           element: <Login />
+        },
+        {
+          path: "ambassadorship",
+          element: <Ambassadorship />
+        },
+        {
+          path: "paymentgateway",
+          element: <Payment />
         }
       ]
     },

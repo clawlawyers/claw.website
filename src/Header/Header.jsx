@@ -37,7 +37,7 @@ function Header({ onClickFeatures }) {
                     </div>
                     <div style={{ backgroundColor: "transparent" }}>
                         <button>
-                            <Link to='/blog' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Ambassadorship</Link>
+                            <Link to='/ambassadorship' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Ambassadorship</Link>
                         </button>
                     </div>
                 </div>
