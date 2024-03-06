@@ -1,9 +1,10 @@
 import React from 'react';
 import Styles from "./FeatureCard.module.css";
+import { motion } from "framer-motion";
 
 export default function FeatureCard({ imageSrc, heading, subHeading }) {
     return (
-        <div className={Styles.cardContainer} >
+        <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }} className={Styles.cardContainer} >
             <div style={{ textAlign: "center", backgroundColor: "#171E26" }}>
                 <div style={{ backgroundColor: "#171E26" }}>
                     <img alt="Feature icon" style={{ backgroundColor: "#171E26" }} src={imageSrc} />
@@ -15,6 +16,6 @@ export default function FeatureCard({ imageSrc, heading, subHeading }) {
                     {subHeading}
                 </h5>
             </div>
-        </div>
+        </motion.div>
     )
 }

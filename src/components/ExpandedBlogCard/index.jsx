@@ -1,11 +1,12 @@
 import React from 'react';
+import { motion } from "framer-motion"
 
 import Styles from "./index.module.css";
 import { Link } from 'react-router-dom';
 
 export function ExpandedBlogCard({ imageHeading, imageSubHeading, heading, subHeading, blogNo = 0 }) {
     return (
-        <div className={Styles.blogCardContainer}>
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 0.25 }} className={Styles.blogCardContainer}>
             <div style={{ minWidth: "min(100%,359px)", height: "329px", borderRadius: 20, backgroundImage: `var(--image-blog${parseInt(blogNo % 2)})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
                 <div className={Styles.blogCardOverlay}>
                     <div style={{ backgroundColor: "transparent", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center" }}>
@@ -25,7 +26,7 @@ export function ExpandedBlogCard({ imageHeading, imageSubHeading, heading, subHe
                     <Link to={`/blog/${heading}`} style={{ color: "white", fontSize: 17, fontWeight: 600, border: "none", backgroundColor: "transparent", textDecoration: "none" }}>Read more</Link>
                 </button>
             </div>
-        </div >
+        </motion.div >
     )
 }
 
