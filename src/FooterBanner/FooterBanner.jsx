@@ -1,10 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import toast from "react-hot-toast";
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Styles from "./FooterBanner.module.css";
+import { NODE_API_ENDPOINT } from '../utils/utils';
 
 function FooterBanner() {
+    const [email, setEmail] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    async function handleSubscribe(e) {
+        e.preventDefault();
+        setIsLoading(true);
+        try {
+            const response = await fetch(`${NODE_API_ENDPOINT}/mailinglist`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email })
+            });
+            if (!response.ok) throw new Error("Api Error");
+            toast.success('Added to Mailing List')
+        } catch (error) {
+            toast.error("Something Went Wrong")
+        }
+        finally {
+            setEmail("");
+            setIsLoading(false);
+
+        }
+    }
     return (
         <div className={Styles.footerContainer}>
             <div>
@@ -38,14 +66,23 @@ function FooterBanner() {
                 <div style={{ color: "#b384ff", fontWeight: 700, fontSize: 20 }}>
                     Get the latest information
                 </div>
-                <div style={{ display: "flex", overflow: "hidden", borderRadius: 14, backgroundColor: "white", marginTop: 15 }}>
+                <form onSubmit={handleSubscribe} style={{ display: "flex", overflow: "hidden", borderRadius: 14, backgroundColor: "white", marginTop: 15 }}>
                     <div style={{ flex: 1, backgroundColor: "transparent", padding: 14 }}>
-                        <input placeholder='Email Address' style={{ height: "100%", width: "100%", backgroundColor: "transparent", fontSize: 16, padding: 0, border: "none", outline: "none" }} />
+                        <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type='email'
+                            disabled={isLoading}
+                            placeholder='Email Address'
+                            style={{ height: "100%", width: "100%", backgroundColor: "transparent", fontSize: 16, padding: 0, border: "none", outline: "none" }}
+                        />
                     </div>
-                    <button style={{ padding: 11, backgroundColor: "#8940ff", border: "none" }}>
-                        <SendIcon style={{ color: "white", backgroundColor: "transparent" }} />
+                    <button disabled={isLoading} type="submit" style={{ padding: 11, backgroundColor: "#8940ff", border: "none" }}>
+                        {isLoading ? (
+                            <CircularProgress />
+                        ) : <SendIcon style={{ color: "white", backgroundColor: "transparent" }} />}
                     </button>
-                </div>
+                </form>
                 <div style={{ color: "#777", marginTop: 10, fontSize: 15 }}>
                     Subscribe to our newsletter
                 </div>

@@ -71,7 +71,7 @@ export default function AllBlogs() {
 
             <div className={Styles.recentContainer} >
                 <h1 style={{ backgroundColor: "transparent", fontSize: 52, fontWeight: 600 }}>Recent</h1>
-                <Suspense fallback={<CardsGroupSkeleton component={CollapsedBlogCardSkeleton} count={3} />}>
+                <Suspense fallback={<CardsGroupSkeleton layoutStyles={{ backgroundColor: "transparent", display: "flex", flexWrap: "wrap" }} component={CollapsedBlogCardSkeleton} count={3} />}>
                     <CardsGroupGrid
                         layoutStyles={{ backgroundColor: "transparent" }}
                         component={CollapsedBlogCard}

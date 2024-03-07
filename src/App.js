@@ -16,8 +16,9 @@ import { persistStore } from 'redux-persist';
 import Payment from "./Payment/Payment";
 import Ambassadorship from "./Ambassadorship/Ambassadorship";
 import { useRef, useState, useEffect, useMemo } from "react";
-import  { initParticlesEngine } from "@tsparticles/react";
+import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
+import { Toaster } from 'react-hot-toast';
 function App() {
   const featuresRef = useRef(null);
   const [init, setInit] = useState(false);
@@ -163,6 +164,7 @@ function App() {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <RouterProvider router={router} />
+          <Toaster />
         </PersistGate>
       </Provider>
     </div>
