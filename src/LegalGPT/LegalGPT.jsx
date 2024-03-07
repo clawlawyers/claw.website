@@ -142,7 +142,7 @@ function LegalGPT() {
 
     return (
         <div style={{ position: "relative", height: "100%", width: "100%" }}>
-            <Sidebar retrieveChat={() => console.log("to be implemented")} />
+            <Sidebar search={location.search} retrieveChat={() => console.log("to be implemented")} />
             <div className={Style.container}>
                 <div className={Style.gptContainer}>
 

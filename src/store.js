@@ -5,7 +5,8 @@ import storage from 'redux-persist/lib/storage'
 
 const config = {
     key: "root",
-    storage
+    storage,
+    timeout: 1
 }
 
 const presistedUserReducer = persistReducer(config, userReducer);

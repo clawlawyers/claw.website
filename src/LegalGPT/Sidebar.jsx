@@ -9,7 +9,7 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export default function Sidebar() {
+export default function Sidebar({ search }) {
     const isPhoneMode = useMediaQuery({ query: '(max-width:768px)' });
     const [collapsed, setCollapsed] = useState(false);
     const currentUser = useSelector(state => state.user.current);
@@ -18,10 +18,12 @@ export default function Sidebar() {
     function handleAccount() {
         if (!currentUser) navigate("/login");
     }
-    function handleClearConversations(){
+    function handleClearConversations() {
+        if (search) navigate('/legalGPT')
         navigate(0);
     }
-    function handleNewConversation(){
+    function handleNewConversation() {
+        if (search) navigate('/legalGPT?')
         navigate(0);
     }
     useEffect(() => {

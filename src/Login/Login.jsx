@@ -52,7 +52,7 @@ export default function Login() {
                 const result = await confirmationResult.confirm(otp)
                 const { uid, phoneNumber, stsTokenManager } = result.user;
                 const { accessToken, expirationTime, refreshToken } = stsTokenManager;
-                dispatch(login({ uid, phoneNumber, sessionTokens: { accessToken, expirationTime, refreshToken } }));
+                dispatch(login({ uid, phoneNumber }));
                 navigate("/");
             }
             else throw new Error("Otp length should be of 6")
@@ -104,7 +104,7 @@ export default function Login() {
                     )}
                 </div>
                 <div className={Styles.iconContainer}>
-                    <img style={{ width: "60%" }} src={clawLogo} />
+                    <img alt="Claw Logo" style={{ width: "60%" }} src={clawLogo} />
                 </div>
             </div>
             <div id="recaptcha" />
