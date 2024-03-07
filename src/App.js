@@ -15,16 +15,18 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist';
 import Payment from "./Payment/Payment";
 import Ambassadorship from "./Ambassadorship/Ambassadorship";
+import { useRef } from "react";
 
 function App() {
+  const featuresRef = useRef(null);
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <RootLayout />,
+      element: <RootLayout onClickFeatures={() => featuresRef?.current.scrollIntoView({ behavior: "smooth" })} />,
       children: [
         {
           path: "/",
-          element: <Home />
+          element: <Home featuresRef={featuresRef} />
         },
         {
           path: "blog",

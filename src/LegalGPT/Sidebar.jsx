@@ -9,7 +9,7 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export default function Sidebar({ retrieveChat }) {
+export default function Sidebar() {
     const isPhoneMode = useMediaQuery({ query: '(max-width:768px)' });
     const [collapsed, setCollapsed] = useState(false);
     const currentUser = useSelector(state => state.user.current);
@@ -18,7 +18,12 @@ export default function Sidebar({ retrieveChat }) {
     function handleAccount() {
         if (!currentUser) navigate("/login");
     }
-
+    function handleClearConversations(){
+        navigate(0);
+    }
+    function handleNewConversation(){
+        navigate(0);
+    }
     useEffect(() => {
         setCollapsed(isPhoneMode);
     }, [isPhoneMode])
@@ -58,7 +63,7 @@ export default function Sidebar({ retrieveChat }) {
                                 </div>
                                 <button
                                     style={{ display: "flex", color: "white", border: "none", padding: 12, gap: 15, borderRadius: 10, backgroundColor: "#8940FF" }}
-
+                                    onClick={handleNewConversation}
                                 >
                                     <div>
                                         <AddIcon style={{ backgroundColor: "transparent" }} />
@@ -68,7 +73,7 @@ export default function Sidebar({ retrieveChat }) {
                             </div>
                         </div>
                         <div style={{ borderTop: "1px solid white", width: "100%", padding: 10, backgroundColor: "transparent" }}>
-                            <button onClick={retrieveChat} style={{ display: "flex", gap: 12, color: "white", alignItems: "center", border: "none", backgroundColor: "transparent" }}>
+                            <button onClick={handleClearConversations} style={{ display: "flex", gap: 12, color: "white", alignItems: "center", border: "none", backgroundColor: "transparent" }}>
                                 <DeleteOutlineOutlinedIcon style={{ backgroundColor: "transparent" }} />
                                 <div style={{ backgroundColor: "transparent", fontSize: 15 }}>Clear all conversations</div>
                             </button>
