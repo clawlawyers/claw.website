@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import Banner from './Banner/Banner'
 import SearchGPT from './SearchGPT/SearchGPT'
 import "./Home.module.css"
 import Features from './Features/Features'
-import Blogs from './Blogs/Blogs'
+import Blogs from './Blogs/Blogs';
+import Particles from "@tsparticles/react";
 
 
-function Home({ featuresRef }) {
+function Home({ featuresRef, engineReady, particleOptions }) {
+
+    function particlesLoaded() {
+        console.log("particles loaded")
+    };
+
     return (
         <div style={{ position: "relative", width: "100%" }}>
+            {engineReady && <Particles
+                id="tsparticles"
+                particlesLoaded={particlesLoaded}
+                options={particleOptions}
+            />}
             <Banner />
             <SearchGPT />
             <div style={{ position: "relative", backgroundColor: "transparent" }}>
