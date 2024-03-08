@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import Banner from './Banner/Banner'
 import SearchGPT from './SearchGPT/SearchGPT'
 import "./Home.module.css"
