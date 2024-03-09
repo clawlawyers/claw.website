@@ -10,8 +10,7 @@ import "@blocknote/core/fonts/inter.css";
 
 
 export default function CreateBlog() {
-    // const blockRef = useRef(null);
-    const [blocks, setBlocks] = useState([]);
+    const blockRef = useRef(null);
     const editor = useCreateBlockNote({ initialContent: [{}] }, []);
 
     const customDarkTheme = useMemo(() => ({
@@ -25,8 +24,7 @@ export default function CreateBlog() {
         }
     }), []);
 
-    const temp = useMemo(() => ({ dark: darkDefaultTheme, light: lightDefaultTheme }), []);
-    console.log("rerender")
+    const temp = useMemo(() => ({ dark: customDarkTheme, light: customDarkTheme }), []);
     return (
         <div className={Styles.main}>
             <BlockNoteView
@@ -34,20 +32,11 @@ export default function CreateBlog() {
                 style={{ width: "100%", flex: 1 }}
                 editor={editor}
                 editable
-                // onChange={() => blockRef.current = editor.document}
-                onChange={() => {
-                    setBlocks(editor.document)
-                }}
+                onChange={() => blockRef.current = editor.document}
             />
-            <div className={'item bordered'}>
-                <pre>
-                    <code>{JSON.stringify(blocks, null, 2)}</code>
-                </pre>
-            </div>
             <button
                 style={{ border: "none", padding: 12, borderRadius: 5, backgroundColor: "#8940FF", color: "white", fontSize: 18 }}
-                // onClick={() => console.log(blockRef.current)}
-                onClick={() => console.log(blocks)}
+                onClick={() => console.log(blockRef.current)}
             >
                 Publish Blog
             </button>
