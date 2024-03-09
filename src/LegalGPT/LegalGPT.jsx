@@ -65,7 +65,7 @@ function LegalGPT() {
     useEffect(() => {
         const query = new URLSearchParams(location.search).get('query');
         if (query) {
-            submitPrompt({query});
+            submitPrompt({ query });
         }
         const storedUserId = localStorage.getItem("claw_user_id");
         const storedSessionId = localStorage.getItem("claw_session_id");

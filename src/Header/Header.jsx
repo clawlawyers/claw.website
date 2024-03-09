@@ -3,10 +3,13 @@ import Styles from "./Header.module.css";
 import clawLogo from "../assets/icons/clawlogo.png";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../features/user/userSlice';
+import { logout } from '../features/auth/authSlice';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Header({ onClickFeatures }) {
-    const currentUser = useSelector(state => state.user.current);
+    const currentUser = useSelector(state => state.auth.user);
+    const authStatus = useSelector(state => state.auth.status);
+    const isAuthLoading = authStatus === 'loading' ? true : false;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleAuthChange = () => {
@@ -50,7 +53,8 @@ function Header({ onClickFeatures }) {
                         className={Styles.headerButton}
                         onClick={handleAuthChange}
                     >
-                        {currentUser ? <>Logout</> : <>Login</>}
+                        {isAuthLoading && <CircularProgress size={16} style={{ color: "white" }} />}
+                        {!isAuthLoading && (currentUser ? <>Logout</> : <>Login</>)}
                     </button>
 
                 </div>

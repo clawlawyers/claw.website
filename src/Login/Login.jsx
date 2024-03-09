@@ -5,7 +5,7 @@ import clawLogo from "../assets/icons/clawlogo.png";
 import Styles from "./Login.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
-import { login } from "../features/user/userSlice";
+import { login } from "../features/auth/authSlice";
 import CircularProgress from '@mui/material/CircularProgress';
 import ErrorIcon from '@mui/icons-material/Error';
 
@@ -15,7 +15,7 @@ export default function Login() {
     const [phoneNumber, setPhoneNumber] = useState("+91");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const currentUser = useSelector(state => state.user.current);
+    const currentUser = useSelector(state => state.auth.user);
     const navigate = useNavigate();
 
     useEffect(() => {

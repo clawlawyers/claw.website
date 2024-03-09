@@ -11,19 +11,22 @@ import Login from "./Login/Login";
 import RootLayout from "./RootLayout/RootLayout";
 import { Provider } from "react-redux";
 import store from "./store";
-import { PersistGate } from 'redux-persist/integration/react'
-import { persistStore } from 'redux-persist';
 import Payment from "./Payment/Payment";
 import Ambassadorship from "./Ambassadorship/Ambassadorship";
 import { useRef, useState, useEffect, useMemo } from "react";
 import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { Toaster } from 'react-hot-toast';
+import { retrieveAuth } from "./features/auth/authSlice";
 function App() {
   const featuresRef = useRef(null);
   const [init, setInit] = useState(false);
 
+
   // this should be run only once per application lifetime
+  useEffect(() => {
+    store.dispatch(retrieveAuth());
+  }, [store])
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
@@ -156,16 +159,16 @@ function App() {
       element: <LegalGPT />
     },
   ]);
-  const persistor = persistStore(store);
+  // const persistor = persistStore(store);
 
 
   return (
     <div className="App">
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <RouterProvider router={router} />
-          <Toaster />
-        </PersistGate>
+        {/* <PersistGate loading={null} persistor={persistor}> */}
+        <RouterProvider router={router} />
+        <Toaster />
+        {/* </PersistGate> */}
       </Provider>
     </div>
   );

@@ -8,11 +8,14 @@ import { useMediaQuery } from 'react-responsive';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAuthState } from '../hooks/useAuthState';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Sidebar({ search }) {
     const isPhoneMode = useMediaQuery({ query: '(max-width:768px)' });
     const [collapsed, setCollapsed] = useState(false);
-    const currentUser = useSelector(state => state.user.current);
+    const currentUser = useSelector(state => state.auth.user);
+    const { isAuthError, isAuthLoading } = useAuthState();
     const navigate = useNavigate();
 
     function handleAccount() {
@@ -47,14 +50,21 @@ export default function Sidebar({ search }) {
                                         <StarIcon style={{ backgroundColor: "transparent" }} />
                                     </div>
                                 </div>
-                                <div style={{ flex: 1, textAlign: "left" }}>
-                                    <div style={{ fontSize: 16 }}>
-                                        {currentUser ? currentUser.phoneNumber : <>Guest</>}
+                                {!isAuthLoading ? (
+                                    <div style={{ flex: 1, textAlign: "left" }}>
+                                        <div style={{ fontSize: 16 }}>
+                                            {currentUser ? currentUser.phoneNumber : <>Guest</>}
+                                        </div>
+                                        <div style={{ fontSize: 14, color: "#777" }}>
+                                            Free account
+                                        </div>
                                     </div>
-                                    <div style={{ fontSize: 14, color: "#777" }}>
-                                        Free account
+                                ) : (
+                                    <div style={{ flex: 1, textAlign: "left" }}>
+                                        <CircularProgress style={{ color: "white" }} size={14} />
                                     </div>
-                                </div>
+                                )}
+
                             </button>
                             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                                 <div style={{ display: "flex", padding: 12, gap: 15 }}>
