@@ -24,6 +24,11 @@ export const userSlice = createSlice({
             state.user = null;
             localStorage.removeItem('auth');
             return;
+        },
+        gptUserCreated(state) {
+            state.user.newGptUser = false;
+            localStorage.setItem('auth', JSON.stringify(state));
+            return;
         }
     },
     extraReducers: (builder) => {
@@ -32,6 +37,7 @@ export const userSlice = createSlice({
         })
         builder.addCase(retrieveAuth.fulfilled, (state, action) => {
             state.status = "succeeded";
+            if (action.payload && action.payload.expiresAt < new Date().valueOf()) return;
             state.user = action.payload;
         })
         builder.addCase(retrieveAuth.rejected, (state) => {
@@ -41,6 +47,6 @@ export const userSlice = createSlice({
 
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, gptUserCreated } = userSlice.actions;
 
 export default userSlice.reducer;

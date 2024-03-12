@@ -1,11 +1,42 @@
 import React, { useState } from 'react';
 import SearchOutlined from '@mui/icons-material/SearchOutlined';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Styles from "./SearchGPT.module.css";
-import { Link } from 'react-router-dom';
+import { generateResponse, setGpt } from '../../features/gpt/gptSlice';
+import { NODE_API_ENDPOINT } from '../../utils/utils';
 
 export default function SearchGPT() {
     const [query, setQuery] = useState("");
+    const currentUser = useSelector(state => state.auth.user);
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    async function onSubmitPrompt() {
+        setIsLoading(true);
+        if (currentUser) {
+            const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${currentUser.jwt}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ prompt: query, model: "legalGPT" }),
+            });
+            const { data } = await res.json();
+            dispatch(setGpt({ prompt: query }))
+            dispatch(generateResponse(data.id));
+            navigate(`/legalGPT/session/${data.id}`);
+        }
+        else {
+            dispatch(setGpt({ prompt: query }));
+            dispatch(generateResponse());
+            navigate('/legalGPT/conversation')
+        }
+    }
     return (
         <div className={Styles.searchContainer}>
             <div className={Styles.searchContent}>
@@ -20,11 +51,13 @@ export default function SearchGPT() {
                         />
                     </div>
                     <div className={Styles.buttonContainer}>
-                        <Link to={`/legalGPT?query=${query}`} style={{ border: "none", color: "inherit", backgroundColor: "inherit", textDecoration: "none", width: "100%", height: "100%" }}>
-                            <button>
-                                Ask LegalGPT
-                            </button>
-                        </Link>
+                        {
+                            isLoading ? <CircularProgress style={{ padding: 12, fontSize: 14, color: "#8940ff" }} /> :
+                                <button onClick={onSubmitPrompt}>
+                                    Ask LegalGPT
+                                </button>
+                        }
+
                     </div>
                 </div>
             </div>

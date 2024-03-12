@@ -18,6 +18,9 @@ import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { Toaster } from 'react-hot-toast';
 import { retrieveAuth } from "./features/auth/authSlice";
+import LegalGPTLayout from "./LegalGPT/LegalGPTLayout.jsx";
+import SessionLegalGPT from "./LegalGPT/SessionLegalGPT.jsx";
+import ConversationLegalGPT from "./LegalGPT/ConversationLegalGPT.jsx";
 function App() {
   const featuresRef = useRef(null);
   const [init, setInit] = useState(false);
@@ -117,7 +120,7 @@ function App() {
       element: <RootLayout onClickFeatures={() => featuresRef?.current?.scrollIntoView({ behavior: "smooth" })} />,
       children: [
         {
-          path: "/",
+          path: "",
           element: <Home particleOptions={options} featuresRef={featuresRef} engineReady={init} />
         },
         {
@@ -156,7 +159,21 @@ function App() {
     },
     {
       path: "/legalGPT",
-      element: <LegalGPT />
+      element: <LegalGPTLayout />,
+      children: [
+        {
+          path: '',
+          element: <LegalGPT />
+        },
+        {
+          path: 'session/:sessionId',
+          element: <SessionLegalGPT />
+        },
+        {
+          path: 'conversation',
+          element: <ConversationLegalGPT />
+        }
+      ]
     },
   ]);
   // const persistor = persistStore(store);

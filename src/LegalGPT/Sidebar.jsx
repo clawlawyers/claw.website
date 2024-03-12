@@ -10,24 +10,24 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from '../hooks/useAuthState';
 import CircularProgress from '@mui/material/CircularProgress';
+import { UserSessions } from './UserSessions';
 
-export default function Sidebar({ search }) {
+
+export default function Sidebar() {
     const isPhoneMode = useMediaQuery({ query: '(max-width:768px)' });
     const [collapsed, setCollapsed] = useState(false);
     const currentUser = useSelector(state => state.auth.user);
-    const { isAuthError, isAuthLoading } = useAuthState();
+    const { isAuthLoading } = useAuthState();
     const navigate = useNavigate();
 
     function handleAccount() {
         if (!currentUser) navigate("/login");
     }
     function handleClearConversations() {
-        if (search) navigate('/legalGPT')
-        navigate(0);
+        navigate('/legalGPT')
     }
     function handleNewConversation() {
-        if (search) navigate('/legalGPT?')
-        navigate(0);
+        navigate('/legalGPT?')
     }
     useEffect(() => {
         setCollapsed(isPhoneMode);
@@ -43,7 +43,7 @@ export default function Sidebar({ search }) {
             {!collapsed && (
                 <div style={{ width: "100%", height: "100%", display: "flex", backgroundColor: "transparent" }}>
                     <div className={Style.sidebar}>
-                        <div style={{ display: "flex", flexDirection: "column", gap: 25, width: "100%" }}>
+                        <div style={{ display: "flex", flexDirection: "column", gap: 25, width: "100%", flex: 1, overflow: "hidden" }}>
                             <button onClick={handleAccount} style={{ display: "flex", color: "white", border: "none", backgroundColor: "rgba(255,255,255,0.05)", padding: 15, gap: 15, borderRadius: 10 }}>
                                 <div style={{ display: "flex", height: "100%", alignItems: "center" }}>
                                     <div style={{ height: 40, width: 40, borderRadius: 40, backgroundColor: "#8940FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -66,7 +66,7 @@ export default function Sidebar({ search }) {
                                 )}
 
                             </button>
-                            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                            <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: 10, overflow: "hidden" }}>
                                 <div style={{ display: "flex", padding: 12, gap: 15 }}>
                                     <div>
                                         <ChatBubbleOutlineIcon style={{ backgroundColor: "transparent" }} />
@@ -82,6 +82,11 @@ export default function Sidebar({ search }) {
                                     </div>
                                     <div>Start a new chat</div>
                                 </button>
+                                <div style={{ flex: 1, overflow: "scroll" }}>
+                                    {(currentUser && !isAuthLoading) &&
+                                        <UserSessions jwt={currentUser.jwt} />
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div style={{ borderTop: "1px solid white", width: "100%", padding: 10, backgroundColor: "transparent" }}>

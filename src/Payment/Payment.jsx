@@ -9,7 +9,6 @@ export default function Payment() {
 
     async function handlePayment(e) {
         e.preventDefault();
-        console.log(cardHolderName, cardNumber);
     }
 
     return (

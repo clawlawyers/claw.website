@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 import { login } from "../features/auth/authSlice";
 import CircularProgress from '@mui/material/CircularProgress';
 import ErrorIcon from '@mui/icons-material/Error';
+import { NODE_API_ENDPOINT } from "../utils/utils";
 
 export default function Login() {
     const [otp, setOtp] = useState("");
@@ -50,9 +51,16 @@ export default function Login() {
             if (otp.length === 6) {
                 const confirmationResult = window.confirmationResult;
                 const result = await confirmationResult.confirm(otp)
-                const { uid, phoneNumber, stsTokenManager } = result.user;
-                const { accessToken, expirationTime, refreshToken } = stsTokenManager;
-                dispatch(login({ uid, phoneNumber }));
+                const { uid, phoneNumber } = result.user;
+                const response = await fetch(`${NODE_API_ENDPOINT}/client/verify`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ phoneNumber: phoneNumber.slice(3), verified: true })
+                })
+                const { data } = await response.json();
+                dispatch(login({ uid, phoneNumber, jwt: data.jwt, expiresAt: data.expiresAt, newGptUser: data.newGptUser }));
                 navigate("/");
             }
             else throw new Error("Otp length should be of 6")

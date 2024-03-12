@@ -9,15 +9,10 @@ import Particles from "@tsparticles/react";
 
 function Home({ featuresRef, engineReady, particleOptions }) {
 
-    function particlesLoaded() {
-        console.log("particles loaded")
-    };
-
     return (
         <div style={{ position: "relative", width: "100%" }}>
             {engineReady && <Particles
                 id="tsparticles"
-                particlesLoaded={particlesLoaded}
                 options={particleOptions}
             />}
             <Banner />

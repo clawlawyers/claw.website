@@ -3,7 +3,7 @@
   width: 60%;
   z-index: 2;
   margin: auto;
-  padding-top: 50px;
+  padding-top: 0px;
 }
 
 @media only screen and (max-width: 768px) {
