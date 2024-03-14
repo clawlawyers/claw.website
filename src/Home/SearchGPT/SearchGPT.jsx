@@ -16,6 +16,7 @@ export default function SearchGPT() {
     const dispatch = useDispatch();
 
     async function onSubmitPrompt() {
+        if (!query) return;
         setIsLoading(true);
         if (currentUser) {
             const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
@@ -46,8 +47,8 @@ export default function SearchGPT() {
                         <input
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            style={{ backgroundColor: "transparent", width: "100%", fontSize: 14, outline: "none", border: "none" }}
-                            placeholder='Ask Your Legal Questions Here ...'
+                            style={{ backgroundColor: "transparent", width: "100%", fontSize: 16, outline: "none", border: "none" }}
+                            placeholder='Enter Prompt Here ...'
                         />
                     </div>
                     <div className={Styles.buttonContainer}>

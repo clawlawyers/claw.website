@@ -77,7 +77,7 @@ export default function Login() {
             <div style={{ backgroundColor: "#13161f", position: "relative", borderRadius: 30, padding: 50, zIndex: 2, width: "80%", margin: "auto", display: "flex", gap: 10 }}>
                 <div style={{ flex: 1 }}>
 
-                    <h1 style={{ fontSize: 60, fontWeight: 700, marginBottom: 25, textAlign: "center" }}>
+                    <h1 className={Styles.loginHeader} >
                         Welcome back!
                     </h1>
                     <div>

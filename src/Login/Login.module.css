@@ -5,8 +5,18 @@
   justify-content: center;
 }
 
+.loginHeader {
+  font-size: 60px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
 @media only screen and (max-width: 768px) {
   .iconContainer {
     display: none;
+  }
+  .loginHeader {
+    font-size: 40px;
   }
 }
