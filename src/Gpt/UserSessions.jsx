@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { NODE_API_ENDPOINT } from '../utils/utils';
 
 
-export function UserSessions({ jwt }) {
+export function UserSessions({ jwt, model }) {
     const [isLoading, setIsLoading] = useState();
     const [sessions, setSessions] = useState([]);
     const { sessionId } = useParams();
@@ -13,7 +13,7 @@ export function UserSessions({ jwt }) {
         async function fetchUserSessions() {
             try {
                 setIsLoading(true);
-                const res = await fetch(`${NODE_API_ENDPOINT}/gpt/sessions`, {
+                const res = await fetch(`${NODE_API_ENDPOINT}/gpt/sessions/${model}`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${jwt}`,
@@ -29,7 +29,7 @@ export function UserSessions({ jwt }) {
             }
         }
         fetchUserSessions();
-    }, [jwt])
+    }, [jwt, model])
     return (
         <div style={{ height: "100%" }}>
             {isLoading ?
@@ -41,6 +41,7 @@ export function UserSessions({ jwt }) {
                     {sessions.map(({ name, id }) => (
 
                         <Link
+                            key={id}
                             style={{ textDecoration: "none", display: "block", color: "white", border: "none", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", padding: 12, gap: 15, borderRadius: 10, backgroundColor: (sessionId === id ? "#777" : "inherit") }}
                             to={`session/${id}`}>
                             {name}

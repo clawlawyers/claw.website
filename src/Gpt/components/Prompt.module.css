@@ -3,10 +3,6 @@
   border-radius: 10px;
 }
 
-.gptResponse {
-  background-color: #8940ff !important;
-}
-
 .promptText {
   font-family: "Lato";
   overflow-wrap: break-word;

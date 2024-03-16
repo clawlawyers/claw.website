@@ -1,7 +1,6 @@
 import "./App.css";
 import Home from "./Home/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LegalGPT from "./LegalGPT/LegalGPT";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 import Blog from "./Blog/Blog";
 import AllBlogs from "./AllBlogs/AllBlogs";
@@ -18,9 +17,12 @@ import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { Toaster } from 'react-hot-toast';
 import { retrieveAuth } from "./features/auth/authSlice";
-import LegalGPTLayout from "./LegalGPT/LegalGPTLayout.jsx";
-import SessionLegalGPT from "./LegalGPT/SessionLegalGPT.jsx";
-import ConversationLegalGPT from "./LegalGPT/ConversationLegalGPT.jsx";
+import GPTLayout from "./Gpt/GPTLayout.jsx";
+import GPT from "./Gpt/GPT.jsx";
+import SessionGPT from "./Gpt/SessionGPT.jsx";
+import AuthWall from "./AuthWall/AuthWall.jsx";
+
+
 function App() {
   const featuresRef = useRef(null);
   const [init, setInit] = useState(false);
@@ -29,7 +31,7 @@ function App() {
   // this should be run only once per application lifetime
   useEffect(() => {
     store.dispatch(retrieveAuth());
-  }, [store])
+  }, [])
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
@@ -158,34 +160,48 @@ function App() {
       ]
     },
     {
-      path: "/legalGPT",
-      element: <LegalGPTLayout />,
+      path: "/gpt",
+      element: <AuthWall />,
       children: [
         {
-          path: '',
-          element: <LegalGPT />
+          path: "legalGPT",
+          element: <GPTLayout keyword="Legal" primaryColor="#8940FF" model="legalGPT" />,
+          children: [
+            {
+              path: '',
+              element: <GPT keyword="Legal" primaryColor="#8940FF" model="legalGPT" textGradient={["rgba(137, 64, 255, 0.5)", "rgba(137, 64, 255, 0)"]} backgroundGradient={["rgba(137, 64, 255,0.45)", "rgba(137, 64, 255,0.1)"]} />
+            },
+            {
+              path: 'session/:sessionId',
+              element: <SessionGPT keyword="Legal" primaryColor="#8940FF" model="legalGPT" />
+            },
+          ]
         },
         {
-          path: 'session/:sessionId',
-          element: <SessionLegalGPT />
+          path: "finGPT",
+          element: <GPTLayout keyword="Finance" primaryColor="#008080" model="financeGPT" />,
+          children: [
+            {
+              path: '',
+              element: <GPT textGradient={["rgba(0,128,128,0.75)", "rgba(0,128,128,0)"]} backgroundGradient={["rgba(0,128,128,0.45)", "rgba(0,128,128,0.1)"]} keyword={"Finance"} primaryColor={"#008080"} model={"financeGPT"} />
+            },
+            {
+              path: 'session/:sessionId',
+              element: <SessionGPT keyword={"Finance"} primaryColor={"#008080"} model={"financeGPT"} />
+            },
+          ]
         },
-        {
-          path: 'conversation',
-          element: <ConversationLegalGPT />
-        }
       ]
     },
+
   ]);
-  // const persistor = persistStore(store);
 
 
   return (
     <div className="App">
       <Provider store={store}>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
         <RouterProvider router={router} />
         <Toaster />
-        {/* </PersistGate> */}
       </Provider>
     </div>
   );

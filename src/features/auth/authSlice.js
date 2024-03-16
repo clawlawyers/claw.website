@@ -36,9 +36,9 @@ export const userSlice = createSlice({
             state.status = "loading";
         })
         builder.addCase(retrieveAuth.fulfilled, (state, action) => {
-            state.status = "succeeded";
             if (action.payload && action.payload.expiresAt < new Date().valueOf()) return;
             state.user = action.payload;
+            state.status = "succeeded";
         })
         builder.addCase(retrieveAuth.rejected, (state) => {
             state.status = "failed";

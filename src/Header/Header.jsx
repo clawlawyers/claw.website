@@ -45,7 +45,7 @@ function Header({ onClickFeatures }) {
                     </div> */}
                 </div>
                 <div className={Styles.headerGPT}>
-                    <Link className={Styles.headerButton} to='/legalGPT' >
+                    <Link className={Styles.headerButton} to='/gpt/legalGPT' >
                         LegalGPT
                     </Link>
 

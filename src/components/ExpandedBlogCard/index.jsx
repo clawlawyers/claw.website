@@ -1,20 +1,17 @@
 import React from 'react';
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 import Styles from "./index.module.css";
 import { Link } from 'react-router-dom';
+import blog0 from "../../assets/icons/blog0.png"
+import blog1 from "../../assets/icons/blog1.png"
 
 export function ExpandedBlogCard({ imageHeading, imageSubHeading, heading, subHeading, blogNo = 0 }) {
     return (
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 0.25 }} className={Styles.blogCardContainer}>
-            <div style={{ minWidth: "min(100%,359px)", height: "329px", borderRadius: 20, backgroundImage: `var(--image-blog${parseInt(blogNo % 2)})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                <div className={Styles.blogCardOverlay}>
-                    <div style={{ backgroundColor: "transparent", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center" }}>
-                        <div style={{ textDecoration: "underline", backgroundColor: "transparent", fontFamily: "Syne" }}>{imageHeading}</div>
-                        <div style={{ backgroundColor: "transparent", fontFamily: "Syne" }}>{imageSubHeading}</div>
-                    </div>
-                </div>
-            </div>
+
+            <img src={blog0} />
+
             <div className={Styles.blogCardContent}>
                 <h3 className={Styles.blogCardHeading}>
                     {heading}

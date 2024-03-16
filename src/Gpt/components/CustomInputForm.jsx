@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import SendIcon from '@mui/icons-material/Send';
 import Styles from "./CustomInputForm.module.css";
 
-export default function CustomInputForm({ onSubmit, isLoading = false, containerStyles = {} }) {
+export default function CustomInputForm({ onSubmit, isLoading = false, containerStyles = {}, primaryColor }) {
   const [query, setQuery] = useState("");
   function onFormSubmission(e) {
     e.query = query;
@@ -23,7 +23,7 @@ export default function CustomInputForm({ onSubmit, isLoading = false, container
           onChange={(e) => setQuery(e.target.value)}
           value={query}
         />
-        <button disabled={isLoading} type='submit' style={{ border: "none", backgroundColor: "rgba(137, 64, 255, 0.7)", borderRadius: 10, padding: 10 }}>
+        <button disabled={isLoading} type='submit' style={{ border: "none", backgroundColor: primaryColor, borderRadius: 10, padding: 10 }}>
           <SendIcon style={{ color: "white", backgroundColor: "transparent" }} />
         </button>
       </form>

@@ -20,6 +20,7 @@
   margin-left: 15px;
   margin-right: 50px;
   text-wrap: "wrap";
+  flex: 2;
   width: 100%;
   height: 100%;
 }
@@ -43,6 +44,10 @@
   color: #777;
 }
 
+.blogCardContainer > img {
+  width: 359px;
+}
+
 @media only screen and (max-width: 768px) {
   .blogCardContainer {
     flex-direction: column;
@@ -62,6 +67,9 @@
   .blogCardSubHeading {
     font-size: 20px;
     padding-bottom: 20px;
+  }
+  .blogCardContainer > img {
+    width: 100%;
   }
 }
 

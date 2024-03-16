@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Style from "./LegalGPT.module.css";
-import { Prompt } from './Prompt';
-import { CustomLoader } from './CustomLoader';
-import CustomInputForm from './CustomInputForm';
+import { Prompt } from './components/Prompt';
+import { CustomLoader } from './components/CustomLoader';
+import CustomInputForm from './components/CustomInputForm';
 import clawImg from "../assets/images/gptclaw.PNG";
 import { generateResponse, resetGpt, setGpt } from "../features/gpt/gptSlice";
 

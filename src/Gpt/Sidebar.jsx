@@ -13,7 +13,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { UserSessions } from './UserSessions';
 
 
-export default function Sidebar() {
+export default function Sidebar({ keyword, primaryColor,model }) {
     const isPhoneMode = useMediaQuery({ query: '(max-width:768px)' });
     const [collapsed, setCollapsed] = useState(false);
     const currentUser = useSelector(state => state.auth.user);
@@ -24,10 +24,12 @@ export default function Sidebar() {
         if (!currentUser) navigate("/login");
     }
     function handleClearConversations() {
-        navigate('/legalGPT')
+        if (keyword === 'Legal') navigate('/gpt/legalGPT')
+        else navigate('/gpt/finGPT');
     }
     function handleNewConversation() {
-        navigate('/legalGPT?')
+        if (keyword === 'Legal') navigate('/gpt/legalGPT')
+        else navigate('/gpt/finGPT');
     }
     useEffect(() => {
         setCollapsed(isPhoneMode);
@@ -46,7 +48,7 @@ export default function Sidebar() {
                         <div style={{ display: "flex", flexDirection: "column", gap: 25, width: "100%", flex: 1, overflow: "hidden" }}>
                             <button onClick={handleAccount} style={{ display: "flex", color: "white", border: "none", backgroundColor: "rgba(255,255,255,0.05)", padding: 15, gap: 15, borderRadius: 10 }}>
                                 <div style={{ display: "flex", height: "100%", alignItems: "center" }}>
-                                    <div style={{ height: 40, width: 40, borderRadius: 40, backgroundColor: "#8940FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                    <div style={{ height: 40, width: 40, borderRadius: 40, backgroundColor: primaryColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
                                         <StarIcon style={{ backgroundColor: "transparent" }} />
                                     </div>
                                 </div>
@@ -71,10 +73,10 @@ export default function Sidebar() {
                                     <div>
                                         <ChatBubbleOutlineIcon style={{ backgroundColor: "transparent" }} />
                                     </div>
-                                    <div>What is legalGPT</div>
+                                    <div>What is {keyword}GPT</div>
                                 </div>
                                 <button
-                                    style={{ display: "flex", color: "white", border: "none", padding: 12, gap: 15, borderRadius: 10, backgroundColor: "#8940FF" }}
+                                    style={{ display: "flex", color: "white", border: "none", padding: 12, gap: 15, borderRadius: 10, backgroundColor: primaryColor }}
                                     onClick={handleNewConversation}
                                 >
                                     <div>
@@ -84,7 +86,7 @@ export default function Sidebar() {
                                 </button>
                                 <div style={{ flex: 1, overflow: "scroll" }}>
                                     {(currentUser && !isAuthLoading) &&
-                                        <UserSessions jwt={currentUser.jwt} />
+                                        <UserSessions model={model} jwt={currentUser.jwt} />
                                     }
                                 </div>
                             </div>

@@ -3,15 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 
 import Style from "./LegalGPT.module.css";
-import { Prompt } from './Prompt';
-import { CustomLoader } from './CustomLoader';
-import CustomInputForm from './CustomInputForm';
+import { Prompt } from './components/Prompt';
+import { CustomLoader } from './components/CustomLoader';
+import CustomInputForm from './components/CustomInputForm';
 import clawImg from "../assets/images/gptclaw.PNG";
 import { generateResponse, resetGpt, setGpt } from "../features/gpt/gptSlice";
 import { NODE_API_ENDPOINT } from '../utils/utils';
 import { useAuthState } from '../hooks/useAuthState';
 
-export default function SessionLegalGPT(props) {
+export default function SessionGPT({ keyword, model, primaryColor }) {
     const { prompt, status, response } = useSelector(state => state.gpt);
     const currentUser = useSelector(state => state.auth.user);
     const [prompts, setPrompts] = useState([]);
@@ -73,7 +73,7 @@ export default function SessionLegalGPT(props) {
         setIsLoading(true);
         setPrompts(prompts => [...prompts, { text: query, isUser: true }]);
         dispatch(setGpt({ prompt: query }))
-        dispatch(generateResponse(sessionId));
+        dispatch(generateResponse({ sessionId, model }));
     }
 
     return (
@@ -83,7 +83,7 @@ export default function SessionLegalGPT(props) {
                 <div className={Style.clawBackdrop}><img alt="claw icon" src={clawImg} /></div>
                 <div className={Style.subContainer} >
                     <div style={{ width: "100%", height: "100%" }}>
-                        {prompts.map(({ text, isUser }, idx) => <Prompt key={idx} text={text} isUser={isUser} />)}
+                        {prompts.map(({ text, isUser }, idx) => <Prompt primaryColor={primaryColor} key={idx} text={text} isUser={isUser} />)}
 
                         {isLoading && (
                             <div style={{ width: "100%", height: "100%" }}>
@@ -94,7 +94,7 @@ export default function SessionLegalGPT(props) {
 
                 </div>
             </div>
-            <CustomInputForm isLoading={isLoading} onSubmit={submitPrompt} />
+            <CustomInputForm primaryColor={primaryColor} isLoading={isLoading} onSubmit={submitPrompt} />
         </div>
     )
 }

@@ -29,13 +29,13 @@ export default function SearchGPT() {
             });
             const { data } = await res.json();
             dispatch(setGpt({ prompt: query }))
-            dispatch(generateResponse(data.id));
-            navigate(`/legalGPT/session/${data.id}`);
+            dispatch(generateResponse({ sessionId: data.id, model: "legalGPT" }));
+            navigate(`gpt/legalGPT/session/${data.id}`);
         }
         else {
-            dispatch(setGpt({ prompt: query }));
-            dispatch(generateResponse());
-            navigate('/legalGPT/conversation')
+            const searchParams = new URLSearchParams({ callbackUrl: '/gpt/legalGPT' }).toString();
+            navigate(`/login?${searchParams}`);
+
         }
     }
     return (

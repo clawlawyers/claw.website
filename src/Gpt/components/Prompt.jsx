@@ -3,10 +3,10 @@ import Styles from "./Prompt.module.css";
 import AssistantIcon from '@mui/icons-material/Assistant';
 import PersonIcon from '@mui/icons-material/Person';
 
-export function Prompt({ isUser, text }) {
+export function Prompt({ isUser, text, primaryColor }) {
     const highlighted = !isUser;
     return (
-        <div className={Styles.container} style={(highlighted ? { backgroundColor: "#8940FF", padding: "15px 10px" } : { padding: "5px 10px" })}>
+        <div className={Styles.container} style={(highlighted ? { backgroundColor: primaryColor, padding: "15px 10px" } : { padding: "5px 10px" })}>
             <div style={{ display: "flex" }}>
                 <div style={{
                     width: 30,

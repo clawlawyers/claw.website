@@ -4,7 +4,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import clawLogo from "../assets/icons/clawlogo.png";
 import Styles from "./Login.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { login } from "../features/auth/authSlice";
 import CircularProgress from '@mui/material/CircularProgress';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -18,12 +18,17 @@ export default function Login() {
     const [error, setError] = useState(null);
     const currentUser = useSelector(state => state.auth.user);
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
-    useEffect(() => {
-        if (currentUser) return navigate("/");
-    }, [])
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (currentUser) {
+            if (searchParams.get("callbackUrl")) navigate(searchParams.get("callbackUrl"));
+            else navigate("/");
+        }
+    }, [navigate, searchParams, currentUser])
 
     const generateRecaptcha = () => {
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha', {
@@ -61,7 +66,6 @@ export default function Login() {
                 })
                 const { data } = await response.json();
                 dispatch(login({ uid, phoneNumber, jwt: data.jwt, expiresAt: data.expiresAt, newGptUser: data.newGptUser }));
-                navigate("/");
             }
             else throw new Error("Otp length should be of 6")
         } catch (error) {
@@ -71,7 +75,6 @@ export default function Login() {
             setIsLoading(false);
         }
     }
-
     return (
         <div style={{ width: "100%" }}>
             <div style={{ backgroundColor: "#13161f", position: "relative", borderRadius: 30, padding: 50, zIndex: 2, width: "80%", margin: "auto", display: "flex", gap: 10 }}>

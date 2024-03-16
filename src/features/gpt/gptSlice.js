@@ -2,32 +2,32 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 
 
-export const generateResponse = createAsyncThunk('gpt/generateResponse', async (sessionId, callback) => {
+export const generateResponse = createAsyncThunk('gpt/generateResponse', async ({ sessionId, model }, callback) => {
     const { auth, gpt } = callback.getState();
-    if (sessionId) {
-        const { jwt } = auth.user;
-        const { prompt } = gpt;
-        const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session/prompt`, {
-            method: "POST",
-            body: JSON.stringify({ sessionId, prompt }),
-            headers: {
-                Authorization: `Bearer ${jwt}`,
-                "Content-Type": "application/json",
-            }
-        })
-        return await res.json();
-    }
-    else {
-        const { prompt } = gpt;
-        const res = await fetch(`${NODE_API_ENDPOINT}/gpt/conversation`, {
-            method: "POST",
-            body: JSON.stringify({ prompt }),
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-        return await res.json();
-    }
+
+    const { jwt } = auth.user;
+    const { prompt } = gpt;
+    const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session/prompt`, {
+        method: "POST",
+        body: JSON.stringify({ sessionId, prompt, model }),
+        headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+        }
+    })
+    return await res.json();
+
+    // else {
+    //     const { prompt } = gpt;
+    //     const res = await fetch(`${NODE_API_ENDPOINT}/gpt/conversation`, {
+    //         method: "POST",
+    //         body: JSON.stringify({ prompt }),
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         }
+    //     })
+    //     return await res.json();
+    // }
 });
 
 
