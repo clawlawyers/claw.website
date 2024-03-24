@@ -21,6 +21,7 @@ import GPTLayout from "./Gpt/GPTLayout.jsx";
 import GPT from "./Gpt/GPT.jsx";
 import SessionGPT from "./Gpt/SessionGPT.jsx";
 import AuthWall from "./AuthWall/AuthWall.jsx";
+import CaseFinder from "./CaseFinder/index.jsx";
 
 
 function App() {
@@ -156,6 +157,10 @@ function App() {
         {
           path: "paymentgateway",
           element: <Payment />
+        },
+        {
+          path: "case/search",
+          element:<CaseFinder />
         }
       ]
     },

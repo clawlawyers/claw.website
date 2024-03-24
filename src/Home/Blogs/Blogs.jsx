@@ -7,7 +7,7 @@ import { createResource } from '../../utils/promiseWrapper';
 import { CardsGroup, CardsGroupSkeleton } from '../../components/CardsGroup/index';
 
 async function fetchBlogs() {
-    const response = await fetch(`${NODE_API_ENDPOINT}/blog`);
+    const response = await fetch(`${NODE_API_ENDPOINT}/blog?limit=${2}&page=${1}`);
     const parsed = await response.json();
     return parsed;
 }

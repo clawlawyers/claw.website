@@ -79,7 +79,7 @@ function FooterBanner() {
                     </div>
                     <button disabled={isLoading} type="submit" style={{ padding: 11, backgroundColor: "#8940ff", border: "none" }}>
                         {isLoading ? (
-                            <CircularProgress />
+                            <CircularProgress style={{ color: "white", padding:10 }} />
                         ) : <SendIcon style={{ color: "white", backgroundColor: "transparent" }} />}
                     </button>
                 </form>

@@ -4,19 +4,20 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import Style from "./LegalGPT.module.css";
 import { Prompt } from './components/Prompt';
-import { CustomLoader } from './components/CustomLoader';
-import CustomInputForm from './components/CustomInputForm';
 import clawImg from "../assets/images/gptclaw.PNG";
-import { generateResponse, resetGpt, setGpt } from "../features/gpt/gptSlice";
 import { NODE_API_ENDPOINT } from '../utils/utils';
 import { useAuthState } from '../hooks/useAuthState';
+import { CustomLoader } from './components/CustomLoader';
+import CustomInputForm from './components/CustomInputForm';
+import { generateResponse, resetGpt, setGpt } from "../features/gpt/gptSlice";
 
 export default function SessionGPT({ keyword, model, primaryColor }) {
-    const { prompt, status, response } = useSelector(state => state.gpt);
+    const { prompt, status, response, error } = useSelector(state => state.gpt);
     const currentUser = useSelector(state => state.auth.user);
     const [prompts, setPrompts] = useState([]);
     const { isAuthLoading } = useAuthState();
     const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const promptsRef = useRef(null);
     const dispatch = useDispatch();
     const { sessionId } = useParams();
@@ -27,6 +28,10 @@ export default function SessionGPT({ keyword, model, primaryColor }) {
         if (status === "succeeded" && response) {
             setIsLoading(false);
             setPrompts((prompts) => ([...prompts, { text: response, isUser: false }]));
+        }
+        else if (status === 'failed') {
+            setIsLoading(false);
+            setIsError(true);
         }
     }, [status])
 
@@ -90,11 +95,14 @@ export default function SessionGPT({ keyword, model, primaryColor }) {
                                 <CustomLoader />
                             </div>
                         )}
+                        {isError && (
+                            <Prompt primaryColor={"red"} key={'error'} text={error.message} isUser={false} />
+                        )}
                     </div>
 
                 </div>
             </div>
-            <CustomInputForm primaryColor={primaryColor} isLoading={isLoading} onSubmit={submitPrompt} />
+            <CustomInputForm primaryColor={primaryColor} isError={isError} isLoading={isLoading} onSubmit={submitPrompt} />
         </div>
     )
 }

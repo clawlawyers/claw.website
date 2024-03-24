@@ -1,22 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import Style from "./Sidebar.module.css";
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import StarIcon from '@mui/icons-material/Star';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import AddIcon from '@mui/icons-material/Add';
-import { useMediaQuery } from 'react-responsive';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAuthState } from '../hooks/useAuthState';
+import { useMediaQuery } from 'react-responsive';
+import React, { useEffect, useState } from 'react';
+
+import AddIcon from '@mui/icons-material/Add';
+import StarIcon from '@mui/icons-material/Star';
 import CircularProgress from '@mui/material/CircularProgress';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
+import Style from "./Sidebar.module.css";
 import { UserSessions } from './UserSessions';
+import { useAuthState } from '../hooks/useAuthState';
 
 
-export default function Sidebar({ keyword, primaryColor,model }) {
+export default function Sidebar({ keyword, primaryColor, model }) {
     const isPhoneMode = useMediaQuery({ query: '(max-width:768px)' });
     const [collapsed, setCollapsed] = useState(false);
     const currentUser = useSelector(state => state.auth.user);
+    const plan = useSelector(state => state.gpt.plan);
+    const token = useSelector(state => state.gpt.token);
     const { isAuthLoading } = useAuthState();
     const navigate = useNavigate();
 
@@ -58,7 +62,12 @@ export default function Sidebar({ keyword, primaryColor,model }) {
                                             {currentUser ? currentUser.phoneNumber : <>Guest</>}
                                         </div>
                                         <div style={{ fontSize: 14, color: "#777" }}>
-                                            Free account
+                                            {plan ? <>
+                                                <div>Plan - <span style={{ textTransform: 'capitalize' }}>{plan}</span></div>
+                                                <div>Token Used - {token.used}</div>
+                                                <div>Token Total - {token.total}</div>
+                                            </> : <CircularProgress style={{ padding: 10, color: "white" }} />}
+
                                         </div>
                                     </div>
                                 ) : (
