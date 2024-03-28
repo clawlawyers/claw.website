@@ -6,7 +6,9 @@ import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { useSearchParams } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 
 import { CaseCard } from '../components/CaseCard';
@@ -15,6 +17,8 @@ import { SearchOutlined } from '@mui/icons-material';
 export default function CaseFinder() {
     const [court, setCourt] = useState('');
     const [query, setQuery] = useState('');
+    const [search] = useSearchParams();
+    const { messageId, cases } = useSelector(state => state.gpt.relatedCases);
     return (
         <div style={{ width: "70%", margin: "auto", zIndex: 2, position: "relative" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -53,10 +57,15 @@ export default function CaseFinder() {
                 />
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-
-                <CaseCard name="we good" court="abc" date="12 march 0001" citations={0} />
-                <CaseCard name="we good" court="abc" date="12 march 0001" citations={0} />
-                <CaseCard name="we good" court="abc" date="12 march 0001" citations={0} />
+                {search.get('id') === messageId && cases.map((relatedCase) => {
+                    return <CaseCard
+                        name={relatedCase.title}
+                        citations={relatedCase.numCites}
+                        date={relatedCase.date}
+                        court={relatedCase.court}
+                        key={relatedCase.id}
+                    />
+                })}
             </div>
         </div>
     )

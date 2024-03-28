@@ -38,6 +38,10 @@ export const gptSlice = createSlice({
         status: "idle",
         prompt: null,
         response: null,
+        relatedCases: {
+            messageId: null,
+            cases: [],
+        },
         token: {
             used: null,
             total: {
@@ -65,13 +69,17 @@ export const gptSlice = createSlice({
         setPlan: (state, action) => {
             state.plan = action.payload.plan;
         },
+        setRelatedCases:(state,action)=>{
+            state.relatedCases.messageId = action.payload.messageId;
+            state.relatedCases.cases = action.payload.cases;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(generateResponse.pending, (state) => {
             state.status = "pending";
         })
         builder.addCase(generateResponse.fulfilled, (state, action) => {
-            state.response = action.payload.data?.gptResponse?.message;
+            state.response = action.payload.data;
             state.token = action.payload.data?.token;
             state.status = "succeeded";
         })
@@ -82,6 +90,6 @@ export const gptSlice = createSlice({
     }
 });
 
-export const { resetGpt, setGpt, setPlan, setToken } = gptSlice.actions;
+export const { resetGpt, setGpt, setPlan, setToken, setRelatedCases } = gptSlice.actions;
 
 export default gptSlice.reducer;
