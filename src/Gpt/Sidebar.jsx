@@ -64,10 +64,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                         <div style={{ fontSize: 14, color: "#777" }}>
                                             {plan ? <>
                                                 <div>Plan - <span style={{ textTransform: 'capitalize' }}>{plan}</span></div>
-                                                <div>Token Used - {token.used}</div>
-                                                <div>Total Tokens</div>
-                                                <div>Without Ads - {token.total.withoutAds}</div>
-                                                <div>With Ads - {token.total.withAds}</div>
+                                                <div>Token - {token.used}/{token.total} </div>
                                             </> : <CircularProgress style={{ padding: 10, color: "white" }} />}
 
                                         </div>

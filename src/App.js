@@ -160,7 +160,7 @@ function App() {
         },
         {
           path: "case/search",
-          element:<CaseFinder />
+          element: <CaseFinder />
         }
       ]
     },

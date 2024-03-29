@@ -59,6 +59,7 @@ export default function CaseFinder() {
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {search.get('id') === messageId && cases.map((relatedCase) => {
                     return <CaseCard
+                        link={relatedCase.id}
                         name={relatedCase.title}
                         citations={relatedCase.numCites}
                         date={relatedCase.date}

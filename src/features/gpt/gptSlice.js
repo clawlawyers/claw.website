@@ -44,10 +44,7 @@ export const gptSlice = createSlice({
         },
         token: {
             used: null,
-            total: {
-                withAds: null,
-                withoutAds: null,
-            },
+            total: null,
         },
         plan: null,
         error: null,
@@ -69,7 +66,7 @@ export const gptSlice = createSlice({
         setPlan: (state, action) => {
             state.plan = action.payload.plan;
         },
-        setRelatedCases:(state,action)=>{
+        setRelatedCases: (state, action) => {
             state.relatedCases.messageId = action.payload.messageId;
             state.relatedCases.cases = action.payload.cases;
         }

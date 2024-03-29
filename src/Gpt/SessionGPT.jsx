@@ -1,7 +1,7 @@
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import React, { useEffect, useState, useRef } from 'react';
 
 import Style from "./LegalGPT.module.css";
@@ -27,6 +27,7 @@ export default function SessionGPT({ model, primaryColor }) {
     const navigate = useNavigate();
     const [value, setValue] = useState(2);
     const [hover, setHover] = useState(-1);
+    const [caseCount, setCaseCount] = useState(2);
 
 
     useEffect(() => {
@@ -86,7 +87,6 @@ export default function SessionGPT({ model, primaryColor }) {
         dispatch(setGpt({ prompt: query }))
         dispatch(generateResponse({ sessionId, model }));
     }
-    console.log(relatedCases);
     return (
         <div className={Style.formContainer}>
 
@@ -104,17 +104,27 @@ export default function SessionGPT({ model, primaryColor }) {
                         {isError && (
                             <Prompt primaryColor={"red"} key={'error'} text={error.message} isUser={false} />
                         )}
-                        <div style={{ display: "flex", flexDirection: "column", gap: 5, marginTop: 5 }}>
-                            {relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id === relatedCases.messageId && relatedCases.cases.slice(0, 2).map((relatedCase) => {
-                                return <CaseCard
-                                    messageId={relatedCases.messageId}
-                                    name={relatedCase.title}
-                                    citations={relatedCase.numCites}
-                                    date={relatedCase.date}
-                                    court={relatedCase.court}
-                                    key={relatedCase.id}
-                                />
-                            })}
+                        <div >
+                            {relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id === relatedCases.messageId && relatedCases.cases.length > 0 && (
+                                <div>
+                                    <div style={{ display: "flex", flexDirection: "column", gap: 5, marginTop: 5 }}>
+                                        {relatedCases.cases.slice(0, caseCount).map((relatedCase) => {
+                                            return <CaseCard
+                                                messageId={relatedCases.messageId}
+                                                name={relatedCase.title}
+                                                citations={relatedCase.numCites}
+                                                date={relatedCase.date}
+                                                court={relatedCase.court}
+                                                key={relatedCase.id}
+                                            />
+                                        })}
+                                    </div>
+                                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: 5 }}>
+                                        <Link style={{ borderRadius: 15, backgroundColor: "#8940ff", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} to={`/case/search?id=${relatedCases.messageId}`}>Case search</Link>
+                                        <button style={{ borderRadius: 15, backgroundColor: "#8940ff", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={() => setCaseCount(caseCount => caseCount + 2)}>Load more</button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                     </div>
