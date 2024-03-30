@@ -1,8 +1,8 @@
 import React from 'react'
 import WelcomePointers from './WelcomePointers';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import AdjustIcon from '@mui/icons-material/Adjust';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import GavelIcon from '@mui/icons-material/Gavel';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import GetAppIcon from '@mui/icons-material/GetApp';
 import CustomInputForm from './components/CustomInputForm';
 
 import Styles from "./Welcome.module.css";
@@ -22,9 +22,9 @@ export default function Welcome({ submitPrompt, keyword, primaryColor, textGradi
                 <div className={Styles.secondaryContainer}>
                     <CustomInputForm primaryColor={primaryColor} onSubmit={submitPrompt} />
                     <div className={Styles.welcomePointerContainer}>
-                        <WelcomePointers icon={AutoAwesomeIcon} heading={"Efficiency"} subHeading={`Accelerates ${keyword} workflows.`} />
-                        <WelcomePointers icon={TrendingUpIcon} heading={"Precision"} subHeading={`Provides accurate ${keyword} insights.`} />
-                        <WelcomePointers icon={AdjustIcon} heading={"Accessibility"} subHeading={`Enhances ${keyword} information access.`} />
+                        <WelcomePointers style={{ gridColumn: "1/2" }} icon={GavelIcon} heading={"Legal Perspectives"} subHeading={`Acquire invaluable legal perspectives on any scenario or query concerning Indian law.`} />
+                        <WelcomePointers style={{ gridColumn: "2/3" }} icon={SupportAgentIcon} heading={"Tailored Support"} subHeading={`Obtain legal insights tailored to your specific circumstances by securely providing personal details within an end-to-end encrypted framework.`} />
+                        <WelcomePointers style={{ gridColumn: "3/4" }} icon={GetAppIcon} heading={"Case Retrieval"} subHeading={`Access highly contextual and relevant cases with just a single click.`} />
                     </div>
                 </div>
             </div>

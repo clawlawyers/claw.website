@@ -3,10 +3,12 @@
   display: flex;
   flex-direction: column;
   max-width: 202px;
+  border: 1px solid white;
 }
 
 .iconContainer {
   background-color: transparent;
+  margin-bottom: 5px;
   display: flex;
   justify-content: center;
 }

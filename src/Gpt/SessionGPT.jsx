@@ -112,6 +112,7 @@ export default function SessionGPT({ model, primaryColor }) {
                                             return <CaseCard
                                                 messageId={relatedCases.messageId}
                                                 name={relatedCase.title}
+                                                caseId={relatedCase.id}
                                                 citations={relatedCase.numCites}
                                                 date={relatedCase.date}
                                                 court={relatedCase.court}

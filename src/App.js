@@ -22,6 +22,7 @@ import GPT from "./Gpt/GPT.jsx";
 import SessionGPT from "./Gpt/SessionGPT.jsx";
 import AuthWall from "./AuthWall/AuthWall.jsx";
 import CaseFinder from "./CaseFinder/index.jsx";
+import AmbassadorDashboard from "./Ambassadorship/AmbassadorDashboard.jsx";
 
 
 function App() {
@@ -153,6 +154,13 @@ function App() {
         {
           path: "ambassadorship",
           element: <Ambassadorship />
+        },
+        {
+          path: "ambassador",
+          element: <AuthWall />,
+          children: [
+            { path: "dashboard", element: <AmbassadorDashboard /> }
+          ],
         },
         {
           path: "paymentgateway",

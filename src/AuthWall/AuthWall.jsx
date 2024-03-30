@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useAuthState } from '../hooks/useAuthState';
 import { useLocation, Outlet, useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import { logout } from "../features/auth/authSlice";
 
 export default function AuthWall() {
   const currentUser = useSelector(state => state.auth.user);
   const { isAuthLoading } = useAuthState();
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -15,7 +17,15 @@ export default function AuthWall() {
       const searchParams = new URLSearchParams({ callbackUrl: pathname }).toString();
       navigate(`/login?${searchParams}`);
     }
-  }, [currentUser, isAuthLoading, pathname, navigate])
+    else if (!isAuthLoading && !currentUser.hasOwnProperty('ambassador')) {
+      const searchParams = new URLSearchParams({ callbackUrl: pathname }).toString();
+      dispatch(logout());
+      navigate(`/login?${searchParams}`);
+    }
+    else if (!isAuthLoading && !currentUser.ambassador && pathname.includes('ambassador')) {
+      navigate('/')
+    }
+  }, [currentUser, isAuthLoading, pathname, navigate, dispatch])
 
   if (isAuthLoading) {
     return (

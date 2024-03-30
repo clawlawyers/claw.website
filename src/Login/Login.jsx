@@ -66,7 +66,7 @@ export default function Login() {
                     body: JSON.stringify({ phoneNumber: phoneNumber.slice(3), verified: true })
                 })
                 const { data } = await response.json();
-                dispatch(login({ uid, phoneNumber, jwt: data.jwt, expiresAt: data.expiresAt, newGptUser: data.newGptUser }));
+                dispatch(login({ uid, phoneNumber, jwt: data.jwt, expiresAt: data.expiresAt, newGptUser: data.newGptUser, ambassador: data.ambassador }));
             }
             else throw new Error("Otp length should be of 6")
         } catch (error) {
@@ -108,7 +108,7 @@ export default function Login() {
                             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                                 <label style={{ color: "#8940ff", fontWeight: 600, fontSize: 14 }}>PHONE NUMBER</label>
                                 <div style={{ display: "flex" }}>
-                                    <select value={countryCode} defaultValue={"+91"} onChange={(e) => setCountryCode(e.target.value)} style={{ backgroundColor: "inherit", border: "none", color: "white", outline: "none" }}>
+                                    <select value={countryCode} onChange={(e) => setCountryCode(e.target.value)} style={{ backgroundColor: "inherit", border: "none", color: "white", outline: "none" }}>
                                         <option style={{ color: "black" }} value={"+91"}>+91</option>
                                     </select>
                                     <input pattern="[0-9]{10}" style={{ background: "#32353c", color: "white", padding: 10, fontSize: 15, borderRadius: 2, outline: "none", border: "none" }} type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />

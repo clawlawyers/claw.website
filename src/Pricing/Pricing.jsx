@@ -6,7 +6,7 @@ import Styles from "./Pricing.module.css";
 export default function Pricing() {
     return (
         <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column", height: "100%", zIndex: 2 }}>
-            <div style={{ width: "90%", margin:"auto", flex: 1, color: "white" }}>
+            <div style={{ width: "90%", margin: "auto", flex: 1, color: "white", paddingBottom: 25 }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 10 }}>
                     <h1 style={{ fontSize: 45, fontWeight: 800 }}>
                         Find the Perfect Pricing Option for Your Legal Needs
@@ -18,19 +18,19 @@ export default function Pricing() {
                 </div>
 
             </div>
-            <div style={{ marginTop: 50, width: "80%", margin: "auto" }}>
+            <div style={{ width: "80%", margin: "auto" }}>
                 <div className={Styles.pricingContainer}>
                     <div className={Styles.first}>
                         <PricingCard
                             duration="Monthy"
-                            sliderMap={monthly}
+                            sliderMap={sliders}
 
                         />
                     </div>
                     <div className={Styles.second}>
                         <PricingCard
                             duration="Yearly"
-                            sliderMap={yearly}
+                            sliderMap={sliders}
                         />
                     </div>
                     <div className={Styles.third}>
@@ -45,32 +45,28 @@ export default function Pricing() {
         </div >
     )
 }
-const monthly = {
+const sliders = {
     request: {
         marks: [
             {
                 value: 0,
+                label: '500'
+            },
+            {
+                value: 33,
                 label: '1000'
             },
             {
-                value: 25,
-                label: '3000'
-            },
-            {
-                value: 50,
+                value: 66,
                 label: '5000'
             },
             {
-                value: 75,
-                label: '10000'
-            },
-            {
                 value: 100,
-                label: '20000'
+                label: 'Unlimited'
             },
 
         ],
-        map: { 0: 1000, 25: 3000, 50: 5000, 75: 10000, 100: 20000 }
+        map: { 0: 500, 33: 1000, 66: 5000, 100: 9999 }
     },
     session: {
         marks: [
@@ -82,48 +78,20 @@ const monthly = {
         map: { 0: 1, 33: 2, 66: 3, 100: 4 }
     }
 }
-const yearly = {
-    request: {
-        marks: [
-            {
-                value: 0,
-                label: '12000'
-            },
-            {
-                value: 25,
-                label: '36000'
-            },
-            {
-                value: 50,
-                label: '60000'
-            },
-            {
-                value: 75,
-                label: '150000'
-            },
-            {
-                value: 100,
-                label: '300000'
-            },
 
-        ],
-        map: { 0: 12000, 25: 36000, 50: 60000, 75: 150000, 100: 300000 }
-    },
-    session: {
-        marks: [
-            { value: 0, label: 1 },
-            { value: 33, label: 2 },
-            { value: 66, label: 3 },
-            { value: 100, label: 4 },
-        ],
-        map: { 0: 1, 33: 2, 66: 3, 100: 4 }
-    }
+const priceMap = {
+    500: { 1: 199, 2: 249, 3: 299, 4: 349 },
+    1000: { 1: 349, 2: 399, 3: 449, 4: 499 },
+    5000: { 1: 499, 2: 599, 3: 699, 4: 799 },
+    9999: { 1: 999, 2: 1499, 3: 1999, 4: 2999 },
 }
 
 
 const PricingCard = ({ duration, sliderMap }) => {
-    const [request, setRequest] = useState();
-    const [session, setSession] = useState();
+    const [request, setRequest] = useState(0);
+    const [session, setSession] = useState(0);
+    let price = priceMap[sliderMap.request.map[request]][sliderMap.session.map[session]];
+    if (duration === 'Yearly') price = price * 9;
 
     return <div style={{ border: "1px solid white", backgroundColor: "white", color: "black", borderRadius: 8, padding: 16, display: "flex", flexDirection: "column", gap: 16 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "center" }}>
@@ -133,21 +101,21 @@ const PricingCard = ({ duration, sliderMap }) => {
             <div>
                 <h3 style={{ fontSize: 27 }}>Request</h3>
                 <Slider
-                    defaultValue={0}
+                    value={request}
                     step={null}
                     style={{ color: "#008080" }}
                     marks={sliderMap.request.marks}
                     valueLabelDisplay="off"
-                    onChange={(e) => setRequest(sliderMap.request.map[e.target.value])}
+                    onChange={(_, val) => setRequest(val)}
                 />
             </div>
             <div style={{ width: "80%", margin: "auto" }}>
                 <h3 style={{ fontSize: 27 }}>Users/Sessions</h3>
                 <Slider
-                    defaultValue={0}
+                    value={session}
                     style={{ color: "#008080" }}
                     step={null}
-                    onChange={(e) => setSession(sliderMap.session.map[e.target.value])}
+                    onChange={(_, val) => setSession(val)}
                     marks={sliderMap.session.marks}
                     valueLabelDisplay="off"
                 />
@@ -155,12 +123,14 @@ const PricingCard = ({ duration, sliderMap }) => {
         </div>
         <div style={{ display: "flex", alignItems: "center", flexDirection: "column", gap: 8 }}>
             <h5>You're paying</h5>
-            <div>
-                <span style={{ marginRight: 10 }}>₹</span>
-                <span style={{ padding: "10px 50px", border: "1px solid #008080", borderRadius: 10 }}>{123}</span>
+            <div style={{ padding: "10px 50px", border: "1px solid #008080", borderRadius: 10, }}>
+                <span style={{ marginRight: 5 }}>₹</span>
+                <span style={{ textDecoration: "line-through", marginRight: 5 }}>{price * 3}</span>
+                <span style={{ borderRadius: 10, fontWeight: 600 }}>{price}</span>
             </div>
+            <h5 style={{ fontWeight: 700, color: "red", margin: 0, fontSize: 12 }}>Limited Time Offer!</h5>
         </div>
-        <div style={{ display: "flex", justifyContent: "center", paddingTop: 35 }}>
+        <div style={{ display: "flex", justifyContent: "center", paddingTop: 15 }}>
             <button style={{ padding: "16px 44px", border: "none", backgroundColor: "#008080", borderRadius: 8, color: "white", fontSize: 27 }}>
                 Get it now
             </button>

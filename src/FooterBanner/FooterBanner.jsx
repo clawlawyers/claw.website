@@ -3,6 +3,9 @@ import SendIcon from '@mui/icons-material/Send';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import toast from "react-hot-toast";
 import CircularProgress from '@mui/material/CircularProgress';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import XIcon from '@mui/icons-material/X';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 import Styles from "./FooterBanner.module.css";
 import { NODE_API_ENDPOINT } from '../utils/utils';
@@ -50,6 +53,24 @@ function FooterBanner() {
                         Linkedin
                     </a>
                 </div>
+                <div>
+                    <a href='https://www.instagram.com/claw_lawyers/' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10, textDecoration: "none" }}>
+                        <InstagramIcon />
+                        Instagram
+                    </a>
+                </div>
+                <div>
+                    <a href='http://www.twitter.com/claw_lawyers' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10, textDecoration: "none" }}>
+                        <XIcon />
+                        X {"(Formely Twitter)"}
+                    </a>
+                </div>
+                <div>
+                    <a href='https://www.facebook.com/profile.php?id=61557181644675' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10, textDecoration: "none" }}>
+                        <FacebookIcon />
+                        Facebook
+                    </a>
+                </div>
 
             </div>
             <div>
@@ -79,7 +100,7 @@ function FooterBanner() {
                     </div>
                     <button disabled={isLoading} type="submit" style={{ padding: 11, backgroundColor: "#8940ff", border: "none" }}>
                         {isLoading ? (
-                            <CircularProgress style={{ color: "white", padding:10 }} />
+                            <CircularProgress style={{ color: "white", padding: 10 }} />
                         ) : <SendIcon style={{ color: "white", backgroundColor: "transparent" }} />}
                     </button>
                 </form>
