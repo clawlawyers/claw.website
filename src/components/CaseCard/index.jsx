@@ -5,6 +5,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { NODE_API_ENDPOINT } from '../../utils/utils';
 import ClearIcon from '@mui/icons-material/Clear';
 
+import Styles from "./index.module.css";
+
 export function CaseCard({ name, date, court, citations, caseId }) {
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState();
@@ -50,7 +52,7 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                 onClose={handleClose}
                 aria-labelledby="child-modal-title"
             >
-                <div style={{
+                <div className={Styles.scrollable} style={{
                     backgroundColor: "#171e26", position: "absolute", top: '50%',
                     left: '50%',
                     width: "80%",

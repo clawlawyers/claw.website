@@ -2,13 +2,14 @@ import React from 'react';
 import Styles from "./Header.module.css";
 import clawLogo from "../assets/icons/clawlogo.png";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { logout } from '../features/auth/authSlice';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function Header({ onClickFeatures }) {
     const currentUser = useSelector(state => state.auth.user);
     const authStatus = useSelector(state => state.auth.status);
+    const location = useLocation();
     const isAuthLoading = authStatus === 'loading' ? true : false;
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,24 +26,42 @@ function Header({ onClickFeatures }) {
                     </Link>
                 </div>
                 <div className={Styles.headerLinks}>
-                    <div style={{ marginRight: 30, backgroundColor: "transparent" }}>
+                    {location.pathname === '/' && <div style={{ marginRight: 30, backgroundColor: "transparent" }}>
                         <button onClick={onClickFeatures} >Features</button>
-                    </div>
+                    </div>}
+
                     <div style={{ backgroundColor: "transparent" }}>
                         <button>
                             <Link to='/blog' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Blog</Link>
                         </button>
                     </div>
-                    {/* <div style={{ backgroundColor: "transparent" }}>
+                    <div style={{ backgroundColor: "transparent" }}>
                         <button>
                             <Link to='/pricing' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Pricing</Link>
                         </button>
                     </div>
-                    <div style={{ backgroundColor: "transparent" }}>
-                        <button>
-                            <Link to='/ambassadorship' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Ambassadorship</Link>
-                        </button>
-                    </div> */}
+                    {!isAuthLoading && (
+                        <>
+                            {
+                                currentUser && currentUser.ambassador ? <div style={{ backgroundColor: "transparent" }}>
+                                    <button>
+                                        <Link to='/ambassador/dashboard' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Ambassador</Link>
+                                    </button>
+                                </div> : <div style={{ backgroundColor: "transparent" }}>
+                                    <button>
+                                        <Link to='/ambassadorship' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Ambassadorship</Link>
+                                    </button>
+                                </div>
+                            }
+                            {
+                                currentUser && <div style={{ backgroundColor: "transparent" }}>
+                                    <button>
+                                        <Link to='/case/search' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>Case Search</Link>
+                                    </button>
+                                </div>
+                            }
+                        </>
+                    )}
                 </div>
                 <div className={Styles.headerGPT}>
                     <Link className={Styles.headerButton} to='/gpt/legalGPT' >

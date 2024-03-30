@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import Slider from '@mui/material/Slider';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Styles from "./Pricing.module.css";
+import { setCart } from '../features/cart/cartSlice';
 
 export default function Pricing() {
     return (
@@ -90,8 +93,23 @@ const priceMap = {
 const PricingCard = ({ duration, sliderMap }) => {
     const [request, setRequest] = useState(0);
     const [session, setSession] = useState(0);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const currentUser = useSelector(state => state.auth.user)
     let price = priceMap[sliderMap.request.map[request]][sliderMap.session.map[session]];
     if (duration === 'Yearly') price = price * 9;
+
+    function handleCartAddition() {
+        if (!currentUser) {
+            const searchParams = new URLSearchParams({ callbackUrl: pathname }).toString();
+            navigate(`/login?${searchParams}`);
+        }
+        else {
+            dispatch(setCart({ request: sliderMap.request.map[request], session: sliderMap.session.map[session], total: price, plan: duration }));
+            navigate('/paymentgateway');
+        }
+    }
 
     return <div style={{ border: "1px solid white", backgroundColor: "white", color: "black", borderRadius: 8, padding: 16, display: "flex", flexDirection: "column", gap: 16 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "center" }}>
@@ -124,14 +142,19 @@ const PricingCard = ({ duration, sliderMap }) => {
         <div style={{ display: "flex", alignItems: "center", flexDirection: "column", gap: 8 }}>
             <h5>You're paying</h5>
             <div style={{ padding: "10px 50px", border: "1px solid #008080", borderRadius: 10, }}>
-                <span style={{ marginRight: 5 }}>₹</span>
-                <span style={{ textDecoration: "line-through", marginRight: 5 }}>{price * 3}</span>
-                <span style={{ borderRadius: 10, fontWeight: 600 }}>{price}</span>
+                <span style={{ textDecoration: "line-through", marginRight: 5, fontSize: 14 }}>
+                    <span>₹</span>
+                    <span >{price * 3}</span>
+                </span>
+                <span style={{ borderRadius: 10, fontWeight: 600, fontSize: 18 }}>
+                    <span>₹</span>
+                    <span>{price}</span>
+                </span>
             </div>
             <h5 style={{ fontWeight: 700, color: "red", margin: 0, fontSize: 12 }}>Limited Time Offer!</h5>
         </div>
         <div style={{ display: "flex", justifyContent: "center", paddingTop: 15 }}>
-            <button style={{ padding: "16px 44px", border: "none", backgroundColor: "#008080", borderRadius: 8, color: "white", fontSize: 27 }}>
+            <button onClick={handleCartAddition} style={{ padding: "16px 44px", border: "none", backgroundColor: "#008080", borderRadius: 8, color: "white", fontSize: 27 }}>
                 Get it now
             </button>
         </div>

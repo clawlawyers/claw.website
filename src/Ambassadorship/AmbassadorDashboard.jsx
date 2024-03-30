@@ -81,7 +81,7 @@ export default function AmbassadorDashboard() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
                 <div style={{ backgroundColor: "white", color: "black", borderRadius: 23, padding: "18px 12px", width: '100%' }}>
                     <div style={{ display: 'flex' }}>
-                        <div style={{ width: 130, height: 130 }}>photo</div>
+                        <div style={{ width: 130, height: 130 }} />
                         {loading ? <CircularProgress style={{ color: "#008080" }} /> :
                             <div style={{ fontSize: 18, fontWeight: 500 }}>
                                 <div>Name: {details.client?.firstName + " " + details.client?.lastName}</div>
