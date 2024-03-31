@@ -34,3 +34,9 @@
   font-size: 14px;
   color: #777;
 }
+
+@media only screen and (max-width: 768px) {
+  .subHeading {
+    display: none;
+  }
+}

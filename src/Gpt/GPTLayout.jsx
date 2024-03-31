@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from 'react-responsive';
 
 import Sidebar from './Sidebar';
 import Style from "./LegalGPT.module.css";
@@ -9,8 +10,10 @@ import { setPlan, setToken } from '../features/gpt/gptSlice';
 
 export default function GPTLayout(props) {
     const location = useLocation();
+    const isPhoneMode = useMediaQuery({ query: '(max-width:768px)' });
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.auth.user);
+    const collapsed = useSelector(state => state.sidebar.collapsed);
     useEffect(() => {
         async function fetchGptUser() {
             try {
@@ -35,7 +38,7 @@ export default function GPTLayout(props) {
     return (
         <div style={{ position: "relative", height: "100vh", overflowY: "hidden", width: "100%" }}>
             <Sidebar {...props} search={location.search} />
-            <div className={Style.container}>
+            <div className={Style.container} style={(!isPhoneMode && collapsed) ? ({ paddingLeft: "12px" }) : null}>
                 <div className={Style.gptContainer}>
                     {<Outlet />}
                 </div>

@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 import React, { useEffect, useState } from 'react';
 
@@ -9,15 +9,18 @@ import CircularProgress from '@mui/material/CircularProgress';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import HomeIcon from '@mui/icons-material/Home';
 
 import Style from "./Sidebar.module.css";
 import { UserSessions } from './UserSessions';
 import { useAuthState } from '../hooks/useAuthState';
+import { collapse, expand, toggle } from "../features/sidebar/sidebarSlice";
 
 
 export default function Sidebar({ keyword, primaryColor, model }) {
     const isPhoneMode = useMediaQuery({ query: '(max-width:768px)' });
-    const [collapsed, setCollapsed] = useState(false);
+    const collapsed = useSelector(state => state.sidebar.collapsed);
+    const dispatch = useDispatch();
     const currentUser = useSelector(state => state.auth.user);
     const plan = useSelector(state => state.gpt.plan);
     const token = useSelector(state => state.gpt.token);
@@ -36,15 +39,20 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         else navigate('/gpt/finGPT');
     }
     useEffect(() => {
-        setCollapsed(isPhoneMode);
+        if (isPhoneMode) dispatch(collapse());
+        else dispatch(expand())
     }, [isPhoneMode])
     return (
         <div className={Style.sidebarContainer}>
             {collapsed && (
-                <div style={{ position: "absolute", top: 20, left: 10, backgroundColor: "transparent", zIndex: 4 }}>
-
-                    <MenuOutlinedIcon onClick={() => setCollapsed((collapsed) => !collapsed)} style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }} />
-                </div>
+                <button style={{ position: "absolute", top: 20, left: 12, backgroundColor: "transparent", zIndex: 4, border: "none" }}>
+                    <MenuOutlinedIcon onClick={() => dispatch(toggle())} style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }} />
+                </button>
+            )}
+            {!isPhoneMode && !collapsed && (
+                <button style={{ position: "absolute", top: 40, left: 240, backgroundColor: "transparent", zIndex: 8, border: "none" }}>
+                    <MenuOutlinedIcon onClick={() => dispatch(toggle())} style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }} />
+                </button>
             )}
             {!collapsed && (
                 <div style={{ width: "100%", height: "100%", display: "flex", backgroundColor: "transparent" }}>
@@ -99,14 +107,17 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 </div>
                             </div>
                         </div>
-                        <div style={{ borderTop: "1px solid white", width: "100%", padding: 10, backgroundColor: "transparent" }}>
-                            <button onClick={handleClearConversations} style={{ display: "flex", gap: 12, color: "white", alignItems: "center", border: "none", backgroundColor: "transparent" }}>
+                        <div style={{ borderTop: "1px solid white", width: "100%", padding: 10, backgroundColor: "transparent", display: "flex" }}>
+                            <Link to='/' style={{ display: "flex", color: "white", alignItems: "center", border: "none", backgroundColor: "transparent" }}>
+                                <HomeIcon style={{ backgroundColor: "transparent" }} />
+                            </Link>
+                            <button onClick={handleClearConversations} style={{ display: "flex", color: "white", alignItems: "center", border: "none", backgroundColor: "transparent" }}>
                                 <DeleteOutlineOutlinedIcon style={{ backgroundColor: "transparent" }} />
                                 <div style={{ backgroundColor: "transparent", fontSize: 15 }}>Clear all conversations</div>
                             </button>
                         </div>
                     </div>
-                    <div style={{ flex: 1, zIndex: 6, backgroundColor: "transparent" }} onClick={() => setCollapsed(true)} />
+                    <div style={{ flex: 1, zIndex: 6, backgroundColor: "transparent" }} onClick={() => dispatch(collapse())} />
                 </div>
 
             )}
