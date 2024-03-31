@@ -68,7 +68,7 @@ export default function AmbassadorDashboard() {
                 <h3 style={{ fontWeight: 600 }}>Dashboard</h3>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", marginTop: 30, marginBottom: 30 }}>
-                <div>Date</div>
+                <div />
                 <button
                     disabled={loading}
                     style={{ color: "black", borderRadius: 50, border: "none", padding: "10px 18px", fontSize: 18, fontWeight: 600, display: "flex", gap: 8, alignItems: "center" }}

@@ -34,13 +34,12 @@ export default function SessionGPT({ model, primaryColor }) {
         if (status === "succeeded" && response) {
             setIsLoading(false);
             setPrompts((prompts) => ([...prompts, { id: response.gptResponse.messageId, text: response.gptResponse.message, isUser: false }]));
-            dispatch(setRelatedCases({ messageId: response.gptResponse.messageId, cases: response.relatedCases }))
         }
         else if (status === 'failed') {
             setIsLoading(false);
             setIsError(true);
         }
-    }, [status, dispatch])
+    }, [status])
 
     useEffect(() => {
         if (prompt) {
@@ -87,6 +86,25 @@ export default function SessionGPT({ model, primaryColor }) {
         dispatch(setGpt({ prompt: query }))
         dispatch(generateResponse({ sessionId, model }));
     }
+
+    async function fetchRelatedCases() {
+        setIsLoading(true);
+        try {
+            const res = await fetch(`${NODE_API_ENDPOINT}/gpt/case/related/${sessionId}`, {
+                headers: {
+                    Authorization: `Bearer ${currentUser.jwt}`,
+                    "Content-Type": "application/json",
+                }
+            });
+            const { data } = await res.json();
+            dispatch(setRelatedCases({ messageId: data.messageId, cases: data.relatedCases }))
+        } catch (error) {
+            console.log(error);
+        }
+        finally {
+            setIsLoading(false);
+        }
+    }
     return (
         <div className={Style.formContainer}>
 
@@ -104,6 +122,7 @@ export default function SessionGPT({ model, primaryColor }) {
                         {isError && (
                             <Prompt primaryColor={"red"} key={'error'} text={error.message} isUser={false} />
                         )}
+                        {!isLoading && relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && <button style={{ borderRadius: 15, backgroundColor: "#8940ff", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>}
                         <div >
                             {relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id === relatedCases.messageId && relatedCases.cases.length > 0 && (
                                 <div>
