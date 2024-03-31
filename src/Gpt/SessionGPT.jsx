@@ -122,7 +122,7 @@ export default function SessionGPT({ model, primaryColor }) {
                         {isError && (
                             <Prompt primaryColor={"red"} key={'error'} text={error.message} isUser={false} />
                         )}
-                        {!isLoading && relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && <button style={{ borderRadius: 15, backgroundColor: "#8940ff", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>}
+                        {!isLoading && prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && <button style={{ borderRadius: 15, backgroundColor: "#8940ff", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>}
                         <div >
                             {relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id === relatedCases.messageId && relatedCases.cases.length > 0 && (
                                 <div>
