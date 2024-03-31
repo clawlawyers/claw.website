@@ -11,7 +11,7 @@ import RootLayout from "./RootLayout/RootLayout";
 import { Provider } from "react-redux";
 import store from "./store";
 import Payment from "./Payment/Payment";
-import Ambassadorship from "./Ambassadorship/Ambassadorship";
+import Ambassadorship from "./Ambassador/Ambassador.jsx";
 import { useRef, useState, useEffect, useMemo } from "react";
 import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
@@ -22,7 +22,9 @@ import GPT from "./Gpt/GPT.jsx";
 import SessionGPT from "./Gpt/SessionGPT.jsx";
 import AuthWall from "./AuthWall/AuthWall.jsx";
 import CaseFinder from "./CaseFinder/index.jsx";
-import AmbassadorDashboard from "./Ambassadorship/AmbassadorDashboard.jsx";
+import AmbassadorDashboard from "./Ambassador/AmbassadorDashboard.jsx";
+import Ambassador from "./Ambassador/Ambassador.jsx";
+import AmbassadorApply from "./Ambassador/AmbassadorApply.jsx";
 
 
 function App() {
@@ -121,11 +123,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <RootLayout onClickFeatures={() => featuresRef?.current?.scrollIntoView({ behavior: "smooth" })} />,
+      element: <RootLayout />,
       children: [
         {
           path: "",
-          element: <Home particleOptions={options} featuresRef={featuresRef} engineReady={init} />
+          element: <Home particleOptions={options} engineReady={init} />
         },
         {
           path: "blog",
@@ -152,15 +154,12 @@ function App() {
           element: <Login />
         },
         {
-          path: "ambassadorship",
-          element: <Ambassadorship />
-        },
-        {
-          path: "ambassador",
-          element: <AuthWall />,
+          path: "leaders",
+          element: <Ambassador />,
           children: [
-            { path: "dashboard", element: <AmbassadorDashboard /> }
-          ],
+            { path: 'apply', element: <AmbassadorApply /> },
+            { path: 'dashboard', element: <AmbassadorDashboard /> }
+          ]
         },
         {
           path: "paymentgateway",
@@ -168,7 +167,10 @@ function App() {
         },
         {
           path: "case/search",
-          element: <CaseFinder />
+          element: <AuthWall />,
+          children: [
+            { path: '', element: <CaseFinder /> }
+          ]
         }
       ]
     },

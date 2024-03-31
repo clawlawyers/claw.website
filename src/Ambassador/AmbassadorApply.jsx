@@ -5,7 +5,7 @@ import RedeemIcon from '@mui/icons-material/Redeem';
 
 import ambassadorshipImg from "../assets/images/ambassadorship.png";
 
-export default function Ambassadorship() {
+export default function AmbassadorApply() {
     return (
         <div style={{ width: "80%", margin: "auto", padding: 20, borderRadius: 20, backgroundColor: "#13161f", position: "relative", zIndex: 2 }}>
             <div style={{ display: "flex", flexDirection: "column", marginBottom: 68, gap: 46 }}>

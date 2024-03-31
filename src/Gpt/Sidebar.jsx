@@ -9,9 +9,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import HomeIcon from '@mui/icons-material/Home';
+
 
 import Style from "./Sidebar.module.css";
+import clawLogo from "../assets/icons/clawlogo.png";
+import HeaderStyles from "../Header/Header.module.css";
 import { UserSessions } from './UserSessions';
 import { useAuthState } from '../hooks/useAuthState';
 import { collapse, expand, toggle } from "../features/sidebar/sidebarSlice";
@@ -108,9 +110,11 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             </div>
                         </div>
                         <div style={{ borderTop: "1px solid white", width: "100%", padding: 10, backgroundColor: "transparent", display: "flex" }}>
-                            <Link to='/' style={{ display: "flex", color: "white", alignItems: "center", border: "none", backgroundColor: "transparent" }}>
-                                <HomeIcon style={{ backgroundColor: "transparent" }} />
-                            </Link>
+                            <div className={HeaderStyles.headerLogo} >
+                                <Link to='/' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>
+                                    <img alt="Claw" style={{ backgroundColor: "transparent", height: 53 }} src={clawLogo} />
+                                </Link>
+                            </div>
                             <button onClick={handleClearConversations} style={{ display: "flex", color: "white", alignItems: "center", border: "none", backgroundColor: "transparent" }}>
                                 <DeleteOutlineOutlinedIcon style={{ backgroundColor: "transparent" }} />
                                 <div style={{ backgroundColor: "transparent", fontSize: 15 }}>Clear all conversations</div>

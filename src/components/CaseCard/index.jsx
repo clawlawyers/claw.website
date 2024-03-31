@@ -69,7 +69,7 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                     </div>
 
                     {loading ? <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <CircularProgress style={{ color: "white" }} /></div> :
-                        <div style={{ whiteSpace: "pre-line", textAlign: "center" }}>{content}</div>
+                        <div style={{ whiteSpace: "pre-line", textAlign: "justify", width: "100%" }}>{content}</div>
                     }
                 </div>
             </Modal>
