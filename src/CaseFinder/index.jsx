@@ -94,6 +94,7 @@ export default function CaseFinder() {
                         return <CaseCard
                             caseId={relatedCase.id}
                             name={relatedCase.title}
+                            date={relatedCase.date}
                             citations={relatedCase.numCites}
                             court={relatedCase.court}
                             key={relatedCase.id}
