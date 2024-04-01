@@ -19,7 +19,7 @@ export function ExpandedBlogCard({ imageHeading, imageSubHeading, heading, subHe
                 <h4 className={Styles.blogCardSubHeading}>
                     {subHeading}
                 </h4>
-                <button style={{ borderRadius: 15, backgroundColor: "#8940ff", padding: 10, width: "fit-content", marginTop: 15, border: "none" }}>
+                <button style={{ borderRadius: 15, backgroundColor: "#008080", padding: 10, width: "fit-content", marginTop: 15, border: "none" }}>
                     <Link to={`/blog/${heading}`} style={{ color: "white", fontSize: 17, fontWeight: 600, border: "none", backgroundColor: "transparent", textDecoration: "none" }}>Read more</Link>
                 </button>
             </div>

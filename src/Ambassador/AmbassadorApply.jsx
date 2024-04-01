@@ -26,7 +26,7 @@ export default function AmbassadorApply() {
                     </div>
                 </div>
                 <div>
-                    <a target='_blank' rel='noreferrer' href='https://forms.gle/mszs8xtt2unuXU25A' style={{ textDecoration: "none", border: "none", padding: 12, borderRadius: 5, backgroundColor: "#8940FF", color: "white", fontSize: 18 }}>APPLY NOW</a>
+                    <a target='_blank' rel='noreferrer' href='https://forms.gle/mszs8xtt2unuXU25A' style={{ textDecoration: "none", border: "none", padding: 12, borderRadius: 5, backgroundColor: "#008080", color: "white", fontSize: 18 }}>APPLY NOW</a>
                 </div>
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", padding: 30, backgroundColor: "#171E26", borderRadius: 20, textAlign: "center" }}>

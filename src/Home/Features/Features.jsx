@@ -20,7 +20,7 @@ export default forwardRef(function Features(props, ref) {
                     Explore Powerful
                     <span style={{ position: "relative", display: "inline-block" }}>
                         <span style={{ position: "relative", background: "transparent", zIndex: 10 }}>Features</span>
-                        <div style={{ position: "absolute", width: "100%", bottom: 0, left: 0, height: 12, backgroundColor: "#8940FF" }} />
+                        <div style={{ position: "absolute", width: "100%", bottom: 0, left: 0, height: 12, backgroundColor: "#008080" }} />
                     </span>
                 </h1>
             </div>

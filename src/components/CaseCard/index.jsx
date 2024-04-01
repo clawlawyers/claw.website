@@ -34,7 +34,7 @@ export function CaseCard({ name, date, court, citations, caseId }) {
     }
     const handleClose = () => setOpen(false);
     return (
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 10, alignItems: "center", padding: 16, backgroundColor: "#8940FF", borderRadius: 10 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 10, alignItems: "center", padding: 16, backgroundColor: "#008080", borderRadius: 10 }}>
             <div style={{ flex: 1 }}>
                 <h2 style={{ fontSize: 23, fontWeight: 700 }}>{name}</h2>
                 <div style={{ fontSize: 13, color: '#DBD8D8' }}>

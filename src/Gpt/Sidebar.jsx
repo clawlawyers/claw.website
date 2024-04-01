@@ -109,7 +109,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 </div>
                             </div>
                         </div>
-                        <div style={{ borderTop: "1px solid white", width: "100%", padding: 10, backgroundColor: "transparent", display: "flex" }}>
+                        <div style={{ borderTop: "1px solid white", width: "100%", padding: 10, backgroundColor: "transparent", display: "flex", alignItems: "center" }}>
                             <div className={HeaderStyles.headerLogo} >
                                 <Link to='/' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>
                                     <img alt="Claw" style={{ backgroundColor: "transparent", height: 53 }} src={clawLogo} />

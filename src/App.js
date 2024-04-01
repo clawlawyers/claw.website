@@ -180,15 +180,15 @@ function App() {
       children: [
         {
           path: "legalGPT",
-          element: <GPTLayout keyword="Legal" primaryColor="#8940FF" model="legalGPT" />,
+          element: <GPTLayout keyword="Legal" primaryColor="#008080" model="legalGPT" />,
           children: [
             {
               path: '',
-              element: <GPT keyword="Legal" primaryColor="#8940FF" model="legalGPT" textGradient={["rgba(137, 64, 255, 0.5)", "rgba(137, 64, 255, 0)"]} backgroundGradient={["rgba(137, 64, 255,0.45)", "rgba(137, 64, 255,0.1)"]} />
+              element: <GPT keyword="Legal" primaryColor="#008080" model="legalGPT" textGradient={["rgba(0,128,128,0.75)", "rgba(0,128,128,0)"]} backgroundGradient={["rgba(0,128,128,0.45)", "rgba(0,128,128,0.1)"]} />
             },
             {
               path: 'session/:sessionId',
-              element: <SessionGPT keyword="Legal" primaryColor="#8940FF" model="legalGPT" />
+              element: <SessionGPT keyword="Legal" primaryColor="#008080" model="legalGPT" />
             },
           ]
         },

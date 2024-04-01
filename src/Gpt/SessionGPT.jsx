@@ -122,7 +122,7 @@ export default function SessionGPT({ model, primaryColor }) {
                         {isError && (
                             <Prompt primaryColor={"red"} key={'error'} text={error.message} isUser={false} />
                         )}
-                        {!isLoading && prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && <button style={{ borderRadius: 15, backgroundColor: "#8940ff", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>}
+                        {!isLoading && prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>}
                         <div >
                             {relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id === relatedCases.messageId && relatedCases.cases.length > 0 && (
                                 <div>
@@ -140,8 +140,8 @@ export default function SessionGPT({ model, primaryColor }) {
                                         })}
                                     </div>
                                     <div style={{ display: "flex", justifyContent: "space-between", marginTop: 5 }}>
-                                        <Link style={{ borderRadius: 15, backgroundColor: "#8940ff", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} to={`/case/search?id=${relatedCases.messageId}`}>Case search</Link>
-                                        <button style={{ borderRadius: 15, backgroundColor: "#8940ff", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={() => setCaseCount(caseCount => caseCount + 2)}>Load more</button>
+                                        <Link style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} to={`/case/search?id=${relatedCases.messageId}`}>Case search</Link>
+                                        <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={() => setCaseCount(caseCount => caseCount + 2)}>Load more</button>
                                     </div>
                                 </div>
                             )}

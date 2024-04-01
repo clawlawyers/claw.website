@@ -1,6 +1,8 @@
 .container {
   margin-bottom: 21px;
   border-radius: 10px;
+  z-index: 2;
+  position: relative;
 }
 
 .promptText {

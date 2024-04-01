@@ -94,10 +94,10 @@ export default function Login() {
                     {hasFilled && (
                         <form style={{ width: "50%" }} onSubmit={verifyOtp}>
                             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                                <label style={{ color: "#8940ff", fontWeight: 600, fontSize: 14 }}>OTP</label>
+                                <label style={{ color: "#008080", fontWeight: 600, fontSize: 14 }}>OTP</label>
                                 <input pattern="[0-9]{6}" style={{ background: "#32353c", color: "white", padding: 10, fontSize: 15, borderRadius: 2, outline: "none", border: "none" }} type="text" value={otp} onChange={(e) => setOtp(e.target.value)} />
                             </div>
-                            <button disabled={isLoading} style={{ backgroundColor: "#8940ff", color: "white", border: "none", marginTop: 45, padding: "10px 45px", fontSize: 15, fontWeight: 600 }} type="submit">
+                            <button disabled={isLoading} style={{ backgroundColor: "#008080", color: "white", border: "none", marginTop: 45, padding: "10px 45px", fontSize: 15, fontWeight: 600 }} type="submit">
                                 {isLoading ? <CircularProgress size={15} style={{ color: "white" }} /> : <>Verify otp</>}
                             </button>
                         </form>
@@ -106,7 +106,7 @@ export default function Login() {
                     {!hasFilled && (
                         <form style={{}} onSubmit={handleSend}>
                             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                                <label style={{ color: "#8940ff", fontWeight: 600, fontSize: 14 }}>PHONE NUMBER</label>
+                                <label style={{ color: "#008080", fontWeight: 600, fontSize: 14 }}>PHONE NUMBER</label>
                                 <div style={{ display: "flex" }}>
                                     <select value={countryCode} onChange={(e) => setCountryCode(e.target.value)} style={{ backgroundColor: "inherit", border: "none", color: "white", outline: "none" }}>
                                         <option style={{ color: "black" }} value={"+91"}>+91</option>
@@ -114,7 +114,7 @@ export default function Login() {
                                     <input pattern="[0-9]{10}" style={{ background: "#32353c", color: "white", padding: 10, fontSize: 15, borderRadius: 2, outline: "none", border: "none" }} type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                                 </div>
                             </div>
-                            <button disabled={isLoading} style={{ backgroundColor: "#8940ff", color: "white", border: "none", marginTop: 45, padding: "10px 45px", fontSize: 15, fontWeight: 600 }} type="submit">
+                            <button disabled={isLoading} style={{ backgroundColor: "#008080", color: "white", border: "none", marginTop: 45, padding: "10px 45px", fontSize: 15, fontWeight: 600 }} type="submit">
                                 Send otp
                             </button>
                         </form>

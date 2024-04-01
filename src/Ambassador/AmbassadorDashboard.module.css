@@ -1,0 +1,31 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  gap: 24px;
+}
+.container {
+  width: 80%;
+  margin: auto;
+  position: relative;
+  z-index: 2px;
+}
+
+.modal {
+  width: 550px;
+}
+
+@media only screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .hiddenMobile {
+    display: none;
+  }
+  .container {
+    width: 90%;
+  }
+  .modal {
+    width: 300px;
+  }
+}

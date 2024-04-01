@@ -95,7 +95,7 @@ export default function CheckoutForm() {
             />
 
             <PaymentElement options={paymentElementOptions} />
-            <button style={{ padding: "15px 80px", border: "none", fontSize: 24, borderRadius: 10, backgroundColor: "#8940FF", color: "white", alignSelf: "flex-start", marginTop: 25 }} disabled={isLoading || !stripe || !elements} type='submit'>
+            <button style={{ padding: "15px 80px", border: "none", fontSize: 24, borderRadius: 10, backgroundColor: "#008080", color: "white", alignSelf: "flex-start", marginTop: 25 }} disabled={isLoading || !stripe || !elements} type='submit'>
                 <span>
                     {isLoading ? <CircularProgress /> : "Pay now"}
                 </span>

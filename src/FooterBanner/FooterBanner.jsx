@@ -74,7 +74,7 @@ function FooterBanner() {
 
             </div>
             <div>
-                <div style={{ fontSize: 25, fontWeight: 700, color: "#b384ff" }}>
+                <div style={{ fontSize: 25, fontWeight: 700, color: "#029898" }}>
                     Contact
                 </div>
 
@@ -84,7 +84,7 @@ function FooterBanner() {
 
             </div>
             <div>
-                <div style={{ color: "#b384ff", fontWeight: 700, fontSize: 20 }}>
+                <div style={{ color: "#029898", fontWeight: 700, fontSize: 20 }}>
                     Get the latest information
                 </div>
                 <form onSubmit={handleSubscribe} style={{ display: "flex", overflow: "hidden", borderRadius: 14, backgroundColor: "white", marginTop: 15 }}>
@@ -98,7 +98,7 @@ function FooterBanner() {
                             style={{ height: "100%", width: "100%", backgroundColor: "transparent", fontSize: 16, padding: 0, border: "none", outline: "none" }}
                         />
                     </div>
-                    <button disabled={isLoading} type="submit" style={{ padding: 11, backgroundColor: "#8940ff", border: "none" }}>
+                    <button disabled={isLoading} type="submit" style={{ padding: 11, backgroundColor: "#008080", border: "none" }}>
                         {isLoading ? (
                             <CircularProgress style={{ color: "white", padding: 10 }} />
                         ) : <SendIcon style={{ color: "white", backgroundColor: "transparent" }} />}
