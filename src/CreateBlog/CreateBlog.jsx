@@ -85,7 +85,7 @@ export default function CreateBlog() {
                 />
                 <button
                     type='submit'
-                    style={{ alignSelf: "flex-start", border: "none", padding: 12, marginTop: 10, borderRadius: 5, backgroundColor: "#8940FF", color: "white", fontSize: 18 }}
+                    style={{ alignSelf: "flex-start", border: "none", padding: 12, marginTop: 10, borderRadius: 5, backgroundColor: "#008080", color: "white", fontSize: 18 }}
                     disabled={isLoading}
                 >
                     {isLoading ? <CircularProgress style={{ color: "white", fontSize: 18 }} /> : <>Publish Blog</>}

@@ -53,7 +53,7 @@ export default function SearchGPT() {
                     </div>
                     <div className={Styles.buttonContainer}>
                         {
-                            isLoading ? <CircularProgress style={{ padding: 12, fontSize: 14, color: "#8940ff" }} /> :
+                            isLoading ? <CircularProgress style={{ padding: 12, fontSize: 14, color: "#008080" }} /> :
                                 <button onClick={onSubmitPrompt}>
                                     Ask LegalGPT
                                 </button>

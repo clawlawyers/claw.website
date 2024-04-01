@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
 
 import Welcome from "./Welcome";
-import { generateResponse, setGpt } from "../features/gpt/gptSlice";
 import { NODE_API_ENDPOINT } from "../utils/utils";
-import { gptUserCreated } from "../features/auth/authSlice";
 import { useAuthState } from "../hooks/useAuthState";
+import { gptUserCreated } from "../features/auth/authSlice";
+import { generateResponse, setGpt } from "../features/gpt/gptSlice";
 
 function GPT({ keyword, model, primaryColor, textGradient, backgroundGradient }) {
     const [isLoading, setIsLoading] = useState();
@@ -67,8 +67,7 @@ function GPT({ keyword, model, primaryColor, textGradient, backgroundGradient })
     return (
         <div style={{ position: "relative", height: "100%", width: "100%" }}>
             <div style={{ position: "absolute", height: 894, width: 886, bottom: "-750px", marginLeft: "calc(50% - 443px)", background: `radial-gradient(circle, ${backgroundGradient[0]} 0%, ${backgroundGradient[1]} 5%)`, boxShadow: `0 0 100px 100px ${backgroundGradient[1]}`, borderRadius: 500 }} />
-            <Welcome keyword={keyword} textGradient={textGradient} primaryColor={primaryColor} submitPrompt={submitPrompt} />
-            {isLoading && <div style={{ zIndex: 2 }}><CircularProgress /></div>}
+            {isLoading ? <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}><CircularProgress style={{ color: "white" }} /></div> : <Welcome keyword={keyword} textGradient={textGradient} primaryColor={primaryColor} submitPrompt={submitPrompt} />}
         </div>
     )
 };

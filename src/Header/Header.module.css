@@ -46,7 +46,7 @@
 }
 
 .headerLinks button:hover {
-  background-color: #8940ff;
+  background-color: #008080;
   transform: scale(1.05);
 }
 
@@ -56,7 +56,7 @@
 }
 .headerButton {
   flex: 1;
-  background-color: #8940ff;
+  background-color: #008080;
   border: none;
   border-radius: 12px;
   padding: 15px 25px;

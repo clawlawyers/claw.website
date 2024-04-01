@@ -11,7 +11,7 @@ import RootLayout from "./RootLayout/RootLayout";
 import { Provider } from "react-redux";
 import store from "./store";
 import Payment from "./Payment/Payment";
-import Ambassadorship from "./Ambassadorship/Ambassadorship";
+import Ambassadorship from "./Ambassador/Ambassador.jsx";
 import { useRef, useState, useEffect, useMemo } from "react";
 import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
@@ -21,6 +21,10 @@ import GPTLayout from "./Gpt/GPTLayout.jsx";
 import GPT from "./Gpt/GPT.jsx";
 import SessionGPT from "./Gpt/SessionGPT.jsx";
 import AuthWall from "./AuthWall/AuthWall.jsx";
+import CaseFinder from "./CaseFinder/index.jsx";
+import AmbassadorDashboard from "./Ambassador/AmbassadorDashboard.jsx";
+import Ambassador from "./Ambassador/Ambassador.jsx";
+import AmbassadorApply from "./Ambassador/AmbassadorApply.jsx";
 
 
 function App() {
@@ -119,11 +123,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <RootLayout onClickFeatures={() => featuresRef?.current?.scrollIntoView({ behavior: "smooth" })} />,
+      element: <RootLayout />,
       children: [
         {
           path: "",
-          element: <Home particleOptions={options} featuresRef={featuresRef} engineReady={init} />
+          element: <Home particleOptions={options} engineReady={init} />
         },
         {
           path: "blog",
@@ -150,12 +154,23 @@ function App() {
           element: <Login />
         },
         {
-          path: "ambassadorship",
-          element: <Ambassadorship />
+          path: "leaders",
+          element: <Ambassador />,
+          children: [
+            { path: 'apply', element: <AmbassadorApply /> },
+            { path: 'dashboard', element: <AmbassadorDashboard /> }
+          ]
         },
         {
           path: "paymentgateway",
           element: <Payment />
+        },
+        {
+          path: "case/search",
+          element: <AuthWall />,
+          children: [
+            { path: '', element: <CaseFinder /> }
+          ]
         }
       ]
     },
@@ -165,15 +180,15 @@ function App() {
       children: [
         {
           path: "legalGPT",
-          element: <GPTLayout keyword="Legal" primaryColor="#8940FF" model="legalGPT" />,
+          element: <GPTLayout keyword="Legal" primaryColor="#008080" model="legalGPT" />,
           children: [
             {
               path: '',
-              element: <GPT keyword="Legal" primaryColor="#8940FF" model="legalGPT" textGradient={["rgba(137, 64, 255, 0.5)", "rgba(137, 64, 255, 0)"]} backgroundGradient={["rgba(137, 64, 255,0.45)", "rgba(137, 64, 255,0.1)"]} />
+              element: <GPT keyword="Legal" primaryColor="#008080" model="legalGPT" textGradient={["rgba(0,128,128,0.75)", "rgba(0,128,128,0)"]} backgroundGradient={["rgba(0,128,128,0.45)", "rgba(0,128,128,0.1)"]} />
             },
             {
               path: 'session/:sessionId',
-              element: <SessionGPT keyword="Legal" primaryColor="#8940FF" model="legalGPT" />
+              element: <SessionGPT keyword="Legal" primaryColor="#008080" model="legalGPT" />
             },
           ]
         },

@@ -3,7 +3,9 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import RedeemIcon from '@mui/icons-material/Redeem';
 
-export default function Ambassadorship() {
+import ambassadorshipImg from "../assets/images/ambassadorship.png";
+
+export default function AmbassadorApply() {
     return (
         <div style={{ width: "80%", margin: "auto", padding: 20, borderRadius: 20, backgroundColor: "#13161f", position: "relative", zIndex: 2 }}>
             <div style={{ display: "flex", flexDirection: "column", marginBottom: 68, gap: 46 }}>
@@ -20,11 +22,11 @@ export default function Ambassadorship() {
                         </p>
                     </div>
                     <div style={{ width: 430 }}>
-                        image
+                        <img alt="becoming an ambassador" src={ambassadorshipImg} />
                     </div>
                 </div>
                 <div>
-                    <button style={{ border: "none", padding: 12, borderRadius: 5, backgroundColor: "#8940FF", color: "white", fontSize: 18 }}>APPLY NOW</button>
+                    <a target='_blank' rel='noreferrer' href='https://forms.gle/mszs8xtt2unuXU25A' style={{ textDecoration: "none", border: "none", padding: 12, borderRadius: 5, backgroundColor: "#008080", color: "white", fontSize: 18 }}>APPLY NOW</a>
                 </div>
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", padding: 30, backgroundColor: "#171E26", borderRadius: 20, textAlign: "center" }}>

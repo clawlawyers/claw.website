@@ -7,7 +7,7 @@ import { createResource } from '../../utils/promiseWrapper';
 import { CardsGroup, CardsGroupSkeleton } from '../../components/CardsGroup/index';
 
 async function fetchBlogs() {
-    const response = await fetch(`${NODE_API_ENDPOINT}/blog`);
+    const response = await fetch(`${NODE_API_ENDPOINT}/blog?limit=${2}&page=${1}`);
     const parsed = await response.json();
     return parsed;
 }
@@ -44,7 +44,7 @@ export default forwardRef(function Blogs(props, ref) {
                 Insights and
                 <span style={{ position: "relative", display: "inline-block", backgroundColor: "transparent" }}>
                     <span style={{ position: "relative", background: "transparent", zIndex: 10 }}>Update</span>
-                    <div style={{ position: "absolute", width: "96%", bottom: "8%", left: "2%", height: 12, backgroundColor: "#8940FF" }} />
+                    <div style={{ position: "absolute", width: "96%", bottom: "8%", left: "2%", height: 12, backgroundColor: "#008080" }} />
                 </span>
             </h1>
             <Suspense fallback={<CardsGroupSkeleton component={ExpandedBlogCardSkeleton} count={2} />}>

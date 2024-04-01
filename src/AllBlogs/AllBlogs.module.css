@@ -2,7 +2,7 @@
   color: transparent;
   -webkit-background-clip: text !important;
   background-clip: text !important;
-  background: linear-gradient(rgb(137, 64, 255), rgb(229, 131, 245));
+  background: linear-gradient(rgb(0, 128, 128), rgb(0, 200, 128));
   font-size: 82px;
   padding-bottom: 10px;
   font-weight: 700;
