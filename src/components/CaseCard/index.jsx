@@ -53,11 +53,11 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                 aria-labelledby="child-modal-title"
             >
                 <div className={Styles.scrollable} style={{
-                    backgroundColor: "#171e26", position: "absolute", top: '50%',
+                    backgroundColor: "white", position: "absolute", top: '50%',
                     left: '50%',
                     width: "80%",
                     height: "90%",
-                    color: "white",
+                    color: "black",
                     borderRadius: 10,
                     overflowY: "scroll",
                     padding: 10,
@@ -65,11 +65,11 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                 }}>
                     <div style={{ position: "sticky", top: 0, display: "flex" }}>
                         <div style={{ flex: 1 }} />
-                        <button onClick={handleClose} style={{ border: "none" }}><ClearIcon style={{ fontSize: 30 }} /></button>
+                        <button onClick={handleClose} style={{ border: "none" }}><ClearIcon style={{ fontSize: 30, color: "black" }} /></button>
                     </div>
 
-                    {loading ? <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <CircularProgress style={{ color: "white" }} /></div> :
-                        <div style={{ whiteSpace: "pre-line", textAlign: "justify", width: "100%" }}>{content}</div>
+                    {loading ? <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <CircularProgress style={{ color: "black" }} /></div> :
+                        <div style={{ whiteSpace: "pre-line", textAlign: "justify", width: "100%", fontSize: 18, fontWeight: 500 }}>{content}</div>
                     }
                 </div>
             </Modal>
