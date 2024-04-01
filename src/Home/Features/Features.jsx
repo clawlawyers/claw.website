@@ -26,9 +26,9 @@ export default forwardRef(function Features(props, ref) {
             </div>
             <div className={Styles.featuresCardContainer}>
 
-                <FeatureCard imageSrc={banner1} heading={"Automation"} subHeading={"Streamline legal workflows effortlessly with intelligent automation, saving time and reducing manual tasks."} />
-                <FeatureCard imageSrc={banner2} heading={"Precision"} subHeading={"Experience pinpoint accuracy in legal insights and advice, ensuring your solutions are tailored to your exact needs."} />
-                <FeatureCard imageSrc={banner3} heading={"Accessibility"} subHeading={"Enjoy easy access to legal information anytime, anywhere, fostering a more accessible and inclusive legal experience for everyone."} />
+                <FeatureCard imageSrc={banner1} heading={"Legal Perspectives"} subHeading={"Acquire invaluable legal perspectives on any scenario or query concerning Indian law."} />
+                <FeatureCard imageSrc={banner2} heading={"Tailored Support"} subHeading={"Obtain legal insights tailored to your specific circumstances by securely providing personal details within an end-to-end encrypted framework."} />
+                <FeatureCard imageSrc={banner3} heading={"Case Retrieval"} subHeading={"Access highly contextual and relevant cases with just a single click."} />
             </div>
         </div >
     )

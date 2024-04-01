@@ -113,11 +113,8 @@ export default function AmbassadorDashboard() {
 
     return (
         <div className={Styles.container} >
-            <div>
-                <h3 style={{ fontWeight: 600 }}>Dashboard</h3>
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 30, marginBottom: 30 }}>
-                <div />
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 30, marginBottom: 30, alignItems: "center" }}>
+                <div><h3 style={{ fontWeight: 600 }}>Dashboard</h3></div>
                 <button
                     disabled={loading}
                     style={{ color: "black", borderRadius: 50, border: "none", padding: "10px 18px", fontSize: 18, fontWeight: 600, display: "flex", gap: 8, alignItems: "center" }}
@@ -128,11 +125,10 @@ export default function AmbassadorDashboard() {
                 </button>
             </div>
             <div className={Styles.grid}>
-                <div style={{ backgroundColor: "white", color: "black", borderRadius: 23, padding: "18px 12px" }}>
-                    <div style={{ display: 'flex' }}>
-                        <div className={Styles.hiddenMobile} style={{ width: 130, height: 130 }} />
+                <div style={{ backgroundColor: "white", color: "black", borderRadius: 23, padding: "20px 40px", display: "flex", flexDirection: "column" }}>
+                    <div style={{ display: 'flex', flex: 1 }}>
                         {loading ? <CircularProgress style={{ color: "#008080" }} /> :
-                            <div style={{ fontSize: 18, fontWeight: 500 }}>
+                            <div style={{ fontSize: 18, fontWeight: 600 }}>
                                 <div>Name: {details.client?.firstName + " " + details.client?.lastName}</div>
                                 <div>Referral Code: {details.referralCode ? details.referralCode.id : <button onClick={generateReferralCode} style={{ backgroundColor: "#008080", color: "white", border: 'none', borderRadius: 5, }}>Generate</button>}</div>
                                 <div>College Name: {details.client?.collegeName}</div>
@@ -140,9 +136,8 @@ export default function AmbassadorDashboard() {
                             </div>
                         }
                     </div>
-                    <div style={{ width: '80%', margin: 'auto' }}>
+                    <div style={{ marginTop: 20 }}>
                         <button onClick={handleOpen} style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", border: 'none', width: '100%', padding: "18px 0px", fontSize: 18, fontWeight: 500 }}>Update Bank Details</button>
-
                     </div>
                 </div>
                 <div style={{ backgroundColor: "#008080", borderRadius: 23, padding: "18px 12px", }}>
