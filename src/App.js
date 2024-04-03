@@ -11,7 +11,6 @@ import RootLayout from "./RootLayout/RootLayout";
 import { Provider } from "react-redux";
 import store from "./store";
 import Payment from "./Payment/Payment";
-import Ambassadorship from "./Ambassador/Ambassador.jsx";
 import { useRef, useState, useEffect, useMemo } from "react";
 import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
@@ -25,6 +24,8 @@ import CaseFinder from "./CaseFinder/index.jsx";
 import AmbassadorDashboard from "./Ambassador/AmbassadorDashboard.jsx";
 import Ambassador from "./Ambassador/Ambassador.jsx";
 import AmbassadorApply from "./Ambassador/AmbassadorApply.jsx";
+import AdminWall from "./AdminWall/AdminWall.jsx";
+import AddLeaders from "./Admin/Leaders/AddLeaders.jsx";
 
 
 function App() {
@@ -162,8 +163,16 @@ function App() {
           ]
         },
         {
+          path: "admin",
+          element: <AuthWall />,
+          children: [{ path: "", element: <AdminWall />, children: [{ path: "leaders/add", element: <AddLeaders /> }] }]
+        },
+        {
           path: "paymentgateway",
-          element: <Payment />
+          element: <AuthWall />,
+          children: [
+            { path: "", element: <Payment /> }
+          ]
         },
         {
           path: "case/search",

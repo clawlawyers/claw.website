@@ -25,7 +25,7 @@ export default function Pricing() {
                 <div className={Styles.pricingContainer}>
                     <div className={Styles.first}>
                         <PricingCard
-                            duration="Monthy"
+                            duration="Monthly"
                             sliderMap={sliders}
 
                         />

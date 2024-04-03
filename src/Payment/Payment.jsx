@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -7,34 +8,31 @@ import Styles from "./Payment.module.css";
 import CheckoutForm from './CheckoutForm';
 import { NODE_API_ENDPOINT } from '../utils/utils';
 // test api key
-const stripePromise = loadStripe("pk_test_51BTUDGJAJfZb9HEBwDg86TN1KNprHjkfipXmEDMb0gSCassK5T3ZfxsAbcgKVmAIXF7oZ6ItlZZbXO6idTHE67IM007EwQ4uN3");
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
 export default function Payment() {
     const { plan, request, session, total } = useSelector(state => state.cart);
-    const [clientSecret, setClientSecret] = useState("");
-    // SAMPLE IMPLEMENTATION
-    useEffect(() => {
-        // Create PaymentIntent as soon as the page loads
-        fetch(`${NODE_API_ENDPOINT}/stripe/create-payment-intent`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
-        })
-            .then((res) => res.json())
-            .then((data) => setClientSecret(data.clientSecret));
-    }, []);
+    const navigate = useNavigate();
 
     const appearance = {
         theme: 'night',
         variables: {
             colorBackground: '#ffffff',
             spacingUnit: '5px',
+            colorText: "black",
+            colorDanger: '#df1b41',
         }
     };
     const options = {
-        clientSecret,
+        mode: 'payment',
+        amount: total,
+        currency: 'inr',
         appearance,
     };
+
+    useEffect(() => {
+        if (!plan) navigate('/pricing')
+    }, [plan])
 
     return (
         <div style={{ width: "80%", margin: "auto", position: "relative", zIndex: 2 }}>
@@ -44,12 +42,12 @@ export default function Payment() {
                     You will be redirected to your banks authorization page . </p>
             </div>
             <div className={Styles.gridContainer}>
-                <div style={{ flex: 1, paddingTop: 70 }}>
-                    {clientSecret && (
-                        <Elements options={options} stripe={stripePromise}>
-                            <CheckoutForm />
-                        </Elements>
-                    )}
+                <div style={{ flex: 1, paddingTop: 70, color: "black" }}>
+
+                    <Elements options={options} stripe={stripePromise}>
+                        <CheckoutForm />
+                    </Elements>
+
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", backgroundColor: "rgba(0,0,0,0.1)", padding: "70px 40px" }}>
                     <div >
