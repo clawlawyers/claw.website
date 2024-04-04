@@ -8,7 +8,7 @@ import Styles from "./Payment.module.css";
 import CheckoutForm from './CheckoutForm';
 import { NODE_API_ENDPOINT } from '../utils/utils';
 // test api key
-const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 export default function Payment() {
     const { plan, request, session, total } = useSelector(state => state.cart);

@@ -52,11 +52,10 @@ export default function CheckoutForm() {
                 Authorization: `Bearer ${jwt}`,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ amount: total, plan: 'pro', billingCycle: plan, request, session })
+            body: JSON.stringify({ amount: total, plan: `PRO_${request}_${session}`, billingCycle: plan, request, session })
         });
 
         const { data } = await res.json();
-        console.log(data);
 
         // Confirm the PaymentIntent using the details collected by the Payment Element
         const { error } = await stripe.confirmPayment({
@@ -99,7 +98,7 @@ export default function CheckoutForm() {
                 type='submit'
             >
 
-                {loading ? <CircularProgress /> : "Pay now"}
+                {loading ? <CircularProgress style={{ color: "white" }} /> : "Pay now"}
 
             </button>
             {/* Show any error or success messages */}

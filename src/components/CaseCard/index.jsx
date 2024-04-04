@@ -65,11 +65,11 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                 }}>
                     <div style={{ position: "sticky", top: 0, display: "flex" }}>
                         <div style={{ flex: 1 }} />
-                        <button onClick={handleClose} style={{ border: "none" }}><ClearIcon style={{ fontSize: 30, color: "black" }} /></button>
+                        <button onClick={handleClose} style={{ border: "none", backgroundColor: "transparent" }}><ClearIcon style={{ fontSize: 30, color: "black" }} /></button>
                     </div>
 
                     {loading ? <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <CircularProgress style={{ color: "black" }} /></div> :
-                        <div style={{ whiteSpace: "pre-line", textAlign: "justify", width: "100%", fontSize: 18, fontWeight: 500 }}>{content}</div>
+                        <div style={{ whiteSpace: "pre-line", textAlign: "justify", width: "100%", fontSize: 16, fontWeight: 500, fontFamily: "serif", border: "1px solid black" }} dangerouslySetInnerHTML={{ __html: content }} />
                     }
                 </div>
             </Modal>
