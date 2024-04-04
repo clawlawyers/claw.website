@@ -11,7 +11,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Style from "./LegalGPT.module.css";
 import { Prompt } from './components/Prompt';
 import { CaseCard } from "../components/CaseCard";
-import clawImg from "../assets/images/gptclaw.png";
+import clawImg from "../assets/images/gptclaw.PNG";
 import { NODE_API_ENDPOINT } from '../utils/utils';
 import { useAuthState } from '../hooks/useAuthState';
 import { CustomLoader } from './components/CustomLoader';
