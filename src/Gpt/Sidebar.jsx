@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,6 +18,7 @@ import { useAuthState } from '../hooks/useAuthState';
 import HeaderStyles from "../Header/Header.module.css";
 import { collapse, expand, toggle } from "../features/sidebar/sidebarSlice";
 import { open } from '../features/popup/popupSlice';
+import { NODE_API_ENDPOINT } from '../utils/utils';
 
 
 export default function Sidebar({ keyword, primaryColor, model }) {
@@ -28,14 +29,30 @@ export default function Sidebar({ keyword, primaryColor, model }) {
     const plan = useSelector(state => state.gpt.plan);
     const token = useSelector(state => state.gpt.token);
     const { isAuthLoading } = useAuthState();
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     function handleAccount() {
         if (!currentUser) navigate("/login");
     }
-    function handleClearConversations() {
-        if (keyword === 'Legal') navigate('/gpt/legalGPT')
-        else navigate('/gpt/finGPT');
+    async function handleClearConversations() {
+        try {
+            setLoading(true);
+            await fetch(`${NODE_API_ENDPOINT}/gpt/sessions/legalGPT`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${currentUser.jwt}`,
+                    "Content-Type": "application/json",
+                }
+            });
+            if (keyword === 'Legal') navigate('/gpt/legalGPT')
+            else navigate('/gpt/finGPT');
+        } catch (error) {
+            console.error(error);
+        }
+        finally {
+            setLoading(false);
+        }
     }
     function handleNewConversation() {
         if (keyword === 'Legal') navigate('/gpt/legalGPT')
@@ -48,12 +65,12 @@ export default function Sidebar({ keyword, primaryColor, model }) {
     return (
         <div className={Style.sidebarContainer}>
             {collapsed && (
-                <button style={{ position: "absolute", top: 20, left: 12, backgroundColor: "transparent", zIndex: 4, border: "none" }}>
+                <button style={{ position: "absolute", top: 20, left: 12, backgroundColor: "transparent", zIndex: 4, border: "none", backgroundImage: "none" }}>
                     <MenuOutlinedIcon onClick={() => dispatch(toggle())} style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }} />
                 </button>
             )}
             {!isPhoneMode && !collapsed && (
-                <button style={{ position: "absolute", top: 40, left: 240, backgroundColor: "transparent", zIndex: 8, border: "none" }}>
+                <button style={{ position: "absolute", top: 40, left: 240, backgroundColor: "transparent", backgroundImage: "none", zIndex: 8, border: "none" }}>
                     <MenuOutlinedIcon onClick={() => dispatch(toggle())} style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }} />
                 </button>
             )}
@@ -61,7 +78,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 <div style={{ width: "100%", height: "100%", display: "flex", backgroundColor: "transparent" }}>
                     <div className={Style.sidebar}>
                         <div style={{ display: "flex", flexDirection: "column", gap: 25, width: "100%", flex: 1, overflow: "hidden" }}>
-                            <button onClick={handleAccount} style={{ display: "flex", color: "white", border: "none", backgroundColor: "rgba(255,255,255,0.05)", padding: 15, gap: 15, borderRadius: 10 }}>
+                            <div onClick={handleAccount} style={{ display: "flex", color: "white", border: "none", backgroundColor: "rgba(255,255,255,0.05)", padding: 15, gap: 15, borderRadius: 10 }}>
                                 <div style={{ display: "flex", height: "100%", alignItems: "center" }}>
                                     <div style={{ height: 40, width: 40, borderRadius: 40, backgroundColor: primaryColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
                                         <StarIcon style={{ backgroundColor: "transparent" }} />
@@ -90,7 +107,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                     </div>
                                 )}
 
-                            </button>
+                            </div>
                             <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: 10, overflow: "hidden" }}>
                                 <div style={{ display: "flex", padding: 12, gap: 15 }}>
                                     <div>
@@ -108,7 +125,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                     <div>Start a new chat</div>
                                 </button>
                                 <div style={{ flex: 1, overflow: "scroll" }}>
-                                    {(currentUser && !isAuthLoading) &&
+                                    {(currentUser && !isAuthLoading && !loading) &&
                                         <UserSessions model={model} jwt={currentUser.jwt} />
                                     }
                                 </div>
@@ -120,7 +137,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                     <img alt="Claw" style={{ backgroundColor: "transparent", height: 53 }} src={clawLogo} />
                                 </Link>
                             </div>
-                            <button onClick={handleClearConversations} style={{ display: "flex", color: "white", alignItems: "center", border: "none", backgroundColor: "transparent" }}>
+                            <button onClick={handleClearConversations} style={{ display: "flex", color: "white", alignItems: "center", border: "none", backgroundColor: "transparent", backgroundImage: "none" }}>
                                 <DeleteOutlineOutlinedIcon style={{ backgroundColor: "transparent" }} />
                             </button>
                         </div>

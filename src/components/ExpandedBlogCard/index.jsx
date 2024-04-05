@@ -31,9 +31,9 @@ export function ExpandedBlogCard({ imageHeading, imageSubHeading, heading, subHe
 export function ExpandedBlogCardSkeleton() {
     return (
         <div className={Styles.blogCardContainer}>
-            <div className={Styles.shimmer} style={{ minWidth: "min(100%,359px)", height: "329px", borderRadius: 20 }} />
+            <div className={Styles.shimmer} style={{ minWidth: "min(100%,250px)", height: "250px", borderRadius: 20 }} />
             <div className={Styles.blogCardContent}>
-                <div className={Styles.shimmer} style={{ width: "80%", height: 47, marginBottom: 25 }} />
+                <div className={Styles.shimmer} style={{ width: "80%", height: 35, marginBottom: 25 }} />
                 <div className={Styles.shimmer} style={{ width: "90%", height: 100 }} />
             </div>
         </div >

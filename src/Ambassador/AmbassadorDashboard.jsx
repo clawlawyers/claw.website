@@ -117,7 +117,7 @@ export default function AmbassadorDashboard() {
                 <div><h3 style={{ fontWeight: 600 }}>Dashboard</h3></div>
                 <button
                     disabled={loading}
-                    style={{ color: "black", borderRadius: 50, border: "none", padding: "10px 18px", fontSize: 18, fontWeight: 600, display: "flex", gap: 8, alignItems: "center" }}
+                    style={{ color: "white", borderRadius: 50, border: "none", padding: "10px 18px", fontSize: 18, fontWeight: 600, display: "flex", gap: 8, alignItems: "center" }}
                     onClick={fetchAmbassadorDetails}
                 >
                     <RefreshIcon />

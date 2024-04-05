@@ -4,3 +4,7 @@
   color: white;
   background-color: #171e26;
 }
+
+button{
+  background-image: url('./assets/images/button-gradient.png')
+}

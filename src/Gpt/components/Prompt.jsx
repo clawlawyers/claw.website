@@ -15,7 +15,7 @@ export function Prompt({ isUser, text, primaryColor }) {
                     display: "flex",
                     alignItems: 'center',
                     justifyContent: "center",
-                    backgroundColor: isUser ? "#5536DA" : "#0FA47F",
+                    backgroundColor: "#0FA47F",
                 }}>
                     {isUser ? (
                         <PersonIcon style={{

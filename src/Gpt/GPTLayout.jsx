@@ -64,7 +64,7 @@ export default function GPTLayout(props) {
                     transform: 'translate(-50%, -50%)', boxShadow: 24
                 }}>
                     <div style={{ position: "sticky", top: 0, display: "flex", justifyContent: "flex-end" }}>
-                        <button onClick={handlePopupClose} style={{ border: "none", backgroundColor: "inherit" }}><ClearIcon style={{ fontSize: 30, color: "black" }} /></button>
+                        <button onClick={handlePopupClose} style={{ border: "none", backgroundColor: "inherit", backgroundImage: "none" }}><ClearIcon style={{ fontSize: 30, color: "black" }} /></button>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 10, padding: 50 }}>
                         <LockIcon style={{ fontSize: 80, color: props.primaryColor }} />
@@ -129,7 +129,7 @@ function StudentReferralModal() {
                     transform: 'translate(-50%, -50%)', boxShadow: 24
                 }}>
                     <div style={{ position: "sticky", top: 0, display: "flex", justifyContent: "flex-end" }}>
-                        <button disabled={loading} onClick={() => setOpen(false)} style={{ border: "none", backgroundColor: "inherit" }}><ClearIcon style={{ fontSize: 30, color: "white" }} /></button>
+                        <button disabled={loading} onClick={() => setOpen(false)} style={{ border: "none", backgroundColor: "inherit", backgroundImage: "none" }}><ClearIcon style={{ fontSize: 30, color: "white" }} /></button>
                     </div>
                     <form onSubmit={handleRedeem} style={{ padding: 40, display: "flex", flexDirection: "column", gap: 15, alignItems: "center" }}>
                         <h3 >Redeem Referral Code</h3>
