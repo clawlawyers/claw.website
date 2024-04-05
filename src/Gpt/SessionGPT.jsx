@@ -1,11 +1,6 @@
-import Modal from '@mui/material/Modal';
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
-import LockIcon from '@mui/icons-material/Lock';
-import ClearIcon from '@mui/icons-material/Clear';
+
 import { useSelector, useDispatch } from "react-redux";
-import React, { useEffect, useState, useRef } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Style from "./LegalGPT.module.css";
@@ -17,6 +12,7 @@ import { useAuthState } from '../hooks/useAuthState';
 import { CustomLoader } from './components/CustomLoader';
 import CustomInputForm from './components/CustomInputForm';
 import { generateResponse, resetGpt, setGpt, setPlan, setRelatedCases, setToken } from "../features/gpt/gptSlice";
+import { open } from '../features/popup/popupSlice';
 
 export default function SessionGPT({ model, primaryColor }) {
     const { prompt, status, response, error, relatedCases } = useSelector(state => state.gpt);
@@ -32,8 +28,8 @@ export default function SessionGPT({ model, primaryColor }) {
     const [value, setValue] = useState(2);
     const [hover, setHover] = useState(-1);
     const [caseCount, setCaseCount] = useState(2);
-    const [open, setOpen] = useState(false);
 
+    const handlePopupOpen = useCallback(() => dispatch(open()), [])
 
     useEffect(() => {
         if (status === "succeeded" && response) {
@@ -43,9 +39,9 @@ export default function SessionGPT({ model, primaryColor }) {
         else if (status === 'failed') {
             setIsLoading(false);
             setIsError(true);
-            setOpen(true)
+            handlePopupOpen()
         }
-    }, [status])
+    }, [status, handlePopupOpen])
 
     useEffect(() => {
         if (prompt) {
@@ -128,7 +124,7 @@ export default function SessionGPT({ model, primaryColor }) {
                         {isError && (
                             <Prompt primaryColor={"red"} key={'error'} text={error.message} isUser={false} />
                         )}
-                        {!isLoading && prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && isError ? <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={() => setOpen(true)}>Upgrade</button> : <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>}
+                        {!isLoading && prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && isError ? <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={handlePopupOpen}>Upgrade</button> : <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>}
                         <div >
                             {relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id === relatedCases.messageId && relatedCases.cases.length > 0 && (
                                 <div>
@@ -173,109 +169,12 @@ export default function SessionGPT({ model, primaryColor }) {
                 </div>
             </div>
             <CustomInputForm primaryColor={primaryColor} isError={isError} isLoading={isLoading} onSubmit={submitPrompt} />
-            <Modal
-                open={open}
-                onClose={() => setOpen(false)}
-            >
-                <div style={{
-                    backgroundColor: "white", position: "absolute", top: '50%',
-                    left: '50%',
-                    color: "black",
-                    borderRadius: 10,
-                    overflowY: "scroll",
-                    padding: 10,
-                    transform: 'translate(-50%, -50%)', boxShadow: 24
-                }}>
-                    <div style={{ position: "sticky", top: 0, display: "flex", justifyContent: "flex-end" }}>
-                        <button onClick={() => setOpen(false)} style={{ border: "none", backgroundColor: "inherit" }}><ClearIcon style={{ fontSize: 30, color: "black" }} /></button>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 10, padding: 50 }}>
-                        <LockIcon style={{ fontSize: 80 }} />
-                        <h3 style={{ fontSize: 28 }}>No More Token's Left</h3>
-                        <div style={{ display: "flex", gap: 5 }}>
-                            <StudentReferralModal />
-                            <Link to='/pricing' style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }}>Buy Credits</Link>
-                        </div>
-                    </div>
-                </div>
-            </Modal>
+            
         </div>
     )
 }
 
-function StudentReferralModal() {
-    const [open, setOpen] = useState(false);
-    const [referralCode, setReferralCode] = useState("");
-    const [loading, setLoading] = useState(false);
-    const jwt = useSelector(state => state.auth.user.jwt);
-    const dispatch = useDispatch();
 
-    async function handleRedeem(e) {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            const res = await fetch(`${NODE_API_ENDPOINT}/gpt/referralCode/redeem`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${jwt}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ referralCode })
-            });
-            const { data } = await res.json();
-            dispatch(setPlan({ plan: data.plan }));
-            dispatch(setToken({ token: data.token }));
-        } catch (error) {
-            console.log(error);
-        }
-        finally {
-            setLoading(false);
-            setReferralCode("");
-        }
-    }
-    return (
-        <>
-            <Modal open={open} onClose={() => { if (!loading) setOpen(false) }}>
-                <div style={{
-                    backgroundColor: "#1e1e1e", position: "absolute", top: '50%',
-                    left: '50%',
-                    color: "white",
-                    borderRadius: 10,
-                    overflowY: "scroll",
-                    padding: 10,
-                    transform: 'translate(-50%, -50%)', boxShadow: 24
-                }}>
-                    <div style={{ position: "sticky", top: 0, display: "flex", justifyContent: "flex-end" }}>
-                        <button disabled={loading} onClick={() => setOpen(false)} style={{ border: "none", backgroundColor: "inherit" }}><ClearIcon style={{ fontSize: 30, color: "white" }} /></button>
-                    </div>
-                    <form onSubmit={handleRedeem} style={{ padding: 40, display: "flex", flexDirection: "column", gap: 15, alignItems: "center" }}>
-                        <h3 >Redeem Referral Code</h3>
-                        <input
-                            value={referralCode}
-                            onChange={e => setReferralCode(e.target.value)}
-                            placeholder="Referral Code"
-                            style={{ width: "100%", outline: "none", border: "1px solid rgba(255, 255, 255, 0.15)", backgroundColor: "#2d2d2d", color: "white" }}
-                        />
-                        <button
-                            disabled={loading}
-                            type='submit'
-                            style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }}
-                        >
-                            {loading ? <CircularProgress style={{ color: "white", padding: 10 }} /> : "Redeem"}
-                        </button>
-                    </form>
-                </div>
-            </Modal>
-            <button
-                onClick={() => setOpen(true)}
-                style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }}
-            >
-                Student Referral
-            </button>
-
-        </>
-    )
-}
 
 function getLabelText(value) {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;

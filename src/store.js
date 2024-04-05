@@ -3,6 +3,7 @@ import authReducer from "./features/auth/authSlice";
 import gptReducer from "./features/gpt/gptSlice";
 import cartReducer from "./features/cart/cartSlice";
 import sidebarReducer from "./features/sidebar/sidebarSlice";
+import popupReducer from "./features/popup/popupSlice";
 
 export default configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
         gpt: gptReducer,
         cart: cartReducer,
         sidebar: sidebarReducer,
+        popup: popupReducer,
     }
 })

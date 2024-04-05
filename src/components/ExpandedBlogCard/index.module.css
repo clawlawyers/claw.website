@@ -34,18 +34,18 @@
 }
 
 .blogCardHeading {
-  font-size: 45px;
+  font-size: 35px;
   font-weight: 600;
 }
 
 .blogCardSubHeading {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 400;
   color: #777;
 }
 
 .blogCardContainer > img {
-  width: 359px;
+  width: 250px;
 }
 
 @media only screen and (max-width: 768px) {
