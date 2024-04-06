@@ -26,6 +26,7 @@ import Ambassador from "./Ambassador/Ambassador.jsx";
 import AmbassadorApply from "./Ambassador/AmbassadorApply.jsx";
 import AdminWall from "./AdminWall/AdminWall.jsx";
 import AddLeaders from "./Admin/Leaders/AddLeaders.jsx";
+import TermsOfService from "./TermsOfService/TermsOfService.jsx";
 
 
 function App() {
@@ -145,6 +146,10 @@ function App() {
         {
           path: "privacyPolicy",
           element: <PrivacyPolicy />
+        },
+        {
+          path: "terms-of-service",
+          element: <TermsOfService />
         },
         {
           path: "pricing",
