@@ -11,6 +11,11 @@
   z-index: 2px;
 }
 
+.container button {
+  background-image: url("../assets/images/button-gradient.png");
+  background-size: cover;
+}
+
 .modal {
   width: 550px;
 }

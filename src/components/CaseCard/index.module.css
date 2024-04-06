@@ -17,3 +17,9 @@
 .scrollable::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.backdrop {
+  background-image: url("../../assets/images/button-gradient.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -19,9 +19,9 @@ export function CollapsedBlogCard({ imageHeading, imageSubHeading, heading, blog
                 <h3 className={Styles.blogCardHeading}>
                     {heading}
                 </h3>
-                <div style={{ borderRadius: 15, backgroundColor: "#008080", padding: 10, width: "fit-content", marginTop: 30 }}>
+                <button style={{ borderRadius: 15, backgroundColor: "#008080", padding: 10, width: "fit-content", marginTop: 30, border: "none" }}>
                     <Link to={`/blog/${heading}`} state={{ blogNo }} style={{ color: "white", fontSize: 17, fontWeight: 600, border: "none", backgroundColor: "transparent", textDecoration: "none" }}>Read more</Link>
-                </div>
+                </button>
             </div>
         </div >
     )

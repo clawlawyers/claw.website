@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import AddIcon from '@mui/icons-material/Add';
 import StarIcon from '@mui/icons-material/Star';
+import HomeIcon from '@mui/icons-material/Home';
 import CircularProgress from '@mui/material/CircularProgress';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -19,6 +20,7 @@ import HeaderStyles from "../Header/Header.module.css";
 import { collapse, expand, toggle } from "../features/sidebar/sidebarSlice";
 import { open } from '../features/popup/popupSlice';
 import { NODE_API_ENDPOINT } from '../utils/utils';
+import { Home } from '@mui/icons-material';
 
 
 export default function Sidebar({ keyword, primaryColor, model }) {
@@ -131,10 +133,12 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 </div>
                             </div>
                         </div>
-                        <div style={{ borderTop: "1px solid white", width: "100%", padding: 10, backgroundColor: "transparent", display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                        <div style={{ borderTop: "1px solid white", width: "100%", padding: 10, backgroundColor: "transparent", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <div className={HeaderStyles.headerLogo} >
-                                <Link to='/' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent" }}>
-                                    <img alt="Claw" style={{ backgroundColor: "transparent", height: 53 }} src={clawLogo} />
+
+                                <Link to='/' style={{ textDecoration: "none", color: "white", backgroundColor: "transparent", display:"flex", alignItems:"center" }}>
+                                    <Home />
+                                    <img alt="Claw" style={{ backgroundColor: "transparent", height: 53, marginTop:8 }} src={clawLogo} />
                                 </Link>
                             </div>
                             <button onClick={handleClearConversations} style={{ display: "flex", color: "white", alignItems: "center", border: "none", backgroundColor: "transparent", backgroundImage: "none" }}>

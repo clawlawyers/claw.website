@@ -24,6 +24,10 @@
   height: 100%;
 }
 
+.blogCardContent button {
+  background-image: url("../../assets/images/button-gradient.png");
+}
+
 .blogCardOverlay {
   height: 100%;
   width: 100%;

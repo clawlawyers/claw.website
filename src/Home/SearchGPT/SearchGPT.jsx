@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
 
 import Styles from "./SearchGPT.module.css";
+import globalStyles from "../../App.css";
 import { generateResponse, setGpt } from '../../features/gpt/gptSlice';
 import { NODE_API_ENDPOINT } from '../../utils/utils';
 
@@ -54,7 +55,7 @@ export default function SearchGPT() {
                     <div className={Styles.buttonContainer}>
                         {
                             isLoading ? <CircularProgress style={{ padding: 12, fontSize: 14, color: "#008080" }} /> :
-                                <button onClick={onSubmitPrompt}>
+                                <button className={globalStyles.backdrop} onClick={onSubmitPrompt}>
                                     Ask LegalGPT
                                 </button>
                         }

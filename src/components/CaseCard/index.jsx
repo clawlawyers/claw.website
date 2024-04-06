@@ -34,7 +34,7 @@ export function CaseCard({ name, date, court, citations, caseId }) {
     }
     const handleClose = () => setOpen(false);
     return (
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 10, alignItems: "center", padding: 16, backgroundColor: "#008080", borderRadius: 10 }}>
+        <div className={Styles.backdrop} style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 10, alignItems: "center", padding: 16, backgroundColor: "#008080", borderRadius: 10 }}>
             <div style={{ flex: 1 }}>
                 <h2 style={{ fontSize: 23, fontWeight: 700 }}>{name}</h2>
                 <div style={{ fontSize: 13, color: '#DBD8D8' }}>
@@ -44,7 +44,7 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                 <p style={{ fontSize: 13, color: '#DBD8D8', margin: 0 }}>Number of citations- {citations}</p>
             </div>
 
-            <button onClick={handleOpen} style={{ border: "none", padding: "10px 12px", minWidth: 'fit-content', backgroundColor: "white", borderRadius: 10, fontWeight: 700, fontSize: 14, textDecoration: "none", color: "black" }}>
+            <button onClick={handleOpen} style={{ border: "none", padding: "10px 12px", minWidth: 'fit-content', backgroundColor: "white", borderRadius: 10, fontWeight: 700, fontSize: 14, textDecoration: "none", color: "black", backgroundImage: "none" }}>
                 View document
             </button>
             <Modal

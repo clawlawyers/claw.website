@@ -124,7 +124,7 @@ export default function SessionGPT({ model, primaryColor }) {
                         {isError && (
                             <Prompt primaryColor={"red"} key={'error'} text={error.message} isUser={false} />
                         )}
-                        {!isLoading && prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && isError ? <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={handlePopupOpen}>Upgrade</button> : <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>}
+                        {!isLoading && (prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && isError ? <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={handlePopupOpen}>Upgrade</button> : <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>)}
                         <div >
                             {relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id === relatedCases.messageId && relatedCases.cases.length > 0 && (
                                 <div>
@@ -169,7 +169,7 @@ export default function SessionGPT({ model, primaryColor }) {
                 </div>
             </div>
             <CustomInputForm primaryColor={primaryColor} isError={isError} isLoading={isLoading} onSubmit={submitPrompt} />
-            
+
         </div>
     )
 }

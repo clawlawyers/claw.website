@@ -4,6 +4,10 @@
   gap: 24px;
 }
 
+.pricingContainer button {
+  background-image: url("../assets/images/button-gradient.png");
+}
+
 .first {
   grid-column: 1;
 }

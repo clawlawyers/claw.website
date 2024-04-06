@@ -7,6 +7,14 @@
   background-color: black;
 }
 
+.backdrop button {
+  background-image: url("../assets/images/button-gradient.png");
+}
+.backdropImg {
+  background-image: url("../assets/images/button-gradient.png");
+}
+
+
 .formContainer {
   display: flex;
   flex-direction: column;

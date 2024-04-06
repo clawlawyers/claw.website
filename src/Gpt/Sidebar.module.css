@@ -4,6 +4,10 @@
   height: 100%;
   background: transparent;
 }
+
+.sidebarContainer button {
+  background-image: url("../assets/images/button-gradient.png");
+}
 .sidebar {
   display: flex;
   flex-direction: column;

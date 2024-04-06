@@ -48,6 +48,11 @@
   width: 250px;
 }
 
+.blogCardContainer button{
+  background-image: url("../../assets/images/button-gradient.png");
+
+}
+
 @media only screen and (max-width: 768px) {
   .blogCardContainer {
     flex-direction: column;

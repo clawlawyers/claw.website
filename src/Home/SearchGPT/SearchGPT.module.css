@@ -19,7 +19,8 @@
 }
 
 .buttonContainer button {
-  background-color: #008080;
+  background-color: transparent;
+  background-image: url("../../assets/images/button-gradient.png");
   font-weight: 600;
   font-size: 14px;
   color: white;

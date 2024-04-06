@@ -48,7 +48,7 @@ export default function GPTLayout(props) {
         if (currentUser && !currentUser.newGptUser) fetchGptUser();
     }, [currentUser, dispatch])
     return (
-        <div style={{ position: "relative", height: "100vh", overflowY: "hidden", width: "100%" }}>
+        <div className={Style.backdrop} style={{ position: "relative", height: "100vh", overflowY: "hidden", width: "100%" }}>
             <Sidebar {...props} search={location.search} />
             <Modal
                 open={isOpen}
@@ -71,7 +71,9 @@ export default function GPTLayout(props) {
                         <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
                         <div style={{ display: "flex", gap: 5 }}>
                             <StudentReferralModal />
-                            <Link to='/pricing' style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }}>Buy Credits</Link>
+                            <button className={Style.backdropImg} style={{ border: "none", backgroundColor: "transparent", borderRadius: 15, padding: 10, }}>
+                                <Link className={Style.linkImg} to='/pricing' style={{ color: "white", textDecoration: "none", width: "fit-content", border: "none" }}>Buy Credits</Link>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -140,9 +142,10 @@ function StudentReferralModal() {
                             style={{ width: "100%", outline: "none", border: "1px solid rgba(255, 255, 255, 0.15)", backgroundColor: "#2d2d2d", color: "white" }}
                         />
                         <button
+                            className={Style.backdropImg}
                             disabled={loading}
                             type='submit'
-                            style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }}
+                            style={{ borderRadius: 15, color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }}
                         >
                             {loading ? <CircularProgress style={{ color: "white", padding: 10 }} /> : "Redeem"}
                         </button>
@@ -150,6 +153,7 @@ function StudentReferralModal() {
                 </div>
             </Modal>
             <button
+                className={Style.backdropImg}
                 onClick={() => setOpen(true)}
                 style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }}
             >

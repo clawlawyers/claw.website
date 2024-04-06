@@ -14,6 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 import { CaseCard } from '../components/CaseCard';
+import Styles from "./index.module.css";
 import { ModeEdit, SearchOutlined } from '@mui/icons-material';
 import { NODE_API_ENDPOINT } from '../utils/utils';
 import moment from 'moment';
@@ -28,6 +29,7 @@ export default function CaseFinder() {
     const [search] = useSearchParams();
     const { messageId, cases } = useSelector(state => state.gpt.relatedCases);
     const currentUser = useSelector(state => state.auth.user);
+    
 
     async function handleCaseSearch(e) {
         try {
@@ -52,9 +54,8 @@ export default function CaseFinder() {
             setLoading(false);
         }
     }
-    console.log(startDate.format("DD/MM/YYYY"), endDate)
     return (
-        <div style={{ width: "70%", margin: "auto", zIndex: 2, position: "relative" }}>
+        <div className={Styles.container} style={{ width: "70%", margin: "auto", zIndex: 2, position: "relative" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: 250 }}>
                     <div>Court:</div>
@@ -72,7 +73,7 @@ export default function CaseFinder() {
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: 500 }}>
                         <LocalizationProvider dateAdapter={AdapterMoment}>
                             <div>From:</div>
-                            <DatePicker value={startDate} onChange={(newVal) => setStartDate(newVal)} sx={{ backgroundColor: "white" }} />
+                            <DatePicker slotProps={{ layout: { sx: { backgroundImage: "none", backgroundColor: "transparent" } } }} value={startDate} onChange={(newVal) => setStartDate(newVal)} sx={{ backgroundColor: "white" }} />
                             <div>To:</div>
                             <DatePicker value={endDate} onChange={(newVal) => setEndDate(newVal)} sx={{ backgroundColor: "white" }} />
                         </LocalizationProvider>
@@ -89,7 +90,7 @@ export default function CaseFinder() {
                 />
             </form>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {loading ? <div style={{ display: "flex", justifyContent: "center" }}> <CircularProgress style={{ color: "white" }} /></div>:<>
+                {loading ? <div style={{ display: "flex", justifyContent: "center" }}> <CircularProgress style={{ color: "white" }} /></div> : <>
                     {result ? result.map((relatedCase) => {
                         return <CaseCard
                             caseId={relatedCase.id}
