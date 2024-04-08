@@ -10,6 +10,13 @@
   z-index: 2;
 }
 
+.hover > a {
+  color: #777;
+}
+.hover > a:hover {
+  color: #c4c4c4;
+}
+
 @media only screen and (max-width: 768px) {
   .footerContainer {
     flex-direction: column;

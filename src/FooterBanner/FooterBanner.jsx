@@ -47,26 +47,26 @@ function FooterBanner() {
                 <div style={{ fontSize: 18, color: "#777" }}>
                     Instantly
                 </div>
-                <div>
-                    <a href='https://www.linkedin.com/company/claw-lawyers/' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10, textDecoration: "none" }}>
+                <div className={Styles.hover}>
+                    <a href='https://www.linkedin.com/company/claw-lawyers/' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, marginTop: 10, textDecoration: "none" }}>
                         <LinkedInIcon />
                         Linkedin
                     </a>
                 </div>
-                <div>
-                    <a href='https://www.instagram.com/claw_lawyers/' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10, textDecoration: "none" }}>
+                <div className={Styles.hover}>
+                    <a href='https://www.instagram.com/claw_lawyers/' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, marginTop: 10, textDecoration: "none" }}>
                         <InstagramIcon />
                         Instagram
                     </a>
                 </div>
-                <div>
-                    <a href='http://www.twitter.com/claw_lawyers' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10, textDecoration: "none" }}>
+                <div className={Styles.hover}>
+                    <a href='http://www.twitter.com/claw_lawyers' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, marginTop: 10, textDecoration: "none" }}>
                         <XIcon />
                         X {"(Formely Twitter)"}
                     </a>
                 </div>
-                <div>
-                    <a href='https://www.facebook.com/profile.php?id=61557181644675' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, color: "#777", marginTop: 10, textDecoration: "none" }}>
+                <div className={Styles.hover}>
+                    <a href='https://www.facebook.com/profile.php?id=61557181644675' target='_blank' rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 18, marginTop: 10, textDecoration: "none" }}>
                         <FacebookIcon />
                         Facebook
                     </a>

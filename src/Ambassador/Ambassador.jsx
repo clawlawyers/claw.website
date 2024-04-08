@@ -18,8 +18,8 @@ export default function Ambassador() {
         if (!isAuthLoading) {
             if (!currentUser) {
                 // USER NOT LOGGED IN
-                const searchParams = new URLSearchParams({ callbackUrl: pathname }).toString();
-                navigate(`/login?${searchParams}`);
+                // const searchParams = new URLSearchParams({ callbackUrl: pathname }).toString();
+                navigate('apply')
             }
             else {
                 // USER LOGGED IN
@@ -48,8 +48,7 @@ export default function Ambassador() {
             </div>
         )
     }
-    else if (currentUser) {
-        return <Outlet />
-    }
+    else return <Outlet />
+    
     return <div>Unexpected Error Occured</div>
 }

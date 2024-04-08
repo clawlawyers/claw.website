@@ -161,7 +161,7 @@ export default function AmbassadorDashboard() {
                     <div><h5>Awards won</h5></div>
                     <div style={{ display: "flex", flexDirection: 'column', alignItems: "center", justifyContent: "center" }}>
                         <img alt="trophy" src={trophy} />
-                        Take participate to win prizes
+                        Participate to win prizes
                     </div>
                 </div>
             </div>

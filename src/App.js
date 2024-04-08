@@ -11,7 +11,7 @@ import RootLayout from "./RootLayout/RootLayout";
 import { Provider } from "react-redux";
 import store from "./store";
 import Payment from "./Payment/Payment";
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { Toaster } from 'react-hot-toast';
@@ -27,10 +27,10 @@ import AmbassadorApply from "./Ambassador/AmbassadorApply.jsx";
 import AdminWall from "./AdminWall/AdminWall.jsx";
 import AddLeaders from "./Admin/Leaders/AddLeaders.jsx";
 import TermsOfService from "./TermsOfService/TermsOfService.jsx";
+import NotFound from "./NotFound/index.jsx";
 
 
 function App() {
-  const featuresRef = useRef(null);
   const [init, setInit] = useState(false);
 
 
@@ -222,7 +222,10 @@ function App() {
         },
       ]
     },
-
+    {
+      path: "*",
+      element: <NotFound />
+    }
   ]);
 
 
