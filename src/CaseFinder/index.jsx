@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
@@ -15,7 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { CaseCard } from '../components/CaseCard';
 import Styles from "./index.module.css";
-import { ModeEdit, SearchOutlined } from '@mui/icons-material';
+import { SearchOutlined } from '@mui/icons-material';
 import { NODE_API_ENDPOINT } from '../utils/utils';
 import moment from 'moment';
 
@@ -67,6 +66,9 @@ export default function CaseFinder() {
                                 sx={{ backgroundColor: "white" }}
                             >
                                 <MenuItem value={"Supreme Court of India"}>Supreme Court</MenuItem>
+                                <MenuItem value={"Chattisgarh High Court"}>Chattisgarh High Court</MenuItem>
+                                <MenuItem value={"Sikkim High Court"}>Sikkim High Court</MenuItem>
+                                <MenuItem value={"Uttarakhand High Court"}>Uttarakhand High Court</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
