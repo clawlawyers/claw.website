@@ -11,11 +11,11 @@ export default function Pricing() {
         <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column", height: "100%", zIndex: 2 }}>
             <div style={{ width: "90%", margin: "auto", flex: 1, color: "white", paddingBottom: 25 }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 10 }}>
-                    <h1 style={{ fontSize: 45, fontWeight: 800 }}>
+                    <h1 className={Styles.heading} >
                         Find the Perfect Pricing Option for Your Legal Needs
                     </h1>
-                    <div style={{ width: "70%" }}>
-                        <h5 style={{ fontSize: 25, fontWeight: 500, color: "#777" }}>
+                    <div style={{ width: "80%" }}>
+                        <h5 className={Styles.subHeading} >
                             Explore our flexible pricing options designed to cater to a range of legal requirements. Select the plan that best fits your needs and budget.                        </h5>
                     </div>
                 </div>
