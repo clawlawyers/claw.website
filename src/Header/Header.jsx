@@ -89,7 +89,7 @@ function Header() {
                     </button>
 
                 </div>
-                <button onClick={() => setNavOpen(true)} style={{ border: "none", backgroundColor: "inherit", color: "white" }}>
+                <button className={Styles.mobileNav} onClick={() => setNavOpen(true)} style={{ border: "none", backgroundColor: "inherit", color: "white" }}>
                     <TableRowsIcon />
                 </button>
                 <Drawer
