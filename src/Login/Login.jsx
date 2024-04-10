@@ -78,7 +78,7 @@ export default function Login() {
     }
     return (
         <div style={{ width: "100%" }}>
-            <div style={{ backgroundColor: "#13161f", position: "relative", borderRadius: 30, padding: 50, zIndex: 2, width: "80%", margin: "auto", display: "flex", gap: 10 }}>
+            <div style={{ backgroundColor: "#13161f", position: "relative", borderRadius: 30, padding: 30, zIndex: 2, width: "80%", margin: "auto", display: "flex", gap: 10 }}>
                 <div style={{ flex: 1 }}>
 
                     <h1 className={Styles.loginHeader} >

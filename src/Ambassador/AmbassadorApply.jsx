@@ -4,6 +4,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import RedeemIcon from '@mui/icons-material/Redeem';
 
 import ambassadorshipImg from "../assets/images/ambassadorship.png";
+import Styles from "./AmbassadorApply.module.css";
 
 export default function AmbassadorApply() {
     return (
@@ -11,17 +12,17 @@ export default function AmbassadorApply() {
             <div style={{ display: "flex", flexDirection: "column", marginBottom: 68, gap: 46 }}>
                 <div style={{ display: "flex" }}>
                     <div>
-                        <h1 style={{ fontSize: 50 }}>
+                        <h1 className={Styles.heading} >
                             Brand Ambassadorship
                         </h1>
-                        <p style={{ fontSize: 18, color: "#C9C7C7" }}>
+                        <p style={{ fontSize: 18, color: "#C9C7C7", textWrap: "wrap" }}>
                             Claw ambassadorship program is basically for undergraduate students and graduates who are looking for entry-level jobs.  As a brand ambassador, you will promote the platform within your circle and in return you will get the following benefits from us.
                         </p>
                         <p style={{ fontSize: 18, color: "#C9C7C7" }}>
                             If you are interested in participating in this feel apply with below button. Once you apply one of our coordinator will contact you soon.
                         </p>
                     </div>
-                    <div style={{ width: 430 }}>
+                    <div className={Styles.img}>
                         <img alt="becoming an ambassador" src={ambassadorshipImg} />
                     </div>
                 </div>
