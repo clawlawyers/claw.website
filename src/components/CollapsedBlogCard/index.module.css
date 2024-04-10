@@ -1,7 +1,7 @@
 .blogCardContainer {
   z-index: 2;
   position: relative;
-  padding: 25px 12px;
+  padding: 30px 12px;
   width: 359px;
   margin: auto;
   margin-top: 25px;
@@ -9,6 +9,7 @@
   background: #13161f;
   transition: 0.5s ease;
   color: white;
+  height: 100%;
 }
 
 .blogCardContainer:hover {
@@ -16,12 +17,15 @@
 }
 
 .blogCardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin-left: 15px;
   margin-right: 50px;
   margin-top: 18px;
   text-wrap: "wrap";
   width: 100%;
-  height: 100%;
+  height: calc(100% - 329px);
 }
 
 .blogCardContent button {
@@ -33,6 +37,7 @@
   width: 100%;
   font-size: 47px;
   font-weight: 600;
+  padding: 5px;
   background-color: transparent;
 }
 

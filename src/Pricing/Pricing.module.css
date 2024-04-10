@@ -25,6 +25,17 @@
   flex-wrap: wrap;
 }
 
+.heading {
+  font-size: 45px;
+  font-weight: 800;
+}
+
+.subHeading {
+  font-size: 25px;
+  font-weight: 500;
+  color: #777;
+}
+
 @media only screen and (max-width: 768px) {
   .pricingContainer {
     grid-template-columns: 1fr;
@@ -34,5 +45,11 @@
   }
   .third {
     grid-column: 1;
+  }
+  .heading {
+    font-size: 30px;
+  }
+  .subHeading {
+    font-size: 20px;
   }
 }

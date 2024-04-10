@@ -28,6 +28,9 @@ import AdminWall from "./AdminWall/AdminWall.jsx";
 import AddLeaders from "./Admin/Leaders/AddLeaders.jsx";
 import TermsOfService from "./TermsOfService/TermsOfService.jsx";
 import NotFound from "./NotFound/index.jsx";
+import ContactUs from "./ContactUs/ContactUs.jsx";
+import RefundPolicy from "./RefundPolicy/RefundPolicy.jsx";
+import ShippingPolicy from "./ShippingPolicy/ShippingPolicy.jsx";
 
 
 function App() {
@@ -185,7 +188,10 @@ function App() {
           children: [
             { path: '', element: <CaseFinder /> }
           ]
-        }
+        },
+        { path: "contact-us", element: <ContactUs /> },
+        { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
+        { path: "shipping-and-delivery-policy", element: <ShippingPolicy /> },
       ]
     },
     {

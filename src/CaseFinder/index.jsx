@@ -29,7 +29,7 @@ export default function CaseFinder() {
     const [search] = useSearchParams();
     const { messageId, cases } = useSelector(state => state.gpt.relatedCases);
     const currentUser = useSelector(state => state.auth.user);
-    
+
 
     async function handleCaseSearch(e) {
         try {
@@ -55,63 +55,65 @@ export default function CaseFinder() {
         }
     }
     return (
-        <div className={Styles.container} style={{ width: "70%", margin: "auto", zIndex: 2, position: "relative" }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: 250 }}>
-                    <div>Court:</div>
-                    <FormControl fullWidth>
-                        <Select
-                            onChange={(e) => setCourtName(e.target.value)}
-                            value={courtName}
-                            sx={{ backgroundColor: "white" }}
-                        >
-                            <MenuItem value={"Supreme Court of India"}>Supreme Court</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <div>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: 500 }}>
-                        <LocalizationProvider dateAdapter={AdapterMoment}>
-                            <div>From:</div>
-                            <DatePicker slotProps={{ layout: { sx: { backgroundImage: "none", backgroundColor: "transparent" } } }} value={startDate} onChange={(newVal) => setStartDate(newVal)} sx={{ backgroundColor: "white" }} />
-                            <div>To:</div>
-                            <DatePicker value={endDate} onChange={(newVal) => setEndDate(newVal)} sx={{ backgroundColor: "white" }} />
-                        </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+            <div className={Styles.container} style={{ width: "70%", margin: "auto", zIndex: 2, position: "relative" }}>
+                <div className={Styles.inputGrid}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: 250 }}>
+                        <div>Court:</div>
+                        <FormControl fullWidth>
+                            <Select
+                                onChange={(e) => setCourtName(e.target.value)}
+                                value={courtName}
+                                sx={{ backgroundColor: "white" }}
+                            >
+                                <MenuItem value={"Supreme Court of India"}>Supreme Court</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Box>
+
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <div>From:</div>
+                        <DatePicker slotProps={{ layout: { sx: { backgroundImage: "none", backgroundColor: "transparent" } } }} value={startDate} onChange={(newVal) => setStartDate(newVal)} sx={{ backgroundColor: "white" }} />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <div>To:</div>
+                        <DatePicker value={endDate} onChange={(newVal) => setEndDate(newVal)} sx={{ backgroundColor: "white" }} />
+                    </div>
+
                 </div>
-            </div>
-            <form onSubmit={handleCaseSearch} style={{ marginTop: 20, marginBottom: 25, display: "flex", backgroundColor: "white", padding: 16, borderRadius: 10 }}>
-                <SearchOutlined style={{ color: "#777", paddingRight: 5 }} />
-                <input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    style={{ width: "100%", fontSize: 16, outline: "none", border: "none" }}
-                    placeholder='Enter Prompt Here ...'
-                />
-            </form>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {loading ? <div style={{ display: "flex", justifyContent: "center" }}> <CircularProgress style={{ color: "white" }} /></div> : <>
-                    {result ? result.map((relatedCase) => {
-                        return <CaseCard
-                            caseId={relatedCase.id}
-                            name={relatedCase.title}
-                            date={relatedCase.date}
-                            citations={relatedCase.numCites}
-                            court={relatedCase.court}
-                            key={relatedCase.id}
-                        />
-                    }) : search.get('id') === messageId && cases.map((relatedCase) => {
-                        return <CaseCard
-                            caseId={relatedCase.id}
-                            name={relatedCase.title}
-                            citations={relatedCase.numCites}
-                            date={relatedCase.date}
-                            court={relatedCase.court}
-                            key={relatedCase.id}
-                        />
-                    })}
-                </>}
-            </div>
-        </div>
+                <form onSubmit={handleCaseSearch} style={{ marginTop: 20, marginBottom: 25, display: "flex", backgroundColor: "white", padding: 16, borderRadius: 10 }}>
+                    <SearchOutlined style={{ color: "#777", paddingRight: 5 }} />
+                    <input
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        style={{ width: "100%", fontSize: 16, outline: "none", border: "none" }}
+                        placeholder='Enter Prompt Here ...'
+                    />
+                </form>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                    {loading ? <div style={{ display: "flex", justifyContent: "center" }}> <CircularProgress style={{ color: "white" }} /></div> : <>
+                        {result ? result.map((relatedCase) => {
+                            return <CaseCard
+                                caseId={relatedCase.id}
+                                name={relatedCase.title}
+                                date={relatedCase.date}
+                                citations={relatedCase.numCites}
+                                court={relatedCase.court}
+                                key={relatedCase.id}
+                            />
+                        }) : search.get('id') === messageId && cases.map((relatedCase) => {
+                            return <CaseCard
+                                caseId={relatedCase.id}
+                                name={relatedCase.title}
+                                citations={relatedCase.numCites}
+                                date={relatedCase.date}
+                                court={relatedCase.court}
+                                key={relatedCase.id}
+                            />
+                        })}
+                    </>}
+                </div>
+            </div >
+        </LocalizationProvider>
     )
 }

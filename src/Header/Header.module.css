@@ -75,6 +75,10 @@
   transform: scale(1.1);
 }
 
+.mobileNav {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
   .headerContainer {
     padding-top: 20px;
@@ -84,11 +88,13 @@
     display: none;
   }
   .headerButton {
-    padding: 10px 16px;
-    font-size: 14px;
+    display: none;
   }
   .headerContent {
     width: 90%;
     padding: 15px;
+  }
+  .mobileNav {
+    display: block;
   }
 }
