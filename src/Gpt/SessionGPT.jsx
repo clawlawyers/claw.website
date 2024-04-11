@@ -28,9 +28,10 @@ export default function SessionGPT({ model, primaryColor }) {
     const [value, setValue] = useState(2);
     const [hover, setHover] = useState(-1);
     const [caseCount, setCaseCount] = useState(2);
-
+    const greetingRegex = /\b(hello|namaste|hola|hey|how are you|greetings|(hi+))\b/ig;
     const handlePopupOpen = useCallback(() => dispatch(open()), [])
-
+    const isGreeting = prompts.length > 0 && greetingRegex.test(prompts[prompts.length - 1].text);
+    const showUpgrade = prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && isError;
     useEffect(() => {
         if (status === "succeeded" && response) {
             setIsLoading(false);
@@ -124,9 +125,9 @@ export default function SessionGPT({ model, primaryColor }) {
                         {isError && (
                             <Prompt primaryColor={"red"} key={'error'} text={error.message} isUser={false} />
                         )}
-                        {!isLoading && (prompts.length > 0 && prompts[prompts.length - 1].id !== relatedCases.messageId && isError ? <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={handlePopupOpen}>Upgrade</button> : <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>)}
+                        {!isLoading && !isGreeting && (showUpgrade ? <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={handlePopupOpen}>Upgrade</button> : <button style={{ borderRadius: 15, backgroundColor: "#008080", color: "white", textDecoration: "none", padding: 10, width: "fit-content", border: "none" }} onClick={fetchRelatedCases}>Load cases</button>)}
                         <div >
-                            {relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id === relatedCases.messageId && relatedCases.cases.length > 0 && (
+                            {!isGreeting && relatedCases.messageId && prompts.length > 0 && prompts[prompts.length - 1].id === relatedCases.messageId && relatedCases.cases.length > 0 && (
                                 <div>
                                     <div style={{ display: "flex", flexDirection: "column", gap: 5, marginTop: 5 }}>
                                         {relatedCases.cases.slice(0, caseCount).map((relatedCase) => {
