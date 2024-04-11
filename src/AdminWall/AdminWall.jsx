@@ -7,7 +7,7 @@ export default function AdminWall() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!["+916280645248", "+919950866260"].includes(phoneNumber)) {
+        if (!["+916280645248", "+919950866260","+916352321550"].includes(phoneNumber)) {
             navigate(`/`);
         }
     }, [navigate, phoneNumber])
