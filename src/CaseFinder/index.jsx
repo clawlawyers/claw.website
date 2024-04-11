@@ -55,7 +55,7 @@ export default function CaseFinder() {
     }
     return (
         <LocalizationProvider dateAdapter={AdapterMoment}>
-            <div className={Styles.container} style={{ width: "70%", margin: "auto", zIndex: 2, position: "relative" }}>
+            <div className={Styles.container} style={{ width: "70%", margin: "auto", zIndex: 2, position: "relative", paddingBottom: 60 }}>
                 <div className={Styles.inputGrid}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: 250 }}>
                         <div>Court:</div>
@@ -69,6 +69,7 @@ export default function CaseFinder() {
                                 <MenuItem value={"Chattisgarh High Court"}>Chattisgarh High Court</MenuItem>
                                 <MenuItem value={"Sikkim High Court"}>Sikkim High Court</MenuItem>
                                 <MenuItem value={"Uttarakhand High Court"}>Uttarakhand High Court</MenuItem>
+                                <MenuItem value={"Calcutta High Court"}>Calcutta High Court</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
