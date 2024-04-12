@@ -92,6 +92,7 @@ export default function SessionGPT({ model, primaryColor }) {
 
     async function fetchRelatedCases() {
         setIsLoading(true);
+        setCaseCount(2);
         try {
             const res = await fetch(`${NODE_API_ENDPOINT}/gpt/case/related/${sessionId}`, {
                 headers: {
