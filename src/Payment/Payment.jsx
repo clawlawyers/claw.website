@@ -1,38 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 
 import Styles from "./Payment.module.css";
-import CheckoutForm from './CheckoutForm';
 import { NODE_API_ENDPOINT } from '../utils/utils';
-// test api key
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+import CircularProgress from '@mui/material/CircularProgress';
+import { load } from '@cashfreepayments/cashfree-js';
+
+const cashfree = load({
+    mode: "sandbox" //or production
+});
 
 export default function Payment() {
     const { plan, request, session, total } = useSelector(state => state.cart);
+    const { jwt } = useSelector(state => state.auth.user);
+    const [pay, setPay] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-
-    const appearance = {
-        theme: 'night',
-        variables: {
-            colorBackground: '#ffffff',
-            spacingUnit: '5px',
-            colorText: "black",
-            colorDanger: '#df1b41',
-        }
-    };
-    const options = {
-        mode: 'payment',
-        amount: total,
-        currency: 'inr',
-        appearance,
-    };
+    cashfree.then((res) => setPay(res));
 
     useEffect(() => {
         if (!plan) navigate('/pricing')
-    }, [plan])
+    }, [plan]);
+    console.log(pay)
+    async function createOrder() {
+        console.log("called")
+        try {
+            setLoading(true);
+            const response = await fetch(`${NODE_API_ENDPOINT}/payment/create-payment-order`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ amount: total, plan: `PRO_${request}_${session}`, billingCycle: plan, request, session })
+            });
+            const { data } = await response.json();
+
+            pay.checkout({
+                paymentSessionId: data.payment_session_id,
+                returnUrl: "https://clawlaw.in",
+
+            })
+        } catch (error) {
+            console.log(error);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <div style={{ width: "80%", margin: "auto", position: "relative", zIndex: 2 }}>
@@ -43,11 +59,15 @@ export default function Payment() {
             </div>
             <div className={Styles.gridContainer}>
                 <div style={{ flex: 1, paddingTop: 70, color: "black" }}>
+                    <button
+                        style={{ padding: "15px 80px", border: "none", fontSize: 24, borderRadius: 10, backgroundColor: "#008080", color: "white", alignSelf: "flex-start", marginTop: 25 }}
+                        onClick={createOrder}
+                        disabled={loading || !pay}
+                    >
+                        {loading || !pay ? <CircularProgress /> : "Pay now"}
 
-                    <Elements options={options} stripe={stripePromise}>
-                        <CheckoutForm />
-                    </Elements>
 
+                    </button>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", backgroundColor: "rgba(0,0,0,0.1)", padding: "70px 40px" }}>
                     <div >
