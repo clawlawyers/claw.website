@@ -45,7 +45,7 @@ export default function GPTLayout(props) {
             }
         }
 
-        if (currentUser && !currentUser.newGptUser) fetchGptUser();
+        if (currentUser) fetchGptUser();
     }, [currentUser, dispatch])
     return (
         <div className={Style.backdrop} style={{ position: "relative", height: "100vh", overflowY: "hidden", width: "100%" }}>

@@ -18,31 +18,10 @@ function GPT({ keyword, model, primaryColor, textGradient, backgroundGradient })
     const dispatch = useDispatch();
 
     useEffect(() => {
-        async function createGptUser() {
-            try {
-                setIsLoading(true);
-                const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${currentUser.jwt}`,
-                        "Content-Type": "application/json",
-                    }
-                });
-                if (res.ok) dispatch(gptUserCreated());
-                else throw new Error("Failed to create gpt user")
-            } catch (error) {
-                console.log(error);
-            }
-            finally {
-                setIsLoading(false);
-            }
-        }
-        if (currentUser && currentUser.newGptUser) createGptUser();
-        else if (!isAuthLoading && !currentUser) {
-            console.log(isAuthLoading, currentUser)
+        if (!isAuthLoading && !currentUser) {
             navigate("/login");
         }
-    }, [navigate, model, dispatch, currentUser, isAuthLoading])
+    }, [navigate, currentUser, isAuthLoading])
 
 
 

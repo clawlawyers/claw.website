@@ -4,11 +4,11 @@ import { useAuthState } from '../hooks/useAuthState';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { logout } from '../features/auth/authSlice';
 import { Outlet } from 'react-router-dom';
 
 export default function Ambassador() {
     const currentUser = useSelector(state => state.auth.user);
+    const currentUserProps = useSelector(state => state.auth.props);
     const { isAuthLoading } = useAuthState();
     const { pathname } = useLocation();
     const dispatch = useDispatch();
@@ -25,12 +25,7 @@ export default function Ambassador() {
                 // USER LOGGED IN
 
                 // USER HAS OLD SESSION OBJECT (EDGE CASE)
-                if (!currentUser.hasOwnProperty('ambassador')) {
-                    const searchParams = new URLSearchParams({ callbackUrl: pathname }).toString();
-                    dispatch(logout());
-                    navigate(`/login?${searchParams}`);
-                }
-                else if (currentUser.ambassador){
+                if (currentUserProps.ambassador) {
                     navigate('dashboard')
                 }
                 else {
@@ -38,7 +33,7 @@ export default function Ambassador() {
                 }
             }
         }
-    }, [currentUser, isAuthLoading, pathname, navigate, dispatch])
+    }, [currentUser, isAuthLoading, navigate, pathname])
 
     if (isAuthLoading) {
         return (
@@ -49,6 +44,6 @@ export default function Ambassador() {
         )
     }
     else return <Outlet />
-    
+
     return <div>Unexpected Error Occured</div>
 }
