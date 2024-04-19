@@ -1,9 +1,9 @@
 import Styles from "./index.module.css";
 
 export function CardsGroup({ resource, propsDataMapping = [], component: Card, layoutStyles = {} }) {
-    const blogs = resource.read();
+    const dataObj = resource.read();
     return <div style={{ width: "100%", ...layoutStyles, backgroundColor: "transparent" }}>
-        {blogs?.data?.map((data, idx) => {
+        {dataObj?.data?.map((data, idx) => {
             const props = {};
             propsDataMapping.forEach((mapping) => {
                 props[mapping.key] = mapping.transform ? mapping.transform(data[mapping.value]) : data[mapping.value];
