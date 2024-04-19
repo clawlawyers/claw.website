@@ -31,6 +31,7 @@ import NotFound from "./NotFound/index.jsx";
 import ContactUs from "./ContactUs/ContactUs.jsx";
 import RefundPolicy from "./RefundPolicy/RefundPolicy.jsx";
 import ShippingPolicy from "./ShippingPolicy/ShippingPolicy.jsx";
+import News from "./News/index.jsx";
 
 
 function App() {
@@ -133,6 +134,10 @@ function App() {
         {
           path: "",
           element: <Home particleOptions={options} engineReady={init} />
+        },
+        {
+          path: "news",
+          element: <News />
         },
         {
           path: "blog",

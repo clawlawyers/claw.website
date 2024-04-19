@@ -55,9 +55,9 @@ export default function CaseFinder() {
     }
     return (
         <LocalizationProvider dateAdapter={AdapterMoment}>
-            <div className={Styles.container} style={{ width: "70%", margin: "auto", zIndex: 2, position: "relative", paddingBottom: 60 }}>
+            <div className={Styles.container} style={{ width: "80%", margin: "auto", zIndex: 2, position: "relative", paddingBottom: 60 }}>
                 <div className={Styles.inputGrid}>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: 250 }}>
+                    <Box>
                         <div>Court:</div>
                         <FormControl fullWidth>
                             <Select
@@ -73,15 +73,17 @@ export default function CaseFinder() {
                             </Select>
                         </FormControl>
                     </Box>
+                    <div style={{ display: "flex", gap: 10 }}>
+                        <div >
+                            <div>From:</div>
+                            <DatePicker slotProps={{ layout: { sx: { backgroundImage: "none", backgroundColor: "transparent" } } }} value={startDate} onChange={(newVal) => setStartDate(newVal)} sx={{ backgroundColor: "white" }} />
+                        </div>
+                        <div >
+                            <div>To:</div>
+                            <DatePicker value={endDate} onChange={(newVal) => setEndDate(newVal)} sx={{ backgroundColor: "white" }} />
+                        </div>
+                    </div>
 
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <div>From:</div>
-                        <DatePicker slotProps={{ layout: { sx: { backgroundImage: "none", backgroundColor: "transparent" } } }} value={startDate} onChange={(newVal) => setStartDate(newVal)} sx={{ backgroundColor: "white" }} />
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <div>To:</div>
-                        <DatePicker value={endDate} onChange={(newVal) => setEndDate(newVal)} sx={{ backgroundColor: "white" }} />
-                    </div>
 
                 </div>
                 <form onSubmit={handleCaseSearch} style={{ marginTop: 20, marginBottom: 25, display: "flex", backgroundColor: "white", padding: 16, borderRadius: 10 }}>

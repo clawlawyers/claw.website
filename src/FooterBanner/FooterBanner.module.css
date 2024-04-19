@@ -1,30 +1,59 @@
 .footerContainer {
   width: 100%;
-  padding: 20px 50px 40px 50px;
-  margin-top: 25px;
-  display: flex;
-  justify-content: space-around;
+  padding: 50px 72px 40px 72px;
   color: white;
   background: #13161f;
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  margin-top: 25px;
+}
+
+.muted {
+  color: #64748b;
 }
 
 .hover > a {
-  color: #777;
+  text-decoration: none;
+  color: #94a3b8;
 }
-.hover > a:hover {
-  color: #c4c4c4;
+
+.hover {
+  padding: 4px;
+
+  background-color: #0e1216;
+  border-radius: 100px;
+}
+
+.hover:hover > a {
+  color: white;
+}
+
+.footerContent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 150px;
+}
+
+.footerNav {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
 }
 
 @media only screen and (max-width: 768px) {
+  .footerContent {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 75px;
+  }
+  .footerNav {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
   .footerContainer {
-    flex-direction: column;
-  }
-  .footerContainer > div {
-    margin-top: 20px;
-  }
-  .hover {
-    font-size: 16px;
+    padding: 25px 36px 20px 36px;
+    gap: 32px;
   }
 }
