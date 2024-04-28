@@ -7,6 +7,18 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import Styles from "./index.module.css";
 
+const courtIdMapping = {
+    "Supreme Court of India": "1bgi-zbCWObiTNjkegNXryni4ZJzZyCFV",
+    "Chattisgarh High Court": "10WjvWkkE5P9AZJTdBuK3rOB3FBfSuPON",
+    "Sikkim High Court": "1LRcl09Lc2psq3kFjZ92oYEBV54Bgdr4q",
+    "Uttarakhand High Court": "16ghA911ENkOJ5GDa-317ncVA_egwsy6J",
+    "Calcutta High Court": "1CTxPb31Kvj-iyUxef5THaTL7pzJpXsE0",
+    "Kerela High Court": "1ss5iK8rcrEzjWUjUl5Cg2qhKunTQX4II",
+    "Karnataka High Court": "1k8EEGMnzCbdyTKsNVGxboa4wqRiW2SNi",
+    "Jammu and Kashmir High Court": "15PrnIvUGB4OdKzSjvGtdpyVLLPlBEZ2M",
+    "Jharkhand High Court": "1cKhGvZGPJpVVA5KFW1MH0PTgSTjlPV_5",
+    "Delhi High Court": "1-4KMCL-J2HDD6RllAZbARzBJccxQPTYC",
+}
 export function CaseCard({ name, date, court, citations, caseId }) {
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState();
@@ -16,7 +28,7 @@ export function CaseCard({ name, date, court, citations, caseId }) {
         try {
             setLoading(true);
             setOpen(true)
-            const response = await fetch(`${NODE_API_ENDPOINT}/gpt/case/${caseId}`, {
+            const response = await fetch(`${NODE_API_ENDPOINT}/gpt/case/${courtIdMapping[court]}/${caseId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${jwt}`,

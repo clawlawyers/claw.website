@@ -65,11 +65,16 @@ export default function CaseFinder() {
                                 value={courtName}
                                 sx={{ backgroundColor: "white" }}
                             >
-                                <MenuItem value={"Supreme Court of India"}>Supreme Court</MenuItem>
-                                <MenuItem value={"Chattisgarh High Court"}>Chattisgarh High Court</MenuItem>
-                                <MenuItem value={"Sikkim High Court"}>Sikkim High Court</MenuItem>
-                                <MenuItem value={"Uttarakhand High Court"}>Uttarakhand High Court</MenuItem>
-                                <MenuItem value={"Calcutta High Court"}>Calcutta High Court</MenuItem>
+                                <MenuItem value="Supreme Court of India">Supreme Court</MenuItem>
+                                <MenuItem value="Chattisgarh High Court">Chattisgarh High Court</MenuItem>
+                                <MenuItem value="Sikkim High Court">Sikkim High Court</MenuItem>
+                                <MenuItem value="Uttarakhand High Court">Uttarakhand High Court</MenuItem>
+                                <MenuItem value="Calcutta High Court">Calcutta High Court</MenuItem>
+                                <MenuItem value="Kerela High Court">Kerela High Court</MenuItem>
+                                <MenuItem value="Karnataka High Court">Karnataka High Court</MenuItem>
+                                <MenuItem value="Jammu and Kashmir High Court">Jammu and Kashmir High Court</MenuItem>
+                                <MenuItem value="Jharkhand High Court">Jharkhand High Court</MenuItem>
+                                <MenuItem value="Delhi High Court">Delhi High Court</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
