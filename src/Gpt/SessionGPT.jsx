@@ -134,10 +134,10 @@ export default function SessionGPT({ model, primaryColor }) {
                                         {relatedCases.cases.slice(0, caseCount).map((relatedCase) => {
                                             return <CaseCard
                                                 messageId={relatedCases.messageId}
-                                                name={relatedCase.title}
+                                                name={relatedCase.Title}
                                                 caseId={relatedCase.id}
-                                                citations={relatedCase.numCites}
-                                                date={relatedCase.date}
+                                                citations={relatedCase.num_cites}
+                                                date={relatedCase.Date}
                                                 court={relatedCase.court}
                                                 key={relatedCase.id}
                                             />
