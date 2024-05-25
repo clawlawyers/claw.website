@@ -4,3 +4,18 @@
   color: white;
   background-color: #171e26;
 }
+
+.container{
+  display: flex;
+}
+
+.menuContainer{
+  width: 250px;
+  padding: 5px 20px;
+  border-right: 2px solid ;
+}
+
+.contentContainer{
+  padding: 5px 20px;
+  width: 100%;
+}

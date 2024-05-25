@@ -1,6 +1,6 @@
 import "./App.css";
 import Home from "./Home/Home";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 import Blog from "./Blog/Blog";
 import AllBlogs from "./AllBlogs/AllBlogs";
@@ -25,13 +25,17 @@ import AmbassadorDashboard from "./Ambassador/AmbassadorDashboard.jsx";
 import Ambassador from "./Ambassador/Ambassador.jsx";
 import AmbassadorApply from "./Ambassador/AmbassadorApply.jsx";
 import AdminWall from "./AdminWall/AdminWall.jsx";
-import AddLeaders from "./Admin/Leaders/AddLeaders.jsx";
 import TermsOfService from "./TermsOfService/TermsOfService.jsx";
 import NotFound from "./NotFound/index.jsx";
 import ContactUs from "./ContactUs/ContactUs.jsx";
 import RefundPolicy from "./RefundPolicy/RefundPolicy.jsx";
 import ShippingPolicy from "./ShippingPolicy/ShippingPolicy.jsx";
 import News from "./News/index.jsx";
+import Home1 from "./Admin/Home/Home";
+import Users from "./Admin/Users/Users";
+import Menu from "./Admin/Menu/Menu";
+import Clients from "./Admin/Clients/Clients";
+import Orders from "./Admin/Orders/Orders";
 
 
 function App() {
@@ -57,11 +61,6 @@ function App() {
   }, []);
   const options = useMemo(
     () => ({
-      // background: {
-      //   color: {
-      //     value: "#0d47a1",
-      //   },
-      // },
       fpsLimit: 120,
       interactivity: {
         events: {
@@ -126,6 +125,19 @@ function App() {
     [],
   );
 
+  const AdminLayout = () => {
+    return(
+      <div className="container">
+          <div className="menuContainer">
+            <Menu />
+          </div>
+          <div className="contentContainer">
+              <Outlet />
+          </div>
+      </div>
+    )
+  }
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -178,8 +190,24 @@ function App() {
         {
           path: "admin",
           element: <AuthWall />,
-          children: [{ path: "", element: <AdminWall />, children: [{ path: "leaders/add", element: <AddLeaders /> }] }]
+          children: [
+            { 
+              path: "", 
+              element: <AdminWall />, 
+              children: [
+                { 
+                  path: "", 
+                  element: <AdminLayout />, 
+                  children: [
+                    { path: "", element: <Home1 />},
+                    { path: "users", element: <Users />},
+                    { path: "clients", element: <Clients />},
+                    { path: "orders", element: <Orders />}
+                  ]
+                },
+              ] }]
         },
+
         {
           path: "paymentgateway",
           element: <AuthWall />,
@@ -238,7 +266,6 @@ function App() {
       element: <NotFound />
     }
   ]);
-
 
   return (
     <div className="App">
