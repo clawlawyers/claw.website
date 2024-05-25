@@ -105,18 +105,18 @@ export default function CaseFinder() {
                         {result ? result.map((relatedCase) => {
                             return <CaseCard
                                 caseId={relatedCase.id}
-                                name={relatedCase.title}
-                                date={relatedCase.date}
-                                citations={relatedCase.numCites}
+                                name={relatedCase.Title}
+                                date={relatedCase.Date}
+                                citations={relatedCase.num_cites}
                                 court={relatedCase.court}
                                 key={relatedCase.id}
                             />
                         }) : search.get('id') === messageId && cases.map((relatedCase) => {
                             return <CaseCard
                                 caseId={relatedCase.id}
-                                name={relatedCase.title}
-                                citations={relatedCase.numCites}
-                                date={relatedCase.date}
+                                name={relatedCase.Title}
+                                citations={relatedCase.num_cites}
+                                date={relatedCase.Date}
                                 court={relatedCase.court}
                                 key={relatedCase.id}
                             />
