@@ -104,7 +104,7 @@ export default function CaseFinder() {
                     {loading ? <div style={{ display: "flex", justifyContent: "center" }}> <CircularProgress style={{ color: "white" }} /></div> : <>
                         {result ? result.map((relatedCase) => {
                             return <CaseCard
-                                caseId={relatedCase.id}
+                                caseId={relatedCase.case_id}
                                 name={relatedCase.Title}
                                 date={relatedCase.Date}
                                 citations={relatedCase.num_cites}
