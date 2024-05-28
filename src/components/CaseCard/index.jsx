@@ -19,11 +19,13 @@ const courtIdMapping = {
     "Jharkhand High Court": "1cKhGvZGPJpVVA5KFW1MH0PTgSTjlPV_5",
     "Delhi High Court": "1-4KMCL-J2HDD6RllAZbARzBJccxQPTYC",
 }
+
 export function CaseCard({ name, date, court, citations, caseId }) {
     const [open, setOpen] = useState(false);
-    const [content, setContent] = useState();
+    const [content, setContent] = useState("");
     const jwt = useSelector(state => state.auth.user.jwt);
     const [loading, setLoading] = useState(false);
+
     async function handleOpen() {
         try {
             setLoading(true);
@@ -36,7 +38,8 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                 }
             })
             const parsed = await response.json();
-            setContent(parsed.data.content)
+            console.log(parsed)
+            setContent(parsed);
         } catch (error) {
             console.log(error);
         }
@@ -44,7 +47,9 @@ export function CaseCard({ name, date, court, citations, caseId }) {
             setLoading(false);
         }
     }
+
     const handleClose = () => setOpen(false);
+
     return (
         <div className={Styles.backdrop} style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 10, alignItems: "center", padding: 16, backgroundColor: "#008080", borderRadius: 10 }}>
             <div style={{ flex: 1 }}>
@@ -80,9 +85,20 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                         <button onClick={handleClose} style={{ border: "none", backgroundColor: "transparent" }}><ClearIcon style={{ fontSize: 30, color: "black" }} /></button>
                     </div>
 
-                    {loading ? <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <CircularProgress style={{ color: "black" }} /></div> :
-                        <div style={{ whiteSpace: "pre-line", textAlign: "justify", width: "100%", fontSize: 16, fontWeight: 500, fontFamily: "serif", border: "1px solid black" }} dangerouslySetInnerHTML={{ __html: content }} />
-                    }
+                    {loading ? (
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <CircularProgress style={{ color: "black" }} />
+                        </div>
+                    ) : (
+                        <div style={{ whiteSpace: "pre-line", alignItems: "center", width: "100%", fontSize: 16, fontWeight: 500, fontFamily: "serif", border: "1px solid black", padding: 10 }}>
+                            {Object.keys(content?.data || {}).map(key => (
+                                <div key={key}>
+                                    <p>{content?.data[key]}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                 </div>
             </Modal>
         </div>
