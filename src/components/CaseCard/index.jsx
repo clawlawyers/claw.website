@@ -38,8 +38,8 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                 }
             })
             const parsed = await response.json();
-            console.log(parsed)
             setContent(parsed);
+
         } catch (error) {
             console.log(error);
         }

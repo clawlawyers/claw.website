@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Styles from "./index.module.css";
 import { Link } from 'react-router-dom';
 import blog0 from "../../assets/icons/blog0.png"
-import blog1 from "../../assets/icons/blog1.png"
 
 export function ExpandedBlogCard({ imageHeading, imageSubHeading, heading, subHeading, blogNo = 0 }) {
     return (
