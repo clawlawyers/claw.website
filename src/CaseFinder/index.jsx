@@ -22,8 +22,8 @@ export default function CaseFinder() {
     const [courtName, setCourtName] = useState('Supreme Court of India');
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(false);
-    const [startDate, setStartDate] = useState(moment('1980-01-01'));
-    const [endDate, setEndDate] = useState(moment('2024-01-01'));
+    const [startDate, setStartDate] = useState(moment('18-sep-01'));
+    const [endDate, setEndDate] = useState(moment('19-sep-20'));
     const [result, setResult] = useState();
     const [search] = useSearchParams();
     const { messageId, cases } = useSelector(state => state.gpt.relatedCases);
@@ -40,7 +40,7 @@ export default function CaseFinder() {
                     Authorization: `Bearer ${currentUser.jwt}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ query, startDate: startDate.format("DD/MM/YYYY"), endDate: endDate.format("DD/MM/YYYY"), courtName })
+                body: JSON.stringify({ startDate: startDate.format("YY-MMM-DD'"), endDate: endDate.format("YY-MMM-DD'"),query, courtName })
             });
             const parsed = await response.json();
             setResult(parsed.data.result)
@@ -105,18 +105,18 @@ export default function CaseFinder() {
                         {result ? result.map((relatedCase) => {
                             return <CaseCard
                                 caseId={relatedCase.case_id}
-                                name={relatedCase.title}
-                                date={relatedCase.date}
-                                citations={relatedCase.numCites}
+                                name={relatedCase.Title}
+                                date={relatedCase.Date}
+                                citations={relatedCase.num_cites}
                                 court={relatedCase.court}
                                 key={relatedCase.id}
                             />
                         }) : search.get('id') === messageId && cases.map((relatedCase) => {
                             return <CaseCard
                                 caseId={relatedCase.case_id}
-                                name={relatedCase.title}
-                                citations={relatedCase.numCites}
-                                date={relatedCase.date}
+                                name={relatedCase.Title}
+                                citations={relatedCase.num_cites}
+                                date={relatedCase.Date}
                                 court={relatedCase.court}
                                 key={relatedCase.id}
                             />
