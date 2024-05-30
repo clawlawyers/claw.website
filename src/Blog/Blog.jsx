@@ -1,6 +1,4 @@
 import React, { Suspense } from 'react'
-import Header from '../Header/Header'
-import FooterBanner from '../FooterBanner/FooterBanner'
 import { BlogDetail, BlogDetailSkeleton } from './BlogDetail';
 import { NODE_API_ENDPOINT } from '../utils/utils';
 import { useParams } from 'react-router-dom';
