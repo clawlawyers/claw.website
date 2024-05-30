@@ -12,31 +12,14 @@ export default function Menu() {
 
     useEffect(() => {
         fetch(`${NODE_API_ENDPOINT}/admin`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Fetched data:', data);
-
-            // Ensure data is an array
-            let dataArray;
-            if (Array.isArray(data)) {
-                dataArray = data;
-            } else if (typeof data === 'object' && data !== null) {
-                dataArray = Object.values(data); // or transform as needed
-            } else {
-                throw new Error('Fetched data is not an array or object');
-            }
-
-            setResources(prevResources => {
-                if (!Array.isArray(prevResources)) {
-                    throw new Error('Previous resources is not an array');
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-                    return Array.from(new Set([...prevResources, ...dataArray]));
-                });
+                return response.json();
+            })
+            .then(data => {
+                setResources(prevResources => Array.from(new Set([...prevResources, ...data])));
             })
             .catch(err => {
                 console.error("Failed to fetch resources: ", err);
