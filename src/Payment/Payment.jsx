@@ -8,7 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { load } from '@cashfreepayments/cashfree-js';
 
 const cashfree = load({
-    mode: "sandbox" //or production
+    mode: "production" //or production
 });
 
 export default function Payment() {
