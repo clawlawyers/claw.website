@@ -19,7 +19,24 @@ export default function Menu() {
                 return response.json();
             })
             .then(data => {
-                setResources(prevResources => Array.from(new Set([...prevResources, ...data])));
+                console.log('Fetched data:', data);
+
+            // Ensure data is an array
+            let dataArray;
+            if (Array.isArray(data)) {
+                dataArray = data;
+            } else if (typeof data === 'object' && data !== null) {
+                dataArray = Object.values(data); // or transform as needed
+            } else {
+                throw new Error('Fetched data is not an array or object');
+            }
+
+            setResources(prevResources => {
+                if (!Array.isArray(prevResources)) {
+                    throw new Error('Previous resources is not an array');
+                }
+                    return Array.from(new Set([...prevResources, ...dataArray]));
+                });
             })
             .catch(err => {
                 console.error("Failed to fetch resources: ", err);
