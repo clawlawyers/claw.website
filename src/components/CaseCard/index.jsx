@@ -84,9 +84,19 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                         <button onClick={handleClose} style={{ border: "none", backgroundColor: "transparent" }}><ClearIcon style={{ fontSize: 30, color: "black" }} /></button>
                     </div>
 
-                    {loading ? <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}> <CircularProgress style={{ color: "black" }} /></div> :
-                        <div style={{ whiteSpace: "pre-line", textAlign: "justify", width: "100%", fontSize: 16, fontWeight: 500, fontFamily: "serif", border: "1px solid black" }} dangerouslySetInnerHTML={{ __html: content }} />
-                    }
+                    {loading ? (
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <CircularProgress style={{ color: "black" }} />
+                        </div>
+                    ) : (
+                        <div style={{ whiteSpace: "pre-line", alignItems: "center", width: "100%", fontSize: 16, fontWeight: 500, fontFamily: "serif", border: "1px solid black", padding: 10 }}>
+                            {Object.keys(content?.data || {}).map(key => (
+                                <div key={key}>
+                                    <p>{content?.data[key]}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </Modal>
         </div>
