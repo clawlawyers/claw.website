@@ -24,8 +24,9 @@ export default function ReferralCode() {
           if (!response.ok) {
             throw new Error('Failed to fetch orders');
           }
-          const data = await response.json();
-          setReferralCode(data);
+          const dataObject = await response.json();
+          const dataArray = Object.values(dataObject);
+          setReferralCode(dataArray);
         } catch (error) {
           console.error('Fetch error:', error);
         }

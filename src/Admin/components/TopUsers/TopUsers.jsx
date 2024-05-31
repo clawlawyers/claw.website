@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { NODE_API_ENDPOINT } from '../../../utils/utils';
-import Styles from './TopUsers.module.css'
+import Styles from './TopUsers.module.css';
 
 export default function TopUsers() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const fetchtopUsers = async () => {
-          try {
-            const response = await fetch(`${NODE_API_ENDPOINT}/admin/topusers`);
-            if (!response.ok) {
-              throw new Error('Failed to fetch orders');
+            try {
+                const response = await fetch(`${NODE_API_ENDPOINT}/admin/topusers`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch users');
+                }
+                const usersObj = await response.json();
+                const usersArray = Object.values(usersObj);
+                const usersWithTotalSessions = usersArray.map(user => ({
+                    ...user,
+                    totalSessions: user.sessions.length,
+                }));
+                setUsers(usersWithTotalSessions);
+            } catch (error) {
+                console.error('Fetch error:', error);
             }
-            const users = await response.json();
-            const usersWithTotalSessions = users.map(user => ({
-                ...user,
-                totalSessions: user.sessions.length,
-              }));
-            setUsers(usersWithTotalSessions);
-          } catch (error) {
-            console.error('Fetch error:', error);
-          }
         };
-    
+
         fetchtopUsers();
-      }, []);
+    }, []);
 
     return (
         <div className={Styles.topBox}>
@@ -42,5 +43,5 @@ export default function TopUsers() {
                 ))}
             </div>
         </div>
-    )
+    );
 }

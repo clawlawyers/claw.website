@@ -37,10 +37,10 @@ export default function Users() {
       fetchUsers();
     }, []);
   
-    const rows = users.map((user, index) => ({
+    const rows = Object.keys(users).map((key, index) => ({
       id: index + 1,
-      ...user,
-    }));
+      ...users[key],
+    }));    
 
   return (
     <div className="users">

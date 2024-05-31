@@ -13,13 +13,14 @@ const UserPlanPieChart = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${NODE_API_ENDPOINT}/admin/user`);
-        const users = await response.json();
+        const usersObject = await response.json();
 
-        if (!Array.isArray(users)) {
-          console.error('Invalid data format: users is not an array', users);
+        if (typeof usersObject !== 'object') {
+          console.error('Invalid data format: users is not an object', usersObject);
           return;
         }
 
+        const users = Object.values(usersObject);
         processChartData(users);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -45,7 +46,7 @@ const UserPlanPieChart = () => {
         datasets: [
           {
             data: data,
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8A2BE2', '#7FFFD4','#000'],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8A2BE2', '#7FFFD4', '#000'],
             hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8A2BE2', '#7FFFD4', '#000'],
           }
         ]

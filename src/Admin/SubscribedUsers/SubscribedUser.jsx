@@ -23,8 +23,9 @@ export default function SubscribedUser() {
         if (!response.ok) {
           throw new Error('Failed to fetch clients');
         }
-        const data = await response.json();
-        setClients(data);
+        const dataObject = await response.json();
+        const dataArray = Object.values(dataObject);
+        setClients(dataArray);
       } catch (error) {
         console.error('Fetch error:', error);
       }

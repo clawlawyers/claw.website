@@ -29,7 +29,7 @@ const DataTable = (props) => {
               quickFilterProps: { debounceMs: 500 },
             },
           }}
-          pageSizeOptions={props.rows.length}
+          pageSizeOptions={[props.rows.length]}
           checkboxSelection
           disableRowSelectionOnClick
           disableColumnFilter
