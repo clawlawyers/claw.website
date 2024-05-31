@@ -5,6 +5,7 @@ import { NODE_API_ENDPOINT } from '../../../utils/utils';
 
 const UserPlanPieChart = () => {
   const [chartData, setChartData] = useState({
+    labels: [],
     datasets: [],
   });
   const [chartOptions, setChartOptions] = useState({});
@@ -14,6 +15,8 @@ const UserPlanPieChart = () => {
       try {
         const response = await fetch(`${NODE_API_ENDPOINT}/admin/user`);
         const usersObject = await response.json();
+
+        console.log('Fetched data:', usersObject);
 
         if (typeof usersObject !== 'object') {
           console.error('Invalid data format: users is not an object', usersObject);
@@ -31,15 +34,21 @@ const UserPlanPieChart = () => {
       const planCounts = {};
 
       users.forEach(user => {
-        if (planCounts[user.planName]) {
-          planCounts[user.planName]++;
-        } else {
-          planCounts[user.planName] = 1;
+        if (user.planName) {
+          if (planCounts[user.planName]) {
+            planCounts[user.planName]++;
+          } else {
+            planCounts[user.planName] = 1;
+          }
         }
       });
 
       const labels = Object.keys(planCounts);
       const data = Object.values(planCounts);
+
+      console.log('Plan counts:', planCounts);
+      console.log('Labels:', labels);
+      console.log('Data:', data);
 
       setChartData({
         labels: labels,

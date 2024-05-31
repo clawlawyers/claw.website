@@ -14,7 +14,7 @@ const DataTable = (props) => {
       <DataGrid
         className={Styles.dataGrid}
         rows={props.rows}
-        columns={[...props.columns]}
+        columns={props.columns}
         initialState={{
             pagination: {
               paginationModel: {
