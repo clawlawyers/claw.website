@@ -38,7 +38,8 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                 }
             })
             const parsed = await response.json();
-            setContent(parsed)
+            setContent(parsed);
+
         } catch (error) {
             console.log(error);
         }
@@ -97,6 +98,7 @@ export function CaseCard({ name, date, court, citations, caseId }) {
                             ))}
                         </div>
                     )}
+
                 </div>
             </Modal>
         </div>
