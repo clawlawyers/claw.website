@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NODE_API_ENDPOINT } from '../../utils/utils';
-import Styles from './Users.module.css'
+import Styles from './Visitors.module.css';
 import DataTable from '../components/DataTable/DataTable';
 
 const columns = [
@@ -13,21 +13,20 @@ const columns = [
     valueFormatter: (params) => new Date(params.value).toLocaleDateString()  },
 ];
 
-export default function Users() {
-
+export default function Visitors() {
   const [users, setUsers] = useState([]);
-  
+
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchVisitors = async () => {
       try {
         const response = await fetch(`${NODE_API_ENDPOINT}/admin/user`);
         if (!response.ok) {
-          throw new Error('Failed to fetch users');
+          throw new Error('Failed to fetch users, status: ' + response.status);
         }
         const data = await response.json();
 
-        // Filter users with tokenUsed not equal to zero
-        const filteredUsers = data.filter(user => user.tokenUsed !== 0);
+        // Filter users with tokenUsed equal to zero
+        const filteredUsers = data.filter(user => user.tokenUsed === 0);
 
         setUsers(filteredUsers);
       } catch (error) {
@@ -35,18 +34,18 @@ export default function Users() {
       }
     };
 
-    fetchUsers();
+    fetchVisitors();
   }, []);
-  
+
   const rows = users.map((user, index) => ({
     id: index + 1,
     ...user,
-  }));    
+  }));
 
   return (
     <div className="users">
       <div className={Styles.info}>
-        <h1>Users</h1>
+        <h1>Visitors</h1>
       </div>
       <DataTable slug="users" columns={columns} rows={rows}/>
     </div>

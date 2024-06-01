@@ -25,7 +25,7 @@
     grid-row: 1;
 }
 
-.box2, .box3, .box4{
+.box2, .box3, .box4, .box6{
     grid-column: span 1;
     grid-row: span 1;
 }

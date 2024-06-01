@@ -12,13 +12,15 @@ export default function Menu() {
         'users',
         'subscribed-users',
         'referral-code',
+        'visitors'
     ];
 
     const iconMap = {
         "home": <GoHome />,
         'users': <FiUsers />,
         "subscribed-users": <RiUserStarLine />,
-        "referral-code": <AiOutlineShoppingCart />
+        "referral-code": <AiOutlineShoppingCart />,
+        "visitors": "👀"
     };
     return (
         <div className={Styles.menu}>

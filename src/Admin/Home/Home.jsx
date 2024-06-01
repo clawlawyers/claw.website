@@ -10,6 +10,7 @@ export default function Home1() {
       <div className={`${Styles.box} ${Styles.box2}`}><ChartBox collectionName="users"/></div>
       <div className={`${Styles.box} ${Styles.box3}`}><ChartBox collectionName="subscribed-users"/></div> 
       <div className={`${Styles.box} ${Styles.box4}`}><ChartBox collectionName="referral-code"/></div>
+      <div className={`${Styles.box} ${Styles.box6}`}><ChartBox collectionName="visitors"/></div>
       <div className={`${Styles.box} ${Styles.box5}`}><UserPlanPieChart /></div>
     </div>
   )
