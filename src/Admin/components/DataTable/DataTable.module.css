@@ -3,11 +3,6 @@
     padding: 10px;
 }
 
-.MuiDataGrid-toolbarContainer{
-    flex-direction: row-reverse;
-}
-
-.action{
-    display: flex;
-    gap: 15px;
+.MuiTablePagination-root{
+    display: none;
 }

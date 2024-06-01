@@ -2,7 +2,7 @@ import Styles from "./index.module.css"
 
 export function CollapsedCard({image, heading, subHeading}) {
     return (
-        <div className={Styles.newsCardContainer}>
+        <div className={Styles.newsCardContainer}>     
             <img src={image} alt={heading}/>
 
             <div className={Styles.newsCardContent}>

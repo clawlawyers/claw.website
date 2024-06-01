@@ -34,8 +34,9 @@ import News from "./News/index.jsx";
 import Home1 from "./Admin/Home/Home";
 import Users from "./Admin/Users/Users";
 import Menu from "./Admin/Menu/Menu";
-import Clients from "./Admin/Clients/Clients";
-import Orders from "./Admin/Orders/Orders";
+import ReferralCode from "./Admin/ReferralCode/ReferralCode";
+import SubscribedUser from "./Admin/SubscribedUsers/SubscribedUser";
+import Visitors from "./Admin/Visitors/Visitors";
 
 
 function App() {
@@ -201,8 +202,9 @@ function App() {
                   children: [
                     { path: "", element: <Home1 />},
                     { path: "users", element: <Users />},
-                    { path: "clients", element: <Clients />},
-                    { path: "orders", element: <Orders />}
+                    { path: "subscribed-users", element: <SubscribedUser />},
+                    { path: "referral-code", element: <ReferralCode />},
+                    { path: "visitors", element: <Visitors />}
                   ]
                 },
               ] }]
