@@ -1,0 +1,68 @@
+/* Container for the whole component */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  /* background-color: #1c1c1c; */
+}
+
+/* Styling for the image container */
+.image-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Styling for the image */
+.image {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+/* Styling for the text container */
+.text-container {
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Heading styling */
+.text-container h1 {
+  font-size: 2em;
+  margin: 0.5em 0;
+}
+
+/* Paragraph styling */
+.text-container p {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: 0.5em 0;
+}
+
+/* Category styling */
+.category {
+  font-size: 0.9em;
+  color: #b3b3b3;
+}
+
+/* Responsive styling */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .image-container {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .text-container {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+  }
+}
