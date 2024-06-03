@@ -1,0 +1,38 @@
+/* Home container */
+.home {
+    display: grid;
+    color:black;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust minmax value as needed */
+    grid-auto-rows: minmax(180px, auto);
+    grid-auto-flow: dense;
+    padding: 20px; /* Added padding to the home container */
+
+}
+
+/* Box styles */
+.box {
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual box positions */
+.box1 ,.box5{
+    grid-column: span 2;
+    grid-row: 1;
+}
+
+.box2, .box3, .box4, .box6{
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .home {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust minmax value as needed */
+    }
+}

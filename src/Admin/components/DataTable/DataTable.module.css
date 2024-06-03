@@ -1,0 +1,8 @@
+.dataGrid{
+    background: white;
+    padding: 10px;
+}
+
+.MuiTablePagination-root{
+    display: none;
+}

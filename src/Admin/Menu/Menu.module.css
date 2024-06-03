@@ -1,0 +1,37 @@
+.menu {
+    padding: 20px;
+}
+
+.title {
+    font-size: 12px;
+    font-weight: 200;
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.listItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+.listItem:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+    color: black;
+}
+
+.listItemTitle {
+    font-size: 14px;
+}

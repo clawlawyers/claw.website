@@ -110,11 +110,30 @@ const sliders = {
   },
 };
 
+//for limited pricing offer
+//monthly
+
+// const priceMap = {
+//   500: { 1: 199, 2: 249, 3: 299, 4: 349 },
+//   1000: { 1: 349, 2: 399, 3: 449, 4: 499 },
+//   5000: { 1: 499, 2: 599, 3: 699, 4: 799 },
+//   9999: { 1: 999, 2: 1499, 3: 1999, 4: 2999 },
+// };
+
 const priceMap = {
-  500: { 1: 199, 2: 249, 3: 299, 4: 349 },
-  1000: { 1: 349, 2: 399, 3: 449, 4: 499 },
-  5000: { 1: 499, 2: 599, 3: 699, 4: 799 },
-  9999: { 1: 999, 2: 1499, 3: 1999, 4: 2999 },
+  500: { 1: 499, 2: 699, 3: 799, 4: 999 },
+  1000: { 1: 999, 2: 1099, 3: 1299, 4: 1399 },
+  5000: { 1: 1399, 2: 1699, 3: 1999, 4: 2299 },
+  9999: { 1: 2899, 2: 4399, 3: 5899, 4: 8899 },
+};
+
+// yearly price
+
+const YearlypriceMap = {
+  500: { 1: 5299, 2: 6699, 3: 7999, 4: 9399 },
+  1000: { 1: 9399, 2: 10699, 3: 12099, 4: 13399 },
+  5000: { 1: 13399, 2: 16099, 3: 18799, 4: 21499 },
+  9999: { 1: 26899, 2: 40399, 3: 53899, 4: 79999 },
 };
 
 const PricingCard = ({ duration, sliderMap }) => {
@@ -126,7 +145,13 @@ const PricingCard = ({ duration, sliderMap }) => {
   const currentUser = useSelector((state) => state.auth.user);
   let price =
     priceMap[sliderMap.request.map[request]][sliderMap.session.map[session]];
-  if (duration === "Yearly") price = price * 9;
+  //   if (duration === "Yearly") price = price * 9;
+  if (duration === "Yearly") {
+    price =
+      YearlypriceMap[sliderMap.request.map[request]][
+        sliderMap.session.map[session]
+      ];
+  }
 
   function handleCartAddition() {
     if (!currentUser) {
@@ -214,7 +239,7 @@ const PricingCard = ({ duration, sliderMap }) => {
             borderRadius: 10,
           }}
         >
-          <span
+          {/* <span
             style={{
               textDecoration: "line-through",
               marginRight: 5,
@@ -223,15 +248,15 @@ const PricingCard = ({ duration, sliderMap }) => {
           >
             <span>₹</span>
             <span>{price * 3}</span>
-          </span>
+          </span> */}
           <span style={{ borderRadius: 10, fontWeight: 600, fontSize: 18 }}>
             <span>₹</span>
             <span>{price}</span>
           </span>
         </div>
-        <h5 style={{ fontWeight: 700, color: "red", margin: 0, fontSize: 12 }}>
+        {/* <h5 style={{ fontWeight: 700, color: "red", margin: 0, fontSize: 12 }}>
           Limited Time Offer!
-        </h5>
+        </h5> */}
       </div>
       <div
         style={{ display: "flex", justifyContent: "center", paddingTop: 15 }}
