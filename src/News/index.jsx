@@ -13,7 +13,7 @@ export default function News() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://newsdata.io/api/1/latest?apikey=pub_4527828ee4963221b617518847599dcd37752&q=law&country=in"
+          "https://newsdata.io/api/1/latest?apikey=pub_4527828ee4963221b617518847599dcd37752&q=indian law&country=in"
         );
         const result = await response.json();
         setTotalNew(result.results);
@@ -28,7 +28,7 @@ export default function News() {
   useEffect(() => {
     axios
       .get(
-        "https://newsdata.io/api/1/latest?apikey=pub_4527828ee4963221b617518847599dcd37752&q=law&country=in"
+        "https://newsdata.io/api/1/latest?apikey=pub_4527828ee4963221b617518847599dcd37752&q=indian law&country=in"
       )
       .then((response) => {
         setNewsData(response.data.results);
