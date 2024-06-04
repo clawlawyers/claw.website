@@ -166,6 +166,7 @@ const PricingCard = ({ duration, sliderMap }) => {
           session: sliderMap.session.map[session],
           total: price,
           plan: duration,
+          type: "PRO",
         })
       );
       navigate("/paymentgateway");
