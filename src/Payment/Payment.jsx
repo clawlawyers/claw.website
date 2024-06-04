@@ -25,6 +25,7 @@ export default function Payment() {
     if (!plan) navigate("/pricing");
   }, [plan]);
   console.log(pay);
+
   async function createOrder() {
     console.log("called");
     try {

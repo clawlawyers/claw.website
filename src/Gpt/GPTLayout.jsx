@@ -56,7 +56,7 @@ export default function GPTLayout(props) {
         session: 1,
         total: 25,
         plan: "LIFETIME",
-        type: "TOP_UP",
+        type: "TOPUP",
       })
     );
   };
