@@ -1,69 +1,98 @@
-/* Container for the whole component */
-.container {
+/* src/ExpandedCard.css */
+.expanded-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   color: white;
-  /* background-color: #1c1c1c; */
+  background-color: #1c1c1c;
+  width: 100%;
 }
 
-/* Styling for the image container */
-.image-container {
+.expanded-image-container {
   width: 100%;
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-/* Styling for the image */
-.image {
-  height: fit-content;
+.expanded-image,
+.expanded-placeholder {
   width: 100%;
   max-width: 600px;
+  height: auto;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+  background-color: #444444;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 700;
 }
 
-/* Styling for the text container */
-.text-container {
+.expanded-image {
+  object-fit: cover;
+}
+
+.expanded-placeholder {
+  aspect-ratio: 16 / 9; /* Example aspect ratio */
+}
+
+.expanded-text-container {
   max-width: 600px;
   text-align: center;
 }
 
-/* Heading styling */
-.text-container h1 {
+.expanded-text-container h1 {
   font-size: 2em;
   margin: 0.5em 0;
 }
 
-/* Paragraph styling */
-.text-container p {
+.expanded-text-container p {
   font-size: 1em;
   line-height: 1.5em;
   margin: 0.5em 0;
 }
 
-/* Category styling */
 .category {
   font-size: 0.9em;
   color: #b3b3b3;
 }
 
-/* Responsive styling */
 @media (min-width: 768px) {
-  .container {
+  .expanded-card {
     flex-direction: row;
     align-items: flex-start;
   }
 
-  .image-container {
+  .expanded-image-container {
     flex: 1;
     margin-bottom: 0;
   }
 
-  .text-container {
+  .expanded-text-container {
     flex: 1;
     text-align: left;
     padding-left: 20px;
+  }
+
+  .expanded-text-container h1 {
+    font-size: 1.8em;
+  }
+
+  .expanded-text-container p {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .expanded-text-container h1 {
+    font-size: 2.2em;
+  }
+
+  .expanded-text-container p {
+    font-size: 1.2em;
   }
 }

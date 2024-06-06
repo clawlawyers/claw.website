@@ -1,0 +1,30 @@
+/* src/index.css */
+.news-container {
+  position: inherit;
+  z-index: 2;
+  width: 80%;
+  margin: auto;
+}
+
+.articles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .news-container {
+    width: 95%;
+  }
+
+  .articles {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
