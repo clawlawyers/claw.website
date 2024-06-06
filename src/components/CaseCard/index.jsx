@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -7,6 +7,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { setToken } from "../../features/gpt/gptSlice";
 import Styles from "./index.module.css";
 import { useDispatch } from "react-redux";
+import { open } from "../../features/popup/popupSlice";
 
 const courtIdMapping = {
   "Supreme Court of India": "1bgi-zbCWObiTNjkegNXryni4ZJzZyCFV",
@@ -22,17 +23,25 @@ const courtIdMapping = {
 };
 
 export function CaseCard({ name, date, court, citations, caseId }) {
-  const [open, setOpen] = useState(false);
+  const [openCase, setOpenCase] = useState(false);
   const [content, setContent] = useState("");
   const jwt = useSelector((state) => state.auth.user.jwt);
   const [loading, setLoading] = useState(false);
   const { token } = useSelector((state) => state.gpt);
   const dispatch = useDispatch();
+  const handlePopupOpen = useCallback(() => dispatch(open()), []);
 
   async function handleOpen() {
     try {
+      //   console.log(token);
+      if (token?.used >= token?.total) {
+        handlePopupOpen();
+        // console.log("token exipred");
+        return;
+      }
       setLoading(true);
-      setOpen(true);
+      setOpenCase(true);
+
       const response = await fetch(
         `${NODE_API_ENDPOINT}/gpt/case/${courtIdMapping[court]}/${caseId}`,
         {
@@ -55,7 +64,7 @@ export function CaseCard({ name, date, court, citations, caseId }) {
     }
   }
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => setOpenCase(false);
 
   return (
     <div
@@ -99,7 +108,7 @@ export function CaseCard({ name, date, court, citations, caseId }) {
         View document
       </button>
       <Modal
-        open={open}
+        open={openCase}
         onClose={handleClose}
         aria-labelledby="child-modal-title"
       >
