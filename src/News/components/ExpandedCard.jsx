@@ -23,7 +23,7 @@ export function ExpandedCard({ newsData }) {
       </div>
       <div className="expanded-text-container">
         <h1>{newsItem?.title}</h1>
-        <p>{newsItem?.description.substring(0, 100)}...</p>
+        <p>{newsItem?.description?.substring(0, 100)}...</p>
         <p className="category">Movies • 4 min read</p>
       </div>
     </div>
