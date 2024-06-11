@@ -178,6 +178,7 @@ export default function CaseFinder() {
                         citations={relatedCase.num_cites}
                         court={relatedCase.court}
                         key={relatedCase.id}
+                        query={query}
                       />
                     );
                   })
@@ -191,6 +192,7 @@ export default function CaseFinder() {
                         date={relatedCase.Date}
                         court={relatedCase.court}
                         key={relatedCase.id}
+                        query={query}
                       />
                     );
                   })}
