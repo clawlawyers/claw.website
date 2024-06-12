@@ -167,7 +167,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             </span>
                           </div>
                           <div>
-                            Token - {Math.floor(token.used)}/{token.total}{" "}
+                            Token - {Math.floor(token?.used)}/{token?.total}{" "}
                           </div>
                           <button
                             style={{
@@ -265,7 +265,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     alt="Claw"
                     style={{
                       backgroundColor: "transparent",
-                      height: 53,
+                      height: "100%",
                       marginTop: 8,
                     }}
                     src={clawLogo}
