@@ -9,21 +9,18 @@ export default function News() {
   const [newsData, setNewsData] = useState([]);
   const [totalNew, setTotalNew] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://newsdata.io/api/1/latest?apikey=pub_4527828ee4963221b617518847599dcd37752&q=indian law&country=in"
-        );
-        const result = await response.json();
-        setTotalNew(result.results);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://newsdata.io/api/1/latest?apikey=pub_4527828ee4963221b617518847599dcd37752&q=indian law&country=in"
+      );
+      const result = await response.json();
+      setTotalNew(result.results);
+      console.log(result.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -32,10 +29,12 @@ export default function News() {
       )
       .then((response) => {
         setNewsData(response.data.results);
+        console.log(response.data.results);
       })
       .catch((err) => {
         console.log(err.message);
       });
+    fetchData();
   }, []);
 
   const newsItems = totalNew && Array.isArray(totalNew) ? totalNew : [];

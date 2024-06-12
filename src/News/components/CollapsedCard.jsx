@@ -23,8 +23,42 @@ export function CollapsedCard({ newsData }) {
         <div className="card-header">
           <span className="read-time">{newsData?.readTime}</span>
         </div>
-        <h3>{newsData?.title}</h3>
-        <p>{newsData?.description?.substring(0, 100)}...</p>
+        <h4>{newsData?.title}</h4>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
+        >
+          <button
+            style={{
+              borderRadius: 15,
+              backgroundColor: "#008080",
+              padding: 10,
+              width: "fit-content",
+              marginTop: 15,
+              border: "none",
+            }}
+          >
+            <a
+              href={newsData.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "white",
+                fontSize: 17,
+                fontWeight: 600,
+                border: "none",
+                backgroundColor: "transparent",
+                textDecoration: "none",
+              }}
+            >
+              Read More
+            </a>
+          </button>
+        </div>
+        {/* <p>{newsData?.description?.substring(0, 100)}...</p> */}
       </div>
     </div>
   );

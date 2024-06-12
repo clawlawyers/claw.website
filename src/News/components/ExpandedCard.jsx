@@ -23,8 +23,34 @@ export function ExpandedCard({ newsData }) {
       </div>
       <div className="expanded-text-container">
         <h1>{newsItem?.title}</h1>
-        <p>{newsItem?.description?.substring(0, 100)}...</p>
+        {/* <p>{newsItem?.description?.substring(0, 100)}...</p> */}
         <p className="category">Movies • 4 min read</p>
+        <button
+          style={{
+            borderRadius: 15,
+            backgroundColor: "#008080",
+            padding: 10,
+            width: "fit-content",
+            marginTop: 15,
+            border: "none",
+          }}
+        >
+          <a
+            href={newsItem?.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "white",
+              fontSize: 17,
+              fontWeight: 600,
+              border: "none",
+              backgroundColor: "transparent",
+              textDecoration: "none",
+            }}
+          >
+            Read More
+          </a>
+        </button>
       </div>
     </div>
   );

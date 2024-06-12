@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -22,7 +22,9 @@ const courtIdMapping = {
   "Delhi High Court": "1-4KMCL-J2HDD6RllAZbARzBJccxQPTYC",
 };
 
-export function CaseCard({ name, date, court, citations, caseId }) {
+export function CaseCard({ name, date, court, citations, caseId, query }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [summery, setsummery] = useState("");
   const [openCase, setOpenCase] = useState(false);
   const [content, setContent] = useState("");
   const jwt = useSelector((state) => state.auth.user.jwt);
@@ -30,6 +32,48 @@ export function CaseCard({ name, date, court, citations, caseId }) {
   const { token } = useSelector((state) => state.gpt);
   const dispatch = useDispatch();
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
+  const [isSummaryOpen, setIsSummaryOpen] = useState(false);
+
+  const handleSummary = async () => {
+    if (summery) {
+      return; // If content is already fetched, don't fetch again
+    }
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `${NODE_API_ENDPOINT}/gpt/case/summeryDetails`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            folderId: courtIdMapping[court],
+            caseId,
+            query,
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      setsummery(data.content);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleSummaryToggle = async () => {
+    setIsSummaryOpen(!isSummaryOpen);
+    if (!isSummaryOpen) {
+      handleSummary();
+    }
+  };
+  // useEffect(() => {
+  //   handleSummary();
+  // }, []);
 
   async function handleOpen() {
     try {
@@ -107,6 +151,45 @@ export function CaseCard({ name, date, court, citations, caseId }) {
       >
         View document
       </button>
+      <button
+        onClick={handleSummaryToggle}
+        style={{
+          border: "none",
+          padding: "10px 12px",
+          minWidth: "fit-content",
+          backgroundColor: "white",
+          borderRadius: 10,
+          fontWeight: 700,
+          fontSize: 14,
+          textDecoration: "none",
+          color: "black",
+          backgroundImage: "none",
+          cursor: "pointer",
+        }}
+      >
+        {isSummaryOpen ? "Hide summary" : "View summary"}
+      </button>
+      {isSummaryOpen && (
+        <>
+          <div
+            style={
+              {
+                // padding: "10px",
+                // borderRadius: "10px",
+              }
+            }
+          >
+            <hr />
+            <p>Here is the summary content.</p>
+            {isLoading ? (
+              <CircularProgress style={{ color: "white" }} />
+            ) : (
+              <p style={{ color: "white" }}>{summery}</p>
+            )}
+          </div>
+        </>
+      )}
+
       <Modal
         open={openCase}
         onClose={handleClose}

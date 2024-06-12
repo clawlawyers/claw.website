@@ -21,6 +21,7 @@ import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import GavelIcon from "@mui/icons-material/Gavel";
 import PersonIcon from "@mui/icons-material/Person";
 import ClearIcon from "@mui/icons-material/Clear";
+import FeedIcon from "@mui/icons-material/Feed";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
@@ -29,6 +30,7 @@ const navLinks = [
   { path: "/leaders", label: "Leaders", icon: LeaderboardIcon },
   { path: "/case/search", label: "Case Search", icon: SearchIcon },
   { path: "/gpt/legalGPT", label: "LegalGPT", icon: GavelIcon },
+  { path: "/news", label: "News", icon: FeedIcon },
 ];
 
 function Header() {
