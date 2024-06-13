@@ -44,7 +44,7 @@ export function UserSessions({ jwt, model }) {
         </div>
       ) : (
         <div>
-          {sessions.map(({ name, id }) => (
+          {sessions?.map(({ name, id }) => (
             <Link
               key={id}
               style={{
