@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Style from "./LegalGPT.module.css";
 import { Prompt } from "./components/Prompt";
-import { CaseCard } from "../components/CaseCard";
+import { CasecardGpt } from "./components/CasecardGpt";
 import clawImg from "../assets/images/gptclaw.PNG";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { useAuthState } from "../hooks/useAuthState";
@@ -17,7 +17,7 @@ import {
   setPlan,
   setRelatedCases,
   setToken,
-} from "../features/gpt/gptSlice";
+} from "../features/gpt/gptSlice.js";
 import { open } from "../features/popup/popupSlice";
 
 export default function SessionGPT({ model, primaryColor }) {
@@ -213,7 +213,7 @@ export default function SessionGPT({ model, primaryColor }) {
                         .slice(0, caseCount)
                         .map((relatedCase) => {
                           return (
-                            <CaseCard
+                            <CasecardGpt
                               messageId={relatedCases.messageId}
                               name={relatedCase.Title}
                               caseId={relatedCase.case_id}
