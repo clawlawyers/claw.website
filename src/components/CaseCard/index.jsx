@@ -31,7 +31,7 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
   const [loading, setLoading] = useState(false);
   const { token } = useSelector((state) => state.gpt);
   const dispatch = useDispatch();
-  const handlePopupOpen = useCallback(() => dispatch(open()), []);
+  // const handlePopupOpen = useCallback(() => dispatch(open()), []);
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
 
   const handleSummary = async () => {
@@ -76,10 +76,15 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
 
   async function handleOpen() {
     try {
-      //   console.log(token);
-      if (token?.used >= token?.total) {
-        handlePopupOpen();
-        // console.log("token exipred");
+      console.log(token);
+      console.log(parseFloat(token?.used) + 1);
+
+      if (
+        token?.used >= token?.total ||
+        parseFloat(token?.used) + 1 > token?.total
+      ) {
+        console.log("token exipred");
+        dispatch(open());
         return;
       }
       setLoading(true);
