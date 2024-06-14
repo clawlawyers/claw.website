@@ -1,6 +1,8 @@
 // src/ExpandedCard.js
 import React from "react";
 import "./ExpendedCard.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 export function ExpandedCard({ newsData }) {
   const newsItem = newsData[1];
@@ -9,13 +11,21 @@ export function ExpandedCard({ newsData }) {
     <div className="expanded-card">
       <div className="expanded-image-container">
         {newsItem?.image_url ? (
-          <img
-            src={newsItem.image_url}
+          <LazyLoadImage
+            src={newsItem?.image_url}
+            PlaceholderSrc={newsItem?.image_url}
+            effect="blur"
             alt="News"
             style={{ height: "auto" }}
             className="expanded-image"
           />
         ) : (
+          // <img
+          //   src={newsItem.image_url}
+          //   alt="News"
+          //   style={{ height: "auto" }}
+          //   className="expanded-image"
+          // />
           <div className="expanded-placeholder">
             <span>{newsItem?.title}</span>
           </div>

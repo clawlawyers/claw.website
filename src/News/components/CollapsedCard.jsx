@@ -1,6 +1,8 @@
 // src/ArticleCard.js (CollapsedCard Component)
 import React from "react";
 import "./Collapsed.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 export function CollapsedCard({ newsData }) {
   return (
@@ -10,8 +12,13 @@ export function CollapsedCard({ newsData }) {
       key={newsData?.id}
     >
       {newsData.image_url ? (
-        <img src={newsData?.image_url} alt={newsData?.title} />
+        <LazyLoadImage
+          src={newsData?.image_url}
+          PlaceholderSrc={newsData?.image_url}
+          effect="blur"
+        />
       ) : (
+        // <img src={newsData?.image_url} alt={newsData?.title} loading="lazy" />
         <div
           style={{ backgroundColor: "#444444", display: "flex" }}
           className="placeholder"
