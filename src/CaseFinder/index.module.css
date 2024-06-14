@@ -15,3 +15,107 @@
     justify-items: center;
   }
 }
+
+/* index.module.css */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  /* width: 80%; */
+  margin: auto;
+  position: relative;
+  /* padding-bottom: 60px; */
+}
+
+.sidebarContainer {
+  flex: 1 1 300px;
+  max-width: 300px;
+  position: relative;
+  z-index: 2;
+  margin-right: 20px;
+}
+
+.contentContainer {
+  flex: 3 1 600px;
+  max-width: calc(100% - 320px);
+  background-color: #222222;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.inputGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .sidebarContainer {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .contentContainer {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .inputGrid {
+    flex-direction: column;
+  }
+}
+
+.modalContent {
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: black;
+  border-radius: 10px;
+  overflow-y: scroll;
+  padding: 10px;
+  transform: translate(-50%, -50%);
+  box-shadow: 24px;
+  max-height: 90vh;
+  max-width: 90vw;
+}
+
+.modalHeader {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 50px;
+}
+
+.modalActions {
+  display: flex;
+  gap: 5px;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 20px;
+  }
+
+  .modalBody {
+    padding: 20px;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -7,21 +7,20 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { useSearchParams, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Modal } from "@mui/material";
-import { ClearIcon } from "@mui/x-date-pickers";
+import ClearIcon from "@mui/icons-material/Clear";
 import LockIcon from "@mui/icons-material/Lock";
 import { setCart } from "../features/cart/cartSlice";
 import "../Gpt/LegalGPT.module.css";
-
+import Sidebar from "./Sidebar";
 import { CaseCard } from "../components/CaseCard";
 import Styles from "./index.module.css";
 import { SearchOutlined } from "@mui/icons-material";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { setPlan, setToken } from "../features/gpt/gptSlice";
-import { useDispatch } from "react-redux";
 import moment from "moment";
 import { close, open } from "../features/popup/popupSlice";
 
@@ -42,19 +41,40 @@ export default function CaseFinder({
   const { token } = useSelector((state) => state.gpt);
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.popup.open);
-  const handlePopupClose = useCallback(() => dispatch(close()), []);
+  const handlePopupClose = useCallback(() => dispatch(close()), [dispatch]);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  useEffect(() => {
+    async function fetchGptUser() {
+      try {
+        const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const parsed = await res.json();
+
+        dispatch(setPlan({ plan: parsed.data.plan }));
+        dispatch(setToken({ token: parsed.data.token }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (currentUser) fetchGptUser();
+  }, [currentUser]);
 
   async function handleCaseSearch(e) {
     try {
       e.preventDefault();
       setLoading(true);
-      console.log(token);
       if (
         token?.used >= token?.total ||
         parseFloat(token?.used) + 0.2 > token?.total
       ) {
         dispatch(open());
-
         throw new Error(
           "Not enough tokens, please upgrade or try again later!"
         );
@@ -67,8 +87,8 @@ export default function CaseFinder({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          startDate: startDate.format("YY-MMM-DD'"),
-          endDate: endDate.format("YY-MMM-DD'"),
+          startDate: startDate.format("YY-MMM-DD"),
+          endDate: endDate.format("YY-MMM-DD"),
           query,
           courtName,
         }),
@@ -76,8 +96,6 @@ export default function CaseFinder({
       const parsed = await response.json();
       setResult(parsed.data.result);
       dispatch(setToken({ token: parsed.data.token }));
-      //   console.log(token);
-      //   console.log(parsed);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -101,238 +119,230 @@ export default function CaseFinder({
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <div
-        className={Styles.container}
-        style={{
-          width: "80%",
-          margin: "auto",
-          zIndex: 2,
-          position: "relative",
-          paddingBottom: 60,
-        }}
+        className={`${Styles.container} ${
+          sidebarCollapsed ? Styles.fullWidth : ""
+        }`}
       >
-        <Modal open={isOpen} onClose={handlePopupClose}>
-          <div
-            style={{
-              backgroundColor: "white",
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              color: "black",
-              borderRadius: 10,
-              overflowY: "scroll",
-              padding: 10,
-              transform: "translate(-50%, -50%)",
-              boxShadow: 24,
-            }}
-          >
-            <div
-              style={{
-                position: "sticky",
-                top: 0,
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              <button
-                onClick={handlePopupClose}
-                style={{
-                  border: "none",
-                  backgroundColor: "inherit",
-                  backgroundImage: "none",
-                }}
-              >
-                <ClearIcon style={{ fontSize: 30, color: "black" }} />
-              </button>
+        <div
+          className={`${Styles.sidebarContainer} ${
+            sidebarCollapsed ? Styles.collapsed : ""
+          }`}
+        >
+          <Sidebar
+            keyword={keyword}
+            primaryColor={primaryColor}
+            model={model}
+            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+          />
+        </div>
+        <div
+          className={`${Styles.contentContainer} ${
+            sidebarCollapsed ? Styles.fullWidth : ""
+          }`}
+        >
+          <Modal open={isOpen} onClose={handlePopupClose}>
+            <div className={Styles.modalContent}>
+              <div className={Styles.modalHeader}>
+                <button
+                  onClick={handlePopupClose}
+                  style={{
+                    border: "none",
+                    backgroundColor: "inherit",
+                    backgroundImage: "none",
+                  }}
+                >
+                  <ClearIcon style={{ fontSize: 30, color: "black" }} />
+                </button>
+              </div>
+              <div className={Styles.modalBody}>
+                <LockIcon style={{ fontSize: 80, color: primaryColor }} />
+                <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
+                <div className={Styles.modalActions}>
+                  <StudentReferralModal />
+                  <button
+                    onClick={topuphandler}
+                    className="backdropImg"
+                    style={{
+                      border: "none",
+                      backgroundColor: "rgb(0, 128, 128)",
+                      borderRadius: 15,
+                      padding: 10,
+                    }}
+                  >
+                    <Link
+                      className="linkImg"
+                      to="/paymentgateway"
+                      style={{
+                        color: "white",
+                        textDecoration: "none",
+                        width: "fit-content",
+                        border: "none",
+                      }}
+                    >
+                      Top Up 25 Rs
+                    </Link>
+                  </button>
+                  <button
+                    className="backdropImg"
+                    style={{
+                      border: "none",
+                      backgroundColor: "rgb(0, 128, 128)",
+                      borderRadius: 15,
+                      padding: 10,
+                    }}
+                  >
+                    <Link
+                      className="linkImg"
+                      to="/pricing"
+                      style={{
+                        color: "white",
+                        textDecoration: "none",
+                        width: "fit-content",
+                        border: "none",
+                      }}
+                    >
+                      Buy Credits
+                    </Link>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: 10,
-                padding: 50,
-              }}
-            >
-              <LockIcon style={{ fontSize: 80, color: primaryColor }} />
-              <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
-              <div style={{ display: "flex", gap: 5 }}>
-                <StudentReferralModal />
-                <button
-                  onClick={topuphandler}
-                  className="backdropImg"
-                  style={{
-                    border: "none",
-                    backgroundColor: "rgb(0, 128, 128)",
-                    borderRadius: 15,
-                    padding: 10,
-                  }}
+          </Modal>
+          <div className={Styles.inputGrid}>
+            <Box>
+              <div>Court:</div>
+              <FormControl fullWidth>
+                <Select
+                  onChange={(e) => setCourtName(e.target.value)}
+                  value={courtName}
+                  sx={{ backgroundColor: "white" }}
                 >
-                  <Link
-                    className="linkImg"
-                    to="/paymentgateway"
-                    style={{
-                      color: "white",
-                      textDecoration: "none",
-                      width: "fit-content",
-                      border: "none",
-                    }}
-                  >
-                    Top Up 25 Rs
-                  </Link>
-                </button>
-                <button
-                  className="backdropImg"
-                  style={{
-                    border: "none",
-                    backgroundColor: "rgb(0, 128, 128)",
-                    borderRadius: 15,
-                    padding: 10,
-                  }}
-                >
-                  <Link
-                    className="linkImg"
-                    to="/pricing"
-                    style={{
-                      color: "white",
-                      textDecoration: "none",
-                      width: "fit-content",
-                      border: "none",
-                    }}
-                  >
-                    Buy Credits
-                  </Link>
-                </button>
+                  <MenuItem value="Supreme Court of India">
+                    Supreme Court
+                  </MenuItem>
+                  <MenuItem value="Chattisgarh High Court">
+                    Chattisgarh High Court
+                  </MenuItem>
+                  <MenuItem value="Sikkim High Court">
+                    Sikkim High Court
+                  </MenuItem>
+                  <MenuItem value="Uttarakhand High Court">
+                    Uttarakhand High Court
+                  </MenuItem>
+                  <MenuItem value="Calcutta High Court">
+                    Calcutta High Court
+                  </MenuItem>
+                  <MenuItem value="Kerela High Court">
+                    Kerela High Court
+                  </MenuItem>
+                  <MenuItem value="Karnataka High Court">
+                    Karnataka High Court
+                  </MenuItem>
+                  <MenuItem value="Jammu and Kashmir High Court">
+                    Jammu and Kashmir High Court
+                  </MenuItem>
+                  <MenuItem value="Jharkhand High Court">
+                    Jharkhand High Court
+                  </MenuItem>
+                  <MenuItem value="Delhi High Court">Delhi High Court</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <div style={{ display: "flex", gap: 10 }}>
+              <div>
+                <div>From:</div>
+                <DatePicker
+                  value={startDate}
+                  onChange={(newVal) => setStartDate(newVal)}
+                  sx={{ backgroundColor: "white" }}
+                />
+              </div>
+              <div>
+                <div>To:</div>
+                <DatePicker
+                  value={endDate}
+                  onChange={(newVal) => setEndDate(newVal)}
+                  sx={{ backgroundColor: "white" }}
+                />
               </div>
             </div>
           </div>
-        </Modal>
-
-        <div className={Styles.inputGrid}>
-          <Box>
-            <div>Court:</div>
-            <FormControl fullWidth>
-              <Select
-                onChange={(e) => setCourtName(e.target.value)}
-                value={courtName}
-                sx={{ backgroundColor: "white" }}
-              >
-                <MenuItem value="Supreme Court of India">
-                  Supreme Court
-                </MenuItem>
-                <MenuItem value="Chattisgarh High Court">
-                  Chattisgarh High Court
-                </MenuItem>
-                <MenuItem value="Sikkim High Court">Sikkim High Court</MenuItem>
-                <MenuItem value="Uttarakhand High Court">
-                  Uttarakhand High Court
-                </MenuItem>
-                <MenuItem value="Calcutta High Court">
-                  Calcutta High Court
-                </MenuItem>
-                <MenuItem value="Kerela High Court">Kerela High Court</MenuItem>
-                <MenuItem value="Karnataka High Court">
-                  Karnataka High Court
-                </MenuItem>
-                <MenuItem value="Jammu and Kashmir High Court">
-                  Jammu and Kashmir High Court
-                </MenuItem>
-                <MenuItem value="Jharkhand High Court">
-                  Jharkhand High Court
-                </MenuItem>
-                <MenuItem value="Delhi High Court">Delhi High Court</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          <div style={{ display: "flex", gap: 10 }}>
-            <div>
-              <div>From:</div>
-              <DatePicker
-                slotProps={{
-                  layout: {
-                    sx: {
-                      backgroundImage: "none",
-                      backgroundColor: "transparent",
-                    },
-                  },
-                }}
-                value={startDate}
-                onChange={(newVal) => setStartDate(newVal)}
-                sx={{ backgroundColor: "white" }}
-              />
-            </div>
-            <div>
-              <div>To:</div>
-              <DatePicker
-                value={endDate}
-                onChange={(newVal) => setEndDate(newVal)}
-                sx={{ backgroundColor: "white" }}
-              />
-            </div>
-          </div>
-        </div>
-        <form
-          onSubmit={handleCaseSearch}
-          style={{
-            marginTop: 20,
-            marginBottom: 25,
-            display: "flex",
-            backgroundColor: "white",
-            padding: 16,
-            borderRadius: 10,
-          }}
-        >
-          <SearchOutlined style={{ color: "#777", paddingRight: 5 }} />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+          <form
+            onSubmit={handleCaseSearch}
             style={{
-              width: "100%",
-              fontSize: 16,
-              outline: "none",
-              border: "none",
+              marginTop: 20,
+              marginBottom: 25,
+              display: "flex",
+              backgroundColor: "white",
+              padding: 16,
+              borderRadius: 10,
             }}
-            placeholder="Enter Prompt Here ..."
-          />
-        </form>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {loading ? (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              {" "}
-              <CircularProgress style={{ color: "white" }} />
-            </div>
-          ) : (
-            <>
-              {result
-                ? result.map((relatedCase) => {
-                    return (
-                      <CaseCard
-                        caseId={relatedCase.case_id}
-                        name={relatedCase.Title}
-                        date={relatedCase.Date}
-                        citations={relatedCase.num_cites}
-                        court={relatedCase.court}
-                        key={relatedCase.id}
-                        query={query}
-                      />
-                    );
-                  })
-                : search.get("id") === messageId &&
-                  cases.map((relatedCase) => {
-                    return (
-                      <CaseCard
-                        caseId={relatedCase.case_id}
-                        name={relatedCase.Title}
-                        citations={relatedCase.num_cites}
-                        date={relatedCase.Date}
-                        court={relatedCase.court}
-                        key={relatedCase.id}
-                        query={query}
-                      />
-                    );
-                  })}
-            </>
-          )}
+          >
+            <SearchOutlined style={{ color: "#777", paddingRight: 5 }} />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              style={{
+                width: "100%",
+                fontSize: 16,
+                outline: "none",
+                border: "none",
+              }}
+              placeholder="Enter Prompt Here ..."
+            />
+            <button
+              type="submit"
+              style={{
+                backgroundColor: primaryColor,
+                color: "white",
+                border: "none",
+                borderRadius: 5,
+                padding: "8px 16px",
+                cursor: "pointer",
+                marginLeft: 10,
+              }}
+            >
+              Search
+            </button>
+          </form>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {loading ? (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <CircularProgress style={{ color: "white" }} />
+              </div>
+            ) : (
+              <>
+                {result
+                  ? result.map((relatedCase) => {
+                      return (
+                        <CaseCard
+                          caseId={relatedCase.case_id}
+                          name={relatedCase.Title}
+                          date={relatedCase.Date}
+                          citations={relatedCase.num_cites}
+                          court={relatedCase.court}
+                          key={relatedCase.id}
+                          query={query}
+                        />
+                      );
+                    })
+                  : search.get("id") === messageId &&
+                    cases.map((relatedCase) => {
+                      return (
+                        <CaseCard
+                          caseId={relatedCase.case_id}
+                          name={relatedCase.Title}
+                          citations={relatedCase.num_cites}
+                          date={relatedCase.Date}
+                          court={relatedCase.court}
+                          key={relatedCase.id}
+                          query={query}
+                        />
+                      );
+                    })}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </LocalizationProvider>
@@ -368,6 +378,7 @@ function StudentReferralModal() {
       setReferralCode("");
     }
   }
+
   return (
     <>
       <Modal

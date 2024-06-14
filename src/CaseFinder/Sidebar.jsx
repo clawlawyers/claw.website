@@ -3,16 +3,16 @@ import { useMediaQuery } from "react-responsive";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
 import StarIcon from "@mui/icons-material/Star";
-import HomeIcon from "@mui/icons-material/Home";
+// import HomeIcon from "@mui/icons-material/Home";
 import CircularProgress from "@mui/material/CircularProgress";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+// import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 import Style from "./Sidebar.module.css";
-import { UserSessions } from "./UserSessions";
+// import { UserSessions } from "./UserSessions";
 import clawLogo from "../assets/icons/clawlogo.png";
 import { useAuthState } from "../hooks/useAuthState";
 import HeaderStyles from "../Header/Header.module.css";
@@ -197,7 +197,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   </div>
                 )}
               </div>
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -236,7 +236,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     <UserSessions model={model} jwt={currentUser.jwt} />
                   )}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div
               style={{
