@@ -167,7 +167,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             </span>
                           </div>
                           <div>
-                            Token - {Math.floor(token?.used)}/{token?.total}
+                            Token - {token?.used}/{token?.total}
                           </div>
                           <button
                             style={{

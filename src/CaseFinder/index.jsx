@@ -123,10 +123,7 @@ export default function CaseFinder({
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <div className={`${Styles.container} `}>
-        <div
-          className={`${Styles.sidebarContainer}`}
-          style={{ border: "1px solid green" }}
-        >
+        <div className={`${Styles.sidebarContainer}`}>
           <Sidebar
             keyword={keyword}
             primaryColor={primaryColor}
