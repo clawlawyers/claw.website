@@ -42,7 +42,7 @@ export default function CaseFinder({
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.popup.open);
   const handlePopupClose = useCallback(() => dispatch(close()), [dispatch]);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [Collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
     async function fetchGptUser() {
@@ -115,30 +115,31 @@ export default function CaseFinder({
       })
     );
   };
+  console.log(Collapsed);
+  const handleToggle = () => {
+    setCollapsed((prevState) => !prevState);
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
-      <div
-        className={`${Styles.container} ${
-          sidebarCollapsed ? Styles.fullWidth : ""
-        }`}
-      >
+      <div className={`${Styles.container} `}>
         <div
-          className={`${Styles.sidebarContainer} ${
-            sidebarCollapsed ? Styles.collapsed : ""
-          }`}
+          className={`${Styles.sidebarContainer}`}
+          style={{ border: "1px solid green" }}
         >
           <Sidebar
             keyword={keyword}
             primaryColor={primaryColor}
             model={model}
-            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+            collapsed={Collapsed}
+            onToggle={handleToggle}
           />
         </div>
+
         <div
-          className={`${Styles.contentContainer} ${
-            sidebarCollapsed ? Styles.fullWidth : ""
-          }`}
+          className={`${
+            Collapsed ? Styles.contentContainer : Styles.contentContainer1
+          } `}
         >
           <Modal open={isOpen} onClose={handlePopupClose}>
             <div className={Styles.modalContent}>

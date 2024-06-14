@@ -21,9 +21,15 @@ import { open } from "../features/popup/popupSlice";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Home } from "@mui/icons-material";
 
-export default function Sidebar({ keyword, primaryColor, model }) {
+export default function Sidebar({
+  keyword,
+  primaryColor,
+  model,
+  collapsed,
+  onToggle,
+}) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
-  const collapsed = useSelector((state) => state.sidebar.collapsed);
+  // const collapsed = useSelector((state) => state.sidebar.collapsed);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const plan = useSelector((state) => state.gpt.plan);
@@ -53,6 +59,13 @@ export default function Sidebar({ keyword, primaryColor, model }) {
       setLoading(false);
     }
   }
+  const handletoggle = () => {
+    dispatch(toggle());
+  };
+  const closetoggle = () => {
+    dispatch(toggle());
+  };
+
   function handleNewConversation() {
     if (keyword === "Legal") navigate("/gpt/legalGPT");
     else navigate("/gpt/finGPT");
@@ -74,10 +87,17 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             border: "none",
             backgroundImage: "none",
           }}
+          onClick={onToggle}
         >
           <MenuOutlinedIcon
-            onClick={() => dispatch(toggle())}
-            style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }}
+            onClick={handletoggle}
+            style={{
+              color: "white",
+              fontSize: 40,
+              backgroundColor: "inherit",
+              zIndex: 10,
+              position: "fixed",
+            }}
           />
         </button>
       )}
@@ -92,10 +112,16 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             zIndex: 8,
             border: "none",
           }}
+          onClick={onToggle}
         >
           <MenuOutlinedIcon
-            onClick={() => dispatch(toggle())}
-            style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }}
+            onClick={closetoggle}
+            style={{
+              color: "white",
+              fontSize: 40,
+              backgroundColor: "inherit",
+              position: "fixed",
+            }}
           />
         </button>
       )}
@@ -167,7 +193,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             </span>
                           </div>
                           <div>
-                            Token - {Math.floor(token?.used)}/{token?.total}
+                            Token - {token?.used}/{token?.total}
                           </div>
                           <button
                             style={{

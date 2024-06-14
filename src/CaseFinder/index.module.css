@@ -25,24 +25,34 @@
   margin: auto;
   position: relative;
   /* padding-bottom: 60px; */
+  /* border: 2px solid blue; */
 }
 
-.sidebarContainer {
-  flex: 1 1 300px;
-  max-width: 300px;
+/* .sidebarContainer {
+  max-width: 310px;
   position: relative;
-  z-index: 2;
-  margin-right: 20px;
-}
+  z-index: 1;
+} */
 
 .contentContainer {
   flex: 3 1 600px;
-  max-width: calc(100% - 320px);
-  background-color: #222222;
+  /* max-width: calc(100% - 320px); */
+  /* background-color: #222222; */
   border-radius: 10px;
   padding: 20px;
   position: relative;
   z-index: 1;
+  margin-left: 5%;
+}
+.contentContainer1 {
+  flex: 3 1 600px;
+  /* max-width: calc(100% - 320px); */
+  /* background-color: #222222; */
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  margin-left: 21%;
 }
 
 .inputGrid {
