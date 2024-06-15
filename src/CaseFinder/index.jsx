@@ -10,7 +10,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Button, FormHelperText, InputLabel, Modal } from "@mui/material";
+import { Button, FormHelperText, InputLabel, Modal, Chip } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import LockIcon from "@mui/icons-material/Lock";
 import { setCart } from "../features/cart/cartSlice";
@@ -139,13 +139,13 @@ export default function CaseFinder({
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <div className={`${Styles.container} `}>
         <div className={`${Styles.sidebarContainer}`}>
-          <Sidebar
+          {/* <Sidebar
             keyword={keyword}
             primaryColor={primaryColor}
             model={model}
             collapsed={Collapsed}
             onToggle={handleToggle}
-          />
+          /> */}
         </div>
 
         <div
@@ -239,9 +239,33 @@ export default function CaseFinder({
                   value={selectedCourts}
                   // onChange={(e) => setCourtName(e.target.value)}
                   // value={courtName}
-                  style={{ backgroundColor: "white", minWidth: "200px" }}
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    maxWidth: "450px",
+                    fontWeight: "bold",
+                    fontSize: "10px",
+                  }}
                   multiple
-                  renderValue={(selected) => selected.join(", ")}
+                  renderValue={(selected) => (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 0.5,
+                        maxHeight: 80,
+                        overflow: "auto",
+                      }}
+                    >
+                      {selected.map((value) => (
+                        <Chip
+                          key={value}
+                          label={value}
+                          sx={{ backgroundColor: "#e0f7fa" }}
+                        />
+                      ))}
+                    </Box>
+                  )}
                 >
                   <MenuItem disabled value="">
                     <em>Select a court</em>
