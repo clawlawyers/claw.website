@@ -204,6 +204,7 @@ export default function Sidebar({
                               marginTop: 5,
                               borderRadius: 5,
                               backgroundColor: primaryColor,
+                              curser: "pointer",
                             }}
                             onClick={() => dispatch(open())}
                           >

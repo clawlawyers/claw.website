@@ -20,6 +20,10 @@ const courtIdMapping = {
   "Jammu and Kashmir High Court": "15PrnIvUGB4OdKzSjvGtdpyVLLPlBEZ2M",
   "Jharkhand High Court": "1cKhGvZGPJpVVA5KFW1MH0PTgSTjlPV_5",
   "Delhi High Court": "1-4KMCL-J2HDD6RllAZbARzBJccxQPTYC",
+  "Delhi District Court": "1PSrAbXpBsoUvqjV_ssoca3Xzzk71qP4a",
+  "Madhya Pradesh High Court": "1exastQPw80VSb359G8xournBF1MPShdn",
+  "Allahabad High Court": "1qpWWufkZ4ciCskmJ3xPHLe72Z8oKWjcO",
+  "Gujarat High Court": "1NyOxx5lBZ-rFy3wtwdOlepTog668HUwJ",
 };
 
 export function CaseCard({ name, date, court, citations, caseId, query }) {

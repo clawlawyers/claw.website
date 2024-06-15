@@ -10,7 +10,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Modal } from "@mui/material";
+import { Button, FormHelperText, InputLabel, Modal } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import LockIcon from "@mui/icons-material/Lock";
 import { setCart } from "../features/cart/cartSlice";
@@ -43,6 +43,7 @@ export default function CaseFinder({
   const isOpen = useSelector((state) => state.popup.open);
   const handlePopupClose = useCallback(() => dispatch(close()), [dispatch]);
   const [Collapsed, setCollapsed] = useState(true);
+  const [selectedCourts, setSelectedCourts] = useState([]);
 
   useEffect(() => {
     async function fetchGptUser() {
@@ -66,7 +67,21 @@ export default function CaseFinder({
     if (currentUser) fetchGptUser();
   }, [currentUser]);
 
+  const handleCourtChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    // Update the state with the selected courts, allowing deselection
+
+    setSelectedCourts(typeof value === "string" ? value.split(",") : value);
+  };
+
   async function handleCaseSearch(e) {
+    if (selectedCourts.length === 0) {
+      alert("Please select at least one court.");
+      return;
+    }
+    const courtsString = selectedCourts.join(",");
     try {
       e.preventDefault();
       setLoading(true);
@@ -90,7 +105,7 @@ export default function CaseFinder({
           startDate: startDate.format("YY-MMM-DD"),
           endDate: endDate.format("YY-MMM-DD"),
           query,
-          courtName,
+          courtName: courtsString,
         }),
       });
       const parsed = await response.json();
@@ -209,14 +224,30 @@ export default function CaseFinder({
           <div className={Styles.inputGrid}>
             <Box>
               <div>Court:</div>
-              <FormControl fullWidth>
+              <FormControl fullWidth error={selectedCourts.length === 0}>
+                {selectedCourts.length !== 0 ? null : (
+                  <InputLabel
+                    id="court-selector-label"
+                    style={{ color: "black" }}
+                  >
+                    Select a court....
+                  </InputLabel>
+                )}
                 <Select
-                  onChange={(e) => setCourtName(e.target.value)}
-                  value={courtName}
-                  sx={{ backgroundColor: "white" }}
+                  labelId="court-selector-label"
+                  onChange={handleCourtChange}
+                  value={selectedCourts}
+                  // onChange={(e) => setCourtName(e.target.value)}
+                  // value={courtName}
+                  style={{ backgroundColor: "white", minWidth: "200px" }}
+                  multiple
+                  renderValue={(selected) => selected.join(", ")}
                 >
+                  <MenuItem disabled value="">
+                    <em>Select a court</em>
+                  </MenuItem>
                   <MenuItem value="Supreme Court of India">
-                    Supreme Court
+                    Supreme Court of India
                   </MenuItem>
                   <MenuItem value="Chattisgarh High Court">
                     Chattisgarh High Court
@@ -243,7 +274,24 @@ export default function CaseFinder({
                     Jharkhand High Court
                   </MenuItem>
                   <MenuItem value="Delhi High Court">Delhi High Court</MenuItem>
+                  <MenuItem value="Delhi District Court">
+                    Delhi District Court
+                  </MenuItem>
+                  <MenuItem value="Madhya Pradesh High Court">
+                    Madhya Pradesh High Court
+                  </MenuItem>
+                  <MenuItem value="Allahabad High Court">
+                    Allahabad High Court
+                  </MenuItem>
+                  <MenuItem value="Gujarat High Court">
+                    Gujarat High Court
+                  </MenuItem>
                 </Select>
+                {selectedCourts.length === 0 && (
+                  <FormHelperText>
+                    Please select at least one court.
+                  </FormHelperText>
+                )}
               </FormControl>
             </Box>
             <div style={{ display: "flex", gap: 10 }}>
