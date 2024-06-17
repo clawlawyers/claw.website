@@ -9,6 +9,7 @@ import { login } from "../features/auth/authSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import { NODE_API_ENDPOINT } from "../utils/utils";
+import axios from "axios";
 
 export default function Login() {
   const [otp, setOtp] = useState("");
@@ -20,6 +21,9 @@ export default function Login() {
   const currentUser = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const [areaName, setAreaName] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -52,9 +56,39 @@ export default function Login() {
       .catch((error) => console.log(error));
   };
 
+  function extractState(addressComponents) {
+    for (const component of addressComponents) {
+      if (component.types.includes("administrative_area_level_1")) {
+        return component.long_name;
+      }
+    }
+    return null;
+  }
+
+  const getAreaName = async (latitude, longitude) => {
+    const API_KEY = "AIzaSyB2FE83jbNZ8_dREtBnzEwG-XH5E831NAA";
+    const response = await axios.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`
+    );
+    const { results } = response.data;
+    console.log(results);
+    if (results && results.length > 0) {
+      const state = extractState(results[0].address_components);
+      if (state) {
+        return state;
+      } else {
+        throw new Error("State not found in the address components");
+      }
+    } else {
+      throw new Error("No results found");
+    }
+  };
+
   const verifyOtp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    let area;
     try {
       if (otp.length === 6) {
         const confirmationResult = window.confirmationResult;
@@ -70,7 +104,60 @@ export default function Login() {
             verified: true,
           }),
         });
+        console.log(response);
         const { data } = await response.json();
+        const userMongoId = data.mongoId;
+
+        if (
+          data?.sessions % 5 === 0 ||
+          !data?.sessions ||
+          !data?.stateLocation
+        ) {
+          if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+              async (position) => {
+                const { latitude, longitude } = position.coords;
+                console.log(latitude + " " + longitude);
+                setLocation({ latitude, longitude });
+
+                try {
+                  area = await getAreaName(latitude, longitude);
+                  setAreaName(area);
+                  console.log(area);
+
+                  console.log(areaName);
+
+                  const response = await fetch(
+                    `${NODE_API_ENDPOINT}/client/setState`,
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        id: userMongoId,
+                        location: area,
+                      }),
+                    }
+                  );
+                  const { data } = await response.json();
+                  console.log(data);
+
+                  console.log(area);
+                } catch (error) {
+                  setError("Failed to get area name");
+                }
+              },
+              (error) => {
+                setError(error.message);
+              }
+            );
+          } else {
+            setError("Geolocation not supported");
+          }
+
+          console.log(area);
+        }
         dispatch(
           login({
             uid,
@@ -79,6 +166,7 @@ export default function Login() {
             expiresAt: data.expiresAt,
             newGptUser: data.newGptUser,
             ambassador: data.ambassador,
+            stateLocation: area,
           })
         );
       } else throw new Error("Otp length should be of 6");
