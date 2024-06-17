@@ -104,10 +104,15 @@ export default function Login() {
             verified: true,
           }),
         });
+        console.log(response);
         const { data } = await response.json();
         const userMongoId = data.mongoId;
 
-        if (data.sessions % 5 === 0) {
+        if (
+          data?.sessions % 5 === 0 ||
+          !data?.sessions ||
+          !data?.stateLocation
+        ) {
           if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
               async (position) => {

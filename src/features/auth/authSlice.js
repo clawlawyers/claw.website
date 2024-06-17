@@ -33,7 +33,6 @@ export const userSlice = createSlice({
       const { ambassador, ...user } = action.payload;
       state.user = user;
       state.props = { ambassador };
-      console.log(user);
       localStorage.setItem("auth", JSON.stringify(user));
       return;
     },
