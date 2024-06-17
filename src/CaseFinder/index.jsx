@@ -23,6 +23,7 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import { setPlan, setToken } from "../features/gpt/gptSlice";
 import moment from "moment";
 import { close, open } from "../features/popup/popupSlice";
+import bgimage from "../assets/images/button-gradient.png";
 
 export default function CaseFinder({
   keyword = "Legal",
@@ -285,16 +286,16 @@ export default function CaseFinder({
                   <MenuItem value="Calcutta High Court">
                     Calcutta High Court
                   </MenuItem>
-                  <MenuItem value="Kerela High Court">
+                  {/* <MenuItem value="Kerela High Court">
                     Kerela High Court
                   </MenuItem>
                   <MenuItem value="Karnataka High Court">
                     Karnataka High Court
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem value="Jammu and Kashmir High Court">
                     Jammu and Kashmir High Court
                   </MenuItem>
-                  <MenuItem value="Jharkhand High Court">
+                  {/* <MenuItem value="Jharkhand High Court">
                     Jharkhand High Court
                   </MenuItem>
                   <MenuItem value="Delhi High Court">Delhi High Court</MenuItem>
@@ -309,7 +310,7 @@ export default function CaseFinder({
                   </MenuItem>
                   <MenuItem value="Gujarat High Court">
                     Gujarat High Court
-                  </MenuItem>
+                  </MenuItem> */}
                 </Select>
                 {selectedCourts.length === 0 && (
                   <FormHelperText>
@@ -348,7 +349,9 @@ export default function CaseFinder({
               borderRadius: 10,
             }}
           >
-            <SearchOutlined style={{ color: "#777", paddingRight: 5 }} />
+            <SearchOutlined
+              style={{ color: "#777", marginRight: "10px", marginTop: "7px" }}
+            />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -362,6 +365,7 @@ export default function CaseFinder({
             />
             <button
               type="submit"
+              className={Styles.bgbutton}
               style={{
                 backgroundColor: primaryColor,
                 color: "white",
