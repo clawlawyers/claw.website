@@ -35,6 +35,7 @@ export default function SessionGPT({ model, primaryColor }) {
   const navigate = useNavigate();
   const [value, setValue] = useState(2);
   const [hover, setHover] = useState(-1);
+  const [courtName, setcourtName] = useState("");
   const [caseCount, setCaseCount] = useState(2);
   const greetingRegex =
     /\b(hello|namaste|hola|hey|how are you|greetings|(hi+))\b/gi;
@@ -77,7 +78,25 @@ export default function SessionGPT({ model, primaryColor }) {
   }, [prompts]);
 
   useEffect(() => {
+    let userlocation = localStorage.getItem("userLocation");
+    if (userlocation == "Chhattisgarh" || userlocation == "chhattisgarh")
+      setcourtName("Chattisgarh High Court");
+    else if (userlocation == "Sikkim" || userlocation == "sikkim")
+      setcourtName("Sikkim High Court");
+    else if (userlocation == "Uttarakhand" || userlocation == "uttarakhand")
+      setcourtName("Uttarakhand High Court");
+    else if (
+      userlocation == "Calcutta" ||
+      userlocation == "calcutta" ||
+      userlocation == "Kolkata"
+    )
+      setcourtName("Calcutta High Court");
+    else if (userlocation == "Jammu and Kashmir")
+      setcourtName("Jammu and Kashmir High Court");
+    else setcourtName("Supreme Court of India");
+
     if (!prompt && currentUser) {
+      console.log(courtName);
       async function fetchSessionMessages() {
         setIsLoading(true);
         const res = await fetch(
@@ -87,6 +106,7 @@ export default function SessionGPT({ model, primaryColor }) {
               Authorization: `Bearer ${currentUser.jwt}`,
               "Content-Type": "application/json",
             },
+            body: { courtName },
           }
         );
         const { data } = await res.json();

@@ -21,7 +21,7 @@ export default function Login() {
   const currentUser = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
+  let area;
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [areaName, setAreaName] = useState(null);
 
@@ -75,6 +75,8 @@ export default function Login() {
     if (results && results.length > 0) {
       const state = extractState(results[0].address_components);
       if (state) {
+        console.log(state);
+        localStorage.setItem("userLocation", state);
         return state;
       } else {
         throw new Error("State not found in the address components");
@@ -88,7 +90,6 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
 
-    let area;
     try {
       if (otp.length === 6) {
         const confirmationResult = window.confirmationResult;
@@ -123,7 +124,7 @@ export default function Login() {
                 try {
                   area = await getAreaName(latitude, longitude);
                   setAreaName(area);
-                  console.log(area);
+                  // console.log(area);
 
                   console.log(areaName);
 
@@ -141,9 +142,9 @@ export default function Login() {
                     }
                   );
                   const { data } = await response.json();
-                  console.log(data);
+                  // console.log(data);
 
-                  console.log(area);
+                  // console.log(area);
                 } catch (error) {
                   setError("Failed to get area name");
                 }
@@ -155,8 +156,6 @@ export default function Login() {
           } else {
             setError("Geolocation not supported");
           }
-
-          console.log(area);
         }
         dispatch(
           login({
