@@ -3,16 +3,16 @@ import { useMediaQuery } from "react-responsive";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
 import StarIcon from "@mui/icons-material/Star";
-import HomeIcon from "@mui/icons-material/Home";
+// import HomeIcon from "@mui/icons-material/Home";
 import CircularProgress from "@mui/material/CircularProgress";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+// import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 import Style from "./Sidebar.module.css";
-import { UserSessions } from "./UserSessions";
+// import { UserSessions } from "./UserSessions";
 import clawLogo from "../assets/icons/clawlogo.png";
 import { useAuthState } from "../hooks/useAuthState";
 import HeaderStyles from "../Header/Header.module.css";
@@ -21,9 +21,15 @@ import { open } from "../features/popup/popupSlice";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Home } from "@mui/icons-material";
 
-export default function Sidebar({ keyword, primaryColor, model }) {
+export default function Sidebar({
+  keyword,
+  primaryColor,
+  model,
+  collapsed,
+  onToggle,
+}) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
-  const collapsed = useSelector((state) => state.sidebar.collapsed);
+  // const collapsed = useSelector((state) => state.sidebar.collapsed);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const plan = useSelector((state) => state.gpt.plan);
@@ -53,6 +59,13 @@ export default function Sidebar({ keyword, primaryColor, model }) {
       setLoading(false);
     }
   }
+  const handletoggle = () => {
+    dispatch(toggle());
+  };
+  const closetoggle = () => {
+    dispatch(toggle());
+  };
+
   function handleNewConversation() {
     if (keyword === "Legal") navigate("/gpt/legalGPT");
     else navigate("/gpt/finGPT");
@@ -74,10 +87,17 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             border: "none",
             backgroundImage: "none",
           }}
+          onClick={onToggle}
         >
           <MenuOutlinedIcon
-            onClick={() => dispatch(toggle())}
-            style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }}
+            onClick={handletoggle}
+            style={{
+              color: "white",
+              fontSize: 40,
+              backgroundColor: "inherit",
+              zIndex: 10,
+              position: "fixed",
+            }}
           />
         </button>
       )}
@@ -92,10 +112,16 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             zIndex: 8,
             border: "none",
           }}
+          onClick={onToggle}
         >
           <MenuOutlinedIcon
-            onClick={() => dispatch(toggle())}
-            style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }}
+            onClick={closetoggle}
+            style={{
+              color: "white",
+              fontSize: 40,
+              backgroundColor: "inherit",
+              position: "fixed",
+            }}
           />
         </button>
       )}
@@ -178,6 +204,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               marginTop: 5,
                               borderRadius: 5,
                               backgroundColor: primaryColor,
+                              curser: "pointer",
                             }}
                             onClick={() => dispatch(open())}
                           >
@@ -197,7 +224,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   </div>
                 )}
               </div>
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -236,7 +263,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     <UserSessions model={model} jwt={currentUser.jwt} />
                   )}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div
               style={{

@@ -7,6 +7,21 @@ import Styles from "./Pricing.module.css";
 import { setCart } from "../features/cart/cartSlice";
 
 export default function Pricing() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  function handleCartAdditionn() {
+    dispatch(
+      setCart({
+        request: 5,
+        session: 1,
+        total: 25,
+        plan: "LIFETIME",
+        type: "PRO",
+      })
+    );
+    navigate("/paymentgateway");
+  }
+
   return (
     <div
       style={{
@@ -56,6 +71,29 @@ export default function Pricing() {
           <div className={Styles.second}>
             <PricingCard duration="Yearly" sliderMap={sliders} />
           </div>
+
+          <div className={Styles.third}>
+            <h1 style={{ color: "#008080", fontWeight: 800 }}>
+              Top UP {""} 25/-{" "}
+            </h1>
+            <h4 style={{ color: "black", fontWeight: 800 }}>
+              Max Request-5 , Max User Session-1{" "}
+            </h4>
+            <button
+              onClick={handleCartAdditionn}
+              style={{
+                backgroundColor: "#008080",
+                color: "white",
+                padding: "12px 40px",
+                borderRadius: 10,
+                border: "none",
+                fontSize: 27,
+              }}
+            >
+              Get it Now
+            </button>
+          </div>
+
           <div className={Styles.third}>
             <h1 style={{ color: "#008080", fontWeight: 800 }}>Enterprise</h1>
             <button
@@ -166,6 +204,7 @@ const PricingCard = ({ duration, sliderMap }) => {
           session: sliderMap.session.map[session],
           total: price,
           plan: duration,
+          type: "PRO",
         })
       );
       navigate("/paymentgateway");

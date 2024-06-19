@@ -12,7 +12,9 @@ const cashfree = load({
 });
 
 export default function Payment() {
-  const { plan, request, session, total } = useSelector((state) => state.cart);
+  const { plan, request, session, total, type } = useSelector(
+    (state) => state.cart
+  );
   const { jwt } = useSelector((state) => state.auth.user);
   const [pay, setPay] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -23,10 +25,12 @@ export default function Payment() {
     if (!plan) navigate("/pricing");
   }, [plan]);
   console.log(pay);
+
   async function createOrder() {
     console.log("called");
     try {
       setLoading(true);
+      const planeName = `${type}_${request}_${session}`;
       const response = await fetch(
         `${NODE_API_ENDPOINT}/payment/create-payment-order`,
         {
@@ -37,7 +41,7 @@ export default function Payment() {
           },
           body: JSON.stringify({
             amount: total,
-            plan: `PRO_${request}_${session}`,
+            plan: planeName,
             billingCycle: plan,
             request,
             session,

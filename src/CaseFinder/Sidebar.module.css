@@ -1,0 +1,35 @@
+.sidebarContainer {
+  position: absolute;
+  width: 309px;
+  height: 100%;
+  background: transparent;
+}
+
+.sidebarContainer button {
+  background-image: url("../assets/images/button-gradient.png");
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  padding: 16px;
+  background: #222222;
+  width: 309px;
+  align-items: center;
+  color: white;
+  z-index: 1;
+  position: fixed;
+}
+.sidebar div {
+  background-color: transparent;
+}
+
+@media only screen and (max-width: 768px) {
+  .sidebar {
+    z-index: 4;
+    width: 309px;
+  }
+  .sidebarContainer {
+    width: 309px;
+  }
+}

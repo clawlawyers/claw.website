@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 import ClearIcon from "@mui/icons-material/Clear";
 import { setToken } from "../../features/gpt/gptSlice";
-import Styles from "./index.module.css";
+import Styles from "../../components/CaseCard/index.module.css";
 import { useDispatch } from "react-redux";
 import { open } from "../../features/popup/popupSlice";
 
@@ -20,13 +20,9 @@ const courtIdMapping = {
   "Jammu and Kashmir High Court": "15PrnIvUGB4OdKzSjvGtdpyVLLPlBEZ2M",
   "Jharkhand High Court": "1cKhGvZGPJpVVA5KFW1MH0PTgSTjlPV_5",
   "Delhi High Court": "1-4KMCL-J2HDD6RllAZbARzBJccxQPTYC",
-  "Delhi District Court": "1PSrAbXpBsoUvqjV_ssoca3Xzzk71qP4a",
-  "Madhya Pradesh High Court": "1exastQPw80VSb359G8xournBF1MPShdn",
-  "Allahabad High Court": "1qpWWufkZ4ciCskmJ3xPHLe72Z8oKWjcO",
-  "Gujarat High Court": "1NyOxx5lBZ-rFy3wtwdOlepTog668HUwJ",
 };
 
-export function CaseCard({ name, date, court, citations, caseId, query }) {
+export function CasecardGpt({ name, date, court, citations, caseId }) {
   const [isLoading, setIsLoading] = useState(false);
   const [summery, setsummery] = useState("");
   const [openCase, setOpenCase] = useState(false);
@@ -35,60 +31,15 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
   const [loading, setLoading] = useState(false);
   const { token } = useSelector((state) => state.gpt);
   const dispatch = useDispatch();
-  // const handlePopupOpen = useCallback(() => dispatch(open()), []);
+  const handlePopupOpen = useCallback(() => dispatch(open()), []);
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
-
-  const handleSummary = async () => {
-    if (summery) {
-      return; // If content is already fetched, don't fetch again
-    }
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `${NODE_API_ENDPOINT}/gpt/case/summeryDetails`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            folderId: courtIdMapping[court],
-            caseId,
-            query,
-          }),
-        }
-      );
-      const data = await response.json();
-      setsummery(data.content);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
-
-  const handleSummaryToggle = async () => {
-    setIsSummaryOpen(!isSummaryOpen);
-    if (!isSummaryOpen) {
-      handleSummary();
-    }
-  };
-  // useEffect(() => {
-  //   handleSummary();
-  // }, []);
 
   async function handleOpen() {
     try {
-      console.log(token);
-      console.log(parseFloat(token?.used) + 1);
-
-      if (
-        token?.used >= token?.total ||
-        parseFloat(token?.used) + 1 > token?.total
-      ) {
-        console.log("token exipred");
-        dispatch(open());
+      //   console.log(token);
+      if (token?.used >= token?.total) {
+        handlePopupOpen();
+        // console.log("token exipred");
         return;
       }
       setLoading(true);
@@ -159,41 +110,6 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
       >
         View document
       </button>
-      <button
-        onClick={handleSummaryToggle}
-        style={{
-          border: "none",
-          padding: "10px 12px",
-          minWidth: "fit-content",
-          backgroundColor: "white",
-          borderRadius: 10,
-          fontWeight: 700,
-          fontSize: 14,
-          textDecoration: "none",
-          color: "black",
-          backgroundImage: "none",
-          cursor: "pointer",
-        }}
-      >
-        {isSummaryOpen ? "Hide summary" : "View summary"}
-      </button>
-      <div>
-        {isSummaryOpen && (
-          <>
-            {isLoading ? (
-              <>
-                <CircularProgress style={{ color: "white" }} />
-              </>
-            ) : (
-              <>
-                <hr />
-                <p>Here is the summary content.</p>
-                <p style={{ color: "white" }}>{summery}</p>
-              </>
-            )}
-          </>
-        )}
-      </div>
 
       <Modal
         open={openCase}
