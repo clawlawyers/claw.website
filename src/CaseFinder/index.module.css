@@ -39,10 +39,10 @@
   /* max-width: calc(100% - 320px); */
   /* background-color: #222222; */
   border-radius: 10px;
-  padding: 20px;
   position: relative;
   z-index: 1;
-  margin-left: 5%;
+  /* margin-left: 5%; */
+  padding-left: 70px;
 }
 .contentContainer1 {
   flex: 3 1 600px;
@@ -52,7 +52,9 @@
   padding: 20px;
   position: relative;
   z-index: 1;
-  margin-left: 21%;
+  margin: 12px 12px 12px 321px;
+
+  /* margin-left: 21%; */
 }
 
 .inputGrid {
@@ -68,6 +70,10 @@
     padding: 0 10px;
   }
 
+  .contentContainer1 {
+    margin-left: auto;
+  }
+
   .sidebarContainer {
     max-width: 100%;
     margin-right: 0;
@@ -76,7 +82,7 @@
 
   .contentContainer {
     max-width: 100%;
-    padding: 10px;
+    /* padding: 10px; */
   }
 
   .inputGrid {
