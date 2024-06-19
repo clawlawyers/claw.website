@@ -96,7 +96,6 @@ export default function SessionGPT({ model, primaryColor }) {
     else setcourtName("Supreme Court of India");
 
     if (!prompt && currentUser) {
-      console.log(courtName);
       async function fetchSessionMessages() {
         setIsLoading(true);
         const res = await fetch(
@@ -106,7 +105,6 @@ export default function SessionGPT({ model, primaryColor }) {
               Authorization: `Bearer ${currentUser.jwt}`,
               "Content-Type": "application/json",
             },
-            body: { courtName },
           }
         );
         const { data } = await res.json();
@@ -129,16 +127,19 @@ export default function SessionGPT({ model, primaryColor }) {
   }
 
   async function fetchRelatedCases() {
+    console.log(courtName);
     setIsLoading(true);
     setCaseCount(2);
     try {
       const res = await fetch(
         `${NODE_API_ENDPOINT}/gpt/case/related/${sessionId}`,
         {
+          method: "POST",
           headers: {
             Authorization: `Bearer ${currentUser.jwt}`,
             "Content-Type": "application/json",
           },
+          body: { courtName },
         }
       );
       const { data } = await res.json();
