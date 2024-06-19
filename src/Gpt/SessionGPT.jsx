@@ -139,7 +139,7 @@ export default function SessionGPT({ model, primaryColor }) {
             Authorization: `Bearer ${currentUser.jwt}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(courtName),
+          body: JSON.stringify({ courtName }),
         }
       );
       const { data } = await res.json();
