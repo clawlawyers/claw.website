@@ -38,9 +38,11 @@
 }
 
 .footerNav {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 40px;
+  display: flex;
+  /* grid-template-columns: repeat(5, 1fr); */
+  /* gap: 40px; */
+  gap: inherit;
+  flex-wrap: wrap;
 }
 
 @media only screen and (max-width: 768px) {
