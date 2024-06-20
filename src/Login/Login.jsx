@@ -107,6 +107,7 @@ export default function Login() {
         });
         console.log(response);
         const { data } = await response.json();
+        console.log(data);
         const userMongoId = data.mongoId;
 
         if (

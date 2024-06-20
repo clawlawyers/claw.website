@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Style from "./LegalGPT.module.css";
 import { Prompt } from "./components/Prompt";
-import { CasecardGpt } from "./components/CasecardGpt";
+import { CasecardGpt } from "./components/CasecardGpt.jsx";
 import clawImg from "../assets/images/gptclaw.PNG";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { useAuthState } from "../hooks/useAuthState";
@@ -25,6 +25,7 @@ export default function SessionGPT({ model, primaryColor }) {
     (state) => state.gpt
   );
   const currentUser = useSelector((state) => state.auth.user);
+  const [query, setQuery] = useState("");
   const [prompts, setPrompts] = useState([]);
   const { isAuthLoading } = useAuthState();
   const [isLoading, setIsLoading] = useState(false);
@@ -121,6 +122,7 @@ export default function SessionGPT({ model, primaryColor }) {
 
   async function submitPrompt({ query }) {
     setIsLoading(true);
+    setQuery({ query });
     setPrompts((prompts) => [...prompts, { text: query, isUser: true }]);
     dispatch(setGpt({ prompt: query }));
     dispatch(generateResponse({ sessionId, model }));
@@ -242,6 +244,7 @@ export default function SessionGPT({ model, primaryColor }) {
                               date={relatedCase.Date}
                               court={relatedCase.court}
                               key={relatedCase.id}
+                              query={query}
                             />
                           );
                         })}
