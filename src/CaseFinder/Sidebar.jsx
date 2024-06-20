@@ -9,7 +9,6 @@ import StarIcon from "@mui/icons-material/Star";
 import CircularProgress from "@mui/material/CircularProgress";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 // import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 import Style from "./Sidebar.module.css";
 // import { UserSessions } from "./UserSessions";
@@ -18,18 +17,11 @@ import { useAuthState } from "../hooks/useAuthState";
 import HeaderStyles from "../Header/Header.module.css";
 import { collapse, expand, toggle } from "../features/sidebar/sidebarSlice";
 import { open } from "../features/popup/popupSlice";
-import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Home } from "@mui/icons-material";
 
-export default function Sidebar({
-  keyword,
-  primaryColor,
-  model,
-  collapsed,
-  onToggle,
-}) {
+export default function Sidebar({ keyword, primaryColor, model }) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
-  // const collapsed = useSelector((state) => state.sidebar.collapsed);
+  const collapsed = useSelector((state) => state.sidebar.collapsed);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const plan = useSelector((state) => state.gpt.plan);
@@ -41,35 +33,14 @@ export default function Sidebar({
   function handleAccount() {
     if (!currentUser) navigate("/login");
   }
-  async function handleClearConversations() {
-    try {
-      setLoading(true);
-      await fetch(`${NODE_API_ENDPOINT}/gpt/sessions/legalGPT`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${currentUser.jwt}`,
-          "Content-Type": "application/json",
-        },
-      });
-      if (keyword === "Legal") navigate("/gpt/legalGPT");
-      else navigate("/gpt/finGPT");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }
+
   const handletoggle = () => {
     dispatch(toggle());
   };
-  const closetoggle = () => {
-    dispatch(toggle());
-  };
+  // const closetoggle = () => {
+  //   dispatch(toggle());
+  // };
 
-  function handleNewConversation() {
-    if (keyword === "Legal") navigate("/gpt/legalGPT");
-    else navigate("/gpt/finGPT");
-  }
   useEffect(() => {
     if (isPhoneMode) dispatch(collapse());
     else dispatch(expand());
@@ -87,16 +58,16 @@ export default function Sidebar({
             border: "none",
             backgroundImage: "none",
           }}
-          onClick={onToggle}
+          onClick={handletoggle}
         >
           <MenuOutlinedIcon
-            onClick={handletoggle}
+            // onClick={handletoggle}
             style={{
               color: "white",
               fontSize: 40,
               backgroundColor: "inherit",
-              zIndex: 10,
-              position: "fixed",
+              zIndex: 8,
+              position: "absolute",
             }}
           />
         </button>
@@ -112,15 +83,15 @@ export default function Sidebar({
             zIndex: 8,
             border: "none",
           }}
-          onClick={onToggle}
+          onClick={handletoggle}
         >
           <MenuOutlinedIcon
-            onClick={closetoggle}
+            // onClick={closetoggle}
             style={{
               color: "white",
               fontSize: 40,
               backgroundColor: "inherit",
-              position: "fixed",
+              position: "absolute",
             }}
           />
         </button>
@@ -299,24 +270,10 @@ export default function Sidebar({
                   />
                 </Link>
               </div>
-              <button
-                onClick={handleClearConversations}
-                style={{
-                  display: "flex",
-                  color: "white",
-                  alignItems: "center",
-                  border: "none",
-                  backgroundColor: "transparent",
-                  backgroundImage: "none",
-                }}
-              >
-                <DeleteOutlineOutlinedIcon
-                  style={{ backgroundColor: "transparent" }}
-                />
-              </button>
             </div>
           </div>
           <div
+            className={Style.toggleShow}
             style={{ flex: 1, zIndex: 6, backgroundColor: "transparent" }}
             onClick={() => dispatch(collapse())}
           />

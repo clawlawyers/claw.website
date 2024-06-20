@@ -1,29 +1,63 @@
-import React from 'react'
+import React from "react";
 
 export default function RefundPolicy() {
-    return (
-        <div style={{ width: "80%", margin: "auto", zIndex: 2, backgroundColor: "#13161f", padding: 20, position: "inherit" }}>
-            <h1>Refund and Cancellation Policy</h1>
-
-            <p>
-                At ClawLaw.in, we strive to provide a seamless and satisfactory experience for all our users. Please read our refund and cancellation policy below:
-            </p>
-            <p>
-                Refunds:
-                We do not offer refunds for subscription purchases on our platform.
-
-                Cancellations:
-                1. You may cancel your subscription at any time by logging into your ClawLaw.in account and following the cancellation instructions, or by contacting our customer support team.
-                2. Cancellations will take effect immediately, and you will no longer have access to the subscription content or features.
-            </p>
-            <p>
-                Policy Updates:
-                We reserve the right to modify or update this refund and cancellation policy at any time without prior notice. Any changes will be effective immediately upon posting on our website.
-
-                For any inquiries or assistance regarding our refund and cancellation policy, please contact us at Claw.lawyers@gmail.com or call us at +91 9950866260.
-
-                Thank you for choosing ClawLaw.in!
-            </p>
-        </div>
-    )
+  return (
+    <div
+      style={{
+        width: "80%",
+        margin: "auto",
+        zIndex: 2,
+        backgroundColor: "#13161f",
+        padding: 20,
+        position: "inherit",
+      }}
+    >
+      <h1>Refund & Cancellation Policy</h1>
+      <p>Last updated on 20-06-2024 10:28:56</p>
+      <p>
+        CLAW LEGALTECH PRIVATE LIMITED believes in helping its customers as far
+        as possible, and has therefore a liberal cancellation policy. Under this
+        policy:
+      </p>
+      <ul>
+        <li>
+          Cancellations will be considered only if the request is made
+          immediately after placing the order. However, the cancellation request
+          may not be entertained if the orders have been communicated to the
+          vendors/merchants and they have initiated the process of shipping
+          them.
+        </li>
+        <li>
+          CLAW LEGALTECH PRIVATE LIMITED does not accept cancellation requests
+          for perishable items like flowers, eatables etc. However,
+          refund/replacement can be made if the customer establishes that the
+          quality of product delivered is not good.
+        </li>
+        <li>
+          In case of receipt of damaged or defective items, please report the
+          same to our Customer Service team. The request will, however, be
+          entertained once the merchant has checked and determined the same at
+          his own end. This should be reported within the same day of receipt of
+          the products. In case you feel that the product received is not as
+          shown on the site or as per your expectations, you must bring it to
+          the notice of our customer service within the same day of receiving
+          the product. The Customer Service Team after looking into your
+          complaint will take an appropriate decision.
+        </li>
+        <li>
+          In case of complaints regarding products that come with a warranty
+          from manufacturers, please refer the issue to them. In case of any
+          refunds approved by CLAW LEGALTECH PRIVATE LIMITED, it’ll take 6-8
+          days for the refund to be processed to the end customer.
+        </li>
+      </ul>
+      <p>
+        For any inquiries or assistance regarding our refund and cancellation
+        policy, please contact us at{" "}
+        <a href="mailto:Claw.lawyers@gmail.com">Claw.lawyers@gmail.com</a> or
+        call us at +91 9950866260.
+      </p>
+      <p>Thank you for choosing ClawLaw.in!</p>
+    </div>
+  );
 }

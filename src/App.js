@@ -14,7 +14,7 @@ import Payment from "./Payment/Payment";
 import { useState, useEffect, useMemo } from "react";
 import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 import { retrieveAuth } from "./features/auth/authSlice";
 import GPTLayout from "./Gpt/GPTLayout.jsx";
 import GPT from "./Gpt/GPT.jsx";
@@ -37,16 +37,15 @@ import Menu from "./Admin/Menu/Menu";
 import ReferralCode from "./Admin/ReferralCode/ReferralCode";
 import SubscribedUser from "./Admin/SubscribedUsers/SubscribedUser";
 import Visitors from "./Admin/Visitors/Visitors";
-
+import TermsAndConditions from "./Terms & Conditions/TermsAndConditions.jsx";
 
 function App() {
   const [init, setInit] = useState(false);
 
-
   // this should be run only once per application lifetime
   useEffect(() => {
     store.dispatch(retrieveAuth());
-  }, [])
+  }, []);
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
@@ -123,21 +122,21 @@ function App() {
       },
       detectRetina: true,
     }),
-    [],
+    []
   );
 
   const AdminLayout = () => {
-    return(
+    return (
       <div className="container">
-          <div className="menuContainer">
-            <Menu />
-          </div>
-          <div className="contentContainer">
-              <Outlet />
-          </div>
+        <div className="menuContainer">
+          <Menu />
+        </div>
+        <div className="contentContainer">
+          <Outlet />
+        </div>
       </div>
-    )
-  }
+    );
+  };
 
   const router = createBrowserRouter([
     {
@@ -146,88 +145,87 @@ function App() {
       children: [
         {
           path: "",
-          element: <Home particleOptions={options} engineReady={init} />
+          element: <Home particleOptions={options} engineReady={init} />,
         },
         {
           path: "news",
-          element: <News />
+          element: <News />,
         },
         {
           path: "blog",
-          element: <AllBlogs />
+          element: <AllBlogs />,
         },
         {
           path: "blog/:blogName",
-          element: <Blog />
+          element: <Blog />,
         },
         {
           path: "create/blog",
-          element: <CreateBlog />
+          element: <CreateBlog />,
         },
         {
           path: "privacyPolicy",
-          element: <PrivacyPolicy />
+          element: <PrivacyPolicy />,
         },
         {
           path: "terms-of-service",
-          element: <TermsOfService />
+          element: <TermsOfService />,
         },
         {
           path: "pricing",
-          element: <Pricing />
+          element: <Pricing />,
         },
         {
           path: "login",
-          element: <Login />
+          element: <Login />,
         },
         {
           path: "leaders",
           element: <Ambassador />,
           children: [
-            { path: 'apply', element: <AmbassadorApply /> },
-            { path: 'dashboard', element: <AmbassadorDashboard /> }
-          ]
+            { path: "apply", element: <AmbassadorApply /> },
+            { path: "dashboard", element: <AmbassadorDashboard /> },
+          ],
         },
         {
           path: "admin",
           element: <AuthWall />,
           children: [
-            { 
-              path: "", 
-              element: <AdminWall />, 
+            {
+              path: "",
+              element: <AdminWall />,
               children: [
-                { 
-                  path: "", 
-                  element: <AdminLayout />, 
+                {
+                  path: "",
+                  element: <AdminLayout />,
                   children: [
-                    { path: "", element: <Home1 />},
-                    { path: "users", element: <Users />},
-                    { path: "subscribed-users", element: <SubscribedUser />},
-                    { path: "referral-code", element: <ReferralCode />},
-                    { path: "visitors", element: <Visitors />}
-                  ]
+                    { path: "", element: <Home1 /> },
+                    { path: "users", element: <Users /> },
+                    { path: "subscribed-users", element: <SubscribedUser /> },
+                    { path: "referral-code", element: <ReferralCode /> },
+                    { path: "visitors", element: <Visitors /> },
+                  ],
                 },
-              ] }]
+              ],
+            },
+          ],
         },
 
         {
           path: "paymentgateway",
           element: <AuthWall />,
-          children: [
-            { path: "", element: <Payment /> }
-          ]
+          children: [{ path: "", element: <Payment /> }],
         },
         {
           path: "case/search",
           element: <AuthWall />,
-          children: [
-            { path: '', element: <CaseFinder /> }
-          ]
+          children: [{ path: "", element: <CaseFinder /> }],
         },
         { path: "contact-us", element: <ContactUs /> },
         { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
+        { path: "terms-and-conditions", element: <TermsAndConditions /> },
         { path: "shipping-and-delivery-policy", element: <ShippingPolicy /> },
-      ]
+      ],
     },
     {
       path: "/gpt",
@@ -235,38 +233,84 @@ function App() {
       children: [
         {
           path: "legalGPT",
-          element: <GPTLayout keyword="Legal" primaryColor="#008080" model="legalGPT" />,
+          element: (
+            <GPTLayout
+              keyword="Legal"
+              primaryColor="#008080"
+              model="legalGPT"
+            />
+          ),
           children: [
             {
-              path: '',
-              element: <GPT keyword="Legal" primaryColor="#008080" model="legalGPT" textGradient={["rgba(0,128,128,0.75)", "rgba(0,128,128,0)"]} backgroundGradient={["rgba(0,128,128,0.45)", "rgba(0,128,128,0.1)"]} />
+              path: "",
+              element: (
+                <GPT
+                  keyword="Legal"
+                  primaryColor="#008080"
+                  model="legalGPT"
+                  textGradient={["rgba(0,128,128,0.75)", "rgba(0,128,128,0)"]}
+                  backgroundGradient={[
+                    "rgba(0,128,128,0.45)",
+                    "rgba(0,128,128,0.1)",
+                  ]}
+                />
+              ),
             },
             {
-              path: 'session/:sessionId',
-              element: <SessionGPT keyword="Legal" primaryColor="#008080" model="legalGPT" />
+              path: "session/:sessionId",
+              element: (
+                <SessionGPT
+                  keyword="Legal"
+                  primaryColor="#008080"
+                  model="legalGPT"
+                />
+              ),
             },
-          ]
+          ],
         },
         {
           path: "finGPT",
-          element: <GPTLayout keyword="Finance" primaryColor="#008080" model="financeGPT" />,
+          element: (
+            <GPTLayout
+              keyword="Finance"
+              primaryColor="#008080"
+              model="financeGPT"
+            />
+          ),
           children: [
             {
-              path: '',
-              element: <GPT textGradient={["rgba(0,128,128,0.75)", "rgba(0,128,128,0)"]} backgroundGradient={["rgba(0,128,128,0.45)", "rgba(0,128,128,0.1)"]} keyword={"Finance"} primaryColor={"#008080"} model={"financeGPT"} />
+              path: "",
+              element: (
+                <GPT
+                  textGradient={["rgba(0,128,128,0.75)", "rgba(0,128,128,0)"]}
+                  backgroundGradient={[
+                    "rgba(0,128,128,0.45)",
+                    "rgba(0,128,128,0.1)",
+                  ]}
+                  keyword={"Finance"}
+                  primaryColor={"#008080"}
+                  model={"financeGPT"}
+                />
+              ),
             },
             {
-              path: 'session/:sessionId',
-              element: <SessionGPT keyword={"Finance"} primaryColor={"#008080"} model={"financeGPT"} />
+              path: "session/:sessionId",
+              element: (
+                <SessionGPT
+                  keyword={"Finance"}
+                  primaryColor={"#008080"}
+                  model={"financeGPT"}
+                />
+              ),
             },
-          ]
+          ],
         },
-      ]
+      ],
     },
     {
       path: "*",
-      element: <NotFound />
-    }
+      element: <NotFound />,
+    },
   ]);
 
   return (
