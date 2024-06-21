@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import axios from "axios";
 import Styles from "./Payment.module.css";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -12,6 +12,10 @@ const cashfree = load({
 });
 
 export default function Payment() {
+  const [couponCode, setCouponCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+
+  const [discountApplied, setDiscountApplied] = useState(false);
   const { plan, request, session, total, type } = useSelector(
     (state) => state.cart
   );
@@ -20,15 +24,16 @@ export default function Payment() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   cashfree.then((res) => setPay(res));
+  var ttotal = total;
 
   useEffect(() => {
     if (!plan) navigate("/pricing");
-  }, [plan]);
-  console.log(pay);
+  }, []);
+  // console.log(pay);
 
   async function createOrder() {
-    console.log("called");
     try {
+      console.log("inside called");
       setLoading(true);
       const planeName = `${type}_${request}_${session}`;
       const response = await fetch(
@@ -40,7 +45,7 @@ export default function Payment() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            amount: total,
+            amount: ttotal,
             plan: planeName,
             billingCycle: plan,
             request,
@@ -49,6 +54,7 @@ export default function Payment() {
         }
       );
       const { data } = await response.json();
+      console.log({ data });
 
       pay.checkout({
         paymentSessionId: data.payment_session_id,
@@ -60,6 +66,25 @@ export default function Payment() {
       setLoading(false);
     }
   }
+
+  const applyCoupon = async () => {
+    try {
+      const response = await axios.post(`${NODE_API_ENDPOINT}/admin/validate`, {
+        code: couponCode,
+      });
+      setDiscount(response.data.discount);
+
+      setDiscountApplied(true);
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.message || "Error applying coupon");
+    }
+  };
+
+  const calculateFinalTotal = () => {
+    ttotal = total - total * (discount / 100).toFixed(2);
+    return ttotal;
+  };
 
   return (
     <div
@@ -90,6 +115,23 @@ export default function Payment() {
           >
             {loading || !pay ? <CircularProgress /> : "Pay now"}
           </button>
+          <br />
+          <h1 style={{ color: "white", marginTop: "20px" }}>
+            Apply Redeem Code Here
+          </h1>
+          <input
+            style={{ height: "40px", width: "250px" }}
+            type="text"
+            id="coupon"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+          />
+          <button onClick={applyCoupon}>Apply Coupon</button>
+          {discountApplied && (
+            <div>
+              <p>Coupon applied! Discount: {discount}%</p>
+            </div>
+          )}
         </div>
         <div
           style={{
@@ -100,10 +142,20 @@ export default function Payment() {
           }}
         >
           <div>
-            <h4 style={{ fontSize: 24, color: "#777" }}> You're paying,</h4>
+            <h4 style={{ fontSize: 24, color: "#777" }}>
+              {" "}
+              You're paying, Total:
+            </h4>
 
             <h2 style={{ fontSize: 64, fontWeight: 500, marginLeft: 20 }}>
-              {total}.00
+              {discountApplied ? (
+                <>
+                  {calculateFinalTotal()}
+                  <s style={{ fontSize: "20px" }}> {total}.00</s>
+                </>
+              ) : (
+                <>{total}.00</>
+              )}
             </h2>
           </div>
           <div
@@ -129,7 +181,7 @@ export default function Payment() {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                marginTop: 45,
+                marginTop: 20,
               }}
             >
               <h3 style={{ fontSize: 26, fontWeight: 500 }}>Tax</h3>
@@ -139,12 +191,22 @@ export default function Payment() {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
+                marginTop: 20,
+              }}
+            >
+              <h3 style={{ fontSize: 26, fontWeight: 500 }}>Redeem Code</h3>
+              <h3 style={{ fontSize: 26, fontWeight: 500 }}>{discount} %</h3>
+            </div>
+            {/* <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
                 marginTop: 45,
               }}
             >
               <h3 style={{ fontSize: 26, fontWeight: 500 }}>Total</h3>
               <h3 style={{ fontSize: 26, fontWeight: 500 }}>₹ {total}</h3>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
