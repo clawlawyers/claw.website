@@ -4,7 +4,7 @@ import Quiz from "./components/Quiz";
 import Result from "./components/Result";
 import styles from "./App.module.css";
 
-const App = () => {
+const QuizMain = () => {
   const [stage, setStage] = useState("start");
   const [score, setScore] = useState(0);
 
@@ -25,4 +25,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default QuizMain;

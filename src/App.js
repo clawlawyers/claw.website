@@ -38,7 +38,8 @@ import ReferralCode from "./Admin/ReferralCode/ReferralCode";
 import SubscribedUser from "./Admin/SubscribedUsers/SubscribedUser";
 import Visitors from "./Admin/Visitors/Visitors";
 import TermsAndConditions from "./Terms & Conditions/TermsAndConditions.jsx";
-import QuizIndex from "./Quiz/Index.jsx";
+import Couponcode from "./Admin/CouponCode/Couponcode.jsx";
+import QuizMain from "./Quiz/Index.jsx";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -150,7 +151,7 @@ function App() {
         },
         {
           path: "quiz",
-          element: <QuizIndex />,
+          element: <QuizMain />,
         },
         {
           path: "news",
@@ -209,6 +210,7 @@ function App() {
                     { path: "subscribed-users", element: <SubscribedUser /> },
                     { path: "referral-code", element: <ReferralCode /> },
                     { path: "visitors", element: <Visitors /> },
+                    { path: "couponcode", element: <Couponcode /> },
                   ],
                 },
               ],
