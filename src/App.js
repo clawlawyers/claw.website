@@ -38,6 +38,7 @@ import ReferralCode from "./Admin/ReferralCode/ReferralCode";
 import SubscribedUser from "./Admin/SubscribedUsers/SubscribedUser";
 import Visitors from "./Admin/Visitors/Visitors";
 import TermsAndConditions from "./Terms & Conditions/TermsAndConditions.jsx";
+import QuizIndex from "./Quiz/Index.jsx";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -146,6 +147,10 @@ function App() {
         {
           path: "",
           element: <Home particleOptions={options} engineReady={init} />,
+        },
+        {
+          path: "quiz",
+          element: <QuizIndex />,
         },
         {
           path: "news",
