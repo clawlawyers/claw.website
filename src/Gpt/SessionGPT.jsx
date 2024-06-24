@@ -80,20 +80,22 @@ export default function SessionGPT({ model, primaryColor }) {
 
   useEffect(() => {
     let userlocation = localStorage.getItem("userLocation");
-    if (userlocation == "Chhattisgarh" || userlocation == "chhattisgarh")
+
+    if (userlocation === "Chhattisgarh" || userlocation === "chhattisgarh")
       setcourtName("Chattisgarh High Court");
-    else if (userlocation == "Sikkim" || userlocation == "sikkim")
+    else if (userlocation === "Sikkim" || userlocation === "sikkim")
       setcourtName("Sikkim High Court");
-    else if (userlocation == "Uttarakhand" || userlocation == "uttarakhand")
+    else if (userlocation === "Uttarakhand" || userlocation === "uttarakhand")
       setcourtName("Uttarakhand High Court");
     else if (
-      userlocation == "Calcutta" ||
-      userlocation == "calcutta" ||
-      userlocation == "Kolkata"
+      userlocation === "Calcutta" ||
+      userlocation === "calcutta" ||
+      userlocation === "Kolkata"
     )
       setcourtName("Calcutta High Court");
-    else if (userlocation == "Jammu and Kashmir")
+    else if (userlocation === "Jammu and Kashmir")
       setcourtName("Jammu and Kashmir High Court");
+    else if (userlocation === "Delhi") setcourtName("Delhi High Court");
     else setcourtName("Supreme Court of India");
 
     if (!prompt && currentUser) {
