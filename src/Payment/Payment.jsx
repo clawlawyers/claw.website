@@ -7,6 +7,7 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import CircularProgress from "@mui/material/CircularProgress";
 import { load } from "@cashfreepayments/cashfree-js";
 
+
 export default function Payment() {
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -28,7 +29,7 @@ export default function Payment() {
   useEffect(() => {
     const initializeCashfree = async () => {
       const cashfree = await load({
-        mode: "sandbox", // or production
+        mode: "production", // or production
       });
       setPay(cashfree);
     };
