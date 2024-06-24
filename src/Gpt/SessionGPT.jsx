@@ -96,6 +96,8 @@ export default function SessionGPT({ model, primaryColor }) {
     else if (userlocation === "Jammu and Kashmir")
       setcourtName("Jammu and Kashmir High Court");
     else if (userlocation === "Delhi") setcourtName("Delhi High Court");
+    else if (userlocation === "Gujarat" || userlocation === "gujarat")
+      setcourtName("Gujarat High Court");
     else setcourtName("Supreme Court of India");
 
     if (!prompt && currentUser) {
