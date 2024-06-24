@@ -301,10 +301,10 @@ export default function CaseFinder({
                   </MenuItem> */}
                   {/* <MenuItem value="Allahabad High Court">
                     Allahabad High Court
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem value="Gujarat High Court">
                     Gujarat High Court
-                  </MenuItem> */}
+                  </MenuItem>
                 </Select>
                 {selectedCourts.length === 0 && (
                   <FormHelperText>

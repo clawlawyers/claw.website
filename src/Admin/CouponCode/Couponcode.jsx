@@ -106,7 +106,7 @@ const Couponcode = () => {
       <ul>
         {coupons.map((coupon) => (
           <li key={coupon._id}>
-            Code: {coupon.code}, Discount: {coupon.discount}/-, Expiration Date:{" "}
+            Code: {coupon.code}, Discount: {coupon.discount}%, Expiration Date:{" "}
             {new Date(coupon.expirationDate).toLocaleDateString()}, Active:{" "}
             {coupon.isActive ? "Yes" : "No"}
           </li>

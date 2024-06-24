@@ -7,10 +7,6 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import CircularProgress from "@mui/material/CircularProgress";
 import { load } from "@cashfreepayments/cashfree-js";
 
-const cashfree = load({
-  mode: "sandbox", //or production
-});
-
 export default function Payment() {
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -23,15 +19,52 @@ export default function Payment() {
   const [pay, setPay] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  cashfree.then((res) => setPay(res));
-  var ttotal = total;
+  const [Total, setTotal] = useState(total);
 
   useEffect(() => {
     if (!plan) navigate("/pricing");
+  }, [plan, navigate]);
+
+  useEffect(() => {
+    const initializeCashfree = async () => {
+      const cashfree = await load({
+        mode: "sandbox", // or production
+      });
+      setPay(cashfree);
+    };
+    initializeCashfree();
   }, []);
-  // console.log(pay);
+
+  const applyCoupon = async () => {
+    try {
+      const response = await axios.post(`${NODE_API_ENDPOINT}/admin/validate`, {
+        code: couponCode,
+      });
+      const discountValue = response.data.discount;
+      setDiscount(discountValue);
+
+      const newTotal = total - total * (discountValue / 100);
+      setTotal(parseFloat(newTotal.toFixed(2)));
+
+      setDiscountApplied(true);
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.message || "Error applying coupon");
+    }
+  };
+  useEffect(() => {
+    if (discountApplied) {
+      const newTotal = total - total * (discount / 100);
+      setTotal(parseFloat(newTotal.toFixed(2)));
+    }
+  }, [discount, total, discountApplied]);
 
   async function createOrder() {
+    console.log(pay);
+    if (!pay) {
+      console.error("Payment object not initialized");
+      return;
+    }
     try {
       console.log("inside called");
       setLoading(true);
@@ -45,7 +78,7 @@ export default function Payment() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            amount: ttotal,
+            amount: parseFloat(Total),
             plan: planeName,
             billingCycle: plan,
             request,
@@ -66,25 +99,6 @@ export default function Payment() {
       setLoading(false);
     }
   }
-
-  const applyCoupon = async () => {
-    try {
-      const response = await axios.post(`${NODE_API_ENDPOINT}/admin/validate`, {
-        code: couponCode,
-      });
-      setDiscount(response.data.discount);
-
-      setDiscountApplied(true);
-    } catch (error) {
-      console.error(error);
-      alert(error.response.data.message || "Error applying coupon");
-    }
-  };
-
-  const calculateFinalTotal = () => {
-    ttotal = total - total * (discount / 100).toFixed(2);
-    return ttotal;
-  };
 
   return (
     <div
@@ -126,7 +140,22 @@ export default function Payment() {
             value={couponCode}
             onChange={(e) => setCouponCode(e.target.value)}
           />
-          <button onClick={applyCoupon}>Apply Coupon</button>
+          <button
+            onClick={applyCoupon}
+            style={{
+              marginLeft: "5px",
+              padding: "5px 10px",
+              border: "none",
+              fontSize: 20,
+              borderRadius: 10,
+              backgroundColor: "#008080",
+              color: "white",
+              alignSelf: "flex-start",
+              marginTop: 25,
+            }}
+          >
+            Apply Coupon
+          </button>
           {discountApplied && (
             <div>
               <p>Coupon applied! Discount: {discount}%</p>
@@ -150,7 +179,7 @@ export default function Payment() {
             <h2 style={{ fontSize: 64, fontWeight: 500, marginLeft: 20 }}>
               {discountApplied ? (
                 <>
-                  {calculateFinalTotal()}
+                  {Total}
                   <s style={{ fontSize: "20px" }}> {total}.00</s>
                 </>
               ) : (
