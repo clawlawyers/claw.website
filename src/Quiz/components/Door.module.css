@@ -1,0 +1,29 @@
+.doorWrap {
+  width: 100%;
+  height: calc(100vh - 100px);
+  display: flex;
+}
+
+.door {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.left .card,
+.right .card {
+  width: 100%;
+  height: 100%;
+  background: #222;
+  border: 10px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.questions {
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}

@@ -291,20 +291,20 @@ export default function CaseFinder({
                   </MenuItem>
                   {/* <MenuItem value="Jharkhand High Court">
                     Jharkhand High Court
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem value="Delhi High Court">Delhi High Court</MenuItem>
                   <MenuItem value="Delhi District Court">
                     Delhi District Court
                   </MenuItem>
-                  <MenuItem value="Madhya Pradesh High Court">
+                  {/* <MenuItem value="Madhya Pradesh High Court">
                     Madhya Pradesh High Court
-                  </MenuItem>
-                  <MenuItem value="Allahabad High Court">
+                  </MenuItem> */}
+                  {/* <MenuItem value="Allahabad High Court">
                     Allahabad High Court
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem value="Gujarat High Court">
                     Gujarat High Court
-                  </MenuItem> */}
+                  </MenuItem>
                 </Select>
                 {selectedCourts.length === 0 && (
                   <FormHelperText>
