@@ -7,7 +7,6 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import CircularProgress from "@mui/material/CircularProgress";
 import { load } from "@cashfreepayments/cashfree-js";
 
-
 export default function Payment() {
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -37,6 +36,10 @@ export default function Payment() {
   }, []);
 
   const applyCoupon = async () => {
+    if (couponCode === "" || undefined) {
+      alert("please provide coupon code");
+      return;
+    }
     try {
       const response = await axios.post(`${NODE_API_ENDPOINT}/admin/validate`, {
         code: couponCode,
@@ -140,6 +143,7 @@ export default function Payment() {
             id="coupon"
             value={couponCode}
             onChange={(e) => setCouponCode(e.target.value)}
+            required
           />
           <button
             onClick={applyCoupon}
