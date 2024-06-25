@@ -142,6 +142,10 @@ function App() {
 
   const router = createBrowserRouter([
     {
+      path: "quiz",
+      element: <QuizMain />,
+    },
+    {
       path: "/",
       element: <RootLayout />,
       children: [
