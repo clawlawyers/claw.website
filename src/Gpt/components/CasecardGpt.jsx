@@ -45,7 +45,7 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${NODE_API_ENDPOINT}/gpt/case/summeryDetails`,
+        `${NODE_API_ENDPOINT}/gpt/case/legalgptSummeryDetails`,
         {
           method: "POST",
           headers: {
@@ -55,7 +55,6 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
           body: JSON.stringify({
             folderId: courtIdMapping[court],
             caseId,
-            query,
           }),
         }
       );
