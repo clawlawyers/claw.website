@@ -110,7 +110,6 @@ const quizVariants = {
 
 const buttonClickVariants = {
   animate: {
-    // backgroundColor: ["#007bff", "#0056b3", "#007bff"],
     transition: {
       duration: 0.6,
       repeat: 2,
@@ -124,7 +123,7 @@ const Quiz = ({ onFinish }) => {
   const [totalScore, setTotalScore] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [clickedOptionIndex, setClickedOptionIndex] = useState(null);
-  const [isNavigating, setIsNavigating] = useState(false); // Track if navigating without option click
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const handleOptionClick = (score, index) => {
     setIsNavigating(false);
