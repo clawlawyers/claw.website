@@ -55,7 +55,7 @@
   "scripts": {
     "generate-sitemap": "node generate-sitemap.js",
     "build": "npm run generate-sitemap && react-scripts build",
-    "start": "react-scripts start",
+    "start": "set PORT=3001  && react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
