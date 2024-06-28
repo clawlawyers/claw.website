@@ -40,6 +40,8 @@ import Visitors from "./Admin/Visitors/Visitors";
 import TermsAndConditions from "./Terms & Conditions/TermsAndConditions.jsx";
 import Couponcode from "./Admin/CouponCode/Couponcode.jsx";
 import QuizMain from "./Quiz/Index.jsx";
+import withPageTracking from "./Admin/components/Usertrack/withPageTracking.jsx";
+import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -140,10 +142,18 @@ function App() {
     );
   };
 
+  // Wrap components with withPageTracking
+  const TrackedQuizMain = withPageTracking(QuizMain);
+  // const TrackedHome = withPageTracking(Home);
+  const TrackedNews = withPageTracking(News);
+  const TrackedAllBlogs = withPageTracking(AllBlogs);
+  const TrackedCaseSearch = withPageTracking(CaseFinder);
+  const TrackedGpt = withPageTracking(GPT);
+
   const router = createBrowserRouter([
     {
       path: "quiz",
-      element: <QuizMain />,
+      element: <TrackedQuizMain />,
     },
     {
       path: "/",
@@ -155,15 +165,15 @@ function App() {
         },
         {
           path: "quiz",
-          element: <QuizMain />,
+          element: <TrackedQuizMain />,
         },
         {
           path: "news",
-          element: <News />,
+          element: <TrackedNews />,
         },
         {
           path: "blog",
-          element: <AllBlogs />,
+          element: <TrackedAllBlogs />,
         },
         {
           path: "blog/:blogName",
@@ -215,6 +225,7 @@ function App() {
                     { path: "referral-code", element: <ReferralCode /> },
                     { path: "visitors", element: <Visitors /> },
                     { path: "couponcode", element: <Couponcode /> },
+                    { path: "user-visit", element: <Usertrack /> },
                   ],
                 },
               ],
@@ -230,7 +241,7 @@ function App() {
         {
           path: "case/search",
           element: <AuthWall />,
-          children: [{ path: "", element: <CaseFinder /> }],
+          children: [{ path: "", element: <TrackedCaseSearch /> }],
         },
         { path: "contact-us", element: <ContactUs /> },
         { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
@@ -255,7 +266,7 @@ function App() {
             {
               path: "",
               element: (
-                <GPT
+                <TrackedGpt
                   keyword="Legal"
                   primaryColor="#008080"
                   model="legalGPT"
