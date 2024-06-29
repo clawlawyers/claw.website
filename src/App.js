@@ -43,7 +43,8 @@ import QuizMain from "./Quiz/Index.jsx";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { NODE_API_ENDPOINT } from "../src/utils/utils.js";
-
+import withPageTracking from "./Admin/components/Usertrack/withPageTracking.jsx";
+import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
 const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
 
 function App() {
@@ -266,10 +267,18 @@ function App() {
     );
   };
 
+  // Wrap components with withPageTracking
+  const TrackedQuizMain = withPageTracking(QuizMain);
+  // const TrackedHome = withPageTracking(Home);
+  const TrackedNews = withPageTracking(News);
+  const TrackedAllBlogs = withPageTracking(AllBlogs);
+  const TrackedCaseSearch = withPageTracking(CaseFinder);
+  const TrackedGpt = withPageTracking(GPT);
+
   const router = createBrowserRouter([
     {
       path: "quiz",
-      element: <QuizMain />,
+      element: <TrackedQuizMain />,
     },
     {
       path: "/",
@@ -281,15 +290,15 @@ function App() {
         },
         {
           path: "quiz",
-          element: <QuizMain />,
+          element: <TrackedQuizMain />,
         },
         {
           path: "news",
-          element: <News />,
+          element: <TrackedNews />,
         },
         {
           path: "blog",
-          element: <AllBlogs />,
+          element: <TrackedAllBlogs />,
         },
         {
           path: "blog/:blogName",
@@ -341,6 +350,7 @@ function App() {
                     { path: "referral-code", element: <ReferralCode /> },
                     { path: "visitors", element: <Visitors /> },
                     { path: "couponcode", element: <Couponcode /> },
+                    { path: "user-visit", element: <Usertrack /> },
                   ],
                 },
               ],
@@ -356,7 +366,7 @@ function App() {
         {
           path: "case/search",
           element: <AuthWall />,
-          children: [{ path: "", element: <CaseFinder /> }],
+          children: [{ path: "", element: <TrackedCaseSearch /> }],
         },
         { path: "contact-us", element: <ContactUs /> },
         { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
@@ -381,7 +391,7 @@ function App() {
             {
               path: "",
               element: (
-                <GPT
+                <TrackedGpt
                   keyword="Legal"
                   primaryColor="#008080"
                   model="legalGPT"

@@ -50,6 +50,7 @@
     "sitemap": "^8.0.0",
     "styled-components": "^6.1.8",
     "uninstall": "^0.0.0",
+    "uuid": "^10.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
