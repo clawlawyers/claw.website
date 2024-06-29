@@ -53,8 +53,8 @@ export default function SessionGPT({ model, primaryColor }) {
       setPrompts((prompts) => [
         ...prompts,
         {
-          id: response.gptResponse.messageId,
-          text: response.gptResponse.message,
+          id: response?.gptResponse?.messageId,
+          text: response?.gptResponse?.message,
           isUser: false,
         },
       ]);
