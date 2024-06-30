@@ -45,6 +45,7 @@ import { useSelector } from "react-redux";
 import { NODE_API_ENDPOINT } from "../src/utils/utils.js";
 import withPageTracking from "./Admin/components/Usertrack/withPageTracking.jsx";
 import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
+import PricingTable from "./Pricing/Test.jsx";
 const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
 
 function App() {

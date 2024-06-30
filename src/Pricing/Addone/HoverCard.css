@@ -1,0 +1,94 @@
+/* HoverCard.css */
+.cardContainer {
+  position: relative;
+  width: 250px;
+  height: 400px;
+  margin: 50px auto;
+  perspective: 1000px;
+}
+
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.5s;
+}
+
+.layer1 {
+  transition: transform 0.5s;
+  z-index: 1;
+}
+
+.layer2 {
+  transition: transform 0.5s;
+  z-index: 2;
+}
+
+.layer3 {
+  transition: transform 0.5s;
+  z-index: 3;
+}
+
+.layer4 {
+  transition: transform 0.5s;
+  z-index: 4;
+}
+
+.mainCard {
+  z-index: 5;
+  transition: transform 0.5s;
+}
+
+.cardContainer:hover .mainCard {
+  border: 4px solid #088080;
+}
+
+.cardContainer:hover .layer1 {
+  border: 4px solid #088080;
+  transform: rotate(15deg);
+}
+
+.cardContainer:hover .layer2 {
+  border: 4px solid #088080;
+  transform: rotate(12deg);
+}
+
+.cardContainer:hover .layer3 {
+  border: 4px solid #088080;
+  transform: rotate(9deg);
+}
+
+.cardContainer:hover .layer4 {
+  border: 4px solid #088080;
+  transform: rotate(6deg);
+}
+
+.cardContent {
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 6;
+  background: white;
+  border-radius: 10px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: darkcyan;
+}
