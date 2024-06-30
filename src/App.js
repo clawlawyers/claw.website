@@ -231,7 +231,7 @@ function App() {
         { path: "contact-us", element: <ContactUs /> },
         { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
         { path: "terms-and-conditions", element: <TermsAndConditions /> },
-        { path: "shipping-and-delivery-policy", element: <ShippingPolicy /> },
+        { path: "shipping-and-delivery", element: <ShippingPolicy /> },
       ],
     },
     {
