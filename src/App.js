@@ -11,7 +11,7 @@ import RootLayout from "./RootLayout/RootLayout";
 import { Provider } from "react-redux";
 import store from "./store";
 import Payment from "./Payment/Payment";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { Toaster } from "react-hot-toast";
@@ -40,13 +40,139 @@ import Visitors from "./Admin/Visitors/Visitors";
 import TermsAndConditions from "./Terms & Conditions/TermsAndConditions.jsx";
 import Couponcode from "./Admin/CouponCode/Couponcode.jsx";
 import QuizMain from "./Quiz/Index.jsx";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { NODE_API_ENDPOINT } from "../src/utils/utils.js";
 import withPageTracking from "./Admin/components/Usertrack/withPageTracking.jsx";
 import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
+import PricingTable from "./Pricing/Test.jsx";
+const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
 import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
 import SalesmanDetail from "./Admin/Salesman/SalesmanDetail.jsx";
 
 function App() {
   const [init, setInit] = useState(false);
+  const currentUser = useSelector((state) => state.auth.user);
+
+  const currentUserRef = useRef(currentUser);
+
+  useEffect(() => {
+    currentUserRef.current = currentUser;
+  }, [currentUser]);
+
+  const updateEngagementTime = useCallback(async (engagementData) => {
+    try {
+      await axios.post(
+        `${NODE_API_ENDPOINT}/cron/engagement/time`,
+        engagementData
+      );
+    } catch (error) {
+      console.error("Error updating engagement time:", error);
+    }
+  }, []);
+
+  const flushQueue = useCallback(() => {
+    const user = currentUserRef.current;
+    if (user) {
+      updateEngagementTime([
+        {
+          phoneNumber: user.phoneNumber,
+          engagementTime: 60,
+          timestamp: Date.now(),
+        },
+      ]);
+    }
+  }, [updateEngagementTime]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      flushQueue();
+    }, BATCH_INTERVAL);
+
+    return () => {
+      clearInterval(interval);
+      flushQueue();
+    };
+  }, [flushQueue]);
+
+  // const [startTime, setStartTime] = useState(Date.now());
+  // const [engagementQueue, setEngagementQueue] = useState([]);
+  // const currentUser = useSelector((state) => state.auth.user);
+  // console.log(currentUser);
+
+  // const updateEngagementTime = async (engagementData) => {
+  //   try {
+  //     await axios.post(
+  //       `${NODE_API_ENDPOINT}/cron/engagement/time`,
+  //       engagementData
+  //     );
+  //   } catch (error) {
+  //     console.error("Error updating engagement time:", error);
+  //   }
+  // };
+
+  // const addEngagementTimeToQueue = (engagementTime) => {
+  //   setEngagementQueue((prevQueue) => [
+  //     ...prevQueue,
+  //     {
+  //       phoneNumber: currentUser?.phoneNumber,
+  //       engagementTime,
+  //       timestamp: Date.now(),
+  //     },
+  //   ]);
+  // };
+
+  // const flushQueue = () => {
+  //   if (engagementQueue.length > 0) {
+  //     updateEngagementTime(engagementQueue);
+  //     setEngagementQueue([]);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const handleBeforeUnload = () => {
+  //     const endTime = Date.now();
+  //     const engagementTime = (endTime - startTime) / 1000; // Time in seconds
+  //     addEngagementTimeToQueue(engagementTime);
+  //     flushQueue();
+  //   };
+
+  //   const handleVisibilityChange = () => {
+  //     if (document.visibilityState === "hidden") {
+  //       const endTime = Date.now();
+  //       const engagementTime = (endTime - startTime) / 1000;
+  //       addEngagementTimeToQueue(engagementTime);
+  //       flushQueue();
+  //     } else if (document.visibilityState === "visible") {
+  //       setStartTime(Date.now());
+  //     }
+  //   };
+
+  //   const interval = setInterval(() => {
+  //     flushQueue();
+  //   }, BATCH_INTERVAL);
+
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
+  //     clearInterval(interval);
+  //     flushQueue();
+  //   };
+  // }, [startTime, engagementQueue]);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     flushQueue();
+  //   }, BATCH_INTERVAL);
+
+  //   return () => {
+  //     clearInterval(interval);
+  //     flushQueue();
+  //   };
+  // }, []);
 
   // this should be run only once per application lifetime
   useEffect(() => {
@@ -250,7 +376,7 @@ function App() {
         { path: "contact-us", element: <ContactUs /> },
         { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
         { path: "terms-and-conditions", element: <TermsAndConditions /> },
-        { path: "shipping-and-delivery-policy", element: <ShippingPolicy /> },
+        { path: "shipping-and-delivery", element: <ShippingPolicy /> },
       ],
     },
     {
@@ -341,12 +467,18 @@ function App() {
 
   return (
     <div className="App">
-      <Provider store={store}>
-        <RouterProvider router={router} />
-        <Toaster />
-      </Provider>
+      {/* <Provider store={store}> */}
+      <RouterProvider router={router} />
+      <Toaster />
+      {/* </Provider> */}
     </div>
   );
 }
 
-export default App;
+const WrappedApp = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+export default WrappedApp;
