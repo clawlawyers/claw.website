@@ -42,6 +42,8 @@ import Couponcode from "./Admin/CouponCode/Couponcode.jsx";
 import QuizMain from "./Quiz/Index.jsx";
 import withPageTracking from "./Admin/components/Usertrack/withPageTracking.jsx";
 import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
+import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
+import SalesmanDetail from "./Admin/Salesman/SalesmanDetail.jsx";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -226,6 +228,8 @@ function App() {
                     { path: "visitors", element: <Visitors /> },
                     { path: "couponcode", element: <Couponcode /> },
                     { path: "user-visit", element: <Usertrack /> },
+                    { path: "salesman", element: <SalesmanList /> },
+                    { path: "salesman/:id", element: <SalesmanDetail /> },
                   ],
                 },
               ],
