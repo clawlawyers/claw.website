@@ -14,6 +14,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "react-calendar/dist/Calendar.css";
+import "./calstyle.css";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 
 const SalesmanDetail = () => {
@@ -159,11 +160,15 @@ const SalesmanDetail = () => {
         ))}
       </ul>
       <h2>Calendar View</h2>
-      <Calendar
-        value={date}
-        onChange={setDate}
-        tileContent={renderCalendarTile}
-      />
+      <div style={{ color: "red", fontWeight: "bold" }}>
+        <Calendar
+          value={date}
+          onChange={setDate}
+          tileContent={renderCalendarTile}
+          className="react-calendar"
+        />
+      </div>
+
       {/* <button onClick={onNextMonthClick}>Next Month</button> */}
       <button onClick={toggleView}>
         {view === "monthly" ? "View Yearly" : "View Monthly"}

@@ -45,12 +45,12 @@ import { useSelector } from "react-redux";
 import { NODE_API_ENDPOINT } from "../src/utils/utils.js";
 import withPageTracking from "./Admin/components/Usertrack/withPageTracking.jsx";
 import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
-import PricingTable from "./Pricing/Test.jsx";
-const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
-import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
 import SalesmanDetail from "./Admin/Salesman/SalesmanDetail.jsx";
+import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
+import PricingTable from "./Pricing/Test.jsx";
 
 function App() {
+  const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
   const [init, setInit] = useState(false);
   const currentUser = useSelector((state) => state.auth.user);
 
