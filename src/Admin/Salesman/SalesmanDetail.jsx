@@ -14,7 +14,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "react-calendar/dist/Calendar.css";
-import "./calstyle.css";
+
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 
 const SalesmanDetail = () => {
