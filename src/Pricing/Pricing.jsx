@@ -15,6 +15,9 @@ export default function Pricing() {
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null); // State to track hovered card
 
+  const { pathname } = useLocation();
+  const currentUser = useSelector((state) => state.auth.user);
+
   console.log(hoveredCard);
   function handleCartAdditionn() {
     // dispatch(
@@ -27,6 +30,26 @@ export default function Pricing() {
     //   })
     // );
     // navigate("/paymentgateway");
+  }
+
+  function handleCartAddition(noOfRequests, noOfSessions, price, duration) {
+    if (!currentUser) {
+      const searchParams = new URLSearchParams({
+        callbackUrl: pathname,
+      }).toString();
+      navigate(`/login?${searchParams}`);
+    } else {
+      dispatch(
+        setCart({
+          request: noOfRequests,
+          session: noOfSessions,
+          total: price,
+          plan: duration,
+          type: "PRO",
+        })
+      );
+      navigate("/paymentgateway");
+    }
   }
 
   return (
@@ -225,7 +248,7 @@ export default function Pricing() {
                       fontSize: "35px",
                     }}
                   >
-                    ₹25/-
+                    ₹100000/-
                   </h3>
                   <div className={Styles.subHeading} style={{ gap: "20px" }}>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
@@ -256,9 +279,15 @@ export default function Pricing() {
               </div>
             </div>
           </div>
-          {hoveredCard === "oneTime" && <OneTime />}
-          {hoveredCard === "monthly" && <Monthly />}
-          {hoveredCard === "yearly" && <Yearly />}
+          {hoveredCard === "oneTime" && (
+            <OneTime handleCartAddition={handleCartAddition} />
+          )}
+          {hoveredCard === "monthly" && (
+            <Monthly handleCartAddition={handleCartAddition} />
+          )}
+          {hoveredCard === "yearly" && (
+            <Yearly handleCartAddition={handleCartAddition} />
+          )}
           {/* <HoverCard /> */}
         </div>
       </div>
