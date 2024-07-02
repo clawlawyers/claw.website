@@ -100,9 +100,9 @@ function Row(props) {
                       <TableCell>{user.plan?.planName || "-"}</TableCell>
                       <TableCell>{user.plan?.token?.used || 0}</TableCell>
                       <TableCell>{user.plan?.token?.total || 0}</TableCell>
-                      <TableCell>{user.engagedTime?.days || 0}</TableCell>
-                      <TableCell>{user.engagedTime?.hours || 0}</TableCell>
-                      <TableCell>{user.engagedTime?.months || 0}</TableCell>
+                      <TableCell>{user.engagedTime?.daily || 0}</TableCell>
+                      <TableCell>{user.engagedTime?.monthly || 0}</TableCell>
+                      <TableCell>{user.engagedTime?.total || 0}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

@@ -16,6 +16,7 @@ export default function Menu() {
     "visitors",
     "couponcode",
     "user-visit",
+    "add-ambassador",
     "Salesman",
   ];
 
