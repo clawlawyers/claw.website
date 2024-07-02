@@ -48,11 +48,6 @@ import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
 import SalesmanDetail from "./Admin/Salesman/SalesmanDetail.jsx";
 import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
 import PricingTable from "./Pricing/Test.jsx";
-<<<<<<< HEAD
-import AddAmbassadorForm from "./Admin/AddAmbassador/index.jsx";
-const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
-=======
->>>>>>> ac68509a6a0950e11c26236bd93c9844fb9922f6
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -359,12 +354,8 @@ function App() {
                     { path: "visitors", element: <Visitors /> },
                     { path: "couponcode", element: <Couponcode /> },
                     { path: "user-visit", element: <Usertrack /> },
-<<<<<<< HEAD
-                    { path: "add-ambassador", element: <AddAmbassadorForm /> },
-=======
                     { path: "salesman", element: <SalesmanList /> },
                     { path: "salesman/:id", element: <SalesmanDetail /> },
->>>>>>> ac68509a6a0950e11c26236bd93c9844fb9922f6
                   ],
                 },
               ],
