@@ -20,16 +20,16 @@ export default function Pricing() {
 
   console.log(hoveredCard);
   function handleCartAdditionn() {
-    // dispatch(
-    //   setCart({
-    //     request: 5,
-    //     session: 1,
-    //     total: 25,
-    //     plan: "LIFETIME",
-    //     type: "PRO",
-    //   })
-    // );
-    // navigate("/paymentgateway");
+    dispatch(
+      setCart({
+        request: 5,
+        session: 1,
+        total: 25,
+        plan: "LIFETIME",
+        type: "PRO",
+      })
+    );
+    navigate("/paymentgateway");
   }
 
   function handleCartAddition(noOfRequests, noOfSessions, price, duration) {

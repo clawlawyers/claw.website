@@ -47,9 +47,7 @@ import withPageTracking from "./Admin/components/Usertrack/withPageTracking.jsx"
 import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
 import SalesmanDetail from "./Admin/Salesman/SalesmanDetail.jsx";
 import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
-import PricingTable from "./Pricing/Test.jsx";
 import AddAmbassadorForm from "./Admin/AddAmbassador/index.jsx";
-const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
