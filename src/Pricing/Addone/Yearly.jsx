@@ -1,6 +1,6 @@
 import Styles from "../Pricing.module.css";
 
-const Yearly = ({ isVisible }) => {
+const Yearly = ({ handleCartAddition }) => {
   return (
     <div
       className={Styles.pricingContainer}
@@ -24,7 +24,12 @@ const Yearly = ({ isVisible }) => {
               <td>1</td>
               <td style={{ color: "#008080", textAlign: "right" }}>₹2500/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(1000, 1, 2500, "Yearly")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
             <tr>
@@ -33,7 +38,12 @@ const Yearly = ({ isVisible }) => {
               <td>1</td>
               <td style={{ color: "#008080", textAlign: "right" }}>₹5000/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(5000, 1, 5000, "Yearly")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
             <tr>
@@ -42,7 +52,12 @@ const Yearly = ({ isVisible }) => {
               <td>2</td>
               <td style={{ color: "#008080", textAlign: "right" }}>₹6500/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(5000, 2, 6500, "Yearly")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
             <tr>
@@ -51,7 +66,12 @@ const Yearly = ({ isVisible }) => {
               <td>4</td>
               <td style={{ color: "#008080", textAlign: "right" }}>₹8500/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(5000, 4, 6500, "Yearly")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
             <tr>
@@ -60,7 +80,12 @@ const Yearly = ({ isVisible }) => {
               <td>4</td>
               <td style={{ color: "#008080", textAlign: "right" }}>₹15000/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(10000, 4, 15000, "Yearly")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
 
@@ -72,7 +97,14 @@ const Yearly = ({ isVisible }) => {
                 ₹100000/-
               </td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() =>
+                    handleCartAddition(1000000000, 4, 100000, "Yearly")
+                  }
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
           </tbody>

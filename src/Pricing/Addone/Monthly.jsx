@@ -1,6 +1,6 @@
 import Styles from "../Pricing.module.css";
 
-const Monthly = ({ isVisible }) => {
+const Monthly = ({ handleCartAddition }) => {
   return (
     <div
       className={Styles.pricingContainer}
@@ -24,7 +24,12 @@ const Monthly = ({ isVisible }) => {
               <td>1</td>
               <td style={{ color: "#008080", textAlign: "right" }}>₹250/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(100, 1, 250, "Monthly")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
             <tr>
@@ -33,7 +38,12 @@ const Monthly = ({ isVisible }) => {
               <td>1</td>
               <td style={{ color: "#008080", textAlign: "right" }}>₹500/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(500, 1, 500, "Monthly")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
             <tr>
@@ -42,7 +52,12 @@ const Monthly = ({ isVisible }) => {
               <td>2</td>
               <td style={{ color: "#008080", textAlign: "right" }}>₹650/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(500, 2, 650, "Monthly")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
             <tr>
@@ -51,7 +66,12 @@ const Monthly = ({ isVisible }) => {
               <td>4</td>
               <td style={{ color: "#008080", textAlign: "right" }}>₹850/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(500, 4, 850, "Monthly")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
           </tbody>

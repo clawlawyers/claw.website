@@ -1,6 +1,6 @@
 import Styles from "../Pricing.module.css";
 
-const OneTime = ({ isVisible }) => {
+const OneTime = ({ handleCartAddition }) => {
   return (
     <div
       className={Styles.pricingContainer}
