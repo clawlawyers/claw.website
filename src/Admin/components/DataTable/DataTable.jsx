@@ -2,6 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Styles from "./DataTable.module.css";
+import { Alert, Snackbar } from "@mui/material";
 
 const DataTable = (props) => {
   return (
@@ -31,7 +32,21 @@ const DataTable = (props) => {
         disableDensitySelector
         disableColumnSelector
         hideFooterPagination
+        processRowUpdate={(newRow, oldRow) =>
+          props.processRowUpdate(newRow, oldRow)
+        }
+        onProcessRowUpdateError={props.handleProcessRowUpdateError}
       />
+      {!!props.snackbar && (
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          onClose={props.handleCloseSnackbar}
+          autoHideDuration={6000}
+        >
+          <Alert {...props.snackbar} onClose={props.handleCloseSnackbar} />
+        </Snackbar>
+      )}
     </Box>
   );
 };

@@ -86,7 +86,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
           style={{
             position: "absolute",
             top: 40,
-            left: 240,
+            left: 225,
             backgroundColor: "transparent",
             backgroundImage: "none",
             zIndex: 8,
