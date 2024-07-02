@@ -24,7 +24,7 @@ export default function Pricing() {
       setCart({
         request: 5,
         session: 1,
-        total: 25,
+        total: 1,
         plan: "LIFETIME",
         type: "PRO",
       })
