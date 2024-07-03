@@ -5,10 +5,20 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import Styles from "./Pricing.module.css";
 import { setCart } from "../features/cart/cartSlice";
+import OneTime from "./Addone/OneTime";
+import Monthly from "./Addone/Monthly";
+import Yearly from "./Addone/Yearly";
+import HoverCard from "./Addone/HoveredCard";
 
 export default function Pricing() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [hoveredCard, setHoveredCard] = useState(null); // State to track hovered card
+
+  const { pathname } = useLocation();
+  const currentUser = useSelector((state) => state.auth.user);
+
+  console.log(hoveredCard);
   function handleCartAdditionn() {
     dispatch(
       setCart({
@@ -20,6 +30,26 @@ export default function Pricing() {
       })
     );
     navigate("/paymentgateway");
+  }
+
+  function handleCartAddition(noOfRequests, noOfSessions, price, duration) {
+    if (!currentUser) {
+      const searchParams = new URLSearchParams({
+        callbackUrl: pathname,
+      }).toString();
+      navigate(`/login?${searchParams}`);
+    } else {
+      dispatch(
+        setCart({
+          request: noOfRequests,
+          session: noOfSessions,
+          total: price,
+          plan: duration,
+          type: "PRO",
+        })
+      );
+      navigate("/paymentgateway");
+    }
   }
 
   return (
@@ -65,35 +95,12 @@ export default function Pricing() {
       </div>
       <div style={{ width: "80%", margin: "auto" }}>
         <div className={Styles.pricingContainer}>
-          <div className={Styles.first}>
+          {/* <div className={Styles.first}>
             <PricingCard duration="Monthly" sliderMap={sliders} />
           </div>
           <div className={Styles.second}>
             <PricingCard duration="Yearly" sliderMap={sliders} />
-          </div>
-
-          <div className={Styles.third}>
-            <h1 style={{ color: "#008080", fontWeight: 800 }}>
-              Top UP {""} 25/-{" "}
-            </h1>
-            <h4 style={{ color: "black", fontWeight: 800 }}>
-              Max Request-5 , Max User Session-1{" "}
-            </h4>
-            <button
-              onClick={handleCartAdditionn}
-              style={{
-                backgroundColor: "#008080",
-                color: "white",
-                padding: "12px 40px",
-                borderRadius: 10,
-                border: "none",
-                fontSize: 27,
-              }}
-            >
-              Get it Now
-            </button>
-          </div>
-
+          </div> */}
           <div className={Styles.third}>
             <h1 style={{ color: "#008080", fontWeight: 800 }}>Enterprise</h1>
             <button
@@ -109,8 +116,180 @@ export default function Pricing() {
               Contact us
             </button>
           </div>
+          <div
+            style={{
+              marginTop: "50px",
+              marginBottom: "50px",
+              display: "flex",
+              justifyContent: "space-between",
+              position: "relative",
+              flexWrap: "wrap",
+            }}
+          >
+            <div
+              className={Styles.newCar}
+              style={{ width: "28%" }}
+              onMouseEnter={() => setHoveredCard("oneTime")}
+              // onMouseLeave={() => setHoveredCard(null)}
+            >
+              <div className={`${Styles.card} ${Styles.mainCard}`}>
+                <div className={`${Styles.first} ${Styles.cardContent}`}>
+                  <h1 style={{ color: "#008080", fontWeight: 800 }}>
+                    One Time
+                  </h1>
+                  <h3
+                    style={{
+                      color: "#008080",
+                      fontWeight: 800,
+                      fontSize: "35px",
+                    }}
+                  >
+                    ₹25/-
+                  </h3>
+                  <div className={Styles.subHeading} style={{ gap: "20px" }}>
+                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                      Items: <span style={{ color: "black" }}>Tokens</span>
+                    </h4>
+                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                      Token Count: <span style={{ color: "black" }}>5</span>
+                    </h4>
+                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                      Users/Sessions: <span style={{ color: "black" }}>1</span>
+                    </h4>
+                  </div>
+                  <button
+                    onClick={handleCartAdditionn}
+                    style={{
+                      backgroundColor: "#008080",
+                      color: "white",
+                      padding: "12px 40px",
+                      borderRadius: 10,
+                      border: "none",
+                      fontSize: 27,
+                    }}
+                  >
+                    Get it Now
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className={Styles.newCar}
+              style={{ width: "28%" }}
+              onMouseEnter={() => setHoveredCard("monthly")}
+              // onMouseLeave={() => setHoveredCard(null)}
+            >
+              <div className={`${Styles.card} ${Styles.layer1}`}></div>
+              <div className={`${Styles.card} ${Styles.layer2}`}></div>
+              <div className={`${Styles.card} ${Styles.layer3}`}></div>
+              <div className={`${Styles.card} ${Styles.layer4}`}></div>
+
+              <div className={`${Styles.card} ${Styles.mainCard}`}>
+                <div className={`${Styles.first} ${Styles.cardContent}`}>
+                  <h1 style={{ color: "#008080", fontWeight: 800 }}>Monthly</h1>
+                  <h3
+                    style={{
+                      color: "#008080",
+                      fontWeight: 800,
+                      fontSize: "35px",
+                    }}
+                  >
+                    ₹250/-
+                  </h3>
+                  <div className={Styles.subHeading} style={{ gap: "20px" }}>
+                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                      Items: <span style={{ color: "black" }}>Tokens</span>
+                    </h4>
+                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                      Token Count: <span style={{ color: "black" }}>100</span>
+                    </h4>
+                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                      Users/Sessions: <span style={{ color: "black" }}>1</span>
+                    </h4>
+                  </div>
+                  <button
+                    onClick={handleCartAdditionn}
+                    style={{
+                      backgroundColor: "#008080",
+                      color: "white",
+                      padding: "12px 40px",
+                      borderRadius: 10,
+                      border: "none",
+                      fontSize: 27,
+                    }}
+                  >
+                    Get it Now
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className={Styles.newCar}
+              style={{ width: "28%" }}
+              onMouseEnter={() => setHoveredCard("yearly")}
+              // onMouseLeave={() => setHoveredCard(null)}
+            >
+              <div className={`${Styles.card} ${Styles.layer1}`}></div>
+              <div className={`${Styles.card} ${Styles.layer2}`}></div>
+              <div className={`${Styles.card} ${Styles.layer3}`}></div>
+              <div className={`${Styles.card} ${Styles.layer4}`}></div>
+              <div className={`${Styles.card} ${Styles.layer5}`}></div>
+              <div className={`${Styles.card} ${Styles.layer6}`}></div>
+
+              <div className={`${Styles.card} ${Styles.mainCard}`}>
+                <div className={`${Styles.first} ${Styles.cardContent}`}>
+                  <h1 style={{ color: "#008080", fontWeight: 800 }}>Yearly</h1>
+                  <h3
+                    style={{
+                      color: "#008080",
+                      fontWeight: 800,
+                      fontSize: "35px",
+                    }}
+                  >
+                    ₹100000/-
+                  </h3>
+                  <div className={Styles.subHeading} style={{ gap: "20px" }}>
+                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                      Items: <span style={{ color: "black" }}>Tokens</span>
+                    </h4>
+                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                      Token Count:{" "}
+                      <span style={{ color: "black" }}>Unlimited</span>
+                    </h4>
+                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                      Users/Sessions: <span style={{ color: "black" }}>4</span>
+                    </h4>
+                  </div>
+                  <button
+                    onClick={handleCartAdditionn}
+                    style={{
+                      backgroundColor: "#008080",
+                      color: "white",
+                      padding: "12px 40px",
+                      borderRadius: 10,
+                      border: "none",
+                      fontSize: 27,
+                    }}
+                  >
+                    Get it Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {hoveredCard === "oneTime" && (
+            <OneTime handleCartAddition={handleCartAddition} />
+          )}
+          {hoveredCard === "monthly" && (
+            <Monthly handleCartAddition={handleCartAddition} />
+          )}
+          {hoveredCard === "yearly" && (
+            <Yearly handleCartAddition={handleCartAddition} />
+          )}
+          {/* <HoverCard /> */}
         </div>
-        <div></div>
       </div>
     </div>
   );

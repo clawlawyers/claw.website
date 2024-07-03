@@ -8,7 +8,7 @@ export const generateResponse = createAsyncThunk(
 
     const { jwt } = auth.user;
     const { prompt, token } = gpt;
-    if (token.used >= token.total || token.used + 1 >= token.total)
+    if (token.used >= token.total || token.used + 1 > token.total)
       throw new Error("Not enough tokens, please upgrade or try again later!");
     const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session/prompt`, {
       method: "POST",

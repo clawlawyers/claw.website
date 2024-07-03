@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Quiz.module.css";
 
 const questions = [
@@ -10,9 +10,9 @@ const questions = [
         text: "Convince your landlord to accept rent in the form of home-cooked meals",
         score: 1,
       },
-      { text: "claim that your dog ate your money", score: 2 },
+      { text: "Claim that your dog ate your money", score: 2 },
       {
-        text: "offer to make your landlord into an online sensation",
+        text: "Offer to make your landlord into an online sensation",
         score: 3,
       },
     ],
@@ -60,11 +60,11 @@ const questions = [
     options: [
       { text: "Consider becoming an international spy", score: 1 },
       {
-        text: "live alone in the mountains unnamed and come back after 30 years",
+        text: "Live alone in the mountains unnamed and come back after 30 years",
         score: 2,
       },
       {
-        text: "get your friend to pose as a fake lawyer to buy you some time",
+        text: "Get your friend to pose as a fake lawyer to buy you some time",
         score: 3,
       },
     ],
@@ -81,7 +81,7 @@ const questions = [
         score: 2,
       },
       {
-        text: "get your friend to pose as a fake lawyer to buy you some time",
+        text: "Get your friend to pose as a fake lawyer to buy you some time",
         score: 3,
       },
     ],
@@ -90,7 +90,7 @@ const questions = [
     question: "7. Need to Conceal Assets in a Divorce?",
     options: [
       {
-        text: "rent a private island in international waters and declare it a sovereign nation with its own laws",
+        text: "Rent a private island in international waters and declare it a sovereign nation with its own laws",
         score: 1,
       },
       {
@@ -102,52 +102,125 @@ const questions = [
   },
 ];
 
-const quizAnimation = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
+const quizVariants = {
+  initial: { opacity: 0, x: 100 },
+  animate: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: -100 },
+};
+
+const buttonClickVariants = {
+  animate: {
+    transition: {
+      duration: 0.6,
+      repeat: 2,
+      repeatType: "mirror",
+    },
+  },
 };
 
 const Quiz = ({ onFinish }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [clickedOptionIndex, setClickedOptionIndex] = useState(null);
+  const [isNavigating, setIsNavigating] = useState(false);
 
-  const handleOptionClick = (score) => {
-    setTotalScore(totalScore + score);
+  const handleOptionClick = (score, index) => {
+    setIsNavigating(false);
+    const newScore =
+      totalScore - (selectedOptions[currentQuestion]?.score || 0) + score;
+    setTotalScore(newScore);
+    const updatedSelectedOptions = [...selectedOptions];
+    updatedSelectedOptions[currentQuestion] = { index, score };
+    setSelectedOptions(updatedSelectedOptions);
+    setClickedOptionIndex(index);
+  };
+
+  const handleNextClick = () => {
+    setIsNavigating(true);
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
+      setClickedOptionIndex(null);
     } else {
       onFinish(totalScore);
     }
   };
 
+  const handlePreviousClick = () => {
+    setIsNavigating(true);
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
+      setClickedOptionIndex(
+        selectedOptions[currentQuestion - 1]?.index || null
+      );
+    }
+  };
+
   return (
-    <motion.div
-      className={styles.quizContainer}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={quizAnimation}
-    >
-      <div className={styles.questionContainer}>
-        <h2>{questions[currentQuestion].question}</h2>
-      </div>
-      <div className={styles.options}>
-        {questions[currentQuestion].options.map((option, index) => (
-          <motion.button
-            style={{ margin: "10px" }}
-            key={index}
-            className={styles.optionButton}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => handleOptionClick(option.score)}
-          >
-            {option.text}
-          </motion.button>
-        ))}
-      </div>
-    </motion.div>
+    <div className={styles.quizContainer}>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentQuestion}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={quizVariants}
+          className={styles.questionBlock}
+        >
+          <div className={styles.questionContainer}>
+            <motion.h2
+              key={currentQuestion}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {questions[currentQuestion].question}
+            </motion.h2>
+          </div>
+          <div className={styles.options}>
+            {questions[currentQuestion].options.map((option, index) => (
+              <motion.button
+                key={index}
+                className={`${styles.button} ${
+                  selectedOptions[currentQuestion]?.index === index
+                    ? styles.selected
+                    : ""
+                } ${
+                  !isNavigating && clickedOptionIndex === index
+                    ? styles.fading
+                    : ""
+                }`}
+                onClick={() => handleOptionClick(option.score, index)}
+                variants={buttonClickVariants}
+                whileHover="animate"
+                whileTap="animate"
+              >
+                {option.text}
+              </motion.button>
+            ))}
+          </div>
+          <div className={styles.navigationButtons}>
+            {currentQuestion > 0 && (
+              <button
+                className={styles.previousButton}
+                onClick={handlePreviousClick}
+              >
+                Previous
+              </button>
+            )}
+            <button
+              className={styles.nextButton}
+              onClick={handleNextClick}
+              disabled={clickedOptionIndex === null}
+            >
+              Next
+            </button>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 };
 

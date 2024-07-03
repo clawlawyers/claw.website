@@ -11,7 +11,7 @@ import RootLayout from "./RootLayout/RootLayout";
 import { Provider } from "react-redux";
 import store from "./store";
 import Payment from "./Payment/Payment";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { Toaster } from "react-hot-toast";
@@ -40,9 +40,60 @@ import Visitors from "./Admin/Visitors/Visitors";
 import TermsAndConditions from "./Terms & Conditions/TermsAndConditions.jsx";
 import Couponcode from "./Admin/CouponCode/Couponcode.jsx";
 import QuizMain from "./Quiz/Index.jsx";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { NODE_API_ENDPOINT } from "../src/utils/utils.js";
+import withPageTracking from "./Admin/components/Usertrack/withPageTracking.jsx";
+import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
+import SalesmanDetail from "./Admin/Salesman/SalesmanDetail.jsx";
+import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
+import AddAmbassadorForm from "./Admin/AddAmbassador/index.jsx";
 
 function App() {
+  const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
   const [init, setInit] = useState(false);
+  const currentUser = useSelector((state) => state.auth.user);
+
+  const currentUserRef = useRef(currentUser);
+
+  useEffect(() => {
+    currentUserRef.current = currentUser;
+  }, [currentUser]);
+
+  const updateEngagementTime = useCallback(async (engagementData) => {
+    try {
+      await axios.post(
+        `${NODE_API_ENDPOINT}/cron/engagement/time`,
+        engagementData
+      );
+    } catch (error) {
+      console.error("Error updating engagement time:", error);
+    }
+  }, []);
+
+  const flushQueue = useCallback(() => {
+    const user = currentUserRef.current;
+    if (user) {
+      updateEngagementTime([
+        {
+          phoneNumber: user.phoneNumber,
+          engagementTime: 60,
+          timestamp: Date.now(),
+        },
+      ]);
+    }
+  }, [updateEngagementTime]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      flushQueue();
+    }, BATCH_INTERVAL);
+
+    return () => {
+      clearInterval(interval);
+      flushQueue();
+    };
+  }, [flushQueue]);
 
   // this should be run only once per application lifetime
   useEffect(() => {
@@ -128,6 +179,41 @@ function App() {
   );
 
   const AdminLayout = () => {
+    useEffect(() => {
+      const VerifyAdmin = async () => {
+        const storedAuth = localStorage.getItem("auth");
+        if (storedAuth) {
+          const parsedUser = await JSON.parse(storedAuth);
+          const isAdmin = await axios.get(
+            `${NODE_API_ENDPOINT}/admin/${parsedUser.phoneNumber}/isAdmin`
+          );
+          // console.log(isAdmin.data.isAdmin);
+          if (isAdmin.data.isAdmin) {
+            if (parsedUser.expiresAt < new Date().valueOf()) return null;
+            const props = await fetch(`${NODE_API_ENDPOINT}/client/auth/me`, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${parsedUser.jwt}`,
+              },
+            });
+            const parsedProps = await props.json();
+
+            if (
+              !parsedProps.data.phoneNumber ===
+              parsedUser.phoneNumber.substring(3)
+            ) {
+              alert("Invalid User");
+              return null;
+            }
+          } else {
+            alert("Unauthorized Access");
+            return null;
+          }
+        }
+      };
+      VerifyAdmin();
+    }, []);
+
     return (
       <div className="container">
         <div className="menuContainer">
@@ -140,7 +226,19 @@ function App() {
     );
   };
 
+  // Wrap components with withPageTracking
+  const TrackedQuizMain = withPageTracking(QuizMain);
+  // const TrackedHome = withPageTracking(Home);
+  const TrackedNews = withPageTracking(News);
+  const TrackedAllBlogs = withPageTracking(AllBlogs);
+  const TrackedCaseSearch = withPageTracking(CaseFinder);
+  const TrackedGpt = withPageTracking(GPT);
+
   const router = createBrowserRouter([
+    {
+      path: "quiz",
+      element: <TrackedQuizMain />,
+    },
     {
       path: "/",
       element: <RootLayout />,
@@ -151,15 +249,15 @@ function App() {
         },
         {
           path: "quiz",
-          element: <QuizMain />,
+          element: <TrackedQuizMain />,
         },
         {
           path: "news",
-          element: <News />,
+          element: <TrackedNews />,
         },
         {
           path: "blog",
-          element: <AllBlogs />,
+          element: <TrackedAllBlogs />,
         },
         {
           path: "blog/:blogName",
@@ -211,6 +309,10 @@ function App() {
                     { path: "referral-code", element: <ReferralCode /> },
                     { path: "visitors", element: <Visitors /> },
                     { path: "couponcode", element: <Couponcode /> },
+                    { path: "user-visit", element: <Usertrack /> },
+                    { path: "add-ambassador", element: <AddAmbassadorForm /> },
+                    { path: "salesman", element: <SalesmanList /> },
+                    { path: "salesman/:id", element: <SalesmanDetail /> },
                   ],
                 },
               ],
@@ -226,7 +328,7 @@ function App() {
         {
           path: "case/search",
           element: <AuthWall />,
-          children: [{ path: "", element: <CaseFinder /> }],
+          children: [{ path: "", element: <TrackedCaseSearch /> }],
         },
         { path: "contact-us", element: <ContactUs /> },
         { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
@@ -251,7 +353,7 @@ function App() {
             {
               path: "",
               element: (
-                <GPT
+                <TrackedGpt
                   keyword="Legal"
                   primaryColor="#008080"
                   model="legalGPT"
@@ -322,12 +424,18 @@ function App() {
 
   return (
     <div className="App">
-      <Provider store={store}>
-        <RouterProvider router={router} />
-        <Toaster />
-      </Provider>
+      {/* <Provider store={store}> */}
+      <RouterProvider router={router} />
+      <Toaster />
+      {/* </Provider> */}
     </div>
   );
 }
 
-export default App;
+const WrappedApp = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+export default WrappedApp;

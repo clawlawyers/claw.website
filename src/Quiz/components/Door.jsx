@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
 import { gsap } from "gsap";
 import styles from "./Door.module.css";
+import Quiz from "./Quiz";
 
-const Door = ({ onStart }) => {
+const Door = ({ onStart, setStage, setScore }) => {
   useEffect(() => {
     gsap.set(".door", { perspective: "400vw" });
 
     const openDoor = () => {
       const tl = gsap
-        .timeline({ yoyo: true, repeat: 0 })
+        .timeline({ yoyo: false, repeat: 0 })
         .add("startTL")
         .fromTo(
           "#card-left",
           { rotationY: 0 },
           {
             rotationY: 85,
-            transformOrigin: "0",
+            transformOrigin: "left center",
             ease: "sine.inOut",
             duration: 2.5,
           },
@@ -26,7 +27,7 @@ const Door = ({ onStart }) => {
           { rotationY: 0 },
           {
             rotationY: -85,
-            transformOrigin: "100%",
+            transformOrigin: "right center",
             ease: "sine.inOut",
             duration: 2.5,
           },
@@ -36,10 +37,19 @@ const Door = ({ onStart }) => {
           "#questions",
           {
             opacity: 1,
-            duration: 1.5,
+            duration: 0.5,
             ease: "sine.inOut",
           },
-          "startTL+=1"
+          "startTL+=0.5"
+        )
+        .to(
+          ["#card-left", "#card-right"], // Only target the cards, not the doors
+          {
+            opacity: 0,
+            duration: 1, // Adjust the duration as needed for the fade-out effect
+            ease: "power1.inOut",
+          },
+          "startTL+=2" // Adjust timing if necessary to synchronize with other animations
         )
         .eventCallback("onComplete", onStart);
     };
@@ -56,85 +66,38 @@ const Door = ({ onStart }) => {
     };
   }, [onStart]);
 
+  const handleFinish = (finalScore) => {
+    setScore(finalScore);
+    setStage("result");
+  };
+
   return (
-    <div className={styles.lPage} style={{ width: "90%" }}>
-      <header className={styles.lHeader}>
-        <div className={styles.lHeaderFirst}>
-          <div className={styles.logoContainer}></div>
-          <div className={styles.toggleContainer}>
-            <div className={styles.toggleElement}></div>
-            <p>Menu</p>
+    <main className={styles.lMain}>
+      <div className={styles.lHomeHero}>
+        <div className={styles.doorWrap}>
+          <div id="door-left" className={`${styles.door} ${styles.left}`}>
+            <div
+              id="card-left"
+              className={`${styles.card} ${styles.left}`}
+            ></div>
+          </div>
+          <div id="door-right" className={`${styles.door} ${styles.right}`}>
+            <div
+              id="card-right"
+              className={`${styles.card} ${styles.right}`}
+            ></div>
           </div>
         </div>
-      </header>
-      <main className={styles.lMain}>
-        <div className={styles.lHomeHero}>
-          <div className={styles.doorWrap}>
-            <div id="door-left" className={`${styles.door} ${styles.left}`}>
-              <div id="card-left" className={`${styles.card} ${styles.left}`}>
-                <svg>
-                  <rect
-                    id="rhomb1"
-                    fill="#99badd"
-                    width="20"
-                    height="30"
-                    x="230"
-                    y="120"
-                  />
-                  <polygon
-                    id="hockey1"
-                    fill="#99badd"
-                    points="300,150 250,100 230,100 210,70 250,70"
-                  />
-                  <polygon
-                    id="hockey2"
-                    fill="#99badd"
-                    points="300,120 250,50 230,50 210,20 270,20"
-                  />
-                  <polygon
-                    id="tri1"
-                    fill="#99badd"
-                    points="290,20 310,5 310,35"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div id="door-right" className={`${styles.door} ${styles.right}`}>
-              <div id="card-right" className={`${styles.card} ${styles.right}`}>
-                <svg>
-                  <polygon
-                    id="tri2"
-                    fill="#99badd"
-                    points="290,20 310,5 310,35"
-                  />
-                  <polygon
-                    id="hockey3"
-                    fill="#99badd"
-                    points="300,150 250,100 230,100 210,70 250,70"
-                  />
-                  <polygon
-                    id="hockey4"
-                    fill="#99badd"
-                    points="300,120 250,50 230,50 210,20 270,20"
-                  />
-                  <rect
-                    id="rhomb2"
-                    fill="#99badd"
-                    width="20"
-                    height="30"
-                    x="370"
-                    y="120"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div id="questions" className={styles.questions}>
-            {/* Questions content goes here */}
-          </div>
+
+        <div
+          id="questions"
+          style={{ zIndex: "10" }}
+          className={styles.questions}
+        >
+          {<Quiz onFinish={handleFinish} />}
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 };
 

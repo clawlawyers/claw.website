@@ -24,6 +24,7 @@ const courtIdMapping = {
   "Madhya Pradesh High Court": "1exastQPw80VSb359G8xournBF1MPShdn",
   "Allahabad High Court": "1qpWWufkZ4ciCskmJ3xPHLe72Z8oKWjcO",
   "Gujarat High Court": "1NyOxx5lBZ-rFy3wtwdOlepTog668HUwJ",
+  "Rajasthan High Court": "153TCPW0SuDtXQzlgLUtqES3uwVUkaMtu",
 };
 
 export function CaseCard({ name, date, court, citations, caseId, query }) {

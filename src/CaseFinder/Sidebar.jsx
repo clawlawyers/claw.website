@@ -77,7 +77,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
           style={{
             position: "absolute",
             top: 40,
-            left: 240,
+            left: 225,
             backgroundColor: "transparent",
             backgroundImage: "none",
             zIndex: 8,
@@ -163,9 +163,9 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               {plan.split("_")[0]}
                             </span>
                           </div>
-                          <div>
+                          {/* <div>
                             Token - {Math.floor(token?.used)}/{token?.total}
-                          </div>
+                          </div> */}
                           <button
                             style={{
                               display: "flex",

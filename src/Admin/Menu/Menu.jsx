@@ -15,6 +15,9 @@ export default function Menu() {
     "referral-code",
     "visitors",
     "couponcode",
+    "user-visit",
+    "add-ambassador",
+    "Salesman",
   ];
 
   const iconMap = {

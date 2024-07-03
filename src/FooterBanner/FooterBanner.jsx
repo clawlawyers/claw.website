@@ -262,7 +262,9 @@ function FooterBanner() {
           >
             Terms & Conditions
           </Link>
+
               <Link
+
             to="/shipping-and-delivery"
             className={Styles.muted}
             style={{ textDecoration: "none" }}

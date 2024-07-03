@@ -10,7 +10,7 @@ import { load } from "@cashfreepayments/cashfree-js";
 export default function Payment() {
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
-
+  const nav = useNavigate();
   const [discountApplied, setDiscountApplied] = useState(false);
   const { plan, request, session, total, type } = useSelector(
     (state) => state.cart
@@ -20,20 +20,22 @@ export default function Payment() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [Total, setTotal] = useState(total);
+  const [receipt, setReceipt] = useState(`receipt_${Date.now()}`);
+  const currentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     if (!plan) navigate("/pricing");
   }, [plan, navigate]);
 
-  useEffect(() => {
-    const initializeCashfree = async () => {
-      const cashfree = await load({
-        mode: "production", // or production
-      });
-      setPay(cashfree);
-    };
-    initializeCashfree();
-  }, []);
+  // useEffect(() => {
+  //   const initializeCashfree = async () => {
+  //     const cashfree = await load({
+  //       mode: "production", // or production
+  //     });
+  //     setPay(cashfree);
+  //   };
+  //   initializeCashfree();
+  // }, []);
 
   const applyCoupon = async () => {
     if (couponCode === "" || undefined) {
@@ -63,46 +65,120 @@ export default function Payment() {
     }
   }, [discount, total, discountApplied]);
 
-  async function createOrder() {
-    console.log(pay);
-    if (!pay) {
-      console.error("Payment object not initialized");
-      return;
-    }
-    try {
-      console.log("inside called");
-      setLoading(true);
-      const planeName = `${type}_${request}_${session}`;
-      const response = await fetch(
-        `${NODE_API_ENDPOINT}/payment/create-payment-order`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            amount: parseFloat(Total),
-            plan: planeName,
-            billingCycle: plan,
-            request,
-            session,
-          }),
-        }
-      );
-      const { data } = await response.json();
-      console.log({ data });
+  // async function createOrder() {
+  //   console.log(pay);
+  //   if (!pay) {
+  //     console.error("Payment object not initialized");
+  //     return;
+  //   }
+  //   try {
+  //     console.log("inside called");
+  //     setLoading(true);
+  //     const planeName = `${type}_${request}_${session}`;
+  //     const response = await fetch(
+  //       `${NODE_API_ENDPOINT}/payment/create-payment-order`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           Authorization: `Bearer ${jwt}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           amount: parseFloat(Total),
+  //           plan: planeName,
+  //           billingCycle: plan,
+  //           request,
+  //           session,
+  //         }),
+  //       }
+  //     );
+  //     const { data } = await response.json();
+  //     console.log({ data });
 
-      pay.checkout({
-        paymentSessionId: data.payment_session_id,
-        returnUrl: "https://clawlaw.in",
-      });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  //     pay.checkout({
+  //       paymentSessionId: data.payment_session_id,
+  //       returnUrl: "https://clawlaw.in",
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+
+  const loadRazorpay = async () => {
+    setLoading(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onerror = () => {
+      alert("Razorpay SDK failed to load. Are you online?");
+    };
+    script.onload = async () => {
+      try {
+        const result = await axios.post(
+          `${NODE_API_ENDPOINT}/payment/create-order`,
+          {
+            amount: Total,
+            currency: "INR",
+            receipt: receipt,
+          }
+        );
+
+        const { amount, id, currency } = result.data;
+        const options = {
+          key: "rzp_test_UWcqHHktRV6hxM",
+          amount: amount.toString(),
+          currency: currency,
+          name: "CLAW LEGALTECH PRIVATE LIMITED",
+          description: "Transaction",
+          order_id: id,
+          handler: async function (response) {
+            const data = {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            };
+
+            const result = await axios.post(
+              `${NODE_API_ENDPOINT}/payment/verifyPayment`,
+              data
+            );
+            alert(result.data.status);
+            if (
+              plan === "AddOn" &&
+              result.data.status === "Payment verified successfully"
+            ) {
+              axios.post(
+                `${NODE_API_ENDPOINT}/gpt/dummy`,
+                {
+                  phoneNumber: currentUser.phoneNumber,
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${currentUser.jwt}`,
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+            }
+            nav("/");
+          },
+
+          theme: {
+            color: "#3399cc",
+          },
+        };
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    document.body.appendChild(script);
+  };
 
   return (
     <div
@@ -117,7 +193,7 @@ export default function Payment() {
       </div>
       <div className={Styles.gridContainer}>
         <div style={{ flex: 1, paddingTop: 70, color: "black" }}>
-          <button
+          {/* <button
             style={{
               padding: "15px 80px",
               border: "none",
@@ -132,6 +208,22 @@ export default function Payment() {
             disabled={loading || !pay}
           >
             {loading || !pay ? <CircularProgress /> : "Pay now"}
+          </button> */}
+          <button
+            style={{
+              padding: "15px 80px",
+              border: "none",
+              fontSize: 24,
+              borderRadius: 10,
+              backgroundColor: "#008080",
+              color: "white",
+              alignSelf: "flex-start",
+              marginTop: 25,
+            }}
+            onClick={loadRazorpay}
+            disabled={loading}
+          >
+            {loading ? <CircularProgress /> : " Pay now"}
           </button>
           <br />
           <h1 style={{ color: "white", marginTop: "20px" }}>

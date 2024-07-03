@@ -1,38 +1,150 @@
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0.5;
+    background-color: gray;
+  }
+}
+
+.fading {
+  animation: fade 0.5s ease-in-out 2;
+}
+
+.button {
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: black;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  margin: 10px 0;
+  width: 100%;
+  text-align: left;
+}
+
+.button:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  background-color: gray;
+}
+
+.selected {
+  border: 2px solid #514a4a;
+  background-color: gray;
+}
+
 .quizContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100vh;
-  background-color: #f8f9fa;
-  color: #333;
-  text-align: center;
+  background-color: #f9f9f9;
   padding: 20px;
-  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.options {
+.questionBlock {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .questionContainer {
   margin-bottom: 20px;
 }
 
-.optionButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 10px 0;
-  font-size: 1rem;
-  transition: background-color 0.02s;
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-.optionButton:hover {
-  background-color: #0056b3;
+.navigationButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.previousButton,
+.nextButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.nextButton {
+  background-color: #4caf50;
+}
+
+@media (max-width: 1024px) {
+  .button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .previousButton,
+  .nextButton {
+    padding: 8px 18px;
+    font-size: 15px;
+  }
+
+  .quizContainer {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .previousButton,
+  .nextButton {
+    padding: 6px 16px;
+    font-size: 14px;
+  }
+
+  .quizContainer {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .previousButton,
+  .nextButton {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+
+  .questionContainer h2 {
+    font-size: 18px;
+  }
+
+  .quizContainer {
+    padding: 8px;
+  }
 }
