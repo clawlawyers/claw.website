@@ -122,10 +122,11 @@ export default function Payment() {
             receipt: receipt,
           }
         );
+        console.log(result);
 
         const { amount, id, currency } = result.data;
         const options = {
-          key: "rzp_live_YYdJhRryhFbI5i",
+          key: "rzp_test_UWcqHHktRV6hxM",
           amount: amount.toString(),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
@@ -142,6 +143,7 @@ export default function Payment() {
               `${NODE_API_ENDPOINT}/payment/verifyPayment`,
               data
             );
+            console.log(result);
             alert(result.data.status);
             nav("/");
           },

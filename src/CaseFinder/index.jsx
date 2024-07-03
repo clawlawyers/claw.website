@@ -305,6 +305,9 @@ export default function CaseFinder({
                   <MenuItem value="Gujarat High Court">
                     Gujarat High Court
                   </MenuItem>
+                  <MenuItem value="Rajasthan High Court">
+                    Rajasthan High Court
+                  </MenuItem>
                 </Select>
                 {selectedCourts.length === 0 && (
                   <FormHelperText>
