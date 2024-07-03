@@ -126,7 +126,7 @@ export default function Payment() {
 
         const { amount, id, currency } = result.data;
         const options = {
-          key: "rzp_test_UWcqHHktRV6hxM",
+          key: "rzp_live_YYdJhRryhFbI5i",
           amount: amount.toString(),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
