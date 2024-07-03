@@ -123,6 +123,7 @@ export default function Payment() {
             receipt: receipt,
           }
         );
+        console.log(result);
 
         const { amount, id, currency } = result.data;
         const options = {
@@ -143,6 +144,7 @@ export default function Payment() {
               `${NODE_API_ENDPOINT}/payment/verifyPayment`,
               data
             );
+            console.log(result);
             alert(result.data.status);
             if (
               plan === "AddOn" &&
