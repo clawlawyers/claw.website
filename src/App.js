@@ -95,85 +95,6 @@ function App() {
     };
   }, [flushQueue]);
 
-  // const [startTime, setStartTime] = useState(Date.now());
-  // const [engagementQueue, setEngagementQueue] = useState([]);
-  // const currentUser = useSelector((state) => state.auth.user);
-  // console.log(currentUser);
-
-  // const updateEngagementTime = async (engagementData) => {
-  //   try {
-  //     await axios.post(
-  //       `${NODE_API_ENDPOINT}/cron/engagement/time`,
-  //       engagementData
-  //     );
-  //   } catch (error) {
-  //     console.error("Error updating engagement time:", error);
-  //   }
-  // };
-
-  // const addEngagementTimeToQueue = (engagementTime) => {
-  //   setEngagementQueue((prevQueue) => [
-  //     ...prevQueue,
-  //     {
-  //       phoneNumber: currentUser?.phoneNumber,
-  //       engagementTime,
-  //       timestamp: Date.now(),
-  //     },
-  //   ]);
-  // };
-
-  // const flushQueue = () => {
-  //   if (engagementQueue.length > 0) {
-  //     updateEngagementTime(engagementQueue);
-  //     setEngagementQueue([]);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const handleBeforeUnload = () => {
-  //     const endTime = Date.now();
-  //     const engagementTime = (endTime - startTime) / 1000; // Time in seconds
-  //     addEngagementTimeToQueue(engagementTime);
-  //     flushQueue();
-  //   };
-
-  //   const handleVisibilityChange = () => {
-  //     if (document.visibilityState === "hidden") {
-  //       const endTime = Date.now();
-  //       const engagementTime = (endTime - startTime) / 1000;
-  //       addEngagementTimeToQueue(engagementTime);
-  //       flushQueue();
-  //     } else if (document.visibilityState === "visible") {
-  //       setStartTime(Date.now());
-  //     }
-  //   };
-
-  //   const interval = setInterval(() => {
-  //     flushQueue();
-  //   }, BATCH_INTERVAL);
-
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-  //   document.addEventListener("visibilitychange", handleVisibilityChange);
-
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
-  //     clearInterval(interval);
-  //     flushQueue();
-  //   };
-  // }, [startTime, engagementQueue]);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     flushQueue();
-  //   }, BATCH_INTERVAL);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //     flushQueue();
-  //   };
-  // }, []);
-
   // this should be run only once per application lifetime
   useEffect(() => {
     store.dispatch(retrieveAuth());
@@ -258,6 +179,41 @@ function App() {
   );
 
   const AdminLayout = () => {
+    useEffect(() => {
+      const VerifyAdmin = async () => {
+        const storedAuth = localStorage.getItem("auth");
+        if (storedAuth) {
+          const parsedUser = await JSON.parse(storedAuth);
+          const isAdmin = await axios.get(
+            `${NODE_API_ENDPOINT}/admin/${parsedUser.phoneNumber}/isAdmin`
+          );
+          // console.log(isAdmin.data.isAdmin);
+          if (isAdmin.data.isAdmin) {
+            if (parsedUser.expiresAt < new Date().valueOf()) return null;
+            const props = await fetch(`${NODE_API_ENDPOINT}/client/auth/me`, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${parsedUser.jwt}`,
+              },
+            });
+            const parsedProps = await props.json();
+
+            if (
+              !parsedProps.data.phoneNumber ===
+              parsedUser.phoneNumber.substring(3)
+            ) {
+              alert("Invalid User");
+              return null;
+            }
+          } else {
+            alert("Unauthorized Access");
+            return null;
+          }
+        }
+      };
+      VerifyAdmin();
+    }, []);
+
     return (
       <div className="container">
         <div className="menuContainer">

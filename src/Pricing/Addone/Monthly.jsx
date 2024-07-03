@@ -105,9 +105,14 @@ const Monthly = ({ handleCartAddition }) => {
             <tr>
               <td style={{ textAlign: "left" }}>Case Search</td>
               <td>Minimum tokens - 100</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹100/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹500/-</td>
               <td style={{ textAlign: "left" }}>
-                <button className={Styles.pricingButton}>Get it Now</button>
+                <button
+                  onClick={() => handleCartAddition(100, 1, 500, "AddOn")}
+                  className={Styles.pricingButton}
+                >
+                  Get it Now
+                </button>
               </td>
             </tr>
           </tbody>

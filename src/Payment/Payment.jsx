@@ -21,6 +21,7 @@ export default function Payment() {
   const navigate = useNavigate();
   const [Total, setTotal] = useState(total);
   const [receipt, setReceipt] = useState(`receipt_${Date.now()}`);
+  const currentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     if (!plan) navigate("/pricing");
@@ -125,7 +126,7 @@ export default function Payment() {
 
         const { amount, id, currency } = result.data;
         const options = {
-          key: "rzp_live_YYdJhRryhFbI5i",
+          key: "rzp_test_UWcqHHktRV6hxM",
           amount: amount.toString(),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
@@ -143,6 +144,23 @@ export default function Payment() {
               data
             );
             alert(result.data.status);
+            if (
+              plan === "AddOn" &&
+              result.data.status === "Payment verified successfully"
+            ) {
+              axios.post(
+                `${NODE_API_ENDPOINT}/gpt/dummy`,
+                {
+                  phoneNumber: currentUser.phoneNumber,
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${currentUser.jwt}`,
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+            }
             nav("/");
           },
 

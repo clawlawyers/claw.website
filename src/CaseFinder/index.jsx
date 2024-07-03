@@ -24,6 +24,7 @@ import { setPlan, setToken } from "../features/gpt/gptSlice";
 import moment from "moment";
 import { close, open } from "../features/popup/popupSlice";
 import bgimage from "../assets/images/button-gradient.png";
+import axios from "axios";
 
 export default function CaseFinder({
   keyword = "Legal",
@@ -78,23 +79,41 @@ export default function CaseFinder({
   };
 
   async function handleCaseSearch(e) {
+    e.preventDefault();
+
+    const isEligible = await axios.post(
+      `${NODE_API_ENDPOINT}/gpt/dummyCheckbox`,
+      {
+        phoneNumber: currentUser.phoneNumber,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${currentUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(isEligible);
+    if (!isEligible.data.data) {
+      dispatch(open());
+      return;
+    }
     if (selectedCourts.length === 0) {
       alert("Please select at least one court.");
       return;
     }
     const courtsString = selectedCourts.join(",");
     try {
-      e.preventDefault();
       setLoading(true);
-      if (
-        token?.used >= token?.total ||
-        parseFloat(token?.used) + 0.2 > token?.total
-      ) {
-        dispatch(open());
-        throw new Error(
-          "Not enough tokens, please upgrade or try again later!"
-        );
-      }
+      // if (
+      //   token?.used >= token?.total ||
+      //   parseFloat(token?.used) + 0.2 > token?.total
+      // ) {
+      //   dispatch(open());
+      //   throw new Error(
+      //     "Not enough tokens, please upgrade or try again later!"
+      //   );
+      // }
 
       const response = await fetch(`${NODE_API_ENDPOINT}/gpt/case/search`, {
         method: "POST",
