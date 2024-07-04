@@ -49,6 +49,7 @@ import SalesmanDetail from "./Admin/Salesman/SalesmanDetail.jsx";
 import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
 import AddAmbassadorForm from "./Admin/AddAmbassador/index.jsx";
 import Demovideo from "./DemoVideo/Demovideo.jsx";
+import AllAdmins from "./Admin/AllAdmins/AllAdmins.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -180,40 +181,40 @@ function App() {
   );
 
   const AdminLayout = () => {
-    useEffect(() => {
-      const VerifyAdmin = async () => {
-        const storedAuth = localStorage.getItem("auth");
-        if (storedAuth) {
-          const parsedUser = await JSON.parse(storedAuth);
-          const isAdmin = await axios.get(
-            `${NODE_API_ENDPOINT}/admin/${parsedUser.phoneNumber}/isAdmin`
-          );
-          // console.log(isAdmin.data.isAdmin);
-          if (isAdmin.data.isAdmin) {
-            if (parsedUser.expiresAt < new Date().valueOf()) return null;
-            const props = await fetch(`${NODE_API_ENDPOINT}/client/auth/me`, {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${parsedUser.jwt}`,
-              },
-            });
-            const parsedProps = await props.json();
+    // useEffect(() => {
+    //   const VerifyAdmin = async () => {
+    //     const storedAuth = localStorage.getItem("auth");
+    //     if (storedAuth) {
+    //       const parsedUser = await JSON.parse(storedAuth);
+    //       const isAdmin = await axios.get(
+    //         `${NODE_API_ENDPOINT}/admin/${parsedUser.phoneNumber}/isAdmin`
+    //       );
+    //       // console.log(isAdmin.data.isAdmin);
+    //       if (isAdmin.data.isAdmin) {
+    //         if (parsedUser.expiresAt < new Date().valueOf()) return null;
+    //         const props = await fetch(`${NODE_API_ENDPOINT}/client/auth/me`, {
+    //           method: "GET",
+    //           headers: {
+    //             Authorization: `Bearer ${parsedUser.jwt}`,
+    //           },
+    //         });
+    //         const parsedProps = await props.json();
 
-            if (
-              !parsedProps.data.phoneNumber ===
-              parsedUser.phoneNumber.substring(3)
-            ) {
-              alert("Invalid User");
-              return null;
-            }
-          } else {
-            alert("Unauthorized Access");
-            return null;
-          }
-        }
-      };
-      VerifyAdmin();
-    }, []);
+    //         if (
+    //         //  !parsedProps.data.phoneNumber ===
+    //           parsedUser.phoneNumber.substring(3)
+    //         ) {
+    //           alert("Invalid User");
+    //           return null;
+    //         }
+    //       } else {
+    //         alert("Unauthorized Access");
+    //         return null;
+    //       }
+    //     }
+    //   };
+    //   VerifyAdmin();
+    // }, []);
 
     return (
       <div className="container">
@@ -319,6 +320,7 @@ function App() {
                     { path: "add-ambassador", element: <AddAmbassadorForm /> },
                     { path: "salesman", element: <SalesmanList /> },
                     { path: "salesman/:id", element: <SalesmanDetail /> },
+                    { path: "all-admins", element: <AllAdmins /> },
                   ],
                 },
               ],
