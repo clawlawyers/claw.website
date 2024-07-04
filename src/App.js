@@ -48,6 +48,7 @@ import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
 import SalesmanDetail from "./Admin/Salesman/SalesmanDetail.jsx";
 import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
 import AddAmbassadorForm from "./Admin/AddAmbassador/index.jsx";
+import Demovideo from "./DemoVideo/Demovideo.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -239,6 +240,7 @@ function App() {
       path: "quiz",
       element: <TrackedQuizMain />,
     },
+
     {
       path: "/",
       element: <RootLayout />,
@@ -278,6 +280,10 @@ function App() {
         {
           path: "pricing",
           element: <Pricing />,
+        },
+        {
+          path: "congrats-investor",
+          element: <Demovideo />,
         },
         {
           path: "login",
