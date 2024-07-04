@@ -18,6 +18,7 @@ export default function Menu() {
     "user-visit",
     "add-ambassador",
     "Salesman",
+    "all-admins",
   ];
 
   const iconMap = {
