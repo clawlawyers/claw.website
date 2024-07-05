@@ -48,6 +48,7 @@ import Usertrack from "./Admin/Usertrack/Usertrack.jsx";
 import SalesmanDetail from "./Admin/Salesman/SalesmanDetail.jsx";
 import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
 import AddAmbassadorForm from "./Admin/AddAmbassador/index.jsx";
+import Demovideo from "./DemoVideo/Demovideo.jsx";
 import AllAdmins from "./Admin/AllAdmins/AllAdmins.jsx";
 
 function App() {
@@ -240,6 +241,7 @@ function App() {
       path: "quiz",
       element: <TrackedQuizMain />,
     },
+
     {
       path: "/",
       element: <RootLayout />,
@@ -279,6 +281,10 @@ function App() {
         {
           path: "pricing",
           element: <Pricing />,
+        },
+        {
+          path: "congrats-investor",
+          element: <Demovideo />,
         },
         {
           path: "login",
