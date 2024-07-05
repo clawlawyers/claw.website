@@ -126,6 +126,7 @@ export default function Payment() {
             billingCycle: plan,
             request,
             session,
+            phoneNumber: currentUser.phoneNumber,
           }
         );
 
