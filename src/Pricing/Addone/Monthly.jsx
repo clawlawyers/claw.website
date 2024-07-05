@@ -77,7 +77,7 @@ const Monthly = ({ handleCartAddition }) => {
           </tbody>
         </table>
       </div>
-
+      {/* 
       <div className={Styles.pricingSection}>
         <div
           style={{
@@ -117,7 +117,7 @@ const Monthly = ({ handleCartAddition }) => {
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> */}
     </div>
   );
 };

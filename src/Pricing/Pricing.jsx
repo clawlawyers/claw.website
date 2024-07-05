@@ -259,11 +259,10 @@ export default function Pricing() {
                       Items: <span style={{ color: "black" }}>Tokens</span>
                     </h4>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Token Count:{" "}
-                      <span style={{ color: "black" }}>Unlimited</span>
+                      Token Count: <span style={{ color: "black" }}>1000</span>
                     </h4>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Users/Sessions: <span style={{ color: "black" }}>4</span>
+                      Users/Sessions: <span style={{ color: "black" }}>1</span>
                     </h4>
                   </div>
                   <button
@@ -295,6 +294,48 @@ export default function Pricing() {
             <Yearly handleCartAddition={handleCartAddition} />
           )}
           {/* <HoverCard /> */}
+          <div className={Styles.pricingSection}>
+            <div
+              style={{
+                display: "flex",
+                gap: "50%",
+                width: "100%",
+              }}
+            >
+              <h1 style={{ fontWeight: "800" }}>Monthly Add On</h1>{" "}
+              <p className={Styles.pricingNote}>
+                *Min Purchase Required of
+                <span style={{ color: "#008080" }}> Rs500</span>
+              </p>
+            </div>
+            <table className={Styles.pricingTable}>
+              <thead>
+                <tr style={{ fontWeight: "800" }}>
+                  <th style={{ textAlign: "left" }}>Items</th>
+                  <th>Token Count</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody style={{ color: "black" }}>
+                <tr>
+                  <td style={{ textAlign: "left" }}>Case Search</td>
+                  <td>Minimum tokens - 100</td>
+                  <td style={{ color: "#008080", textAlign: "right" }}>
+                    ₹500/-
+                  </td>
+                  <td style={{ textAlign: "left" }}>
+                    <button
+                      onClick={() => handleCartAddition(100, 1, 500, "AddOn")}
+                      className={Styles.pricingButton}
+                    >
+                      Get it Now
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
