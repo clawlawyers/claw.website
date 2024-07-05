@@ -115,19 +115,27 @@ export default function Payment() {
     };
     script.onload = async () => {
       try {
+        const planeName = `${type}_${request}_${session}`;
         const result = await axios.post(
           `${NODE_API_ENDPOINT}/payment/create-order`,
           {
             amount: Total,
             currency: "INR",
             receipt: receipt,
+            plan: planeName,
+            billingCycle: plan,
+            request,
+            session,
           }
         );
 
-        const { amount, id, currency } = result.data;
+        console.log(result);
+
+        const { amount, id, currency } = result.data.razorpayOrder;
+        const { _id } = result.data.createdOrder;
         const options = {
           key: "rzp_test_UWcqHHktRV6hxM",
-          amount: amount.toString(),
+          amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
           description: "Transaction",
@@ -137,6 +145,7 @@ export default function Payment() {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
+              _id,
             };
 
             const result = await axios.post(
