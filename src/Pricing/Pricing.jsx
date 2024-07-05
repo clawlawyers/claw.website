@@ -19,14 +19,14 @@ export default function Pricing() {
   const currentUser = useSelector((state) => state.auth.user);
 
   console.log(hoveredCard);
-  function handleCartAdditionn() {
+  function handleCartAdditionn(request, session, total, plan, type) {
     dispatch(
       setCart({
-        request: 5,
-        session: 1,
-        total: 25,
-        plan: "LIFETIME",
-        type: "PRO",
+        request,
+        session,
+        total,
+        plan,
+        type,
       })
     );
     navigate("/paymentgateway");
@@ -158,7 +158,9 @@ export default function Pricing() {
                     </h4>
                   </div>
                   <button
-                    onClick={handleCartAdditionn}
+                    onClick={() =>
+                      handleCartAdditionn(5, 1, 25, "LIFETIME", "PRO")
+                    }
                     style={{
                       backgroundColor: "#008080",
                       color: "white",
@@ -195,7 +197,7 @@ export default function Pricing() {
                       fontSize: "35px",
                     }}
                   >
-                    ₹250/-
+                    ₹249/-
                   </h3>
                   <div className={Styles.subHeading} style={{ gap: "20px" }}>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
@@ -209,7 +211,9 @@ export default function Pricing() {
                     </h4>
                   </div>
                   <button
-                    onClick={handleCartAdditionn}
+                    onClick={() =>
+                      handleCartAdditionn(100, 1, 249, "MONTHLY", "PRO")
+                    }
                     style={{
                       backgroundColor: "#008080",
                       color: "white",
@@ -248,7 +252,7 @@ export default function Pricing() {
                       fontSize: "35px",
                     }}
                   >
-                    ₹100000/-
+                    ₹99999/-
                   </h3>
                   <div className={Styles.subHeading} style={{ gap: "20px" }}>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
@@ -263,7 +267,9 @@ export default function Pricing() {
                     </h4>
                   </div>
                   <button
-                    onClick={handleCartAdditionn}
+                    onClick={() =>
+                      handleCartAdditionn(99999, 4, 99999, "YEARLY", "PRO")
+                    }
                     style={{
                       backgroundColor: "#008080",
                       color: "white",

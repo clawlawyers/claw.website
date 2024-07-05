@@ -22,10 +22,10 @@ const Yearly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>1000</td>
               <td>1</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹2500/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹2499/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(1000, 1, 2500, "Yearly")}
+                  onClick={() => handleCartAddition(1000, 1, 2499, "Yearly")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -36,10 +36,10 @@ const Yearly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>5000</td>
               <td>1</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹5000/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹4999/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(5000, 1, 5000, "Yearly")}
+                  onClick={() => handleCartAddition(5000, 1, 4999, "Yearly")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -50,10 +50,10 @@ const Yearly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>5000</td>
               <td>2</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹6500/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹6499/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(5000, 2, 6500, "Yearly")}
+                  onClick={() => handleCartAddition(5000, 2, 6499, "Yearly")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -64,10 +64,10 @@ const Yearly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>5000</td>
               <td>4</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹8500/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹8499/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(5000, 4, 6500, "Yearly")}
+                  onClick={() => handleCartAddition(5000, 4, 8499, "Yearly")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -78,10 +78,10 @@ const Yearly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>10000</td>
               <td>4</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹15000/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹14999/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(10000, 4, 15000, "Yearly")}
+                  onClick={() => handleCartAddition(10000, 4, 14999, "Yearly")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -93,13 +93,11 @@ const Yearly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>Unlimited</td>
               <td>4</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>
-                ₹100000/-
-              </td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹99999/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
                   onClick={() =>
-                    handleCartAddition(1000000000, 4, 100000, "Yearly")
+                    handleCartAddition(1000000000, 4, 99999, "Yearly")
                   }
                   className={Styles.pricingButton}
                 >
@@ -122,7 +120,7 @@ const Yearly = ({ handleCartAddition }) => {
           <h1 style={{ fontWeight: "800" }}>Monthly Add On</h1>{" "}
           <p className={Styles.pricingNote}>
             *Min Purchase Required of
-            <span style={{ color: "#008080" }}> Rs500</span>
+            <span style={{ color: "#008080" }}> Rs499</span>
           </p>
         </div>
         <table className={Styles.pricingTable}>
@@ -138,10 +136,10 @@ const Yearly = ({ handleCartAddition }) => {
             <tr>
               <td style={{ textAlign: "left" }}>Case Search</td>
               <td>Minimum tokens - 100</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹500/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹499/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(100, 1, 500, "AddOn")}
+                  onClick={() => handleCartAddition(100, 1, 499, "AddOn")}
                   className={Styles.pricingButton}
                 >
                   Get it Now

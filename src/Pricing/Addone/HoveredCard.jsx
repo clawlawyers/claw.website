@@ -12,7 +12,7 @@ const HoverCard = () => {
       <div className="card mainCard">
         <div className="cardContent">
           <h3>Monthly</h3>
-          <p>&#8377; 250 /-</p>
+          <p>&#8377; 249 /-</p>
           <p>Items: Tokens</p>
           <p>Token Count: 100</p>
           <p>Users/Sessions: 1</p>
