@@ -32,7 +32,7 @@ const OneTime = ({ handleCartAddition }) => {
               <td style={{ color: "#008080", textAlign: "right" }}>₹99/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(10, 1, 99, "AddOn")}
+                  // onClick={() => handleCartAddition(10, 1, 99, "AddOn")}
                   className={Styles.pricingButton}
                 >
                   Get it Now

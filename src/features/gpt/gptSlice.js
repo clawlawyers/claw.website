@@ -8,7 +8,10 @@ export const generateResponse = createAsyncThunk(
 
     const { jwt } = auth.user;
     const { prompt, token } = gpt;
-    if (token.used >= token.total || token.used + 1 > token.total)
+    if (
+      token.used.gptTokenUsed >= token.total.totalGptTokens ||
+      token.used.gptTokenUsed + 1 > token.total.totalGptTokens
+    )
       throw new Error("Not enough tokens, please upgrade or try again later!");
     const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session/prompt`, {
       method: "POST",
@@ -45,8 +48,14 @@ export const gptSlice = createSlice({
       cases: [],
     },
     token: {
-      used: null,
-      total: null,
+      used: {
+        gptTokenUsed: null,
+        caseSearchTokenUsed: null,
+      },
+      total: {
+        totalGptTokens: null,
+        totalCaseSearchTokens: null,
+      },
     },
     plan: null,
     error: null,
@@ -64,6 +73,7 @@ export const gptSlice = createSlice({
     },
     setToken: (state, action) => {
       state.token = action.payload.token;
+      console.log(state);
     },
     setPlan: (state, action) => {
       state.plan = action.payload.plan;

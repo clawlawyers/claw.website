@@ -144,23 +144,23 @@ export default function Payment() {
               data
             );
             alert(result.data.status);
-            if (
-              plan === "AddOn" &&
-              result.data.status === "Payment verified successfully"
-            ) {
-              axios.post(
-                `${NODE_API_ENDPOINT}/gpt/dummy`,
-                {
-                  phoneNumber: currentUser.phoneNumber,
-                },
-                {
-                  headers: {
-                    Authorization: `Bearer ${currentUser.jwt}`,
-                    "Content-Type": "application/json",
-                  },
-                }
-              );
-            }
+            // if (
+            //   plan === "AddOn" &&
+            //   result.data.status === "Payment verified successfully"
+            // ) {
+            //   axios.post(
+            //     `${NODE_API_ENDPOINT}/gpt/dummy`,
+            //     {
+            //       phoneNumber: currentUser.phoneNumber,
+            //     },
+            //     {
+            //       headers: {
+            //         Authorization: `Bearer ${currentUser.jwt}`,
+            //         "Content-Type": "application/json",
+            //       },
+            //     }
+            //   );
+            // }
             nav("/");
           },
 
@@ -179,6 +179,8 @@ export default function Payment() {
     };
     document.body.appendChild(script);
   };
+
+  console.log(type + "_" + request + "_" + session);
 
   return (
     <div

@@ -19,7 +19,7 @@ export default function Pricing() {
   const currentUser = useSelector((state) => state.auth.user);
 
   console.log(hoveredCard);
-  function handleCartAdditionn(request, session, total, plan, type) {
+  function handleCartAdditionTrail(request, session, total, plan, type) {
     dispatch(
       setCart({
         request,
@@ -39,13 +39,19 @@ export default function Pricing() {
       }).toString();
       navigate(`/login?${searchParams}`);
     } else {
+      let type;
+      if (duration === "AddOn") {
+        type = "PROC";
+      } else {
+        type = "PRO";
+      }
       dispatch(
         setCart({
           request: noOfRequests,
           session: noOfSessions,
           total: price,
           plan: duration,
-          type: "PRO",
+          type: type,
         })
       );
       navigate("/paymentgateway");
@@ -134,9 +140,7 @@ export default function Pricing() {
             >
               <div className={`${Styles.card} ${Styles.mainCard}`}>
                 <div className={`${Styles.first} ${Styles.cardContent}`}>
-                  <h1 style={{ color: "#008080", fontWeight: 800 }}>
-                    One Time
-                  </h1>
+                  <h1 style={{ color: "#008080", fontWeight: 800 }}>Trail</h1>
                   <h3
                     style={{
                       color: "#008080",
@@ -144,14 +148,14 @@ export default function Pricing() {
                       fontSize: "35px",
                     }}
                   >
-                    ₹25/-
+                    ₹100/-
                   </h3>
                   <div className={Styles.subHeading} style={{ gap: "20px" }}>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
                       Items: <span style={{ color: "black" }}>Tokens</span>
                     </h4>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Token Count: <span style={{ color: "black" }}>5</span>
+                      Token Count: <span style={{ color: "black" }}>10</span>
                     </h4>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
                       Users/Sessions: <span style={{ color: "black" }}>1</span>
@@ -159,7 +163,7 @@ export default function Pricing() {
                   </div>
                   <button
                     onClick={() =>
-                      handleCartAdditionn(5, 1, 25, "LIFETIME", "PRO")
+                      handleCartAdditionTrail(10, 1, 100, "LIFETIME", "TRAIL")
                     }
                     style={{
                       backgroundColor: "#008080",
@@ -212,7 +216,7 @@ export default function Pricing() {
                   </div>
                   <button
                     onClick={() =>
-                      handleCartAdditionn(100, 1, 249, "MONTHLY", "PRO")
+                      handleCartAddition(100, 1, 249, "MONTHLY", "PRO")
                     }
                     style={{
                       backgroundColor: "#008080",
@@ -267,7 +271,7 @@ export default function Pricing() {
                   </div>
                   <button
                     onClick={() =>
-                      handleCartAdditionn(99999, 4, 99999, "YEARLY", "PRO")
+                      handleCartAddition(1000, 4, 99999, "YEARLY", "PRO")
                     }
                     style={{
                       backgroundColor: "#008080",
