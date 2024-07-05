@@ -111,7 +111,7 @@ const Yearly = ({ handleCartAddition }) => {
         </table>
       </div>
 
-      <div className={Styles.pricingSection}>
+      {/* <div className={Styles.pricingSection}>
         <div
           style={{
             display: "flex",
@@ -150,7 +150,7 @@ const Yearly = ({ handleCartAddition }) => {
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> */}
     </div>
   );
 };
