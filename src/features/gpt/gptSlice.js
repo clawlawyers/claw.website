@@ -73,7 +73,7 @@ export const gptSlice = createSlice({
     },
     setToken: (state, action) => {
       state.token = action.payload.token;
-      console.log(state);
+      // console.log(state);
     },
     setPlan: (state, action) => {
       state.plan = action.payload.plan;
