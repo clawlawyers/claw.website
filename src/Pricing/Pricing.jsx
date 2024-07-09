@@ -256,7 +256,7 @@ export default function Pricing() {
                       fontSize: "35px",
                     }}
                   >
-                    ₹99999/-
+                    ₹2499/-
                   </h3>
                   <div className={Styles.subHeading} style={{ gap: "20px" }}>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
@@ -271,7 +271,7 @@ export default function Pricing() {
                   </div>
                   <button
                     onClick={() =>
-                      handleCartAddition(1000, 4, 99999, "YEARLY", "PRO")
+                      handleCartAddition(1000, 4, 2499, "YEARLY", "PRO")
                     }
                     style={{
                       backgroundColor: "#008080",
