@@ -378,7 +378,7 @@ export default function Pricing() {
               <h1 style={{ fontWeight: "800" }}>Monthly Add On</h1>{" "}
               <p className={Styles.pricingNote}>
                 *Min Purchase Required of
-                <span style={{ color: "#008080" }}> Rs49</span>
+                <span style={{ color: "#008080" }}> Rs499</span>
               </p>
             </div>
             <table className={Styles.pricingTable}>
