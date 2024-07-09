@@ -122,6 +122,36 @@ export default function Pricing() {
               Contact us
             </button>
           </div>
+          <div className={Styles.third}>
+            <h1 style={{ color: "#008080", fontWeight: 800 }}>TOPUP</h1>
+            <h1 style={{ color: "#008080", fontWeight: 800 }}>25/-</h1>
+            <div className={Styles.subHeading} style={{ gap: "20px" }}>
+              <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                Items: <span style={{ color: "black" }}>Tokens</span>
+              </h4>
+              <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                Token Count: <span style={{ color: "black" }}>5</span>
+              </h4>
+              <h4 style={{ color: "#008080", fontWeight: 800 }}>
+                Users/Sessions: <span style={{ color: "black" }}>1</span>
+              </h4>
+            </div>
+            <button
+              onClick={() =>
+                handleCartAdditionTrail(5, 1, 25, "LIFETIME", "TOPUP")
+              }
+              style={{
+                backgroundColor: "#008080",
+                color: "white",
+                padding: "12px 40px",
+                borderRadius: 10,
+                border: "none",
+                fontSize: 27,
+              }}
+            >
+              Get it Now
+            </button>
+          </div>
           <div
             style={{
               marginTop: "50px",
@@ -140,7 +170,7 @@ export default function Pricing() {
             >
               <div className={`${Styles.card} ${Styles.mainCard}`}>
                 <div className={`${Styles.first} ${Styles.cardContent}`}>
-                  <h1 style={{ color: "#008080", fontWeight: 800 }}>Trail</h1>
+                  <h1 style={{ color: "#008080", fontWeight: 800 }}>Trial</h1>
                   <h3
                     style={{
                       color: "#008080",
@@ -148,7 +178,7 @@ export default function Pricing() {
                       fontSize: "35px",
                     }}
                   >
-                    ₹100/-
+                    ₹99/-
                   </h3>
                   <div className={Styles.subHeading} style={{ gap: "20px" }}>
                     <h4 style={{ color: "#008080", fontWeight: 800 }}>
@@ -163,7 +193,7 @@ export default function Pricing() {
                   </div>
                   <button
                     onClick={() =>
-                      handleCartAdditionTrail(10, 1, 100, "LIFETIME", "TRAIL")
+                      handleCartAdditionTrail(10, 1, 99, "LIFETIME", "TRAIL")
                     }
                     style={{
                       backgroundColor: "#008080",
@@ -175,6 +205,19 @@ export default function Pricing() {
                     }}
                   >
                     Get it Now
+                  </button>
+                  <button
+                    onClick={() => setHoveredCard("oneTime")}
+                    style={{
+                      backgroundColor: "#008080",
+                      color: "white",
+                      // padding: "12px 40px",
+                      borderRadius: 10,
+                      border: "none",
+                      fontSize: 15,
+                    }}
+                  >
+                    Hover me
                   </button>
                 </div>
               </div>
@@ -228,6 +271,19 @@ export default function Pricing() {
                     }}
                   >
                     Get it Now
+                  </button>
+                  <button
+                    onClick={() => setHoveredCard("monthly")}
+                    style={{
+                      backgroundColor: "#008080",
+                      color: "white",
+                      // padding: "12px 40px",
+                      borderRadius: 10,
+                      border: "none",
+                      fontSize: 15,
+                    }}
+                  >
+                    Hover me
                   </button>
                 </div>
               </div>
@@ -284,6 +340,19 @@ export default function Pricing() {
                   >
                     Get it Now
                   </button>
+                  <button
+                    onClick={() => setHoveredCard("yearly")}
+                    style={{
+                      backgroundColor: "#008080",
+                      color: "white",
+                      // padding: "12px 40px",
+                      borderRadius: 10,
+                      border: "none",
+                      fontSize: 15,
+                    }}
+                  >
+                    Hover me
+                  </button>
                 </div>
               </div>
             </div>
@@ -309,7 +378,7 @@ export default function Pricing() {
               <h1 style={{ fontWeight: "800" }}>Monthly Add On</h1>{" "}
               <p className={Styles.pricingNote}>
                 *Min Purchase Required of
-                <span style={{ color: "#008080" }}> Rs500</span>
+                <span style={{ color: "#008080" }}> Rs49</span>
               </p>
             </div>
             <table className={Styles.pricingTable}>
@@ -326,11 +395,11 @@ export default function Pricing() {
                   <td style={{ textAlign: "left" }}>Case Search</td>
                   <td>Minimum tokens - 100</td>
                   <td style={{ color: "#008080", textAlign: "right" }}>
-                    ₹500/-
+                    ₹499/-
                   </td>
                   <td style={{ textAlign: "left" }}>
                     <button
-                      onClick={() => handleCartAddition(100, 1, 500, "AddOn")}
+                      onClick={() => handleCartAddition(100, 1, 499, "AddOn")}
                       className={Styles.pricingButton}
                     >
                       Get it Now
