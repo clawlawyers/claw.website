@@ -232,46 +232,12 @@ function App() {
   };
 
   const CourtRoomLayout = () => {
-    // useEffect(() => {
-    //   const VerifyAdmin = async () => {
-    //     const storedAuth = localStorage.getItem("auth");
-    //     if (storedAuth) {
-    //       const parsedUser = await JSON.parse(storedAuth);
-    //       const isAdmin = await axios.get(
-    //         `${NODE_API_ENDPOINT}/admin/${parsedUser.phoneNumber}/isAdmin`
-    //       );
-    //       // console.log(isAdmin.data.isAdmin);
-    //       if (isAdmin.data.isAdmin) {
-    //         if (parsedUser.expiresAt < new Date().valueOf()) return null;
-    //         const props = await fetch(`${NODE_API_ENDPOINT}/client/auth/me`, {
-    //           method: "GET",
-    //           headers: {
-    //             Authorization: `Bearer ${parsedUser.jwt}`,
-    //           },
-    //         });
-    //         const parsedProps = await props.json();
-
-    //         if (
-    //         //  !parsedProps.data.phoneNumber ===
-    //           parsedUser.phoneNumber.substring(3)
-    //         ) {
-    //           alert("Invalid User");
-    //           return null;
-    //         }
-    //       } else {
-    //         alert("Unauthorized Access");
-    //         return null;
-    //       }
-    //     }
-    //   };
-    //   VerifyAdmin();
-    // }, []);
-
     return (
-      <div className="container">
-        <div className="contentContainer">
-          <Outlet />
-        </div>
+      // <div className="container">
+      <div>
+        {/* <div className="contentContainer"> */}
+        <Outlet />
+        {/* </div> */}
       </div>
     );
   };
