@@ -50,6 +50,9 @@ import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
 import AddAmbassadorForm from "./Admin/AddAmbassador/index.jsx";
 import Demovideo from "./DemoVideo/Demovideo.jsx";
 import AllAdmins from "./Admin/AllAdmins/AllAdmins.jsx";
+import CourtRoom from "./CourtRoom/CourtRoom.jsx";
+import LoginToCourtRoom from "./CourtRoom/Login/LoginToCourtRoom.jsx";
+import BookNow from "./CourtRoom/BookNow/BookNow.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -228,6 +231,51 @@ function App() {
     );
   };
 
+  const CourtRoomLayout = () => {
+    // useEffect(() => {
+    //   const VerifyAdmin = async () => {
+    //     const storedAuth = localStorage.getItem("auth");
+    //     if (storedAuth) {
+    //       const parsedUser = await JSON.parse(storedAuth);
+    //       const isAdmin = await axios.get(
+    //         `${NODE_API_ENDPOINT}/admin/${parsedUser.phoneNumber}/isAdmin`
+    //       );
+    //       // console.log(isAdmin.data.isAdmin);
+    //       if (isAdmin.data.isAdmin) {
+    //         if (parsedUser.expiresAt < new Date().valueOf()) return null;
+    //         const props = await fetch(`${NODE_API_ENDPOINT}/client/auth/me`, {
+    //           method: "GET",
+    //           headers: {
+    //             Authorization: `Bearer ${parsedUser.jwt}`,
+    //           },
+    //         });
+    //         const parsedProps = await props.json();
+
+    //         if (
+    //         //  !parsedProps.data.phoneNumber ===
+    //           parsedUser.phoneNumber.substring(3)
+    //         ) {
+    //           alert("Invalid User");
+    //           return null;
+    //         }
+    //       } else {
+    //         alert("Unauthorized Access");
+    //         return null;
+    //       }
+    //     }
+    //   };
+    //   VerifyAdmin();
+    // }, []);
+
+    return (
+      <div className="container">
+        <div className="contentContainer">
+          <Outlet />
+        </div>
+      </div>
+    );
+  };
+
   // Wrap components with withPageTracking
   const TrackedQuizMain = withPageTracking(QuizMain);
   // const TrackedHome = withPageTracking(Home);
@@ -253,6 +301,24 @@ function App() {
         {
           path: "quiz",
           element: <TrackedQuizMain />,
+        },
+        {
+          path: "court-room",
+          element: <CourtRoomLayout />,
+          children: [
+            {
+              path: "",
+              element: <CourtRoom />,
+            },
+            {
+              path: "login",
+              element: <LoginToCourtRoom />,
+            },
+            {
+              path: "book-now",
+              element: <BookNow />,
+            },
+          ],
         },
         {
           path: "news",
