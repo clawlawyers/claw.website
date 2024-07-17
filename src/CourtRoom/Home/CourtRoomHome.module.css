@@ -1,0 +1,46 @@
+.topcontainer {
+  display: flex;
+  margin: 5px 150px;
+}
+
+.CourtRoomBtn {
+  border-radius: 5px;
+  background-color: transparent;
+  border: 3px solid white !important;
+}
+
+.courtRoomCard {
+  margin: 5px;
+  padding: 10px;
+  background-image: linear-gradient(#008080, #018585);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s ease;
+  border: 3px solid #0bc6c6;
+  border-radius: 4px;
+}
+
+.whyCourtRoom {
+  background-color: #018585;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 80px;
+}
+
+.third {
+  background-color: white;
+  display: flex;
+  padding: 26px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  gap: 100px;
+}

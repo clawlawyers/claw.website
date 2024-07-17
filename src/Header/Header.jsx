@@ -60,7 +60,11 @@ function Header() {
           >
             <img
               alt="Claw"
-              style={{ backgroundColor: "transparent", height: 53, width: 53 }}
+              style={{
+                backgroundColor: "transparent",
+                height: 80,
+                width: 90,
+              }}
               src={clawLogo}
             />
           </Link>
