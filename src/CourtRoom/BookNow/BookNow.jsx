@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import CalendarComponent from "../../components/DateTime/Calendar";
 import styles from "../BookNow/BookNow.module.css";
 import image from "../../assets/images/courtroomPhoto.png";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const BookNow = () => {
   const [scheduledSlots, setScheduledSlots] = useState([]);
+  const [showPassword,setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -40,18 +42,18 @@ const BookNow = () => {
         setScheduledSlots={setScheduledSlots}
       />
       
-        <section className={styles.formContainer}>
-          <img src={image} alt="" />
-          <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "70%",
-          
-        }}
-      >
+      <section className={styles.formContainer}>
+        <img src={image} alt="" />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "70%",
+            
+          }}
+        >
           <form className={styles.forms} onSubmit={handleSubmit}>
             <h2>Enter your Details</h2>
             <input
@@ -72,15 +74,35 @@ const BookNow = () => {
               onChange={handleInputChange}
               required
             />
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-            />
+            <div style={{ position: "relative" ,width:"100%"}}>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+              />
+              <button
+                type="button"
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  right: "10px",
+                  transform: "translateY(-50%)",
+                  border: "1px",
+                  background: "none",
+                  cursor: "pointer",
+                  // width:"fit-content"
+                }}
+                onClick={() =>
+                  showPassword ? setShowPassword(false) : setShowPassword(true)
+                }
+              >
+                {showPassword?  <Visibility />:<VisibilityOff/> }
+              </button>
+            </div>
             <input
               type="text"
               id="contact"
@@ -103,8 +125,8 @@ const BookNow = () => {
             </div>
             <button type="submit">Proceed for Payment</button>
           </form>
-      </div>
-        </section>
+        </div>
+      </section>
     </div>
   );
 };

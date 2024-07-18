@@ -86,7 +86,7 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
         justifyContent: "center",
         alignItems: "center",
         gap: "70px",
-        padding:"20px"
+
       }}
     >
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -98,6 +98,8 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
             justifyContent: "center",
             alignItems: "center",
             gap: "70px",
+           
+
           }}
         >
           <Container>
@@ -109,6 +111,7 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
                 shouldDisableDate={(date) =>
                   dayjs(date).isBefore(dayjs(), "day")
                 }
+                views={["day",]}
               />
             </ScaledCalendar>
           </Container>
@@ -117,6 +120,7 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
             padding:"5px",
             borderRadius:"7px",
             background: 'linear-gradient(100deg, #008080 0%, #15B3B3 100%)', 
+
           }}>
             <h3>Select Time:</h3>
             <TimePickerValue
@@ -143,7 +147,7 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
             color="primary"
             onClick={addSlot}
           >
-            Add Time Slot
+            Add to Slot
           </Button>
           <div
             style={{
@@ -163,7 +167,8 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
                 flexDirection: "row",
                 justifyContent: "start",
                 alignItems: "center",
-                border: "1px solid  rgba(245, 245, 245, 0.486)",
+                border: "3px solid  teal",
+                backgroundColor:"white",
                 width: "70%",
                 height: "80px",
                 padding: "10px",
@@ -194,6 +199,7 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
                   })}
                   {","}
                   {slot.time}
+                  
                 </div>
               ))}
             </div>

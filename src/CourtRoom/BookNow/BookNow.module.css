@@ -62,14 +62,15 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   height:70vh;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .formContainer img {
   border-radius: 0% !important;
   height: 70vh !important;
-  width: 900px !important;
+  width: 30% !important;
 }
 .forms {
   display: flex;
@@ -82,20 +83,25 @@
   height: 70vh;
  
 }
+.forms h2 {
+  font-weight: 800;
+  font-size: clamp(46px, 5vw, 24px);
+}
+
 .forms input[type="text"] {
-  background-color: whitesmoke;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 15px;
   width: 70%;
   border-radius: 10px;
 }
 .forms input[type="password"] {
-  background-color: whitesmoke;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 15px;
   width: 70%;
   border-radius: 10px;
 }
 .forms input[type="email"] {
-  background-color: whitesmoke;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 15px;
   width: 70%;
   border-radius: 10px;
@@ -105,4 +111,23 @@
   width: 70%;
   border: 1px solid white;
   border-radius: 3px;
+}
+.checkboxContainer
+{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+.checkboxContainer input[type="checkbox"]
+{
+  background-color: white;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+.checkboxContainer input[type="checkbox"]:checked
+{
+  background: linear-gradient(100deg, #008080 0%, #15b3b3 100%);
+  
 }
