@@ -53,8 +53,13 @@ import AllAdmins from "./Admin/AllAdmins/AllAdmins.jsx";
 import CourtRoom from "./CourtRoom/CourtRoom.jsx";
 import LoginToCourtRoom from "./CourtRoom/Login/LoginToCourtRoom.jsx";
 import BookNow from "./CourtRoom/BookNow/BookNow.jsx";
+
 import BaseAiForm from "./CourtRoom/BaseAi/BaseAiForm.jsx";
 import Draft from "./CourtRoom/Draft/Draft.jsx";
+
+import CourtroomAiHome from "./CourtRoom/CourtroomAi/CourtroomAiHome.jsx";
+import CourtRoomAiLayout from "./CourtRoom/CourtroomAi/CourtRoomAiLayout.jsx";
+
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -286,6 +291,7 @@ function App() {
               path: "book-now",
               element: <BookNow />,
             },
+
             {
               path: "courtroom-ai",
               element: <BaseAiForm />,
@@ -294,6 +300,18 @@ function App() {
               path:"draft",
               element:<Draft />
             }
+
+            // {
+            //   path: "courtroom-ai",
+            //   element: <CourtRoomAiLayout />,
+            //   children: [
+            //     {
+            //       path: "",
+            //       element: <BaseAiForm />,
+            //     },
+            //   ],
+            // },
+
           ],
         },
         {
@@ -384,6 +402,16 @@ function App() {
         { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
         { path: "terms-and-conditions", element: <TermsAndConditions /> },
         { path: "shipping-and-delivery", element: <ShippingPolicy /> },
+      ],
+    },
+    {
+      path: "courtroom-ai",
+      element: <CourtRoomAiLayout />,
+      children: [
+        {
+          path: "",
+          element: <CourtroomAiHome />,
+        },
       ],
     },
     {
