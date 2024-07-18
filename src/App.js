@@ -54,11 +54,11 @@ import CourtRoom from "./CourtRoom/CourtRoom.jsx";
 import LoginToCourtRoom from "./CourtRoom/Login/LoginToCourtRoom.jsx";
 import BookNow from "./CourtRoom/BookNow/BookNow.jsx";
 
-import BaseAiForm from "./CourtRoom/BaseAi/BaseAiForm.jsx";
-import Draft from "./CourtRoom/Draft/Draft.jsx";
+
 
 import CourtroomAiHome from "./CourtRoom/CourtroomAi/CourtroomAiHome.jsx";
 import CourtRoomAiLayout from "./CourtRoom/CourtroomAi/CourtRoomAiLayout.jsx";
+import UploadDoc from "./CourtRoom/CourtroomAi/UploadDoc.jsx";
 
 
 function App() {
@@ -292,25 +292,23 @@ function App() {
               element: <BookNow />,
             },
 
+            
+            
+
             {
               path: "courtroom-ai",
-              element: <BaseAiForm />,
+              element: <CourtRoomAiLayout />,
+              children: [
+                {
+                  path: "",
+                  element: <CourtroomAiHome />,
+                },
+                {
+                  path: "/court-room/courtroom-ai/upload",
+                  element: <UploadDoc />,
+                },
+              ],
             },
-            {
-              path:"draft",
-              element:<Draft />
-            }
-
-            // {
-            //   path: "courtroom-ai",
-            //   element: <CourtRoomAiLayout />,
-            //   children: [
-            //     {
-            //       path: "",
-            //       element: <BaseAiForm />,
-            //     },
-            //   ],
-            // },
 
           ],
         },

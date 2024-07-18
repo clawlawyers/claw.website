@@ -1,0 +1,42 @@
+.topContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.rightBottomContainer {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  align-items: center;
+}
+
+.uploadButton {
+  width: 70%;
+  background-color: rgba(0, 0, 0, 0.555);
+  height: 40%;
+  padding: 20px;
+  margin: 40px;
+  border-radius: 20px;
+}
+.images{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+}
+.images img {
+  border-radius: 0 !important;
+  height: 11vw !important;
+  width: 12vw !important;
+}
+.verticalLine {
+  height: 11vw;
+  width: 5px;
+  border-radius: 5px;
+  background-color: white;
+}
