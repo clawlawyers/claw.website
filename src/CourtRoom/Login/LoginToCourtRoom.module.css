@@ -1,0 +1,46 @@
+.topcontainer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.topContainerImage {
+  width: 40% !important;
+  height: 100% !important;
+  border-radius: 0px;
+}
+.phoneContainer {
+  position: relative;
+  margin: 20px 0px;
+}
+
+.phoneContainer input {
+  width: 100%;
+  padding-left: 45px;
+  height: 50px;
+  background-color: #75acac;
+  color: white;
+  box-sizing: border-box;
+  border: 2px solid white;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.phoneContainer input::placeholder {
+  color: white;
+}
+
+.phoneContainer svg {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  fill: rgb(78, 78, 78);
+}
+
+.third {
+  background-color: white;
+  padding: 26px;
+  align-items: center;
+  border-radius: 15px;
+  gap: 100px;
+}
