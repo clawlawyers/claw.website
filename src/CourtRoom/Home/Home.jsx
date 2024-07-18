@@ -551,7 +551,6 @@ function Home() {
             }}
           />
           <div
-            className="hidden-background"
             style={{
               position: "absolute",
               top: 0,
