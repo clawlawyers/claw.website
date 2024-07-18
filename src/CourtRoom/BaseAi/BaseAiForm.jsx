@@ -3,8 +3,13 @@ import logo from "../../assets/images/claw-login.png";
 import fight from "../../assets/images/fightYourself.png";
 import draft from "../../assets/images/draft.png";
 import Styles from "./BaseAiForm.module.css";
+import { redirect, useNavigate } from "react-router-dom";
 
 const BaseAiForm = () => {
+  const navigate = useNavigate()
+  const handleClick = () => {
+    navigate("/court-room/draft");
+  }
   return (
     <div className={Styles.mainContainer}>
       <div className={Styles.leftContainer}>
@@ -304,6 +309,7 @@ const BaseAiForm = () => {
               padding: "10px",
               cursor: "pointer",
             }}
+            onClick={ handleClick}
           >
             <img
               style={{ width: "20px", height: "20px" }}
