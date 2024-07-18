@@ -53,6 +53,7 @@ import AllAdmins from "./Admin/AllAdmins/AllAdmins.jsx";
 import CourtRoom from "./CourtRoom/CourtRoom.jsx";
 import LoginToCourtRoom from "./CourtRoom/Login/LoginToCourtRoom.jsx";
 import BookNow from "./CourtRoom/BookNow/BookNow.jsx";
+import BaseAiForm from "./CourtRoom/BaseAi/BaseAiForm.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -283,6 +284,10 @@ function App() {
             {
               path: "book-now",
               element: <BookNow />,
+            },
+            {
+              path: "courtroom-ai",
+              element: <BaseAiForm />,
             },
           ],
         },

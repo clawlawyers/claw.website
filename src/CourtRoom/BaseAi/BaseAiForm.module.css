@@ -1,0 +1,39 @@
+.mainContainer {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  height: 650px;
+  background: linear-gradient(to right, #008080, #0e1118);
+  margin: 10px;
+  border: 2px white solid;
+  border-radius: 5px;
+}
+.leftContainer {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.logoImage {
+  width: 40% !important;
+  height: 100% !important;
+  border-radius: 0px;
+}
+.rightContainer {
+  margin: 15px;
+  border: 2px white solid;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+.rightTopContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 5px;
+}
+.rightBottomContainer {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  align-items: center;
+}

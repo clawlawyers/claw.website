@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import courtroom from "../../assets/images/Courtroom.png";
 import feature1 from "../../assets/images/image 2.png";
 import feature2 from "../../assets/images/image 3.png";
@@ -9,18 +9,63 @@ import Styles from "./CourtRoomHome.module.css";
 import arrw from "../../assets/images/Vector 1.png";
 import { Link } from "react-router-dom";
 
+import { motion } from "framer-motion";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return <div className={className} style={{ ...style, display: "none" }} />;
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return <div className={className} style={{ ...style, display: "none" }} />;
+}
+
 function Home() {
+  const [isHovered, setIsHovered] = useState(false);
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 700,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    cssEase: "linear",
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
   return (
     <div>
       <div className={Styles.topcontainer}>
         <div>
           <h1>What is Courtroom ?</h1>
           <br />
-          <h3 style={{ fontSize: "25px", color: "#B7B2B2" }}>
-            Explore our flexible pricing options designed to cater to a range of
-            legal requirements. Select the plan that best fits your needs and
-            budget.
-          </h3>
+          <div style={{ padding: "20px 0px" }}>
+            <div className="slider-container">
+              <Slider {...settings}>
+                <div>
+                  <h3 style={{ fontSize: "25px", color: "#B7B2B2" }}>
+                    Experience the trailer of the case you are going to fight
+                    tommorow
+                  </h3>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: "25px", color: "#B7B2B2" }}>
+                    Your mock trial before the real case begins
+                  </h3>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: "25px", color: "#B7B2B2" }}>
+                    Your case assistant who does everything you want
+                  </h3>
+                </div>
+              </Slider>
+            </div>
+          </div>
           <br />
 
           <div
@@ -31,28 +76,116 @@ function Home() {
             }}
           >
             <Link to="/court-room/book-now">
-              <button className={Styles.CourtRoomBtn}>Book A Courtroom</button>
+              <motion.button
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  border: "2px solid white",
+                  padding: "10px 20px",
+                  borderRadius: "5px",
+                  overflow: "hidden",
+                  background: "linear-gradient(to right, #00ffa3, #008080)",
+                  color: "white",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                }}
+                whileHover="hover"
+              >
+                <motion.div
+                  variants={{
+                    hover: { x: "100%" },
+                  }}
+                  initial={{ x: "0%" }}
+                  transition={{ type: "tween", duration: 0.5 }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: "#0E1118",
+                    zIndex: 1,
+                  }}
+                />
+                <span
+                  style={{
+                    position: "relative",
+                    zIndex: 2,
+                  }}
+                >
+                  Book A Courtroom
+                </span>
+              </motion.button>
             </Link>
             <Link to="/court-room/login">
-              <button className={Styles.CourtRoomBtn}>
-                Enter Your Courtroom
-              </button>
+              <motion.button
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  border: "2px solid white",
+                  padding: "10px 20px",
+                  borderRadius: "5px",
+                  overflow: "hidden",
+                  background: "linear-gradient(to right, #00ffa3, #008080)",
+                  color: "white",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                }}
+                whileHover="hover"
+              >
+                <motion.div
+                  variants={{
+                    hover: { x: "100%" },
+                  }}
+                  initial={{ x: "0%" }}
+                  transition={{ type: "tween", duration: 0.5 }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: "#0E1118",
+                    zIndex: 1,
+                  }}
+                />
+                <span
+                  style={{
+                    position: "relative",
+                    zIndex: 2,
+                  }}
+                >
+                  Enter Your Courtroom
+                </span>
+              </motion.button>
             </Link>
           </div>
         </div>
-        <img
+        <motion.img
+          initial={{ x: "50%" }}
+          whileInView={{ x: "0%" }}
+          transition={{ type: "slide", duration: 0.5 }}
           alt="court-room"
+          className={Styles.topContainerImage}
           style={{
             backgroundColor: "transparent",
-            height: "50%",
-            width: "50%",
+            // height: "75%",
+            // width: "75%",
           }}
           src={courtroom}
         />
       </div>
 
-      <div className={Styles.topcontainer}>
-        <div className={Styles.courtRoomCard}>
+      <div className={Styles.secondtopcontainer}>
+        <motion.div
+          initial={{ x: ["100%"] }}
+          whileInView={{ x: "0%" }}
+          transition={{ type: "slide", duration: 0.1 }}
+          whileHover={{ scale: "0.9" }}
+          className={Styles.courtRoomCard}
+        >
           <br />
           <img
             alt="Feature Heading"
@@ -62,13 +195,21 @@ function Home() {
           <br />
           <h1 style={{ fontSize: "25px" }}>Feature Heading</h1>
           <br />
-          <h3 style={{ fontSize: "22px", color: "#B7B2B2" }}>
+          <h3
+            style={{ fontSize: "20px", color: "#B7B2B2", textAlign: "center" }}
+          >
             Explore our flexible pricing options designed to cater to a range of
             legal requirements.
           </h3>
-        </div>
+        </motion.div>
 
-        <div className={Styles.courtRoomCard}>
+        <motion.div
+          initial={{ x: ["0%"] }}
+          whileInView={{ x: "0%" }}
+          transition={{ type: "slide", duration: 0.1 }}
+          whileHover={{ scale: "0.9" }}
+          className={Styles.courtRoomCard}
+        >
           <br />
           <img
             alt="Feature Heading"
@@ -78,13 +219,21 @@ function Home() {
           <br />
           <h1 style={{ fontSize: "25px" }}>Feature Heading</h1>
           <br />
-          <h3 style={{ fontSize: "22px", color: "#B7B2B2" }}>
+          <h3
+            style={{ fontSize: "20px", color: "#B7B2B2", textAlign: "center" }}
+          >
             Explore our flexible pricing options designed to cater to a range of
             legal requirements.
           </h3>
-        </div>
+        </motion.div>
 
-        <div className={Styles.courtRoomCard}>
+        <motion.div
+          initial={{ x: ["-100%"] }}
+          whileInView={{ x: "0%" }}
+          transition={{ type: "slide", duration: 0.1 }}
+          whileHover={{ scale: "0.9" }}
+          className={Styles.courtRoomCard}
+        >
           <br />
           <img
             alt="Feature Heading"
@@ -94,17 +243,19 @@ function Home() {
           <br />
           <h1 style={{ fontSize: "25px" }}>Feature Heading</h1>
           <br />
-          <h3 style={{ fontSize: "22px", color: "#B7B2B2" }}>
+          <h3
+            style={{ fontSize: "20px", color: "#B7B2B2", textAlign: "center" }}
+          >
             Explore our flexible pricing options designed to cater to a range of
             legal requirements.
           </h3>
-        </div>
+        </motion.div>
       </div>
 
       <div
         style={{
           marginTop: "200px",
-          margin: "5px 150px",
+          margin: "45px 150px",
         }}
       >
         <div
@@ -146,16 +297,65 @@ function Home() {
         />
       </div>
 
-      <div style={{ display: "flex", marginTop: "150px" }}>
-        <div style={{ marginLeft: "200px", width: "700px" }}>
-          <h1>PHASE1/STEP1</h1>
-          <h3 style={{ fontSize: "22px", color: "#B7B2B2" }}>
-            Explore our flexible pricing options designed to cater to a range of
-            legal requirements. Select the plan that best fits your needs and
-            budget.
-          </h3>
+      <motion.div style={{ display: "flex", marginTop: "150px" }}>
+        <div
+          style={{
+            marginLeft: "200px",
+            width: "700px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <motion.h1
+            initial={{ y: -80 }}
+            whileInView={{ y: 0 }}
+            transition={{
+              y: { type: "tween", duration: 0.8 },
+            }}
+          >
+            SUBMIT YOUR CASE
+          </motion.h1>
+          <motion.h3
+            style={{ fontSize: "22px", color: "#B7B2B2" }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{
+              x: { type: "slide", duration: 1 },
+            }}
+          >
+            Add case details in the format of courtroom judgement , statement of
+            claim, statement of defence, filed application or details from
+            client's perspective.
+          </motion.h3>
         </div>
-        <div>
+        <motion.div
+          initial={{ x: "50%" }}
+          whileInView={{ x: "0%" }}
+          transition={{ type: "spring", stiffness: 120, damping: 10 }}
+        >
+          <div
+            style={{ display: "grid", placeItems: "center", cursor: "pointer" }}
+          >
+            <div style={{ height: "400px", width: "max-content" }}>
+              <img
+                alt="courtRoom Preiview"
+                src={laptop}
+                style={{ borderRadius: 0, width: "100%", height: "100%" }}
+              />
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+
+      <motion.div style={{ display: "flex", marginTop: "150px" }}>
+        <motion.div
+          initial={{ x: "-50%" }}
+          whileInView={{ x: "0%" }}
+          transition={{ type: "spring", stiffness: 120, damping: 10 }}
+        >
           <div style={{ display: "grid", placeItems: "center" }}>
             <div style={{ height: "400px", width: "max-content" }}>
               <img
@@ -165,11 +365,80 @@ function Home() {
               />
             </div>
           </div>
+        </motion.div>
+        <div
+          style={{
+            marginRight: "100px",
+            width: "700px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <motion.h1
+            initial={{ y: -80 }}
+            whileInView={{ y: 0 }}
+            transition={{
+              y: { type: "tween", duration: 0.8 },
+            }}
+          >
+            GET THE ARGUMENT'S DRAFT
+          </motion.h1>
+          <motion.h3
+            style={{ fontSize: "22px", color: "#B7B2B2" }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{
+              x: { type: "slide", duration: 1 },
+            }}
+          >
+            Get a first draft of arguments, potential counter arguments,
+            judgement scores and explanations and verdict from 4 different Point
+            of Views
+          </motion.h3>
         </div>
-      </div>
+      </motion.div>
 
       <div style={{ display: "flex", marginTop: "150px" }}>
-        <div>
+        <div
+          style={{
+            marginLeft: "200px",
+            width: "700px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <motion.h1
+            initial={{ y: -80 }}
+            whileInView={{ y: 0 }}
+            transition={{
+              y: { type: "tween", duration: 0.8 },
+            }}
+          >
+            FRAME YOUR CASE AND WIN
+          </motion.h1>
+          <motion.h3
+            style={{ fontSize: "22px", color: "#B7B2B2" }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{
+              x: { type: "slide", duration: 1 },
+            }}
+          >
+            Frame and finetune your arguments to turn the weights in your favor
+            until you are able to crack the verdict of your choice
+          </motion.h3>
+        </div>
+        <motion.div
+          initial={{ x: "50%" }}
+          whileInView={{ x: "0%" }}
+          transition={{ type: "spring", stiffness: 120, damping: 10 }}
+        >
           <div style={{ display: "grid", placeItems: "center" }}>
             <div style={{ height: "400px", width: "max-content" }}>
               <img
@@ -179,37 +448,7 @@ function Home() {
               />
             </div>
           </div>
-        </div>
-        <div style={{ marginRight: "100px", width: "700px" }}>
-          <h1>PHASE1/STEP1</h1>
-          <h3 style={{ fontSize: "22px", color: "#B7B2B2" }}>
-            Explore our flexible pricing options designed to cater to a range of
-            legal requirements. Select the plan that best fits your needs and
-            budget.
-          </h3>
-        </div>
-      </div>
-
-      <div style={{ display: "flex", marginTop: "150px" }}>
-        <div style={{ marginLeft: "200px", width: "700px" }}>
-          <h1>PHASE1/STEP1</h1>
-          <h3 style={{ fontSize: "22px", color: "#B7B2B2" }}>
-            Explore our flexible pricing options designed to cater to a range of
-            legal requirements. Select the plan that best fits your needs and
-            budget.
-          </h3>
-        </div>
-        <div>
-          <div style={{ display: "grid", placeItems: "center" }}>
-            <div style={{ height: "400px", width: "max-content" }}>
-              <img
-                alt="courtRoom Preiview"
-                src={laptop}
-                style={{ borderRadius: 0, width: "100%", height: "100%" }}
-              />
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </div>
 
       <div className={Styles.whyCourtRoom}>
@@ -225,7 +464,7 @@ function Home() {
                 letterSpacing: "0.016rem",
               }}
             >
-              24+
+              25000+
             </h1>
             <h3
               style={{
@@ -234,7 +473,7 @@ function Home() {
                 textAlign: "center",
               }}
             >
-              Language Support
+              Indian Legal Documents
             </h3>
           </div>
           <div>
@@ -243,18 +482,20 @@ function Home() {
                 fontWeight: "700",
                 fontSize: "5rem",
                 letterSpacing: "0.016rem",
+                textAlign: "center",
               }}
             >
-              100%
+              50+
             </h1>
             <h3
               style={{
                 color: "#B7B2B2",
                 fontSize: "16px",
                 textAlign: "center",
+                width: "300px",
               }}
             >
-              factual Clauses
+              Trusted by 50+ lawyers from Supreme court and High courts
             </h3>
           </div>
           <div>
@@ -263,9 +504,10 @@ function Home() {
                 fontWeight: "700",
                 fontSize: "5rem",
                 letterSpacing: "0.016rem",
+                textAlign: "center",
               }}
             >
-              1,000 +
+              1 Cr +
             </h1>
             <h3
               style={{
@@ -274,33 +516,85 @@ function Home() {
                 textAlign: "center",
               }}
             >
-              Cases Solved
+              Indian Judgements
             </h3>
           </div>
         </div>
       </div>
 
       <div style={{ display: "grid", placeItems: "center", marginTop: "80px" }}>
-        <div className={Styles.third} style={{ width: "75%" }}>
-          <div style={{ width: "50%" }}>
-            <h1 style={{ color: "#008080", fontWeight: 800, textWrap: "wrap" }}>
-              Want To take a Courtroom for yourself ?
-            </h1>
-          </div>
-
-          <button
+        <motion.div
+          className={Styles.third}
+          style={{
+            width: "75%",
+            position: "relative",
+            overflow: "hidden",
+          }}
+          whileHover="hover"
+          onHoverStart={() => setIsHovered(true)}
+          onHoverEnd={() => setIsHovered(false)}
+        >
+          <motion.div
+            variants={{
+              hover: { x: "100%" },
+            }}
+            initial={{ x: "0%" }}
+            transition={{ type: "tween", duration: 0.5 }}
             style={{
-              backgroundColor: "#008080",
-              color: "white",
-              padding: "12px 40px",
-              borderRadius: 10,
-              border: "none",
-              fontSize: 27,
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: 1,
+              background: "white",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: "linear-gradient(to right, #00ffa3, #008080)",
+              zIndex: 0,
+            }}
+          />
+          <div
+            style={{
+              position: "relative",
+              zIndex: 2,
+              display: "flex",
+              justifyContent: "space-between",
             }}
           >
-            Contact us
-          </button>
-        </div>
+            <div style={{ width: "50%" }}>
+              <h1
+                style={{
+                  color: "#008080",
+                  fontWeight: 800,
+                  textWrap: "wrap",
+                }}
+              >
+                Experience the AI Courtroom
+              </h1>
+            </div>
+            <button
+              style={{
+                backgroundColor: isHovered ? "white" : "#008080",
+                color: isHovered ? "#008080" : "white",
+                margin: "15px",
+                padding: "12px 40px",
+                borderRadius: 10,
+                border: "none",
+                fontSize: 27,
+              }}
+            >
+              Contact us
+            </button>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
