@@ -3,6 +3,7 @@ import balances from "../../assets/images/BalanceScales.png";
 import login from "../../assets/images/claw-login.png";
 import Styles from "./LoginToCourtRoom.module.css";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 function LoginToCourtRoom() {
   const [isHovered, setIsHovered] = useState(false);
@@ -75,6 +76,7 @@ function LoginToCourtRoom() {
                     style={{
                       position: "absolute",
                       left: "400px",
+                      cursor: "pointer",
                     }}
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +89,7 @@ function LoginToCourtRoom() {
                     style={{
                       position: "absolute",
                       left: "400px",
+                      cursor: "pointer",
                     }}
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
@@ -109,15 +112,18 @@ function LoginToCourtRoom() {
                     {currentTime.getSeconds()}
                   </h1>
                 </div>
-                <button
-                  style={{
-                    background: "none",
-                    border: "2px solid white",
-                    borderRadius: "5px",
-                  }}
-                >
-                  Enter Courtroom Now
-                </button>
+                <Link to={"/court-room/courtroom-ai"}>
+                  <motion.button
+                    whileTap={{ scale: "0.95" }}
+                    style={{
+                      background: "none",
+                      border: "2px solid white",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Enter Courtroom Now
+                  </motion.button>
+                </Link>
               </div>
               <hr
                 style={{
