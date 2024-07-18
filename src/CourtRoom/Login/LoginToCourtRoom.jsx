@@ -112,7 +112,7 @@ function LoginToCourtRoom() {
                     {currentTime.getSeconds()}
                   </h1>
                 </div>
-                <Link to={"/court-room/courtroom-ai"}>
+                <Link to={"/courtroom-ai"}>
                   <motion.button
                     whileTap={{ scale: "0.95" }}
                     style={{
