@@ -61,3 +61,9 @@
   justify-content: center;
   align-items: center;
 }
+.errorBoundary{
+  border: 2px solid ;
+  background-color:rgba(255, 0, 0, 0.205)  ;
+  transition: 0.5s;
+
+}
