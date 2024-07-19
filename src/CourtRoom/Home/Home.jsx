@@ -164,8 +164,8 @@ function Home() {
           </div>
         </div>
         <motion.img
-          initial={{ x: "50%" }}
-          animate={{ x: "0%" }}
+          initial={{ x: "100%" }}
+          whileInView={{ x: "0%" }}
           transition={{ type: "spring", stiffness: 120, damping: 10 }}
           alt="court-room"
           className={Styles.topContainerImage}

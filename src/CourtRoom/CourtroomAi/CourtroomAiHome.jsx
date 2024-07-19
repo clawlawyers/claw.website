@@ -2,6 +2,7 @@ import React from "react";
 import fight from "../../assets/images/fightYourself.png";
 import draft from "../../assets/images/draft.png";
 import Styles from "./CourtroomAiHome.module.css";
+import { Link } from "react-router-dom";
 
 const CourtroomAiHome = () => {
   return (
@@ -60,24 +61,27 @@ const CourtroomAiHome = () => {
           }}
           placeholder="Input Your Case Into The Courtroom"
         />
-        <div
-          style={{
-            display: "flex",
-            gap: "5px",
-            border: "2px solid #00ffa3",
-            borderRadius: "20px",
-            background: "#008080",
-            padding: "10px",
-            cursor: "pointer",
-          }}
-        >
-          <img
-            style={{ width: "20px", height: "20px" }}
-            src={fight}
-            alt="fight"
-          />
-          <h2 style={{ fontSize: "15px", margin: "0" }}>Fight Yourself</h2>
-        </div>
+        <Link to={"/courtroom-ai/arguments"}>
+          <div
+            style={{
+              display: "flex",
+              gap: "5px",
+              border: "2px solid #00ffa3",
+              borderRadius: "20px",
+              background: "#008080",
+              padding: "10px",
+              cursor: "pointer",
+              color: "white",
+            }}
+          >
+            <img
+              style={{ width: "20px", height: "20px" }}
+              src={fight}
+              alt="fight"
+            />
+            <h2 style={{ fontSize: "15px", margin: "0" }}>Fight Yourself</h2>
+          </div>
+        </Link>
         <div
           style={{
             display: "flex",

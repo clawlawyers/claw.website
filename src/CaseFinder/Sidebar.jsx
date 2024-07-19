@@ -158,16 +158,20 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       {plan ? (
                         <>
                           <div>
-                            Plan -{" "}
+                            Plan -
                             <span style={{ textTransform: "capitalize" }}>
-                              {plan[0].split("_")[0]}
+                              {plan?.length
+                                ? plan[0].split("_")[0]
+                                : " No Plan"}
                             </span>
                           </div>
-                          <div>
-                            Token -{" "}
-                            {Math.floor(token?.used?.caseSearchTokenUsed)}/
-                            {token?.total?.totalCaseSearchTokens}
-                          </div>
+                          {plan?.length && (
+                            <div>
+                              Token -{" "}
+                              {Math.floor(token?.used?.caseSearchTokenUsed)}/
+                              {token?.total?.totalCaseSearchTokens}
+                            </div>
+                          )}
                           <button
                             style={{
                               display: "flex",
