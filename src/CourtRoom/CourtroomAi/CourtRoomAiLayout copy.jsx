@@ -3,7 +3,7 @@ import AiSidebar from "./AiSidebar";
 import { Outlet } from "react-router-dom";
 import Styles from "./CourtroomAiLayout.module.css";
 import splashVideo from "../../assets/images/door open.mp4";
-import splashImage from "../../assets/images/splashImage.png"
+
 const CourtRoomAiLayout = () => {
   const [showSplash, setShowSplash] = useState(true);
   const [videoStarted, setVideoStarted] = useState(false);
@@ -25,33 +25,25 @@ const CourtRoomAiLayout = () => {
   return (
     <div >
       {showSplash ? (
-       <div className="flex flex-col justify-center items-center h-screen w-full bg-red-500 relative">
-       <img
-         src={splashImage}
-         alt="Background"
-         style={{
-           position: 'absolute',
-           width: '100%',
-           height: '100%',
-           objectFit: 'cover',
-           zIndex: -1,
-         }}
-       />
-       {!videoStarted && (
-         <div>
-           <button onClick={handleEnterCourtroom}>Enter Courtroom</button>
-         </div>
-       )}
-       {videoStarted && (
-         <video
-           id="splashVideo"
-           src={splashVideo}
-           autoPlay
-           muted
-           onEnded={handleVideoEnded}
-         />
-       )}
-     </div>
+        <div style={{
+          backgroundImage:'url("../../assets/images/splashImage.png")'
+        }} className="flex flex-col justify-center items-center h-screen w-full ">
+          {!videoStarted && (
+            <div className="">
+
+              <button onClick={handleEnterCourtroom}>Enter Courtroom</button>
+            </div>
+          )}
+          {videoStarted && (
+            <video
+              id="splashVideo"
+              src={splashVideo}
+              autoPlay
+              muted
+              onEnded={handleVideoEnded}
+            />
+          )}
+        </div>
       ) : (
         <div className={Styles.mainContainer}>
           <AiSidebar />
