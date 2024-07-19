@@ -4,7 +4,7 @@ import fight from "../../assets/images/fightYourself.png";
 import draft from "../../assets/images/draft.png";
 import Devices from "../../components/UploadDoc/Devices";
 import { motion } from "framer-motion";
-import uploadImage from "../../assets/icons/upload.svg"
+import uploadImage from "../../assets/icons/upload.svg";
 const UploadDoc = () => {
   const [ChooseDevice, setChooseDevice] = useState(false);
   const [error, setError] = useState(false);
@@ -12,16 +12,14 @@ const UploadDoc = () => {
     setChooseDevice(true);
   };
   const errorClick = () => {
-    if(!ChooseDevice)
-      {
-        setError(true);
-      }
-
-  }
+    if (!ChooseDevice) {
+      setError(true);
+    }
+  };
 
   const transition = { duration: 1 };
   const variants = {
-    open: { height: "100%",width:"100%" },
+    open: { height: "100%", width: "100%" },
     closed: { height: "40%", width: "70%" },
   };
 
@@ -40,12 +38,13 @@ const UploadDoc = () => {
         </motion.div>
       ) : (
         <div
-        onClick={handleClick}
-        className={`${Styles.uploadButton} ${error ? Styles.errorBoundary : ""}`}
-        
-      >
-        <img src={uploadImage} alt="" />
-      </div>
+          onClick={handleClick}
+          className={`${Styles.uploadButton} ${
+            error ? Styles.errorBoundary : ""
+          }`}
+        >
+          <img src={uploadImage} alt="" />
+        </div>
       )}
 
       <div className={Styles.rightBottomContainer}>
@@ -58,7 +57,9 @@ const UploadDoc = () => {
           }}
           placeholder="Input Your Case Into The Courtroom"
         />
-        <div
+        <motion.div
+          whileTap={{ scale: "0.98" }}
+          whileHover={{ scale: "1.01" }}
           style={{
             display: "flex",
             gap: "5px",
@@ -75,8 +76,10 @@ const UploadDoc = () => {
             alt="fight"
           />
           <h2 style={{ fontSize: "15px", margin: "0" }}>Fight Yourself</h2>
-        </div>
-        <div
+        </motion.div>
+        <motion.div
+          whileTap={{ scale: "0.98" }}
+          whileHover={{ scale: "1.01" }}
           style={{
             display: "flex",
             gap: "5px",
@@ -87,7 +90,6 @@ const UploadDoc = () => {
             cursor: "pointer",
           }}
           onClick={errorClick}
-          
         >
           <img
             style={{ width: "20px", height: "20px" }}
@@ -95,7 +97,7 @@ const UploadDoc = () => {
             alt="draft"
           />
           <h2 style={{ fontSize: "15px", margin: "0" }}>Get First Draft</h2>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
