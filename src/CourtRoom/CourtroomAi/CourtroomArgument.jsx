@@ -7,8 +7,8 @@ import { motion } from "framer-motion";
 
 const userArgumentsArr = [
   "I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
-  "I feel your pain. I get the feeling the Figma designers don’t ever use their product",
-  "I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
+  "I get the feeling the Figma designers don’t ever use their product",
+  "I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
 ];
 
 const aiLawyerArr = [
@@ -21,8 +21,7 @@ const CourtroomArgument = () => {
   const [lawyerArgument, setLawyerArgument] = useState(aiLawyerArr[0]);
   const [selectedUserArgument, setSelectedUserArgument] = useState(null);
   const [selectedUserArgumentContent, setSelectedUserArgumentContent] =
-    useState("");
-  console.log(selectedUserArgumentContent);
+    useState(null);
 
   const handleEdit = (index) => {
     setEditIndex(index);
@@ -41,8 +40,14 @@ const CourtroomArgument = () => {
   };
 
   const handleSwap = () => {
-    const swapArgument = userArgumentsArr[userArgumentsArr.length - 1];
-    setLawyerArgument(swapArgument);
+    if (selectedUserArgument !== null) {
+      setLawyerArgument(selectedUserArgumentContent);
+    } else {
+      const swapArgument = userArgumentsArr[userArgumentsArr.length - 1];
+      setLawyerArgument(swapArgument);
+    }
+    setSelectedUserArgument(null);
+    setSelectedUserArgumentContent(null);
   };
   return (
     <>
@@ -176,7 +181,10 @@ const CourtroomArgument = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                border: "1px solid white",
+                border:
+                  selectedUserArgument === index
+                    ? "1px solid #00ffa3"
+                    : "1px solid white",
                 borderRadius: "10px",
                 padding: "5px",
                 margin: "5px",

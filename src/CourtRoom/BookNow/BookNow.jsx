@@ -25,14 +25,28 @@ const BookNow = () => {
     setFormData({ ...formData, [name]: newValue });
   };
 
+  console.log(scheduledSlots);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formattedBookings = scheduledSlots.map((booking) => {
-      const date = booking.date.toISOString().split("T")[0];
+      // Create a new Date object to avoid mutating the original date
+      let date = new Date(booking.date);
+
+      // Add one day
+      date.setDate(date.getDate() + 1);
+
+      // Format the date
+      const formattedDate = date.toISOString().split("T")[0];
+
+      // Extract the hour from the time string
       const hour = parseInt(booking.time[0].split(":")[0], 10);
-      return { date, hour };
+
+      // Return the formatted booking
+      return { date: formattedDate, hour };
     });
+
     const bookingData = {
       phoneNumber: formData.contact,
       name: formData.name,
