@@ -94,25 +94,28 @@ const CourtroomAiHome = () => {
             <h2 style={{ fontSize: "15px", margin: "0" }}>Fight Yourself</h2>
           </motion.div>
         </Link>
-        <motion.div
-          whileTap={{ scale: "0.95" }}
-          style={{
-            display: "flex",
-            gap: "5px",
-            border: "2px solid #00ffa3",
-            borderRadius: "20px",
-            background: "#008080",
-            padding: "10px",
-            cursor: "pointer",
-          }}
-        >
-          <img
-            style={{ width: "20px", height: "20px" }}
-            src={draft}
-            alt="draft"
-          />
-          <h2 style={{ fontSize: "15px", margin: "0" }}>Get First Draft</h2>
-        </motion.div>
+        <Link to={"/courtroom-ai/upload"}>
+          <motion.div
+            whileTap={{ scale: "0.95" }}
+            style={{
+              display: "flex",
+              gap: "5px",
+              border: "2px solid #00ffa3",
+              borderRadius: "20px",
+              background: "#008080",
+              padding: "10px",
+              cursor: "pointer",
+              color: "white",
+            }}
+          >
+            <img
+              style={{ width: "20px", height: "20px" }}
+              src={draft}
+              alt="draft"
+            />
+            <h2 style={{ fontSize: "15px", margin: "0" }}>Get First Draft</h2>
+          </motion.div>
+        </Link>
       </div>
     </div>
   );

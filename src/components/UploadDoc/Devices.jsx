@@ -6,7 +6,7 @@ import styles from "../../CourtRoom/CourtroomAi/UploadDoc.module.css";
 import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
-import Lottie from 'react-lottie';
+import Lottie from "react-lottie";
 import upload from "../../assets/icons/Animation - 1721365056046.json";
 
 const Devices = () => {
@@ -20,8 +20,8 @@ const Devices = () => {
     autoplay: true,
     animationData: upload,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
+      preserveAspectRatio: "xMidYMid slice",
+    },
   };
 
   const handleClick = (source) => {
@@ -54,7 +54,9 @@ const Devices = () => {
         setTimeout(() => {
           setAnalyzing(false);
           setUploadComplete(true);
-          setPreviewContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."); // Set preview content
+          setPreviewContent(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
+          ); // Set preview content
         }, 3000); // Simulate analyzing
       }, 3000); // Simulate upload
     });
@@ -69,7 +71,9 @@ const Devices = () => {
       setTimeout(() => {
         setAnalyzing(false);
         setUploadComplete(true);
-        setPreviewContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."); // Set preview content
+        setPreviewContent(
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
+        ); // Set preview content
       }, 3000); // Simulate analyzing
     }, 3000); // Simulate upload
   };
@@ -82,7 +86,9 @@ const Devices = () => {
       setTimeout(() => {
         setAnalyzing(false);
         setUploadComplete(true);
-        setPreviewContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."); // Set preview content
+        setPreviewContent(
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
+        ); // Set preview content
       }, 3000); // Simulate analyzing
     }, 3000); // Simulate upload
   };
@@ -102,7 +108,8 @@ const Devices = () => {
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
-        height: "100%",
+        // height: "100%",
+        margin: "10px",
       }}
     >
       <section
@@ -143,7 +150,7 @@ const Devices = () => {
             color: "white",
             width: "100%",
             height: "50%",
-            border: "1px solid white"
+            border: "1px solid white",
           },
         }}
       >
@@ -154,7 +161,9 @@ const Devices = () => {
           <CloseIcon />
         </IconButton>
         <DialogContent>
-          {uploading && <Lottie options={defaultOptions} height={150} width={150} />}
+          {uploading && (
+            <Lottie options={defaultOptions} height={150} width={150} />
+          )}
           <DialogTitle>
             {uploading && "Uploading Your Document"}
             {analyzing && "Analyzing Your Document"}
@@ -164,16 +173,22 @@ const Devices = () => {
             <div style={{ marginTop: "20px" }}>
               <div style={{ marginTop: "20px", textAlign: "left" }}>
                 <h4>Document Preview:</h4>
-                <div style={{
-                  backgroundColor:"white",
-                  padding:"10px",
-                  color:"black",
-                  border:"1px solid black",
-                  borderRadius:"5px"
-                }}>
-                <p style={{
-                  color:"black"
-                }}>{previewContent}</p>
+                <div
+                  style={{
+                    backgroundColor: "white",
+                    padding: "10px",
+                    color: "black",
+                    border: "1px solid black",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <p
+                    style={{
+                      color: "black",
+                    }}
+                  >
+                    {previewContent}
+                  </p>
                 </div>
               </div>
             </div>

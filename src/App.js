@@ -57,6 +57,7 @@ import BookNow from "./CourtRoom/BookNow/BookNow.jsx";
 import CourtroomAiHome from "./CourtRoom/CourtroomAi/CourtroomAiHome.jsx";
 import CourtRoomAiLayout from "./CourtRoom/CourtroomAi/CourtRoomAiLayout.jsx";
 import CourtroomArgument from "./CourtRoom/CourtroomAi/CourtroomArgument.jsx";
+import UploadDoc from "./CourtRoom/CourtroomAi/UploadDoc.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -391,6 +392,10 @@ function App() {
         {
           path: "/courtroom-ai/arguments",
           element: <CourtroomArgument />,
+        },
+        {
+          path: "/courtroom-ai/upload",
+          element: <UploadDoc />,
         },
       ],
     },
