@@ -3,10 +3,14 @@ import CalendarComponent from "../../components/DateTime/Calendar";
 import styles from "../BookNow/BookNow.module.css";
 import image from "../../assets/images/courtroomPhoto.png";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { NODE_API_ENDPOINT } from "../../utils/utils";
+import axios from "axios";
 
 const BookNow = () => {
+  const [receipt, setReceipt] = useState(`receipt_${Date.now()}`);
+  const [loading, setLoading] = useState(false);
   const [scheduledSlots, setScheduledSlots] = useState([]);
-  const [showPassword,setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,27 +25,138 @@ const BookNow = () => {
     setFormData({ ...formData, [name]: newValue });
   };
 
+  console.log(scheduledSlots);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const formattedBookings = scheduledSlots.map((booking) => {
+      // Create a new Date object to avoid mutating the original date
+      let date = new Date(booking.date);
+
+      // Add one day
+      date.setDate(date.getDate() + 1);
+
+      // Format the date
+      const formattedDate = date.toISOString().split("T")[0];
+
+      // Extract the hour from the time string
+      const hour = parseInt(booking.time[0].split(":")[0], 10);
+
+      // Return the formatted booking
+      return { date: formattedDate, hour };
+    });
+
     const bookingData = {
-      ...formData,
-      scheduledSlots: scheduledSlots, // Add scheduledSlots to bookingData
+      phoneNumber: formData.contact,
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      recording: formData.record,
+      slots: formattedBookings, // Add scheduledSlots to bookingData
     };
     console.log("Booking Data:", bookingData);
+    loadRazorpay(bookingData);
     //TODO : backend post request
+  };
+
+  const loadRazorpay = async (bookingData) => {
+    setLoading(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onerror = () => {
+      alert("Razorpay SDK failed to load. Are you online?");
+    };
+    script.onload = async () => {
+      try {
+        // const planeName = `${type}_${request}_${session}`;
+        const result = await axios.post(
+          `${NODE_API_ENDPOINT}/booking-payment/create-order`,
+          {
+            amount: scheduledSlots.length * 100,
+            phoneNumber: formData.contact,
+            currency: "INR",
+            receipt: receipt,
+            numberOfSlot: scheduledSlots.length,
+          }
+        );
+
+        console.log(result);
+
+        const { amount, id, currency } = result.data.razorpayOrder;
+        const { _id } = result.data.createdOrder;
+        const options = {
+          key: "rzp_test_UWcqHHktRV6hxM",
+          amount: String(amount),
+          currency: currency,
+          name: "CLAW LEGALTECH PRIVATE LIMITED",
+          description: "Transaction",
+          order_id: id,
+          handler: async function (response) {
+            const data = {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              _id,
+              bookingData,
+            };
+
+            const result = await axios.post(
+              `${NODE_API_ENDPOINT}/booking-payment/verifyPayment`,
+              data
+            );
+            alert(result.data.status);
+            // if (
+            //   plan === "AddOn" &&
+            //   result.data.status === "Payment verified successfully"
+            // ) {
+            //   axios.post(
+            //     `${NODE_API_ENDPOINT}/gpt/dummy`,
+            //     {
+            //       phoneNumber: currentUser.phoneNumber,
+            //     },
+            //     {
+            //       headers: {
+            //         Authorization: `Bearer ${currentUser.jwt}`,
+            //         "Content-Type": "application/json",
+            //       },
+            //     }
+            //   );
+            // }
+            // nav("/");
+          },
+
+          theme: {
+            color: "#3399cc",
+          },
+        };
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    document.body.appendChild(script);
   };
 
   return (
     <div className={styles.topContainer}>
-      <h1 style={{
-        padding:"20px",
-        fontWeight:800
-      }}>Book your CourtRoom</h1>
+      <h1
+        style={{
+          padding: "20px",
+          fontWeight: 800,
+        }}
+      >
+        Book your CourtRoom
+      </h1>
       <CalendarComponent
         scheduledSlots={scheduledSlots}
         setScheduledSlots={setScheduledSlots}
       />
-      
+
       <section className={styles.formContainer}>
         <img src={image} alt="" />
         <div
@@ -51,7 +166,6 @@ const BookNow = () => {
             justifyContent: "center",
             alignItems: "center",
             width: "70%",
-            
           }}
         >
           <form className={styles.forms} onSubmit={handleSubmit}>
@@ -74,7 +188,7 @@ const BookNow = () => {
               onChange={handleInputChange}
               required
             />
-            <div style={{ position: "relative" ,width:"100%"}}>
+            <div style={{ position: "relative", width: "100%" }}>
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -100,7 +214,7 @@ const BookNow = () => {
                   showPassword ? setShowPassword(false) : setShowPassword(true)
                 }
               >
-                {showPassword?  <Visibility />:<VisibilityOff/> }
+                {showPassword ? <Visibility /> : <VisibilityOff />}
               </button>
             </div>
             <input

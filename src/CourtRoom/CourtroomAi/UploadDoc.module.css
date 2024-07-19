@@ -6,9 +6,12 @@
   width: 100%;
   height: 100%;
 }
+
 .rightBottomContainer {
+  width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 10px;
   margin: 10px;
   align-items: center;
 }
@@ -20,14 +23,23 @@
   padding: 20px;
   margin: 40px;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
-.images{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    background-color: red;
+.uploadButton img {
+  border-radius: 0 !important;
+  height: max-content;
+  width: max-content;
+}
+.images {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: end;
 }
 .images img {
   border-radius: 0 !important;
@@ -39,4 +51,19 @@
   width: 5px;
   border-radius: 5px;
   background-color: white;
+}
+.device {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.555);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.errorBoundary{
+  border: 2px solid ;
+  background-color:rgba(255, 0, 0, 0.205)  ;
+  transition: 0.5s;
+
 }
