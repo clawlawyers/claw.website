@@ -7,10 +7,17 @@ import { motion } from "framer-motion";
 import uploadImage from "../../assets/icons/upload.svg"
 const UploadDoc = () => {
   const [ChooseDevice, setChooseDevice] = useState(false);
-
+  const [error, setError] = useState(false);
   const handleClick = () => {
     setChooseDevice(true);
   };
+  const errorClick = () => {
+    if(!ChooseDevice)
+      {
+        setError(true);
+      }
+
+  }
 
   const transition = { duration: 1 };
   const variants = {
@@ -34,7 +41,7 @@ const UploadDoc = () => {
       ) : (
         <div
         onClick={handleClick}
-        className={Styles.uploadButton}
+        className={`${Styles.uploadButton} ${error ? Styles.errorBoundary : ""}`}
         
       >
         <img src={uploadImage} alt="" />
@@ -79,7 +86,8 @@ const UploadDoc = () => {
             padding: "10px",
             cursor: "pointer",
           }}
-          onClick={handleClick}
+          onClick={errorClick}
+          
         >
           <img
             style={{ width: "20px", height: "20px" }}
