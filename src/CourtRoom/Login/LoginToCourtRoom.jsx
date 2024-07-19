@@ -3,19 +3,48 @@ import balances from "../../assets/images/BalanceScales.png";
 import clawLogo from "../../assets/images/claw-login.png";
 import Styles from "./LoginToCourtRoom.module.css";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import axios from "axios";
+import { NODE_API_ENDPOINT } from "../../utils/utils";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function LoginToCourtRoom() {
   const [isHovered, setIsHovered] = useState(false);
   const [showPass, setShowPass] = useState(false);
-  const [errorState, setErrorState] = useState(true);
+  const [errorState, setErrorState] = useState(false);
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState(null);
+  const navigate = useNavigate();
   const currentTime = new Date();
 
   const handleSave = (e) => {
     e.preventDefault();
     //other function
+    axios
+      .post(`${NODE_API_ENDPOINT}/courtroom/login`, {
+        phoneNumber: phone,
+        password: password,
+      })
+      .then((response) => {
+        if (response.data === "No bookings found for the current time slot.") {
+          console.log("No bookings found for the current time slot");
+          setErrorState(true);
+          toast.error(response.data);
+        } else if (response.data === "Invalid phone number or password.") {
+          console.log("Invalid phone number or password");
+          setErrorState(true);
+          toast.error(response.data);
+        }
+        console.log(response.data);
+        toast.success("you have successfully logged in");
+        console.log(response);
+        navigate("/courtroom-ai");
+      })
+      .catch((error) => {
+        setErrorState(true);
+        toast.error(error.message);
+      });
   };
   return (
     <div>
@@ -145,19 +174,19 @@ function LoginToCourtRoom() {
                       {currentTime.getSeconds()}
                     </h1>
                   </div>
-                  <Link to={"/courtroom-ai"}>
-                    <motion.button
-                      type="submit"
-                      whileTap={{ scale: "0.95" }}
-                      style={{
-                        background: "none",
-                        border: "2px solid white",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      Enter Courtroom Now
-                    </motion.button>
-                  </Link>
+                  {/* <Link to={"/courtroom-ai"}> */}
+                  <motion.button
+                    type="submit"
+                    whileTap={{ scale: "0.95" }}
+                    style={{
+                      background: "none",
+                      border: "2px solid white",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Enter Courtroom Now
+                  </motion.button>
+                  {/* </Link> */}
                 </div>
                 <hr
                   style={{
