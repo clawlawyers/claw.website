@@ -3,24 +3,42 @@ import Styles from "./UploadDoc.module.css";
 import fight from "../../assets/images/fightYourself.png";
 import draft from "../../assets/images/draft.png";
 import Devices from "../../components/UploadDoc/Devices";
-
+import { motion } from "framer-motion";
+import uploadImage from "../../assets/icons/upload.svg"
 const UploadDoc = () => {
   const [ChooseDevice, setChooseDevice] = useState(false);
+
   const handleClick = () => {
-    // Logic for handling the click event
-    // Render another component here
     setChooseDevice(true);
+  };
+
+  const transition = { duration: 1 };
+  const variants = {
+    open: { height: "100%",width:"100%" },
+    closed: { height: "40%", width: "70%" },
   };
 
   return (
     <section className={Styles.topContainer}>
-      {/* upload button here */}
       {ChooseDevice ? (
-        <Devices />
+        <motion.div
+          className={Styles.device}
+          initial="closed"
+          animate="open"
+          exit="closed"
+          variants={variants}
+          transition={transition}
+        >
+          <Devices />
+        </motion.div>
       ) : (
-        <div onClick={handleClick} className={Styles.uploadButton}>
-          Upload
-        </div>
+        <div
+        onClick={handleClick}
+        className={Styles.uploadButton}
+        
+      >
+        <img src={uploadImage} alt="" />
+      </div>
       )}
 
       <div className={Styles.rightBottomContainer}>
