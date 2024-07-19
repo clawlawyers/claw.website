@@ -54,6 +54,10 @@ import CourtRoom from "./CourtRoom/CourtRoom.jsx";
 import LoginToCourtRoom from "./CourtRoom/Login/LoginToCourtRoom.jsx";
 import BookNow from "./CourtRoom/BookNow/BookNow.jsx";
 
+import CourtroomAiHome from "./CourtRoom/CourtroomAi/CourtroomAiHome.jsx";
+import CourtRoomAiLayout from "./CourtRoom/CourtroomAi/CourtRoomAiLayout.jsx";
+import CourtroomArgument from "./CourtRoom/CourtroomAi/CourtroomArgument.jsx";
+
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
   const [init, setInit] = useState(false);
@@ -374,6 +378,20 @@ function App() {
         { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
         { path: "terms-and-conditions", element: <TermsAndConditions /> },
         { path: "shipping-and-delivery", element: <ShippingPolicy /> },
+      ],
+    },
+    {
+      path: "courtroom-ai",
+      element: <CourtRoomAiLayout />,
+      children: [
+        {
+          path: "",
+          element: <CourtroomAiHome />,
+        },
+        {
+          path: "/courtroom-ai/arguments",
+          element: <CourtroomArgument />,
+        },
       ],
     },
     {
