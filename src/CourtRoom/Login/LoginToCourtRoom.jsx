@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import balances from "../../assets/images/BalanceScales.png";
 import clawLogo from "../../assets/images/claw-login.png";
 import Styles from "./LoginToCourtRoom.module.css";
@@ -11,7 +11,16 @@ function LoginToCourtRoom() {
   const [errorState, setErrorState] = useState(true);
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState(null);
-  const currentTime = new Date();
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [currentTime]);
 
   const handleSave = (e) => {
     e.preventDefault();
