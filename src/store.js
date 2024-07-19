@@ -5,6 +5,7 @@ import cartReducer from "./features/cart/cartSlice";
 import sidebarReducer from "./features/sidebar/sidebarSlice";
 import popupReducer from "./features/popup/popupSlice";
 import bookingsSlice from "./features/bookCourtRoom/selectedDatesTimesSlice"
+import splashReducer from "./features/bookCourtRoom/splashSlice"
 export default configureStore({
     reducer: {
         auth: authReducer,
@@ -13,5 +14,6 @@ export default configureStore({
         sidebar: sidebarReducer,
         popup: popupReducer,
         bookings: bookingsSlice,
+        splash: splashReducer,
     }
 })

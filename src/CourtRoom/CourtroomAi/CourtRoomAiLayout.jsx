@@ -1,12 +1,24 @@
-import React, { useState } from "react";
-import AiSidebar from "./AiSidebar";
-import { Outlet } from "react-router-dom";
-import Styles from "./CourtroomAiLayout.module.css";
-import splashVideo from "../../assets/images/door open.mp4";
-import splashImage from "../../assets/images/splashImage.png"
+// src/components/CourtRoomAiLayout.js
+
+import React, { useState, useEffect } from 'react';
+import AiSidebar from './AiSidebar';
+import { Outlet } from 'react-router-dom';
+import Styles from './CourtroomAiLayout.module.css';
+import splashVideo from '../../assets/images/door open.mp4';
+import splashImage from '../../assets/images/splashImage.png';
+import LogoSplash from '../../assets/images/logoSplash.png';
+
 const CourtRoomAiLayout = () => {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(
+    !localStorage.getItem('hasSeenSplash')
+  );
   const [videoStarted, setVideoStarted] = useState(false);
+
+  useEffect(() => {
+    if (!showSplash) {
+      localStorage.setItem('hasSeenSplash', 'true');
+    }
+  }, [showSplash]);
 
   const handleVideoEnded = () => {
     setShowSplash(false);
@@ -14,44 +26,55 @@ const CourtRoomAiLayout = () => {
 
   const handleEnterCourtroom = () => {
     setVideoStarted(true);
-    const videoElement = document.getElementById("splashVideo");
+    const videoElement = document.getElementById('splashVideo');
     if (videoElement) {
       videoElement.play().catch((error) => {
-        console.error("Error playing the video:", error);
+        console.error('Error playing the video:', error);
       });
     }
   };
 
+  const handleExitCourtroom = () => {
+    localStorage.removeItem('hasSeenSplash');
+    setShowSplash(true);
+    setVideoStarted(false);
+  };
+
   return (
-    <div >
+    <div>
       {showSplash ? (
-       <div className="flex flex-col justify-center items-center h-screen w-full bg-red-500 relative">
-       <img
-         src={splashImage}
-         alt="Background"
-         style={{
-           position: 'absolute',
-           width: '100%',
-           height: '100%',
-           objectFit: 'cover',
-           zIndex: -1,
-         }}
-       />
-       {!videoStarted && (
-         <div>
-           <button onClick={handleEnterCourtroom}>Enter Courtroom</button>
-         </div>
-       )}
-       {videoStarted && (
-         <video
-           id="splashVideo"
-           src={splashVideo}
-           autoPlay
-           muted
-           onEnded={handleVideoEnded}
-         />
-       )}
-     </div>
+        <div className="flex flex-col justify-center items-center h-screen w-full relative">
+          {!videoStarted && (
+            <img
+              className={Styles.image}
+              src={splashImage}
+              alt="Background"
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                zIndex: 1,
+              }}
+            />
+          )}
+
+          {!videoStarted && (
+            <div className="z-2 flex flex-col w-full h-screen justify-center items-center">
+              <img className="h-max w-max" src={LogoSplash} alt="" />
+              <button onClick={handleEnterCourtroom}>Enter Courtroom</button>
+            </div>
+          )}
+          {videoStarted && (
+            <video
+              id="splashVideo"
+              src={splashVideo}
+              autoPlay
+              muted
+              onEnded={handleVideoEnded}
+            />
+          )}
+        </div>
       ) : (
         <div className={Styles.mainContainer}>
           <AiSidebar />
