@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import Lottie from "react-lottie";
 import upload from "../../assets/icons/Animation - 1721365056046.json";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { NODE_API_ENDPOINT } from "../../utils/utils";
 const Devices = ({ uploadedFile, setUploadedFile }) => {
   const navigate = useNavigate();
   const [uploading, setUploading] = useState(false);
@@ -42,34 +44,77 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
     }
   };
 
-  const handleUploadFromComputer = () => {
+  const handleUploadFromComputer = async () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
-    fileInput.accept = ".pdf,.doc,.docx,.txt"; // Specify the accepted file types
-    fileInput.addEventListener("change", (event) => {
+    fileInput.accept = ".pdf,.doc,.docx,.txt, .jpg"; // Specify the accepted file types
+    fileInput.addEventListener("change", async (event) => {
       const file = event.target.files[0];
       setFile(file);
       if (file) {
         setUploading(true);
 
-        // Handle the file upload here
-        setTimeout(() => {
+        console.log(file);
+
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+
+          const FileResponse = await axios.post(
+            `${NODE_API_ENDPOINT}/upload`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+
+          console.log(FileResponse.data.data.url); // The public URL of the uploaded file
+
           setUploading(false);
           setAnalyzing(true);
-          setTimeout(() => {
-            setAnalyzing(false);
-            setUploadComplete(true);
-            setPreviewContent(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
-            ); // Set preview content
-          }, 3000); // Simulate analyzing
-        }, 3000); // Simulate upload
-        setUploadedFile(true);
+
+          const CaseOverview = await axios.post(
+            `${NODE_API_ENDPOINT}/courtroom/newcase`,
+            {
+              user_id: "1234",
+              case_details_link: FileResponse.data.data.url,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          setAnalyzing(false);
+          setUploadComplete(true);
+          console.log(CaseOverview.data.data.case_overview);
+          setPreviewContent(CaseOverview.data.data.case_overview);
+          setUploadedFile(true);
+
+          // Handle the file upload here
+          // setTimeout(() => {
+          //   setUploading(false);
+          //   setAnalyzing(true);
+          //   setTimeout(() => {
+          //     setAnalyzing(false);
+          //     setUploadComplete(true);
+          //     setPreviewContent(
+          //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
+          //     ); // Set preview content
+          //   }, 3000); // Simulate analyzing
+          // }, 3000); // Simulate upload
+          // setUploadedFile(true);
+        } catch (error) {
+          console.error("Error uploading file:", error);
+          setUploading(false);
+          // Handle the error appropriately
+        }
       }
     });
     fileInput.click();
   };
-
 
   const handleUploadFromDrive = () => {
     setUploading(true);
@@ -106,7 +151,7 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
     setAnalyzing(false);
     setUploadComplete(false);
     setPreviewContent("");
-    navigate("/courtroom-ai")
+    navigate("/courtroom-ai");
   };
 
   return (
