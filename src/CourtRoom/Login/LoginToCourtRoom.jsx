@@ -8,7 +8,8 @@ import axios from "axios";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from 'react-redux';
+import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice"; 
 function LoginToCourtRoom() {
   const [isHovered, setIsHovered] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -16,7 +17,8 @@ function LoginToCourtRoom() {
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
-
+  const dispatch = useDispatch();
+  const loginTime = new Date().toISOString(); 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -28,34 +30,44 @@ function LoginToCourtRoom() {
   const navigate = useNavigate();
   // const currentTime = new Date();
 
-  const handleSave = (e) => {
-    e.preventDefault();
-    //other function
-    axios
-      .post(`${NODE_API_ENDPOINT}/courtroom/login`, {
-        phoneNumber: phone,
-        password: password,
-      })
-      .then((response) => {
-        if (response.data === "No bookings found for the current time slot.") {
-          console.log("No bookings found for the current time slot");
-          setErrorState(true);
-          toast.error(response.data);
-        } else if (response.data === "Invalid phone number or password.") {
-          console.log("Invalid phone number or password");
-          setErrorState(true);
-          toast.error(response.data);
-        }
-        console.log(response.data);
-        toast.success("you have successfully logged in");
-        console.log(response);
-        navigate("/courtroom-ai");
-      })
-      .catch((error) => {
+// Import the action creator from the slice
+
+const handleSave = (e) => {
+  e.preventDefault();
+ // Get current time in ISO format
+
+  axios
+    .post(`${NODE_API_ENDPOINT}/courtroom/login`, {
+      phoneNumber: phone,
+      password: password,
+    })
+    .then((response) => {
+      console.log(response);
+      if (response.data === "No bookings found for the current time slot.") {
+        console.log("No bookings found for the current time slot");
         setErrorState(true);
-        toast.error(error.message);
-      });
-  };
+        toast.error(response.data);
+      } else if (response.data === "Invalid phone number or password.") {
+        console.log("Invalid phone number or password");
+        setErrorState(true);
+        toast.error(response.data);
+      } else {
+        toast.success("You have successfully logged in");
+        console.log(response);
+        dispatch(setUser({ phoneNumber: phone, loginTime })); // Save phone and login time in Redux state
+        navigate("/courtroom-ai");
+      }
+      dispatch(setUser({ token:"1234",userId:"1234xyz",caseOverView:"lorem ipsum "})); // Save phone and login time in Redux state
+
+      // navigate("/courtroom-ai");
+
+    })
+    .catch((error) => {
+      setErrorState(true);
+      toast.error(error.message);
+    });
+};
+
   return (
     <div>
       <div className={Styles.topcontainer}>

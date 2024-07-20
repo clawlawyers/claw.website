@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./features/auth/authSlice";
+import authReducer, { userSlice } from "./features/auth/authSlice";
 import gptReducer from "./features/gpt/gptSlice";
 import cartReducer from "./features/cart/cartSlice";
 import sidebarReducer from "./features/sidebar/sidebarSlice";
@@ -15,5 +15,6 @@ export default configureStore({
         popup: popupReducer,
         bookings: bookingsSlice,
         splash: splashReducer,
+        user:userSlice
     }
 })
