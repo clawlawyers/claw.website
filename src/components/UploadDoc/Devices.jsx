@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import Lottie from "react-lottie";
 import upload from "../../assets/icons/Animation - 1721365056046.json";
 import { useNavigate } from "react-router-dom";
+import analyze from "../../assets/icons/Animation - 1721467138603.json";
 import axios from "axios";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 const Devices = ({ uploadedFile, setUploadedFile }) => {
@@ -23,6 +24,15 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
     loop: true,
     autoplay: true,
     animationData: upload,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  const analyzeLottie = {
+    loop: true,
+    autoplay: true,
+    animationData: analyze,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -248,6 +258,14 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
             {analyzing && (
               <div>
                 {/* //TODO upload complete lottie */}
+                <Lottie
+                  style={{
+                    color: "white",
+                  }}
+                  options={analyzeLottie}
+                  height={150}
+                  width={150}
+                />
                 <h4>Analyzing thje document</h4>
               </div>
             )}
