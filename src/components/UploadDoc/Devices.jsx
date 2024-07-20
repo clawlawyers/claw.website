@@ -8,13 +8,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
 import Lottie from "react-lottie";
 import upload from "../../assets/icons/Animation - 1721365056046.json";
-
-const Devices = () => {
+import { useNavigate } from "react-router-dom";
+const Devices = ({ uploadedFile, setUploadedFile }) => {
+  const navigate = useNavigate();
   const [uploading, setUploading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
   const [previewContent, setPreviewContent] = useState("");
-
+  const [closed, setClosed] = useState(false);
+  const [files, setFile] = useState(null);
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -41,27 +43,33 @@ const Devices = () => {
   };
 
   const handleUploadFromComputer = () => {
-    setUploading(true);
     const fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.accept = ".pdf,.doc,.docx,.txt"; // Specify the accepted file types
     fileInput.addEventListener("change", (event) => {
       const file = event.target.files[0];
-      // Handle the file upload here
-      setTimeout(() => {
-        setUploading(false);
-        setAnalyzing(true);
+      setFile(file);
+      if (file) {
+        setUploading(true);
+
+        // Handle the file upload here
         setTimeout(() => {
-          setAnalyzing(false);
-          setUploadComplete(true);
-          setPreviewContent(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
-          ); // Set preview content
-        }, 3000); // Simulate analyzing
-      }, 3000); // Simulate upload
+          setUploading(false);
+          setAnalyzing(true);
+          setTimeout(() => {
+            setAnalyzing(false);
+            setUploadComplete(true);
+            setPreviewContent(
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
+            ); // Set preview content
+          }, 3000); // Simulate analyzing
+        }, 3000); // Simulate upload
+        setUploadedFile(true);
+      }
     });
     fileInput.click();
   };
+
 
   const handleUploadFromDrive = () => {
     setUploading(true);
@@ -98,6 +106,7 @@ const Devices = () => {
     setAnalyzing(false);
     setUploadComplete(false);
     setPreviewContent("");
+    navigate("/courtroom-ai")
   };
 
   return (
@@ -123,21 +132,32 @@ const Devices = () => {
           padding: "30px",
         }}
       >
-        <div className={`${styles.images} gap-10 `} onClick={() => handleClick("drive")}>
+        <div
+          className={`${styles.images} gap-10 `}
+          onClick={() => handleClick("drive")}
+        >
           <img src={Drive} alt="" />
           <h4 className="font-semibold text-neutral-500">Upload from Drive</h4>
-
         </div>
         <div className={styles.verticalLine}></div>
-        <div className={`${styles.images} gap-10 `} onClick={() => handleClick("dropbox")}>
+        <div
+          className={`${styles.images} gap-10 `}
+          onClick={() => handleClick("dropbox")}
+        >
           <img src={DropBox} alt="" />
-          <h4 className="font-semibold text-neutral-500">Upload from Drop Box</h4>
+          <h4 className="font-semibold text-neutral-500">
+            Upload from Drop Box
+          </h4>
         </div>
         <div className={styles.verticalLine}></div>
-        <div className={`${styles.images} gap-10 `} onClick={() => handleClick("local")}>
+        <div
+          className={`${styles.images} gap-10 `}
+          onClick={() => handleClick("local")}
+        >
           <img src={pc} alt="" />
-          <h4 className="font-semibold text-neutral-500">Upload from Computer </h4>
-
+          <h4 className="font-semibold text-neutral-500">
+            Upload from Computer{" "}
+          </h4>
         </div>
       </section>
       <Dialog
@@ -164,9 +184,14 @@ const Devices = () => {
         </IconButton>
         <DialogContent>
           {uploading && (
-            <Lottie style={{
-              color:"white"
-            }} options={defaultOptions} height={150} width={150} />
+            <Lottie
+              style={{
+                color: "white",
+              }}
+              options={defaultOptions}
+              height={150}
+              width={150}
+            />
           )}
           <DialogTitle>
             {uploading && (
@@ -175,10 +200,12 @@ const Devices = () => {
                 <h4>Uploading Your Document</h4>
               </div>
             )}
-            {analyzing && <div>
-              {/* //TODO upload complete lottie */}
-              <h4>Analyzing thje document</h4>
-              </div>}
+            {analyzing && (
+              <div>
+                {/* //TODO upload complete lottie */}
+                <h4>Analyzing thje document</h4>
+              </div>
+            )}
             {uploadComplete && "Upload Complete"}
           </DialogTitle>
           {!uploading && !analyzing && uploadComplete && (

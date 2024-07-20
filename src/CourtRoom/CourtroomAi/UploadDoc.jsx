@@ -5,16 +5,30 @@ import draft from "../../assets/images/draft.png";
 import Devices from "../../components/UploadDoc/Devices";
 import { motion } from "framer-motion";
 import uploadImage from "../../assets/icons/upload.svg";
+import { useNavigate } from "react-router-dom";
 const UploadDoc = () => {
+  const [inputText, setInputText] = useState("");
+  const navigate = useNavigate();
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    setInputText(event.target.value);
+    console.log(inputText);
+  };
   const [ChooseDevice, setChooseDevice] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState();
   const [error, setError] = useState(false);
   const handleClick = () => {
     setChooseDevice(true);
   };
-  const errorClick = () => {
-    if (!ChooseDevice) {
+  const handleSubmit = () => {
+    if (!ChooseDevice && !inputText) {
       setError(true);
     }
+    else{
+      console.log(uploadedFile)
+      navigate("/courtroom-ai")
+    }
+    
   };
 
   const transition = { duration: 1 };
@@ -34,7 +48,10 @@ const UploadDoc = () => {
           variants={variants}
           transition={transition}
         >
-          <Devices />
+          <Devices
+            uploadedFile={uploadedFile}
+            setUploadedFile={setUploadedFile}
+          />
         </motion.div>
       ) : (
         <div
@@ -49,15 +66,12 @@ const UploadDoc = () => {
 
       <div className={Styles.rightBottomContainer}>
         <input
-          style={{
-            border: "2px solid #00ffa3",
-            borderRadius: "20px",
-            padding: "10px",
-            width: "600px",
-          }}
+          className="border-2 border-[#00ffa3] text-neutral-900 rounded-xl p-2.5 w-[600px]"
           placeholder="Input Your Case Into The Courtroom"
+          value={inputText}
+          onChange={handleInputChange}
         />
-        <motion.div
+        <motion.button
           whileTap={{ scale: "0.98" }}
           whileHover={{ scale: "1.01" }}
           style={{
@@ -67,8 +81,11 @@ const UploadDoc = () => {
             borderRadius: "20px",
             background: "#008080",
             padding: "10px",
-            cursor: "pointer",
+            cursor: !uploadedFile && inputText==="" ? "not-allowed" : "pointer",
+            opacity: !uploadedFile && !inputText ? 0.5 : 1,
           }}
+          onClick={handleSubmit}
+         
         >
           <img
             style={{ width: "20px", height: "20px" }}
@@ -76,8 +93,8 @@ const UploadDoc = () => {
             alt="fight"
           />
           <h2 style={{ fontSize: "15px", margin: "0" }}>Fight Yourself</h2>
-        </motion.div>
-        <motion.div
+        </motion.button>
+        <motion.button
           whileTap={{ scale: "0.98" }}
           whileHover={{ scale: "1.01" }}
           style={{
@@ -87,9 +104,11 @@ const UploadDoc = () => {
             borderRadius: "20px",
             background: "#008080",
             padding: "10px",
-            cursor: "pointer",
+            cursor: !uploadedFile && inputText==="" ? "not-allowed" : "pointer",
+            opacity: !uploadedFile && !inputText ? 0.5 : 1,
           }}
-          onClick={errorClick}
+          onClick={handleSubmit}
+         
         >
           <img
             style={{ width: "20px", height: "20px" }}
@@ -97,7 +116,7 @@ const UploadDoc = () => {
             alt="draft"
           />
           <h2 style={{ fontSize: "15px", margin: "0" }}>Get First Draft</h2>
-        </motion.div>
+        </motion.button>
       </div>
     </section>
   );

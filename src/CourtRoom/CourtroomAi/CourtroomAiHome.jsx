@@ -50,7 +50,7 @@ const CourtroomAiHome = () => {
           </h1>
         </motion.div>
       </div>
-      <div className="w-full flex flex-row ">
+      <div className="w-full py-2 flex md:flex-row flex-col justify-center gap-4  items-center">
         <input
           style={{
             border: "2px solid #00ffa3",
