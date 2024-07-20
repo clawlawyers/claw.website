@@ -7,19 +7,15 @@ import { motion } from "framer-motion";
 
 const CourtroomAiHome = () => {
   return (
-    <div className={Styles.mainContainer}>
-      <div className={Styles.rightTopContainer}>
+    <div className="w-full h-full flex flex-col justify-end">
+      <div className="flex md:flex-row flex-col ">
         <motion.div
           whileHover={{ scale: "1.01" }}
-          style={{
-            margin: "10px",
-            background: "#161a25",
-            borderRadius: "10px",
-          }}
+          className="m-2.5 bg-[#161a25] rounded-lg"
         >
           <h1
             whileHover={{ scale: "1.01" }}
-            style={{ fontSize: "15px", padding: "15px", textAlign: "center" }}
+           className="text-sm p-4 text-center"
           >
             in publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
@@ -29,14 +25,10 @@ const CourtroomAiHome = () => {
         </motion.div>
         <motion.div
           whileHover={{ scale: "0.98" }}
-          style={{
-            margin: "10px",
-            background: "#161a25",
-            borderRadius: "10px",
-          }}
+          className="m-2.5 bg-[#161a25] rounded-lg"
         >
           <h1
-            style={{ fontSize: "15px", padding: "15px", textAlign: "center" }}
+            className="text-sm p-4 text-center"
           >
             in publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
@@ -46,14 +38,10 @@ const CourtroomAiHome = () => {
         </motion.div>
         <motion.div
           whileHover={{ scale: "1.01" }}
-          style={{
-            margin: "10px",
-            background: "#161a25",
-            borderRadius: "10px",
-          }}
+          className="m-2.5 bg-[#161a25] rounded-lg"
         >
           <h1
-            style={{ fontSize: "15px", padding: "15px", textAlign: "center" }}
+             className="text-sm p-4 text-center"
           >
             in publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
@@ -62,7 +50,7 @@ const CourtroomAiHome = () => {
           </h1>
         </motion.div>
       </div>
-      <div className={Styles.rightBottomContainer}>
+      <div className="w-full flex flex-row ">
         <input
           style={{
             border: "2px solid #00ffa3",

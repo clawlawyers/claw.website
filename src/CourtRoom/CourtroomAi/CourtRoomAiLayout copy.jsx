@@ -45,7 +45,7 @@ const CourtRoomAiLayout = () => {
           )}
         </div>
       ) : (
-        <div className={Styles.mainContainer}>
+        <div className="flex flex-col justify-end w-full h-screen">
           <AiSidebar />
           <div className={Styles.rightContainer}>
             <Outlet />

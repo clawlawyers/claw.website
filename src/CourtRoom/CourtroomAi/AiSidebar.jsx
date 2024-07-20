@@ -12,81 +12,29 @@ const AiSidebar = () => {
   const [text, setText] = useState(dialogText);
   return (
     <>
-      <div className={Styles.leftContainer}>
+      <div className="flex flex-col md:gap-20 gap-10 md:h-screen h-2/3 p-3">
         {/* top container */}
-        <div
-          style={{
-            background: "#008080",
-            padding: "15px",
-            border: "2px solid white",
-            borderRadius: "5px",
-            height: "250px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <h1 style={{ color: "#00FFA3", fontSize: "18px", margin: "0" }}>
-              Case Details :{" "}
-            </h1>
-            {/* <svg
-            style={{ cursor: "pointer" }}
-            width="25"
-            height="25"
-            viewBox="0 0 10 30"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="5" cy="5" r="3" stroke="white" fill="white" />
-            <circle cx="5" cy="15" r="3" stroke="white" fill="white" />
-            <circle cx="5" cy="25" r="3" stroke="white" fill="white" />
-          </svg> */}
+        <div className="bg-[#008080] p-4 border-2 border-white rounded h-full gap-5 flex flex-col justify-between">
+          <div className="flex flex-row justify-between items-center ">
+            <h1 className="text-[#00FFA3] text-[18px] m-0">Case Details : </h1>
+
             <motion.button
               whileTap={{ scale: "0.95" }}
               onClick={() => setEditDialog(true)}
-              style={{
-                border: "2px solid #00FFA3",
-                borderRadius: "10px",
-                padding: "5px 10px",
-              }}
+              className="border border-[#00FFA3] rounded-lg p-1 px-2"
             >
               Edit
             </motion.button>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "10px 20px",
-              background: "#C5C5C5",
-              color: "#008080",
-              border: "2px solid white",
-              borderRadius: "5px",
-            }}
-          >
-            <h1 style={{ fontSize: "15px", margin: "0" }}>Time Remaining:</h1>
-            <h1 style={{ fontSize: "15px", margin: "0" }}>00 : 00</h1>
+          <div className="flex justify-between items-center p-2 px-5 bg-[#C5C5C5] text-[#008080] border-2 border-white rounded">
+            <h1 className="text-sm m-0">Time Remaining:</h1>
+            <h1 className="text-sm m-0">00 : 00</h1>
           </div>
         </div>
         {/* bottom container */}
-        <div
-          style={{
-            background: "#008080",
-            padding: "15px",
-            height: "350px",
-            border: "2px solid white",
-            borderRadius: "5px",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        <div className="bg-[#008080] p-4 h-full border-2 border-white rounded flex flex-col justify-between">
+          <div>
+
           <motion.div
             whileTap={{ scale: "0.95" }}
             whileHover={{ scale: "1.01" }}
@@ -154,6 +102,7 @@ const AiSidebar = () => {
               </svg>
             </div>
           </motion.div>
+            </div>
           <div
             style={{
               display: "flex",
@@ -161,7 +110,7 @@ const AiSidebar = () => {
               alignItems: "center",
               margin: "40px 0px",
             }}
-          >
+            >
             <img className={Styles.logoImage} src={logo} alt="logo" />
           </div>
           <div
@@ -171,7 +120,7 @@ const AiSidebar = () => {
               gap: "15px",
               paddingLeft: "60px",
             }}
-          >
+            >
             <Link to={"/courtroom-ai/upload"}>
               <motion.div
                 whileTap={{ scale: "0.95" }}
@@ -249,7 +198,7 @@ const AiSidebar = () => {
               >
                 <path d="M11 21h8.033v-2l1-1v4h-9.033v2l-10-3v-18l10-3v2h9.033v5l-1-1v-3h-8.033v18zm-1 1.656v-21.312l-8 2.4v16.512l8 2.4zm11.086-10.656l-3.293-3.293.707-.707 4.5 4.5-4.5 4.5-.707-.707 3.293-3.293h-9.053v-1h9.053z" />
               </svg>
-              
+
               <h1 style={{ fontSize: "15px", margin: "0" }}>Exit Courtroom</h1>
             </motion.div>
           </div>

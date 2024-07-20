@@ -123,19 +123,21 @@ const Devices = () => {
           padding: "30px",
         }}
       >
-        <div className={styles.images} onClick={() => handleClick("drive")}>
+        <div className={`${styles.images} gap-10 `} onClick={() => handleClick("drive")}>
           <img src={Drive} alt="" />
-          <p>Upload from Drive</p>
+          <h4 className="font-semibold text-neutral-500">Upload from Drive</h4>
+
         </div>
         <div className={styles.verticalLine}></div>
-        <div className={styles.images} onClick={() => handleClick("dropbox")}>
+        <div className={`${styles.images} gap-10 `} onClick={() => handleClick("dropbox")}>
           <img src={DropBox} alt="" />
-          <p>Upload from Drop Box</p>
+          <h4 className="font-semibold text-neutral-500">Upload from Drop Box</h4>
         </div>
         <div className={styles.verticalLine}></div>
-        <div className={styles.images} onClick={() => handleClick("local")}>
+        <div className={`${styles.images} gap-10 `} onClick={() => handleClick("local")}>
           <img src={pc} alt="" />
-          <p>Upload from Computer</p>
+          <h4 className="font-semibold text-neutral-500">Upload from Computer </h4>
+
         </div>
       </section>
       <Dialog
@@ -162,11 +164,21 @@ const Devices = () => {
         </IconButton>
         <DialogContent>
           {uploading && (
-            <Lottie options={defaultOptions} height={150} width={150} />
+            <Lottie style={{
+              color:"white"
+            }} options={defaultOptions} height={150} width={150} />
           )}
           <DialogTitle>
-            {uploading && "Uploading Your Document"}
-            {analyzing && "Analyzing Your Document"}
+            {uploading && (
+              <div>
+                {/* //TODO upload lottie */}
+                <h4>Uploading Your Document</h4>
+              </div>
+            )}
+            {analyzing && <div>
+              {/* //TODO upload complete lottie */}
+              <h4>Analyzing thje document</h4>
+              </div>}
             {uploadComplete && "Upload Complete"}
           </DialogTitle>
           {!uploading && !analyzing && uploadComplete && (

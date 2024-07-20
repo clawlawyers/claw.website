@@ -39,12 +39,12 @@ function Home() {
     prevArrow: <SamplePrevArrow />,
   };
   return (
-    <div>
-      <div className={Styles.topcontainer}>
+    <div className="flex flex-col justify-center w-full items-center">
+      <div className="m-9 md:mx-40 grid grid-cols-2">
         <div>
           <h1>What is Courtroom ?</h1>
           <br />
-          <div style={{ padding: "20px 0px" }}>
+          <div className="p-5">
             <div className="slider-container">
               <Slider {...settings}>
                 <div>

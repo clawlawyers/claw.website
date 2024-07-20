@@ -1,22 +1,22 @@
 // src/components/CourtRoomAiLayout.js
 
-import React, { useState, useEffect } from 'react';
-import AiSidebar from './AiSidebar';
-import { Outlet } from 'react-router-dom';
-import Styles from './CourtroomAiLayout.module.css';
-import splashVideo from '../../assets/images/door open.mp4';
-import splashImage from '../../assets/images/splashImage.png';
-import LogoSplash from '../../assets/images/logoSplash.png';
+import React, { useState, useEffect } from "react";
+import AiSidebar from "./AiSidebar";
+import { Outlet } from "react-router-dom";
+import Styles from "./CourtroomAiLayout.module.css";
+import splashVideo from "../../assets/images/door open.mp4";
+import splashImage from "../../assets/images/splashImage.png";
+import LogoSplash from "../../assets/images/logoSplash.png";
 
 const CourtRoomAiLayout = () => {
   const [showSplash, setShowSplash] = useState(
-    !localStorage.getItem('hasSeenSplash')
+    !localStorage.getItem("hasSeenSplash")
   );
   const [videoStarted, setVideoStarted] = useState(false);
 
   useEffect(() => {
     if (!showSplash) {
-      localStorage.setItem('hasSeenSplash', 'true');
+      localStorage.setItem("hasSeenSplash", "true");
     }
   }, [showSplash]);
 
@@ -26,16 +26,16 @@ const CourtRoomAiLayout = () => {
 
   const handleEnterCourtroom = () => {
     setVideoStarted(true);
-    const videoElement = document.getElementById('splashVideo');
+    const videoElement = document.getElementById("splashVideo");
     if (videoElement) {
       videoElement.play().catch((error) => {
-        console.error('Error playing the video:', error);
+        console.error("Error playing the video:", error);
       });
     }
   };
 
   const handleExitCourtroom = () => {
-    localStorage.removeItem('hasSeenSplash');
+    localStorage.removeItem("hasSeenSplash");
     setShowSplash(true);
     setVideoStarted(false);
   };
@@ -50,10 +50,10 @@ const CourtRoomAiLayout = () => {
               src={splashImage}
               alt="Background"
               style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
                 zIndex: 1,
               }}
             />
@@ -76,9 +76,9 @@ const CourtRoomAiLayout = () => {
           )}
         </div>
       ) : (
-        <div className={Styles.mainContainer}>
+        <div className="grid grid-cols-1 md:grid-cols-[25%_75%] bg-gradient-to-r from-[#008080] to-[#0e1118] h-full">
           <AiSidebar />
-          <div className={Styles.rightContainer}>
+          <div className="m-3.5 border-2 border-white rounded">
             <Outlet />
           </div>
         </div>
