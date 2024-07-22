@@ -118,15 +118,48 @@ const AiSidebar = () => {
               display: "flex",
               flexDirection: "column",
               gap: "15px",
-              paddingLeft: "60px",
+              alignItems: "center",
             }}
           >
-            <Link to={"/courtroom-ai/upload"}>
+            <div className="flex flex-col gap-3">
+              <Link to={"/courtroom-ai/upload"}>
+                <motion.div
+                  whileTap={{ scale: "0.95" }}
+                  whileHover={{ scale: "1.01" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    cursor: "pointer",
+                  }}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    fill="white"
+                    clip-rule="evenodd"
+                    fill-rule="evenodd"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"
+                      fill-rule="nonzero"
+                    />
+                  </svg>
+                  <h1 style={{ fontSize: "15px", margin: "0", color: "white" }}>
+                    New Case Input
+                  </h1>
+                </motion.div>
+              </Link>
               <motion.div
                 whileTap={{ scale: "0.95" }}
                 whileHover={{ scale: "1.01" }}
                 style={{
                   display: "flex",
+                  // justifyContent: "center",
                   alignItems: "center",
                   gap: "10px",
                   cursor: "pointer",
@@ -136,71 +169,42 @@ const AiSidebar = () => {
                   width="24"
                   height="24"
                   fill="white"
-                  clip-rule="evenodd"
-                  fill-rule="evenodd"
-                  stroke-linejoin="round"
-                  stroke-miterlimit="2"
-                  viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
                 >
-                  <path
-                    d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"
-                    fill-rule="nonzero"
-                  />
+                  <path d="M22 11.414v12.586h-20v-12.586l-1.293 1.293-.707-.707 12-12 12 12-.707.707-1.293-1.293zm-6 11.586h5v-12.586l-9-9-9 9v12.586h5v-9h8v9zm-1-7.889h-6v7.778h6v-7.778z" />
                 </svg>
-                <h1 style={{ fontSize: "15px", margin: "0", color: "white" }}>
-                  New Case Input
+                <h1 style={{ fontSize: "15px", margin: "0" }}>Claw Home</h1>
+              </motion.div>
+              {/* //TODO : Add a handler and make sure to clear a local storage to setting splash screen to false on exiting courtroom*/}
+              <motion.div
+                whileTap={{ scale: "0.95" }}
+                whileHover={{ scale: "1.01" }}
+                style={{
+                  display: "flex",
+                  // justifyContent: "center",
+                  alignItems: "center",
+                  gap: "10px",
+                  cursor: "pointer",
+                }}
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  fill="white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                >
+                  <path d="M11 21h8.033v-2l1-1v4h-9.033v2l-10-3v-18l10-3v2h9.033v5l-1-1v-3h-8.033v18zm-1 1.656v-21.312l-8 2.4v16.512l8 2.4zm11.086-10.656l-3.293-3.293.707-.707 4.5 4.5-4.5 4.5-.707-.707 3.293-3.293h-9.053v-1h9.053z" />
+                </svg>
+
+                <h1 style={{ fontSize: "15px", margin: "0" }}>
+                  Exit Courtroom
                 </h1>
               </motion.div>
-            </Link>
-            <motion.div
-              whileTap={{ scale: "0.95" }}
-              whileHover={{ scale: "1.01" }}
-              style={{
-                display: "flex",
-                // justifyContent: "center",
-                alignItems: "center",
-                gap: "10px",
-                cursor: "pointer",
-              }}
-            >
-              <svg
-                width="24"
-                height="24"
-                fill="white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              >
-                <path d="M22 11.414v12.586h-20v-12.586l-1.293 1.293-.707-.707 12-12 12 12-.707.707-1.293-1.293zm-6 11.586h5v-12.586l-9-9-9 9v12.586h5v-9h8v9zm-1-7.889h-6v7.778h6v-7.778z" />
-              </svg>
-              <h1 style={{ fontSize: "15px", margin: "0" }}>Claw Home</h1>
-            </motion.div>
-            {/* //TODO : Add a handler and make sure to clear a local storage to setting splash screen to false on exiting courtroom*/}
-            <motion.div
-              whileTap={{ scale: "0.95" }}
-              whileHover={{ scale: "1.01" }}
-              style={{
-                display: "flex",
-                // justifyContent: "center",
-                alignItems: "center",
-                gap: "10px",
-                cursor: "pointer",
-              }}
-            >
-              <svg
-                width="24"
-                height="24"
-                fill="white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              >
-                <path d="M11 21h8.033v-2l1-1v4h-9.033v2l-10-3v-18l10-3v2h9.033v5l-1-1v-3h-8.033v18zm-1 1.656v-21.312l-8 2.4v16.512l8 2.4zm11.086-10.656l-3.293-3.293.707-.707 4.5 4.5-4.5 4.5-.707-.707 3.293-3.293h-9.053v-1h9.053z" />
-              </svg>
-
-              <h1 style={{ fontSize: "15px", margin: "0" }}>Exit Courtroom</h1>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
