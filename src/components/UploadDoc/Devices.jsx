@@ -172,7 +172,7 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
         <div className={styles.verticalLine}></div>
         <div
           className={`${styles.images} gap-10 `}
-          onClick={() => handleClick("drive")}
+          onClick={() => handleClick("local")}
         >
           <img className="p-5" src={pc} alt="" />
           <h4 className="font-semibold text-neutral-500">Upload from your PC</h4>
