@@ -20,16 +20,14 @@ const UploadDoc = () => {
   const handleClick = () => {
     setChooseDevice(true);
   };
-  
+
   const handleSubmit = () => {
     if (!ChooseDevice && !inputText) {
       setError(true);
+    } else {
+      console.log(uploadedFile);
+      navigate("/courtroom-ai");
     }
-    else{
-      console.log(uploadedFile)
-      navigate("/courtroom-ai")
-    }
-    
   };
   console.log(uploadedFile);
   const transition = { duration: 1 };
@@ -65,60 +63,37 @@ const UploadDoc = () => {
         </div>
       )}
 
-      <div className={Styles.rightBottomContainer}>
-        <input
-          className="border-2 border-[#00ffa3] text-neutral-900 rounded-xl p-2.5 w-[600px]"
-          placeholder="Input Your Case Into The Courtroom"
-          value={inputText}
-          onChange={handleInputChange}
-        />
-        <motion.button
-          whileTap={{ scale: "0.98" }}
-          whileHover={{ scale: "1.01" }}
-          style={{
-            display: "flex",
-            gap: "5px",
-            border: "2px solid #00ffa3",
-            borderRadius: "20px",
-            background: "#008080",
-            padding: "10px",
-            cursor: !uploadedFile && inputText==="" ? "not-allowed" : "pointer",
-            opacity: !uploadedFile && !inputText ? 0.5 : 1,
-          }}
-          onClick={handleSubmit}
-         
-        >
-          <img
-            style={{ width: "20px", height: "20px" }}
-            src={fight}
-            alt="fight"
-          />
-          <h2 style={{ fontSize: "15px", margin: "0" }}>Fight Yourself</h2>
-        </motion.button>
-        <motion.button
-          whileTap={{ scale: "0.98" }}
-          whileHover={{ scale: "1.01" }}
-          style={{
-            display: "flex",
-            gap: "5px",
-            border: "2px solid #00ffa3",
-            borderRadius: "20px",
-            background: "#008080",
-            padding: "10px",
-            cursor: !uploadedFile || inputText==="" ? "not-allowed" : "pointer",
-            opacity: !uploadedFile || !inputText ? 0.5 : 1,
-          }}
-          onClick={handleSubmit}
-         
-        >
-          <img
-            style={{ width: "20px", height: "20px" }}
-            src={draft}
-            alt="draft"
-          />
-          <h2 style={{ fontSize: "15px", margin: "0" }}>Get First Draft</h2>
-        </motion.button>
-      </div>
+<div className={`${Styles.rightBottomContainer} px-2 `}>
+  <input
+    className="border-2 border-[#00ffa3] text-neutral-900 rounded-xl p-2.5 w-full"
+    placeholder="Input Your Case Into The Courtroom"
+    value={inputText}
+    onChange={handleInputChange}
+  />
+  <motion.button
+    whileTap={{ scale: 0.98 }}
+    whileHover={{ scale: 1.01 }}
+    className={`flex items-center gap-1.5 border-2 border-[#00ffa3] rounded-md bg-[#008080] py-2 h-12  cursor-${
+      !uploadedFile && inputText === "" ? "not-allowed" : "pointer"
+    } ${!uploadedFile && inputText === "" ? "opacity-50" : "opacity-100"} w-1/6`}
+    onClick={handleSubmit}
+  >
+    <img className="w-5 h-5" src={fight} alt="fight" />
+    <h2 className="text-sm m-0">Fight Yourself</h2>
+  </motion.button>
+  <motion.button
+    whileTap={{ scale: 0.98 }}
+    whileHover={{ scale: 1.01 }}
+    className={`flex items-center gap-1.5 border-2 border-[#00ffa3] rounded-md bg-[#008080] py-2 h-12 cursor-${
+      !uploadedFile || inputText === "" ? "not-allowed" : "pointer"
+    } ${!uploadedFile || inputText === "" ? "opacity-50" : "opacity-100"} w-1/6`}
+    onClick={handleSubmit}
+  >
+    <img className="w-5 h-5" src={draft} alt="draft" />
+    <h2 className="text-sm m-0">Get First Draft</h2>
+  </motion.button>
+</div>
+
     </section>
   );
 };
