@@ -29,7 +29,7 @@ const CourtroomAiHome = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col justify-end">
+    <div className="w-full h-screen flex flex-col justify-end">
       <div className="flex md:flex-row flex-col ">
         <motion.div
           whileHover={{ scale: isUploaded ? "1.01" : "1" }}

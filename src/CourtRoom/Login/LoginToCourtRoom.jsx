@@ -70,8 +70,9 @@ function LoginToCourtRoom() {
   };
 
   return (
-    <div>
-      <div className={Styles.topcontainer}>
+    <div className="flex flex-col justify-center items-center">
+      {/* top cont */}
+      <div className="grid grid-cols-2 w-[95%] items-center">
         <div>
           <img
             style={{ width: "100%", height: "100%" }}
@@ -236,8 +237,8 @@ function LoginToCourtRoom() {
                 position: "absolute",
                 // backgroundColor: "rgba(0, 0, 0, 0.1)",
                 backdropFilter: "blur(3px)",
-                top: "0",
-                left: "-100px",
+                top: "0px",
+                left: "-115px",
                 width: "110%",
                 height: "95%",
                 borderRadius: "10px",
@@ -305,7 +306,11 @@ function LoginToCourtRoom() {
           )}
         </form>
       </div>
-      <div style={{ display: "grid", placeItems: "center", marginTop: "80px" }}>
+      {/* bottom cont */}
+      <div
+        className="w-full"
+        style={{ display: "grid", placeItems: "center", marginTop: "80px" }}
+      >
         <motion.div
           className={Styles.third}
           style={{
