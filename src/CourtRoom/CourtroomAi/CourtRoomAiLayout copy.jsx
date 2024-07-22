@@ -23,14 +23,16 @@ const CourtRoomAiLayout = () => {
   };
 
   return (
-    <div >
+    <div>
       {showSplash ? (
-        <div style={{
-          backgroundImage:'url("../../assets/images/splashImage.png")'
-        }} className="flex flex-col justify-center items-center h-screen w-full ">
+        <div
+          style={{
+            backgroundImage: 'url("../../assets/images/splashImage.png")',
+          }}
+          className="flex flex-col justify-center items-center h-screen w-full "
+        >
           {!videoStarted && (
             <div className="">
-
               <button onClick={handleEnterCourtroom}>Enter Courtroom</button>
             </div>
           )}
@@ -45,11 +47,11 @@ const CourtRoomAiLayout = () => {
           )}
         </div>
       ) : (
-        <div className="flex flex-col justify-end w-full h-screen">
+        <div className="flex flex-col justify-end w-full h-full">
           <AiSidebar />
-          <div className={Styles.rightContainer}>
-            <Outlet />
-          </div>
+          {/* <div className={Styles.rightContainer}> */}
+          <Outlet />
+          {/* </div> */}
         </div>
       )}
     </div>

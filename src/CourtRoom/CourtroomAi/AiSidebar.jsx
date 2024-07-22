@@ -21,7 +21,7 @@ const AiSidebar = () => {
   const [text, setText] = useState(dialogText);
   return (
     <>
-      <div className="flex flex-col md:gap-20 gap-10 md:h-screen h-2/3 p-3">
+      <div className="flex flex-col gap-2 h-2/3 p-3">
         {/* top container */}
         <div className="bg-[#008080] p-4 border-2 border-white rounded h-full gap-5 flex flex-col justify-between">
           <div className="flex flex-row justify-between items-center ">
@@ -35,7 +35,8 @@ const AiSidebar = () => {
               Edit
             </motion.button>
           </div>
-          <div className="flex justify-between items-center p-2 px-5 bg-[#C5C5C5] text-[#008080] border-2 border-white rounded">
+          <div className="h-10"></div>
+          <div className="flex justify-between items-center p-2 bg-[#C5C5C5] text-[#008080] border-2 border-white rounded">
             <h1 className="text-sm m-0">Time Remaining:</h1>
             <h1 className="text-sm m-0">00 : 00</h1>
           </div>
