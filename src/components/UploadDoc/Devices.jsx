@@ -3,7 +3,7 @@ import Drive from "../../assets/icons/drive.svg";
 import DropBox from "../../assets/icons/dropbox.svg";
 import pc from "../../assets/icons/local.svg";
 import styles from "../../CourtRoom/CourtroomAi/UploadDoc.module.css";
-import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
+import Dialog from "../ui/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
 import Lottie from "react-lottie";
@@ -37,7 +37,9 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-
+  const handleSave = () => {
+    // text save logic
+  }
   const handleClick = (source) => {
     switch (source) {
       case "local":
@@ -69,7 +71,7 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
         setTimeout(() => {
           console.log("File uploaded successfully");
           setUploadedFile(true);
-          localStorage.setItem("FileUploaded",true);
+          localStorage.setItem("FileUploaded", true);
 
           // Mock the file URL
           const mockFileUrl = "https://example.com/uploaded-file-url";
@@ -128,7 +130,7 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
     setAnalyzing(false);
     setUploadComplete(false);
     setPreviewContent("");
-    navigate("/courtroom-ai");
+    navigate("/courtroom-ai/arguments");
   };
 
   return (
@@ -167,102 +169,46 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
           onClick={() => handleClick("drive")}
         >
           <img className="p-5" src={DropBox} alt="" />
-          <h4 className="font-semibold text-neutral-500">Upload from Drop Box</h4>
+          <h4 className="font-semibold text-neutral-500">
+            Upload from Drop Box
+          </h4>
         </div>
         <div className={styles.verticalLine}></div>
         <div
           className={`${styles.images} gap-10 `}
-          onClick={() => handleClick("drive")}
+          onClick={() => handleClick("local")}
         >
           <img className="p-5" src={pc} alt="" />
-          <h4 className="font-semibold text-neutral-500">Upload from your PC</h4>
+          <h4 className="font-semibold text-neutral-500">
+            Upload from your PC
+          </h4>
         </div>
       </section>
       <Dialog
-      sx={{
-        width:"100%"
-      }}
         open={uploading || analyzing || uploadComplete}
         onClose={handleDialogClose}
-        PaperProps={{
-          style: {
-            background: "linear-gradient(to right,#0e1118,#008080)",
-            backdropFilter: "blur(3px)",
-            borderRadius: "10px",
-            padding: "20px",
-            textAlign: "center",
-            color: "white",
-            width: "100%",
-            height: "50%",
-            border: "1px solid white",
-          },
-        }}
+        title={
+          uploading
+            ? "Uploading Your Document"
+            : analyzing
+            ? "Analyzing the Document"
+            : uploadComplete
+            ? "Upload Complete"
+            : ""
+        }
+        text={uploading || analyzing ? "" : previewContent}
+        buttonText={`${uploadComplete? "Save":""}`}
+        onButtonClick={handleSave}
+        lottieOptions={
+          uploading ? defaultOptions : analyzing ? analyzeLottie : ""
+        }
       >
-        <IconButton
-          style={{ position: "absolute", top: 10, right: 10, color: "white" }}
-          onClick={handleDialogClose}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent>
-          {uploading && (
-            <Lottie
-              style={{
-                color: "white",
-              }}
-              options={defaultOptions}
-              height={150}
-              width={150}
-            />
-          )}
-          <DialogTitle>
-            {uploading && (
-              <div>
-                {/* //TODO upload lottie */}
-                <h4>Uploading Your Document</h4>
-              </div>
-            )}
-            {analyzing && (
-              <div>
-                {/* //TODO upload complete lottie */}
-                <Lottie
-                  style={{
-                    color: "white",
-                  }}
-                  options={analyzeLottie}
-                  height={150}
-                  width={150}
-                />
-                <h4>Analyzing thje document</h4>
-              </div>
-            )}
-            {uploadComplete && "Upload Complete"}
-          </DialogTitle>
-          {!uploading && !analyzing && uploadComplete && (
-            <div style={{ marginTop: "20px" }}>
-              <div style={{ marginTop: "20px", textAlign: "left" }}>
-                <h4>Document Preview:</h4>
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    padding: "10px",
-                    color: "black",
-                    border: "1px solid black",
-                    borderRadius: "5px",
-                  }}
-                >
-                  <p
-                    style={{
-                      color: "black",
-                    }}
-                  >
-                    {previewContent}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-        </DialogContent>
+        {uploading && (
+          <Lottie options={defaultOptions} height={150} width={150} />
+        )}
+        {analyzing && (
+          <Lottie options={analyzeLottie} height={150} width={150} />
+        )}
       </Dialog>
     </motion.div>
   );

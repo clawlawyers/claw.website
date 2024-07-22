@@ -43,8 +43,8 @@ function Home() {
   return (
     <div className="">
       {/* top container */}
-      <div className="md:grid md:grid-cols-2 px-2 md:px-28">
-        <div>
+      <div className="md:grid md:grid-cols-2 items-center px-2 md:px-28">
+        <div className="pl-28">
           <h1 className="px-5 text-start">What is Courtroom ?</h1>
           <br />
           <div className="p-5">
@@ -160,7 +160,7 @@ function Home() {
             </Link>
           </div>
         </div>
-        <div>
+        <div className="">
           <motion.img
             initial={{ x: "100%" }}
             whileInView={{ x: "0%" }}
@@ -177,7 +177,7 @@ function Home() {
         </div>
       </div>
       {/* 2nd container */}
-      <div className="grid grid-cols-3 p-5">
+      <div className="grid grid-cols-3 m-5 p-10">
         <motion.div
           initial={{ x: ["100%"] }}
           whileInView={{ x: "0%" }}
@@ -297,7 +297,7 @@ function Home() {
         // whileHover="hover"
         // onHoverStart={() => setSubmitHover(true)}
         // onHoverEnd={() => setSubmitHover(false)}
-        className="flex items-center justify-center mt-[150px] p-5"
+        className="flex items-center justify-center mt-[150px] mx-10 p-5"
       >
         <div
           style={{
@@ -356,7 +356,7 @@ function Home() {
         </motion.div>
       </motion.div>
 
-      <motion.div className="flex items-center justify-center  mt-[150px] p-5">
+      <motion.div className="flex items-center justify-center  mt-[150px] mx-10 p-5">
         <motion.div
           initial={{ x: "-50%" }}
           whileInView={{ x: "0%" }}
@@ -403,7 +403,7 @@ function Home() {
         </div>
       </motion.div>
 
-      <div className="flex items-center justify-center  mt-[150px] p-5">
+      <motion.div className="flex items-center justify-center  mt-[150px] mx-10 p-5">
         <div
           style={{
             display: "flex",
@@ -447,7 +447,7 @@ function Home() {
             </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
       <div className={Styles.whyCourtRoom}>
         <div>
