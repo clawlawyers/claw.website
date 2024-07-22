@@ -158,36 +158,36 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
           className={`${styles.images} gap-10 `}
           onClick={() => handleClick("drive")}
         >
-          <img src={Drive} alt="" />
+          <img className="p-5" src={Drive} alt="" />
           <h4 className="font-semibold text-neutral-500">Upload from Drive</h4>
         </div>
         <div className={styles.verticalLine}></div>
         <div
           className={`${styles.images} gap-10 `}
-          onClick={() => handleClick("dropbox")}
+          onClick={() => handleClick("drive")}
         >
-          <img src={DropBox} alt="" />
-          <h4 className="font-semibold text-neutral-500">
-            Upload from Drop Box
-          </h4>
+          <img className="p-5" src={DropBox} alt="" />
+          <h4 className="font-semibold text-neutral-500">Upload from Drop Box</h4>
         </div>
         <div className={styles.verticalLine}></div>
         <div
           className={`${styles.images} gap-10 `}
-          onClick={() => handleClick("local")}
+          onClick={() => handleClick("drive")}
         >
-          <img src={pc} alt="" />
-          <h4 className="font-semibold text-neutral-500">
-            Upload from Computer{" "}
-          </h4>
+          <img className="p-5" src={pc} alt="" />
+          <h4 className="font-semibold text-neutral-500">Upload from your PC</h4>
         </div>
       </section>
       <Dialog
+      sx={{
+        width:"100%"
+      }}
         open={uploading || analyzing || uploadComplete}
         onClose={handleDialogClose}
         PaperProps={{
           style: {
-            backgroundColor: "#005f73",
+            background: "linear-gradient(to right,#0e1118,#008080)",
+            backdropFilter: "blur(3px)",
             borderRadius: "10px",
             padding: "20px",
             textAlign: "center",
