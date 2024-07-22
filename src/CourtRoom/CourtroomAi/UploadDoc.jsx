@@ -72,13 +72,13 @@ const UploadDoc = () => {
               borderRadius: "20px",
               padding: "10px",
               // width: "600px",
-              cursor: `${!uploadedFile || !inputText === "" ? "not-allowed" : "pointer"}`,
+              cursor: `${
+                !uploadedFile || !inputText === "" ? "not-allowed" : "pointer"
+              }`,
             }}
-            
             placeholder="Input Your Case Into The Courtroom"
             onChange={handleInputChange}
             value={inputText}
-            
           />
         </div>
         <div className="flex gap-2">

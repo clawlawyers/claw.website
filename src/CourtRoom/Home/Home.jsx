@@ -25,7 +25,7 @@ function SamplePrevArrow(props) {
 }
 
 function Home() {
-  // const [submitHover, setSubmitHover] = useState(false);
+  const [submitHover, setSubmitHover] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const settings = {
@@ -40,8 +40,14 @@ function Home() {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
+
   return (
-    <div className="">
+    <motion.div
+      whileHover="hover"
+      onHoverStart={() => setSubmitHover(true)}
+      onHoverEnd={() => setSubmitHover(false)}
+      className=""
+    >
       {/* top container */}
       <div className="md:grid md:grid-cols-2 items-center px-2 md:px-28">
         <div className="pl-28">
@@ -163,7 +169,10 @@ function Home() {
         <div className="">
           <motion.img
             initial={{ x: "100%" }}
-            whileInView={{ x: "0%" }}
+            variants={{
+              hover: { x: "0%" },
+            }}
+            // whileHover={{ x: "0%" }}
             transition={{ type: "spring", stiffness: 120, damping: 10 }}
             alt="court-room"
             className="h-full w-full"
@@ -594,7 +603,7 @@ function Home() {
           </div>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

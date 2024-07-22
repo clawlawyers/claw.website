@@ -51,7 +51,7 @@ const CourtroomArgument = () => {
     setSelectedUserArgumentContent(null);
   };
   return (
-    <div className="grid">
+    <div className="grid h-full">
       {/* top container */}
       <div className="grid grid-cols-2">
         {/* topContainer */}
@@ -195,7 +195,7 @@ const CourtroomArgument = () => {
           <h1 style={{ fontSize: "20px", margin: "0" }}>User Argument</h1>
         </div>
         <div
-          className="lg:h-[300px] xl:h-[600px]"
+          className="h-[500px]"
           style={{
             margin: "10px",
             overflow: "hidden",

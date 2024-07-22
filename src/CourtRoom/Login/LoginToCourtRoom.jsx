@@ -72,7 +72,7 @@ function LoginToCourtRoom() {
   return (
     <div className="flex flex-col justify-center items-center">
       {/* top cont */}
-      <div className="grid grid-cols-2 w-[95%] items-center">
+      <div className="grid grid-cols-2 items-center">
         <div>
           <img
             style={{ width: "100%", height: "100%" }}
