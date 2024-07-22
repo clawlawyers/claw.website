@@ -75,7 +75,7 @@ const CourtRoomAiLayout = () => {
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-[25%_75%] bg-gradient-to-r from-[#008080] to-[#0e1118] h-full">
+        <div className="grid grid-cols-1 md:grid-cols-[25%_75%] bg-gradient-to-r from-[#008080] to-[#0e1118] h-screen">
           <AiSidebar />
           <div className="m-3.5 border-2 border-black bg-[#008080] rounded">
             <Outlet />
