@@ -3,11 +3,20 @@ import logo from "../../assets/images/claw-login.png";
 import Styles from "./AiSidebar.module.css";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 const dialogText =
   "n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is availablen publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is availablen publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available";
 
 const AiSidebar = () => {
+  const navigate = useNavigate();
+  const handleExit = () => {
+    localStorage.removeItem("hasSeenSplash");
+
+
+    localStorage.setItem("FileUploaded", false);
+
+    navigate("/court-room");
+  };
   const [editDialog, setEditDialog] = useState(false);
   const [text, setText] = useState(dialogText);
   return (
@@ -34,75 +43,74 @@ const AiSidebar = () => {
         {/* bottom container */}
         <div className="bg-[#008080] p-4 h-full border-2 border-white rounded flex flex-col justify-between">
           <div>
-
-          <motion.div
-            whileTap={{ scale: "0.95" }}
-            whileHover={{ scale: "1.01" }}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "5px 20px",
-              background: "#C5C5C5",
-              color: "#008080",
-              border: "2px solid white",
-              borderRadius: "5px",
-              marginBottom: "10px",
-              cursor: "pointer",
-            }}
-          >
-            <div>
-              <h1 style={{ fontSize: "15px", margin: "0" }}>
-                Download Session History
-              </h1>
-            </div>
-            <div style={{ width: "15px", margin: "0" }}>
-              <svg
-                width="24"
-                height="24"
-                style={{ fill: "#008080", cursor: "pointer" }}
-                xmlns="http://www.w3.org/2000/svg"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              >
-                <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z" />
-              </svg>
-            </div>
-          </motion.div>
-          <motion.div
-            whileTap={{ scale: "0.95" }}
-            whileHover={{ scale: "1.01" }}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "5px 20px",
-              background: "#C5C5C5",
-              color: "#008080",
-              border: "2px solid white",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            <div>
-              <h1 style={{ fontSize: "15px", margin: "0" }}>
-                Download Case History
-              </h1>
-            </div>
-            <div style={{ width: "15px", margin: "0" }}>
-              <svg
-                width="24"
-                height="24"
-                style={{ fill: "#008080", cursor: "pointer" }}
-                xmlns="http://www.w3.org/2000/svg"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              >
-                <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z" />
-              </svg>
-            </div>
-          </motion.div>
-            </div>
+            <motion.div
+              whileTap={{ scale: "0.95" }}
+              whileHover={{ scale: "1.01" }}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "5px 20px",
+                background: "#C5C5C5",
+                color: "#008080",
+                border: "2px solid white",
+                borderRadius: "5px",
+                marginBottom: "10px",
+                cursor: "pointer",
+              }}
+            >
+              <div>
+                <h1 style={{ fontSize: "15px", margin: "0" }}>
+                  Download Session History
+                </h1>
+              </div>
+              <div style={{ width: "15px", margin: "0" }}>
+                <svg
+                  width="24"
+                  height="24"
+                  style={{ fill: "#008080", cursor: "pointer" }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                >
+                  <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z" />
+                </svg>
+              </div>
+            </motion.div>
+            <motion.div
+              whileTap={{ scale: "0.95" }}
+              whileHover={{ scale: "1.01" }}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "5px 20px",
+                background: "#C5C5C5",
+                color: "#008080",
+                border: "2px solid white",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              <div>
+                <h1 style={{ fontSize: "15px", margin: "0" }}>
+                  Download Case History
+                </h1>
+              </div>
+              <div style={{ width: "15px", margin: "0" }}>
+                <svg
+                  width="24"
+                  height="24"
+                  style={{ fill: "#008080", cursor: "pointer" }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                >
+                  <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z" />
+                </svg>
+              </div>
+            </motion.div>
+          </div>
           <div
             style={{
               display: "flex",
@@ -110,7 +118,7 @@ const AiSidebar = () => {
               alignItems: "center",
               margin: "40px 0px",
             }}
-            >
+          >
             <img className={Styles.logoImage} src={logo} alt="logo" />
           </div>
           <div
@@ -120,7 +128,7 @@ const AiSidebar = () => {
               gap: "15px",
               paddingLeft: "60px",
             }}
-            >
+          >
             <Link to={"/courtroom-ai/upload"}>
               <motion.div
                 whileTap={{ scale: "0.95" }}
@@ -178,6 +186,7 @@ const AiSidebar = () => {
             </motion.div>
             {/* //TODO : Add a handler and make sure to clear a local storage to setting splash screen to false on exiting courtroom*/}
             <motion.div
+              onClick={handleExit}
               whileTap={{ scale: "0.95" }}
               whileHover={{ scale: "1.01" }}
               style={{

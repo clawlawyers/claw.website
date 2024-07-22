@@ -15,11 +15,12 @@ const UploadDoc = () => {
     console.log(inputText);
   };
   const [ChooseDevice, setChooseDevice] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState();
+  const [uploadedFile, setUploadedFile] = useState(false);
   const [error, setError] = useState(false);
   const handleClick = () => {
     setChooseDevice(true);
   };
+  
   const handleSubmit = () => {
     if (!ChooseDevice && !inputText) {
       setError(true);
@@ -30,7 +31,7 @@ const UploadDoc = () => {
     }
     
   };
-
+  console.log(uploadedFile);
   const transition = { duration: 1 };
   const variants = {
     open: { height: "100%", width: "100%" },
@@ -104,8 +105,8 @@ const UploadDoc = () => {
             borderRadius: "20px",
             background: "#008080",
             padding: "10px",
-            cursor: !uploadedFile && inputText==="" ? "not-allowed" : "pointer",
-            opacity: !uploadedFile && !inputText ? 0.5 : 1,
+            cursor: !uploadedFile || inputText==="" ? "not-allowed" : "pointer",
+            opacity: !uploadedFile || !inputText ? 0.5 : 1,
           }}
           onClick={handleSubmit}
          

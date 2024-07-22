@@ -46,3 +46,9 @@
     }
   }
   
+.css-23p0if-MuiButtonBase-root-MuiPickersDay-root{
+    color:white;
+  }
+  .MuiButtonBase-root MuiPickersDay-root MuiPickersDay-dayWithMargin css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root{
+    color:white !important;
+  }

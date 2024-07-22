@@ -35,7 +35,6 @@ const CourtRoomAiLayout = () => {
   };
 
   const handleExitCourtroom = () => {
-    localStorage.removeItem("hasSeenSplash");
     setShowSplash(true);
     setVideoStarted(false);
   };
@@ -43,7 +42,7 @@ const CourtRoomAiLayout = () => {
   return (
     <div>
       {showSplash ? (
-        <div className="flex flex-col justify-center items-center h-screen w-full relative">
+        <div className="flex flex-col justify-center  items-center h-screen w-full relative">
           {!videoStarted && (
             <img
               className={Styles.image}
@@ -60,7 +59,7 @@ const CourtRoomAiLayout = () => {
           )}
 
           {!videoStarted && (
-            <div className="z-2 flex flex-col w-full h-screen justify-center items-center">
+            <div className="z-2 flex flex-col gap-10 mt-5 w-full h-screen justify-center items-center">
               <img className="h-max w-max" src={LogoSplash} alt="" />
               <button onClick={handleEnterCourtroom}>Enter Courtroom</button>
             </div>

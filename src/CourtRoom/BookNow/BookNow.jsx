@@ -106,24 +106,7 @@ const BookNow = () => {
               data
             );
             alert(result.data.status);
-            // if (
-            //   plan === "AddOn" &&
-            //   result.data.status === "Payment verified successfully"
-            // ) {
-            //   axios.post(
-            //     `${NODE_API_ENDPOINT}/gpt/dummy`,
-            //     {
-            //       phoneNumber: currentUser.phoneNumber,
-            //     },
-            //     {
-            //       headers: {
-            //         Authorization: `Bearer ${currentUser.jwt}`,
-            //         "Content-Type": "application/json",
-            //       },
-            //     }
-            //   );
-            // }
-            // nav("/");
+           
           },
 
           theme: {
@@ -150,7 +133,7 @@ const BookNow = () => {
           fontWeight: 800,
         }}
       >
-        Book your CourtRoom
+        Book your Court Room
       </h1>
       <CalendarComponent
         scheduledSlots={scheduledSlots}
@@ -188,7 +171,7 @@ const BookNow = () => {
               onChange={handleInputChange}
               required
             />
-            <div style={{ position: "relative", width: "100%" }}>
+            <div className="relative w-[70%] bg-white/80 rounded-[10px]">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -197,6 +180,7 @@ const BookNow = () => {
                 value={formData.password}
                 onChange={handleInputChange}
                 required
+                className="text-black bg-transparent"
               />
               <button
                 type="button"
@@ -206,15 +190,20 @@ const BookNow = () => {
                   right: "10px",
                   transform: "translateY(-50%)",
                   border: "1px",
-                  background: "none",
+                  background:"none",
                   cursor: "pointer",
-                  // width:"fit-content"
+                  width:"fit-content",
+
                 }}
                 onClick={() =>
                   showPassword ? setShowPassword(false) : setShowPassword(true)
                 }
               >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
+                {showPassword ? <Visibility sx={{
+                  color:"black"
+                }} /> : <VisibilityOff sx={{
+                  color:"black"
+                }} />}
               </button>
             </div>
             <input

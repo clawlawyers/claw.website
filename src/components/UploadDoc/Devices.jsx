@@ -57,7 +57,7 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
   const handleUploadFromComputer = async () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
-    fileInput.accept = ".pdf,.doc,.docx,.txt, .jpg"; // Specify the accepted file types
+    fileInput.accept = ".pdf,.doc,.docx,.txt,.jpg"; // Specify the accepted file types
     fileInput.addEventListener("change", async (event) => {
       const file = event.target.files[0];
       setFile(file);
@@ -66,61 +66,28 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
 
         console.log(file);
 
-        try {
-          const formData = new FormData();
-          formData.append("file", file);
+        setTimeout(() => {
+          console.log("File uploaded successfully");
+          setUploadedFile(true);
+          localStorage.setItem("FileUploaded",true);
 
-          const FileResponse = await axios.post(
-            `${NODE_API_ENDPOINT}/upload`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
-
-          console.log(FileResponse.data.data.url); // The public URL of the uploaded file
+          // Mock the file URL
+          const mockFileUrl = "https://example.com/uploaded-file-url";
 
           setUploading(false);
           setAnalyzing(true);
 
-          const CaseOverview = await axios.post(
-            `${NODE_API_ENDPOINT}/courtroom/newcase`,
-            {
-              user_id: "1234",
-              case_details_link: FileResponse.data.data.url,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          setAnalyzing(false);
-          setUploadComplete(true);
-          console.log(CaseOverview.data.data.case_overview);
-          setPreviewContent(CaseOverview.data.data.case_overview);
-          setUploadedFile(true);
+          setTimeout(() => {
+            setAnalyzing(false);
+            setUploadComplete(true);
 
-          // Handle the file upload here
-          // setTimeout(() => {
-          //   setUploading(false);
-          //   setAnalyzing(true);
-          //   setTimeout(() => {
-          //     setAnalyzing(false);
-          //     setUploadComplete(true);
-          //     setPreviewContent(
-          //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
-          //     ); // Set preview content
-          //   }, 3000); // Simulate analyzing
-          // }, 3000); // Simulate upload
-          // setUploadedFile(true);
-        } catch (error) {
-          console.error("Error uploading file:", error);
-          setUploading(false);
-          // Handle the error appropriately
-        }
+            const mockCaseOverview =
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus.";
+
+            console.log(mockCaseOverview);
+            setPreviewContent(mockCaseOverview);
+          }, 3000); // Simulate analyzing
+        }, 3000); // Simulate upload
       }
     });
     fileInput.click();
