@@ -15,7 +15,7 @@ const CourtroomAiHome = () => {
         >
           <h1
             whileHover={{ scale: "1.01" }}
-           className="text-sm p-4 text-center"
+            className="text-sm p-4 text-center"
           >
             in publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
@@ -27,9 +27,7 @@ const CourtroomAiHome = () => {
           whileHover={{ scale: "0.98" }}
           className="m-2.5 bg-[#161a25] rounded-lg"
         >
-          <h1
-            className="text-sm p-4 text-center"
-          >
+          <h1 className="text-sm p-4 text-center">
             in publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
             typeface without relying on meaningful content. Lorem ipsum may be
@@ -40,9 +38,7 @@ const CourtroomAiHome = () => {
           whileHover={{ scale: "1.01" }}
           className="m-2.5 bg-[#161a25] rounded-lg"
         >
-          <h1
-             className="text-sm p-4 text-center"
-          >
+          <h1 className="text-sm p-4 text-center">
             in publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
             typeface without relying on meaningful content. Lorem ipsum may be
@@ -50,13 +46,14 @@ const CourtroomAiHome = () => {
           </h1>
         </motion.div>
       </div>
-      <div className="w-full py-2 flex md:flex-row flex-col justify-center gap-4  items-center">
+      <div className="w-full py-2 flex md:flex-row flex-col justify-center gap-2  items-center">
         <input
+          className="w-[400px] md:w-[600px]"
           style={{
             border: "2px solid #00ffa3",
             borderRadius: "20px",
             padding: "10px",
-            width: "600px",
+            // width: "600px",
             cursor: "not-allowed",
           }}
           disabled

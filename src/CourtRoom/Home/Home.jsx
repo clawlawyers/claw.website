@@ -39,10 +39,10 @@ function Home() {
     prevArrow: <SamplePrevArrow />,
   };
   return (
-    <div className="flex flex-col justify-center w-full items-center">
-      <div className="m-9 md:mx-40 grid grid-cols-2">
+    <div className="">
+      <div className={Styles.topContainer}>
         <div>
-          <h1>What is Courtroom ?</h1>
+          <h1 style={{ textAlign: "center" }}>What is Courtroom ?</h1>
           <br />
           <div className="p-5">
             <div className="slider-container">
@@ -163,19 +163,21 @@ function Home() {
             </Link>
           </div>
         </div>
-        <motion.img
-          initial={{ x: "100%" }}
-          whileInView={{ x: "0%" }}
-          transition={{ type: "spring", stiffness: 120, damping: 10 }}
-          alt="court-room"
-          className={Styles.topContainerImage}
-          style={{
-            backgroundColor: "transparent",
-            // height: "75%",
-            // width: "75%",
-          }}
-          src={courtroom}
-        />
+        <div>
+          <motion.img
+            initial={{ x: "100%" }}
+            whileInView={{ x: "0%" }}
+            transition={{ type: "spring", stiffness: 120, damping: 10 }}
+            alt="court-room"
+            className={Styles.topContainerImage}
+            style={{
+              backgroundColor: "transparent",
+              // height: "75%",
+              // width: "75%",
+            }}
+            src={courtroom}
+          />
+        </div>
       </div>
 
       <div className={Styles.secondtopcontainer}>

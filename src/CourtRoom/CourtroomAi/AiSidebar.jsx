@@ -12,7 +12,7 @@ const AiSidebar = () => {
   const [text, setText] = useState(dialogText);
   return (
     <>
-      <div className="flex flex-col md:gap-20 gap-10 md:h-screen h-2/3 p-3">
+      <div className="flex flex-col gap-2 h-2/3 p-3">
         {/* top container */}
         <div className="bg-[#008080] p-4 border-2 border-white rounded h-full gap-5 flex flex-col justify-between">
           <div className="flex flex-row justify-between items-center ">
@@ -26,7 +26,8 @@ const AiSidebar = () => {
               Edit
             </motion.button>
           </div>
-          <div className="flex justify-between items-center p-2 px-5 bg-[#C5C5C5] text-[#008080] border-2 border-white rounded">
+          <div className="h-10"></div>
+          <div className="flex justify-between items-center p-2 bg-[#C5C5C5] text-[#008080] border-2 border-white rounded">
             <h1 className="text-sm m-0">Time Remaining:</h1>
             <h1 className="text-sm m-0">00 : 00</h1>
           </div>
@@ -34,75 +35,74 @@ const AiSidebar = () => {
         {/* bottom container */}
         <div className="bg-[#008080] p-4 h-full border-2 border-white rounded flex flex-col justify-between">
           <div>
-
-          <motion.div
-            whileTap={{ scale: "0.95" }}
-            whileHover={{ scale: "1.01" }}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "5px 20px",
-              background: "#C5C5C5",
-              color: "#008080",
-              border: "2px solid white",
-              borderRadius: "5px",
-              marginBottom: "10px",
-              cursor: "pointer",
-            }}
-          >
-            <div>
-              <h1 style={{ fontSize: "15px", margin: "0" }}>
-                Download Session History
-              </h1>
-            </div>
-            <div style={{ width: "15px", margin: "0" }}>
-              <svg
-                width="24"
-                height="24"
-                style={{ fill: "#008080", cursor: "pointer" }}
-                xmlns="http://www.w3.org/2000/svg"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              >
-                <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z" />
-              </svg>
-            </div>
-          </motion.div>
-          <motion.div
-            whileTap={{ scale: "0.95" }}
-            whileHover={{ scale: "1.01" }}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "5px 20px",
-              background: "#C5C5C5",
-              color: "#008080",
-              border: "2px solid white",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            <div>
-              <h1 style={{ fontSize: "15px", margin: "0" }}>
-                Download Case History
-              </h1>
-            </div>
-            <div style={{ width: "15px", margin: "0" }}>
-              <svg
-                width="24"
-                height="24"
-                style={{ fill: "#008080", cursor: "pointer" }}
-                xmlns="http://www.w3.org/2000/svg"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              >
-                <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z" />
-              </svg>
-            </div>
-          </motion.div>
-            </div>
+            <motion.div
+              whileTap={{ scale: "0.95" }}
+              whileHover={{ scale: "1.01" }}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "5px 20px",
+                background: "#C5C5C5",
+                color: "#008080",
+                border: "2px solid white",
+                borderRadius: "5px",
+                marginBottom: "10px",
+                cursor: "pointer",
+              }}
+            >
+              <div>
+                <h1 style={{ fontSize: "15px", margin: "0" }}>
+                  Download Session History
+                </h1>
+              </div>
+              <div style={{ width: "15px", margin: "0" }}>
+                <svg
+                  width="24"
+                  height="24"
+                  style={{ fill: "#008080", cursor: "pointer" }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                >
+                  <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z" />
+                </svg>
+              </div>
+            </motion.div>
+            <motion.div
+              whileTap={{ scale: "0.95" }}
+              whileHover={{ scale: "1.01" }}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "5px 20px",
+                background: "#C5C5C5",
+                color: "#008080",
+                border: "2px solid white",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              <div>
+                <h1 style={{ fontSize: "15px", margin: "0" }}>
+                  Download Case History
+                </h1>
+              </div>
+              <div style={{ width: "15px", margin: "0" }}>
+                <svg
+                  width="24"
+                  height="24"
+                  style={{ fill: "#008080", cursor: "pointer" }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                >
+                  <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z" />
+                </svg>
+              </div>
+            </motion.div>
+          </div>
           <div
             style={{
               display: "flex",
@@ -110,7 +110,7 @@ const AiSidebar = () => {
               alignItems: "center",
               margin: "40px 0px",
             }}
-            >
+          >
             <img className={Styles.logoImage} src={logo} alt="logo" />
           </div>
           <div
@@ -120,7 +120,7 @@ const AiSidebar = () => {
               gap: "15px",
               paddingLeft: "60px",
             }}
-            >
+          >
             <Link to={"/courtroom-ai/upload"}>
               <motion.div
                 whileTap={{ scale: "0.95" }}

@@ -239,38 +239,50 @@ const CourtroomArgument = () => {
           ))}
         </div>
       </div>
-      <div className={Styles.bottomContainer}>
+      <div className="w-full py-2 flex md:flex-row flex-col justify-center gap-2  items-center">
         <input
+          className="w-[400px] md:w-[600px]"
           style={{
             border: "2px solid #00ffa3",
             borderRadius: "20px",
             padding: "10px",
-            width: "600px",
+            // width: "600px",
+            cursor: "pointer",
           }}
           placeholder="Input Your Case Into The Courtroom"
         />
-        <div
+        <motion.div
           style={{
+            display: "flex",
+            gap: "5px",
             border: "2px solid #00ffa3",
             borderRadius: "20px",
             background: "#008080",
             padding: "10px",
             cursor: "pointer",
+            color: "white",
           }}
         >
-          <h2 style={{ fontSize: "15px", margin: "0" }}>Add Argument</h2>
-        </div>
-        <div
+          <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
+            Add Argument
+          </h2>
+        </motion.div>
+        <motion.div
           style={{
+            display: "flex",
+            gap: "5px",
             border: "2px solid #00ffa3",
             borderRadius: "20px",
             background: "#008080",
             padding: "10px",
             cursor: "pointer",
+            color: "white",
           }}
         >
-          <h2 style={{ fontSize: "15px", margin: "0" }}>Reset Your Case</h2>
-        </div>
+          <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
+            Reset Your Case
+          </h2>
+        </motion.div>
       </div>
     </>
   );
