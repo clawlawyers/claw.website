@@ -33,7 +33,7 @@ const CourtroomAiHome = () => {
       <div className="flex md:flex-row flex-col ">
         <motion.div
           whileHover={{ scale: isUploaded ? "1.01" : "1" }}
-          className="m-2.5 bg-[#161a25] rounded-lg"
+          className="m-2.5 bg-[#033E40] rounded-lg"
         >
           <h1
             whileHover={{ scale: "1.01" }}
@@ -47,7 +47,7 @@ const CourtroomAiHome = () => {
         </motion.div>
         <motion.div
           whileHover={{ scale: isUploaded ? "0.98" : "1" }}
-          className="m-2.5 bg-[#161a25] rounded-lg"
+          className="m-2.5 bg-[#033E40] rounded-lg"
         >
           <h1 className="text-sm p-4 text-center">
             in publishing and graphic design, Lorem ipsum is a placeholder text
@@ -58,7 +58,7 @@ const CourtroomAiHome = () => {
         </motion.div>
         <motion.div
           whileHover={{ scale: isUploaded ? "1.01" : "1" }}
-          className="m-2.5 bg-[#161a25] rounded-lg"
+          className="m-2.5 bg-[#033E40] rounded-lg"
         >
           <h1 className="text-sm p-4 text-center">
             in publishing and graphic design, Lorem ipsum is a placeholder text
@@ -68,8 +68,8 @@ const CourtroomAiHome = () => {
           </h1>
         </motion.div>
       </div>
-      <div className="w-full py-2 px-2 grid grid-cols-[75%_25%]">
-        <div className="py-2 pr-4">
+      <div className="w-full py-2 px-3 grid grid-cols-[65%_35%]">
+        <div className="py-2 pr-2">
           <input
             className="w-full"
             style={{
@@ -84,10 +84,12 @@ const CourtroomAiHome = () => {
           />
         </div>
         <div className="flex gap-2">
-          <motion.div
-            className="flex-1"
+          <motion.button
+            className="flex-1 my-2"
             style={{
               display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               gap: "5px",
               border: "2px solid #00ffa3",
               borderRadius: "20px",
@@ -105,11 +107,13 @@ const CourtroomAiHome = () => {
             <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
               Fight Yourself
             </h2>
-          </motion.div>
-          <motion.div
-            className="flex-1"
+          </motion.button>
+          <motion.button
+            className="flex-1 my-2"
             style={{
               display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               gap: "5px",
               border: "2px solid #00ffa3",
               borderRadius: "20px",
@@ -127,7 +131,7 @@ const CourtroomAiHome = () => {
             <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
               Get First Draft
             </h2>
-          </motion.div>
+          </motion.button>
         </div>
       </div>
     </div>

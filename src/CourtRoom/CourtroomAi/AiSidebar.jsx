@@ -12,7 +12,6 @@ const AiSidebar = () => {
   const handleExit = () => {
     localStorage.removeItem("hasSeenSplash");
 
-
     localStorage.setItem("FileUploaded", false);
 
     navigate("/court-room");
@@ -21,9 +20,9 @@ const AiSidebar = () => {
   const [text, setText] = useState(dialogText);
   return (
     <>
-      <div className="flex flex-col gap-2 h-screen p-3">
+      <div className="flex flex-col gap-2 h-full py-3 pl-3">
         {/* top container */}
-        <div className="bg-[#008080] p-4 border-2 border-white rounded h-full gap-5 flex flex-col justify-between">
+        <div className="bg-[#008080] p-4 border-2 border-black rounded gap-5 flex flex-col justify-between shadow-md">
           <div className="flex flex-row justify-between items-center ">
             <h1 className="text-[#00FFA3] text-[18px] m-0">Case Details : </h1>
 
@@ -35,14 +34,14 @@ const AiSidebar = () => {
               Edit
             </motion.button>
           </div>
-          <div className="h-10"></div>
+          <div className="h-1/2"></div>
           <div className="flex justify-between items-center p-2 bg-[#C5C5C5] text-[#008080] border-2 border-white rounded">
             <h1 className="text-sm m-0">Time Remaining:</h1>
             <h1 className="text-sm m-0">00 : 00</h1>
           </div>
         </div>
         {/* bottom container */}
-        <div className="bg-[#008080] p-4 h-full border-2 border-white rounded flex flex-col justify-between">
+        <div className="bg-[#008080] p-4 border-2 border-black rounded flex flex-col justify-between shadow-md">
           <div>
             <motion.div
               whileTap={{ scale: "0.95" }}
