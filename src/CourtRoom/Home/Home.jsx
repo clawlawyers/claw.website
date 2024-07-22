@@ -15,17 +15,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
+  const { className, style } = props;
   return <div className={className} style={{ ...style, display: "none" }} />;
 }
 
 function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
+  const { className, style } = props;
   return <div className={className} style={{ ...style, display: "none" }} />;
 }
 
 function Home() {
+  // const [submitHover, setSubmitHover] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -40,26 +42,27 @@ function Home() {
   };
   return (
     <div className="">
-      <div className={Styles.topContainer}>
+      {/* top container */}
+      <div className="md:grid md:grid-cols-2 px-2 md:px-28">
         <div>
-          <h1 style={{ textAlign: "center" }}>What is Courtroom ?</h1>
+          <h1 className="px-5 text-start">What is Courtroom ?</h1>
           <br />
           <div className="p-5">
             <div className="slider-container">
               <Slider {...settings}>
                 <div>
-                  <h3 style={{ fontSize: "25px", color: "#B7B2B2" }}>
+                  <h3 className="text-[#B7B2B2]">
                     Experience the trailer of the case you are going to fight
                     tommorow
                   </h3>
                 </div>
                 <div>
-                  <h3 style={{ fontSize: "25px", color: "#B7B2B2" }}>
+                  <h3 className="text-[#B7B2B2]">
                     Your mock trial before the real case begins
                   </h3>
                 </div>
                 <div>
-                  <h3 style={{ fontSize: "25px", color: "#B7B2B2" }}>
+                  <h3 className="text-[#B7B2B2]">
                     Your case assistant who does everything you want
                   </h3>
                 </div>
@@ -68,13 +71,7 @@ function Home() {
           </div>
           <br />
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginRight: "25px",
-            }}
-          >
+          <div className="flex px-5 gap-5">
             <Link to="/court-room/book-now">
               <motion.button
                 style={{
@@ -84,7 +81,7 @@ function Home() {
                   padding: "10px 20px",
                   borderRadius: "5px",
                   overflow: "hidden",
-                  background: "linear-gradient(to right, #00ffa3, #008080)",
+                  background: "#008080",
                   color: "white",
                   cursor: "pointer",
                   fontSize: "1rem",
@@ -127,7 +124,7 @@ function Home() {
                   padding: "10px 20px",
                   borderRadius: "5px",
                   overflow: "hidden",
-                  background: "linear-gradient(to right, #00ffa3, #008080)",
+                  background: "#008080",
                   color: "white",
                   cursor: "pointer",
                   fontSize: "1rem",
@@ -169,7 +166,7 @@ function Home() {
             whileInView={{ x: "0%" }}
             transition={{ type: "spring", stiffness: 120, damping: 10 }}
             alt="court-room"
-            className={Styles.topContainerImage}
+            className="h-full w-full"
             style={{
               backgroundColor: "transparent",
               // height: "75%",
@@ -179,8 +176,8 @@ function Home() {
           />
         </div>
       </div>
-
-      <div className={Styles.secondtopcontainer}>
+      {/* 2nd container */}
+      <div className="grid grid-cols-3 p-5">
         <motion.div
           initial={{ x: ["100%"] }}
           whileInView={{ x: "0%" }}
@@ -195,13 +192,12 @@ function Home() {
             style={{ height: 90, width: 90, borderRadius: 0 }}
           />
           <br />
-          <h1 style={{ fontSize: "25px" }}>Feature Heading</h1>
+          <h1 style={{ fontSize: "25px" }}>AI Junior</h1>
           <br />
           <h3
             style={{ fontSize: "20px", color: "#B7B2B2", textAlign: "center" }}
           >
-            Explore our flexible pricing options designed to cater to a range of
-            legal requirements.
+            First draft of argument sets compiled for you by AI
           </h3>
         </motion.div>
 
@@ -219,13 +215,12 @@ function Home() {
             style={{ height: 90, width: 90, borderRadius: 0 }}
           />
           <br />
-          <h1 style={{ fontSize: "25px" }}>Feature Heading</h1>
+          <h1 style={{ fontSize: "25px" }}>AI Lawyer</h1>
           <br />
           <h3
             style={{ fontSize: "20px", color: "#B7B2B2", textAlign: "center" }}
           >
-            Explore our flexible pricing options designed to cater to a range of
-            legal requirements.
+            Counter arguments backed by all Indian law
           </h3>
         </motion.div>
 
@@ -243,13 +238,12 @@ function Home() {
             style={{ height: 90, width: 90, borderRadius: 0 }}
           />
           <br />
-          <h1 style={{ fontSize: "25px" }}>Feature Heading</h1>
+          <h1 style={{ fontSize: "25px" }}>AI Judge</h1>
           <br />
           <h3
             style={{ fontSize: "20px", color: "#B7B2B2", textAlign: "center" }}
           >
-            Explore our flexible pricing options designed to cater to a range of
-            legal requirements.
+            Validity, Importance and character based scoring and conclusion
           </h3>
         </motion.div>
       </div>
@@ -299,20 +293,24 @@ function Home() {
         />
       </div>
 
-      <motion.div style={{ display: "flex", marginTop: "150px" }}>
+      <motion.div
+        // whileHover="hover"
+        // onHoverStart={() => setSubmitHover(true)}
+        // onHoverEnd={() => setSubmitHover(false)}
+        className="flex items-center justify-center mt-[150px] p-5"
+      >
         <div
           style={{
-            marginLeft: "200px",
-            width: "700px",
             display: "flex",
             flexDirection: "column",
             gap: "15px",
-            alignItems: "center",
-            textAlign: "center",
           }}
         >
           <motion.h1
-            initial={{ y: -80 }}
+            initial={{ y: -60 }}
+            // variants={{
+            //   view: { y: 0 },
+            // }}
             whileInView={{ y: 0 }}
             transition={{
               y: { type: "tween", duration: 0.8 },
@@ -323,6 +321,9 @@ function Home() {
           <motion.h3
             style={{ fontSize: "22px", color: "#B7B2B2" }}
             initial={{ opacity: 0 }}
+            // variants={{
+            //   hover: { opacity: 1 },
+            // }}
             whileInView={{ opacity: 1 }}
             transition={{
               x: { type: "slide", duration: 1 },
@@ -335,6 +336,9 @@ function Home() {
         </div>
         <motion.div
           initial={{ x: "50%" }}
+          // variants={{
+          //   hover: { x: "0%" },
+          // }}
           whileInView={{ x: "0%" }}
           transition={{ type: "spring", stiffness: 120, damping: 10 }}
         >
@@ -352,7 +356,7 @@ function Home() {
         </motion.div>
       </motion.div>
 
-      <motion.div style={{ display: "flex", marginTop: "150px" }}>
+      <motion.div className="flex items-center justify-center  mt-[150px] p-5">
         <motion.div
           initial={{ x: "-50%" }}
           whileInView={{ x: "0%" }}
@@ -370,17 +374,13 @@ function Home() {
         </motion.div>
         <div
           style={{
-            marginRight: "100px",
-            width: "700px",
             display: "flex",
             flexDirection: "column",
             gap: "15px",
-            alignItems: "center",
-            textAlign: "center",
           }}
         >
           <motion.h1
-            initial={{ y: -80 }}
+            initial={{ y: -60 }}
             whileInView={{ y: 0 }}
             transition={{
               y: { type: "tween", duration: 0.8 },
@@ -403,20 +403,16 @@ function Home() {
         </div>
       </motion.div>
 
-      <div style={{ display: "flex", marginTop: "150px" }}>
+      <div className="flex items-center justify-center  mt-[150px] p-5">
         <div
           style={{
-            marginLeft: "200px",
-            width: "700px",
             display: "flex",
             flexDirection: "column",
             gap: "15px",
-            alignItems: "center",
-            textAlign: "center",
           }}
         >
           <motion.h1
-            initial={{ y: -80 }}
+            initial={{ y: -60 }}
             whileInView={{ y: 0 }}
             transition={{
               y: { type: "tween", duration: 0.8 },
