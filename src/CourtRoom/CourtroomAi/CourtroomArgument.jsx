@@ -9,6 +9,7 @@ const userArgumentsArr = [
   "I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
   "I get the feeling the Figma designers don’t ever use their product",
   "I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
+  "This is such a simple function and yet they make it so amazingly complicated.",
 ];
 
 const aiLawyerArr = [
@@ -50,13 +51,15 @@ const CourtroomArgument = () => {
     setSelectedUserArgumentContent(null);
   };
   return (
-    <>
-      <div className={Styles.topContainer}>
+    <div className="flex flex-col gap-1">
+      {/* topContainer */}
+      <div className="grid grid-cols-2 p-2">
         <div
+          className="bg-[#033E40] h-[200px]"
           style={{
             display: "flex",
             flexDirection: "column",
-            background: "#0e1118",
+            // background: "#0e1118",
             margin: "5px",
             borderRadius: "10px",
           }}
@@ -70,8 +73,8 @@ const CourtroomArgument = () => {
             <h1 style={{ fontSize: "20px", margin: "0" }}>AI Judge</h1>
           </div>
           <div
+            className="h-2/3"
             style={{
-              height: "150px",
               margin: "15px",
               overflow: "hidden",
               overflowY: "scroll",
@@ -82,15 +85,16 @@ const CourtroomArgument = () => {
               yet they make it so amazingly complicated. I find the same
               nonsense with adding a simple border to an object. They have 400
               ways to shade the color of a box, but not even 1 simple option for
-              drawing a line around the box.
+              drawing a line around the box
             </h1>
           </div>
         </div>
         <div
+          className="h-[200px]"
           style={{
             display: "flex",
             flexDirection: "column",
-            background: "#0e1118",
+            background: "#033E40",
             margin: "5px",
             borderRadius: "10px",
           }}
@@ -104,8 +108,8 @@ const CourtroomArgument = () => {
             <h1 style={{ fontSize: "20px", margin: "0" }}>AI Lawyer</h1>
           </div>
           <div
+            className=""
             style={{
-              height: "150px",
               margin: "15px",
               overflow: "hidden",
               overflowY: "scroll",
@@ -114,8 +118,9 @@ const CourtroomArgument = () => {
             <h1 style={{ fontSize: "15px" }}>{lawyerArgument}</h1>
           </div>
           <motion.div
+            className="p-2"
             onClick={handleSwap}
-            whileTap={{ scale: "0.95" }}
+            whileTap={{ scale: "0.98" }}
             style={{
               display: "flex",
               justifyContent: "flex-end",
@@ -146,11 +151,14 @@ const CourtroomArgument = () => {
           </motion.div>
         </div>
       </div>
+      {/* mid container */}
       <div
+        className="h-[270px]"
         style={{
-          background: "#0e1118",
+          background: "#033E40",
           margin: "0px 15px",
           borderRadius: "10px",
+
           //   overflow: "scroll",
         }}
       >
@@ -158,14 +166,14 @@ const CourtroomArgument = () => {
           <img
             style={{ width: "25px", height: "25px" }}
             src={userIcon}
-            alt="judge-icon"
+            alt="user-icon"
           />
           <h1 style={{ fontSize: "20px", margin: "0" }}>User Argument</h1>
         </div>
         <div
+          className="h-2/3"
           style={{
             margin: "10px",
-            height: "220px",
             overflow: "hidden",
             overflowY: "scroll",
           }}
@@ -193,6 +201,7 @@ const CourtroomArgument = () => {
             >
               {editIndex === index ? (
                 <input
+                  className="text-black"
                   style={{
                     margin: "0",
                     fontSize: "15px",
@@ -239,52 +248,59 @@ const CourtroomArgument = () => {
           ))}
         </div>
       </div>
-      <div className="w-full py-2 flex md:flex-row flex-col justify-center gap-2  items-center">
-        <input
-          className="w-[400px] md:w-[600px]"
-          style={{
-            border: "2px solid #00ffa3",
-            borderRadius: "20px",
-            padding: "10px",
-            // width: "600px",
-            cursor: "pointer",
-          }}
-          placeholder="Input Your Case Into The Courtroom"
-        />
-        <motion.div
-          style={{
-            display: "flex",
-            gap: "5px",
-            border: "2px solid #00ffa3",
-            borderRadius: "20px",
-            background: "#008080",
-            padding: "10px",
-            cursor: "pointer",
-            color: "white",
-          }}
-        >
-          <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
-            Add Argument
-          </h2>
-        </motion.div>
-        <motion.div
-          style={{
-            display: "flex",
-            gap: "5px",
-            border: "2px solid #00ffa3",
-            borderRadius: "20px",
-            background: "#008080",
-            padding: "10px",
-            cursor: "pointer",
-            color: "white",
-          }}
-        >
-          <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
-            Reset Your Case
-          </h2>
-        </motion.div>
+      {/* bottom container */}
+      <div className="w-full py-2 px-3 grid grid-cols-[65%_35%]">
+        <div className="py-2 pr-2">
+          <input
+            className="w-full text-black"
+            style={{
+              border: "2px solid #00ffa3",
+              borderRadius: "20px",
+              padding: "10px",
+              // width: "600px",
+              cursor: "pointer",
+            }}
+            placeholder="Input Your Case Into The Courtroom"
+          />
+        </div>
+        <div className="flex gap-2">
+          <motion.button
+            className="flex-1 my-2"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "5px",
+              border: "2px solid #00ffa3",
+              borderRadius: "20px",
+              background: "#008080",
+              padding: "10px",
+              cursor: "pointer",
+              color: "white",
+            }}
+          >
+            <h2 style={{ fontSize: "15px", margin: "0" }}>Add Argument</h2>
+          </motion.button>
+          <motion.button
+            className="flex-1 my-2"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "5px",
+              border: "2px solid #00ffa3",
+              borderRadius: "20px",
+              background: "#008080",
+              padding: "10px",
+              cursor: "pointer",
+              color: "white",
+            }}
+          >
+            <h2 style={{ fontSize: "15px", margin: "0" }}>Reset Your Case</h2>
+          </motion.button>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
