@@ -9,6 +9,8 @@ import { NODE_API_ENDPOINT } from "../../utils/utils";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { login } from "../../features/bookCourtRoom/LoginReducreSlice";
+import { useSelector } from "react-redux";
 // import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice";
 
 function LoginToCourtRoom() {
@@ -18,6 +20,7 @@ function LoginToCourtRoom() {
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const currentUser = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
   const loginTime = new Date().toISOString();
@@ -55,13 +58,14 @@ function LoginToCourtRoom() {
           toast.error(response.data);
         } else {
           toast.success("You have successfully logged in");
-          console.log(response);
-          // dispatch(setUser({ phoneNumber: phone, loginTime }));
+          console.log(response.data.data);
+          dispatch(login(response.data.data));
+          console.log(currentUser);
           navigate("/courtroom-ai");
         }
         // dispatch(setUser({ token:"1234",userId:"1234xyz",caseOverView:"lorem ipsum "}));
 
-        navigate("/courtroom-ai");
+        // navigate("/courtroom-ai");
       })
       .catch((error) => {
         setErrorState(true);

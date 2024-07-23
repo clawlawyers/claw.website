@@ -48,7 +48,7 @@ const userSlice = createSlice({
       state.caseOverview = action.payload.overView;
     },
     extraReducers: (builder) => {
-      builder.addCase(retrieveAuth.fulfilled, (state, action) => {
+      builder.addCase(retrieveCourtroomAuth.fulfilled, (state, action) => {
         if (action.payload && action.payload.user) {
           state.user = action.payload.user;
         }
