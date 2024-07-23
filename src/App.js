@@ -59,6 +59,7 @@ import CourtRoomAiLayout from "./CourtRoom/CourtroomAi/CourtRoomAiLayout.jsx";
 import CourtroomArgument from "./CourtRoom/CourtroomAi/CourtroomArgument.jsx";
 import UploadDoc from "./CourtRoom/CourtroomAi/UploadDoc.jsx";
 import Verdict from "./CourtRoom/CourtroomAi/Verdict.jsx";
+import Contact from "./CourtRoom/ContactUs/Contact.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -289,6 +290,10 @@ function App() {
             {
               path: "book-now",
               element: <BookNow />,
+            },
+            {
+              path: "contact",
+              element: <Contact />,
             },
           ],
         },
