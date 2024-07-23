@@ -76,13 +76,26 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
 
         console.log(file);
 
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("userId", "123");
+
+        const response = await axios.post(
+          `${NODE_API_ENDPOINT}/courtroom/newcase`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
+
+        console.log(response);
+
         setTimeout(() => {
           console.log("File uploaded successfully");
           setUploadedFile(true);
           localStorage.setItem("FileUploaded", true);
 
           // Mock the file URL
-          const mockFileUrl = "https://example.com/uploaded-file-url";
 
           setUploading(false);
           setAnalyzing(true);
