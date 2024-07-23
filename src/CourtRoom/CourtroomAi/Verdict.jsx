@@ -4,7 +4,7 @@ import verdictLogo from "../../assets/icons/verdict_logo.png";
 const Verdict = () => {
   return (
     <main className="flex flex-col justify-center items-center h-full w-full py-10 relative">
-      <section className="bg-[#7ebab2] w-1/2 flex flex-col h-full justify-start items-center rounded-md shadow-lg shadow-neutral-800 relative">
+      <section className="bg-[#7ebab2] w-2/5 flex flex-col h-full justify-start items-center rounded-md shadow-lg shadow-neutral-800 relative">
         <img
           src={verdictLogo}
           className=" w-max h-max object-cover"
