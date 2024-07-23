@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/bookCourtRoom/LoginReducreSlice";
 import { useSelector } from "react-redux";
-import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice";
+// import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice";
 
 function LoginToCourtRoom() {
   const [isHovered, setIsHovered] = useState(false);
@@ -65,13 +65,15 @@ function LoginToCourtRoom() {
           setErrorState(true);
           setErrorData([response.data, "Please Try Again"]);
           toast.error(response.data);
-        } else {
+        } else if (response.data.token) {
           toast.success("You have successfully logged in");
           console.log(response.data);
-          dispatch(login(response.data.data));
+          dispatch(login({ user: response.data }));
           // console.log(currentUser);
           navigate("/courtroom-ai");
         }
+
+        console.log("error");
 
         // navigate("/courtroom-ai");
       })
