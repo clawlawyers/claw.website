@@ -48,7 +48,7 @@ function LoginToCourtRoom() {
       })
       .then((response) => {
         console.log(response);
-        dispatch(setUser(response.data));
+        // dispatch(setUser(response.data));
 
         if (response.data === "No bookings found for the current time slot.") {
           console.log("No bookings found for the current time slot");

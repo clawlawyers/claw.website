@@ -43,7 +43,7 @@ const userSlice = createSlice({
       return;
     },
     setOverview(state, action) {
-      state.caseOverview = action.payload.overView;
+      state.caseOverview = action.payload;
     },
     setUser(state, action) {
       state.user = action.payload;
