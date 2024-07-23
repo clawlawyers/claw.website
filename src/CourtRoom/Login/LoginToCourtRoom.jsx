@@ -60,7 +60,7 @@ function LoginToCourtRoom() {
           toast.success("You have successfully logged in");
           console.log(response.data.data);
           dispatch(login(response.data.data));
-          console.log(currentUser);
+          // console.log(currentUser);
           navigate("/courtroom-ai");
         }
         // dispatch(setUser({ token:"1234",userId:"1234xyz",caseOverView:"lorem ipsum "}));
