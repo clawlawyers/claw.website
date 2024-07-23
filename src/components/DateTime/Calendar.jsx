@@ -121,10 +121,13 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
          className="flex flex-col gap-5 w-full justify-center items-center"
         >
           <Button
-            className="w-1/12"
+          className="w-1/12 bg-teal-500 "
             variant="contained"
             color="primary"
             onClick={addSlot}
+            sx={{
+              backgroundColor:"#14b8a6"
+            }}
           >
             Add to Slot
           </Button>
