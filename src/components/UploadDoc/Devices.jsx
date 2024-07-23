@@ -56,6 +56,7 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
   const handleSave = () => {
     // text save logic
     dispatch(setOverview(inputText));
+    handleDialogClose();
   };
   const handleClick = (source) => {
     switch (source) {
