@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import courtroomContact from "../../assets/images/courtroomContact.png";
+import courtroomContact from "../../assets/images/courtroomContact.gif";
 import { motion } from "framer-motion";
 
 const Contact = () => {
