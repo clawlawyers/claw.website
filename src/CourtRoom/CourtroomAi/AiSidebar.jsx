@@ -38,20 +38,24 @@ const AiSidebar = () => {
     <>
       <div className="flex flex-col gap-3 h-full py-3 pl-3">
         {/* top container */}
-        <div className="bg-[#008080] p-4 border-2 border-black rounded h-1/3 gap-4 flex flex-col">
-          <div className="flex flex-row justify-between items-center ">
-            <h1 className="text-[#00FFA3] text-[18px] m-0">Case Details : </h1>
+        <div className="bg-[#008080] p-4 border-2 border-black rounded h-1/3 gap-4 flex flex-col justify-between ">
+          <div>
+            <div className="flex flex-row justify-between items-center ">
+              <h1 className="text-[#00FFA3] text-[18px] m-0">
+                Case Details :{" "}
+              </h1>
 
-            <motion.button
-              whileTap={{ scale: "0.95" }}
-              onClick={() => setEditDialog(true)}
-              className="border border-[#00FFA3] rounded-lg p-1 px-2"
-            >
-              Edit
-            </motion.button>
-          </div>
-          <div className="h-[50%] overflow-hidden">
-            <h1 className="text-sm m-0 py-2">{overViewDetails}</h1>
+              <motion.button
+                whileTap={{ scale: "0.95" }}
+                onClick={() => setEditDialog(true)}
+                className="border border-[#00FFA3] rounded-lg p-1 px-2"
+              >
+                Edit
+              </motion.button>
+            </div>
+            <div className="h-[50px] overflow-hidden">
+              <h1 className="text-sm m-0 py-2">{overViewDetails}</h1>
+            </div>
           </div>
           <div className="flex justify-between items-center p-2 bg-[#C5C5C5] text-[#008080] border-2 border-white rounded">
             <h1 className="text-sm m-0">Time Remaining:</h1>
