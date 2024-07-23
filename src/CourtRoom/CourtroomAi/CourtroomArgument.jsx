@@ -4,6 +4,7 @@ import aiLawyer from "../../assets/images/aiLawyer.png";
 import userIcon from "../../assets/images/userArgument.png";
 import Styles from "./CourtroomArgument.module.css";
 import { motion } from "framer-motion";
+import loader from "../../assets/images/argumentLoading.gif";
 
 const userArgumentsArr = [
   "I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
@@ -31,6 +32,7 @@ const CourtroomArgument = () => {
   const [selectedUserArgument, setSelectedUserArgument] = useState(null);
   const [selectedUserArgumentContent, setSelectedUserArgumentContent] =
     useState(null);
+  const [loading, setLoading] = useState(true);
 
   const handleEdit = (index) => {
     setEditIndex(index);
@@ -66,122 +68,154 @@ const CourtroomArgument = () => {
           {/* topContainer */}
           {/* <div className="grid grid-cols-2 p-2"> */}
           {/* top left Cont */}
-          <div
-            className="bg-[#033E40] h-[300px]"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              margin: "5px",
-              borderRadius: "10px",
-            }}
-          >
+          {loading ? (
             <div
-              className=""
-              style={{ padding: "10px", display: "flex", gap: "10px" }}
-            >
-              <img
-                style={{ width: "25px", height: "25px" }}
-                src={aiJudge}
-                alt="judge-icon"
-              />
-              <h1 style={{ fontSize: "20px", margin: "0" }}>AI Judge</h1>
-            </div>
-            <div
-              className="h-full"
-              style={{
-                margin: "15px",
-                overflow: "hidden",
-                overflowY: "scroll",
-              }}
-            >
-              <h1 style={{ fontSize: "15px" }}>
-                AGREEEMNT 1 I feel your pain. This is such a simple function and
-                yet they make it so amazingly complicated. I find the same
-                nonsense with adding a simple border to an object. They have 400
-                ways to shade the color of a box, but not even 1 simple option
-                for drawing a line around the box AGREEEMNT 1 I feel your pain.
-                This is such a simple function and yet they make it so amazingly
-                complicated. I find the same nonsense with adding a simple
-                border to an object. They have 400 ways to shade the color of a
-                box, but not even 1 simple option for drawing a line around the
-                box AGREEEMNT 1 I feel your pain. This is such a simple function
-                and yet they make it so amazingly complicated. I find the same
-                nonsense with adding a simple border to an object. They have 400
-                ways to shade the color of a box, but not even 1 simple option
-                for drawing a line around the box AGREEEMNT 1 I feel your pain.
-                This is such a simple function and yet they make it so amazingly
-                complicated. I find the same nonsense with adding a simple
-                border to an object. They have 400 ways to shade the color of a
-                box, but not even 1 simple option for drawing a line around the
-                box
-              </h1>
-            </div>
-          </div>
-          {/* top right cont */}
-          <div
-            className="h-[300px]"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              background: "#033E40",
-              margin: "5px",
-              borderRadius: "10px",
-            }}
-          >
-            <div
-              className=""
-              style={{ padding: "10px", display: "flex", gap: "10px" }}
-            >
-              <img
-                style={{ width: "25px", height: "25px" }}
-                src={aiLawyer}
-                alt="judge-icon"
-              />
-              <h1 style={{ fontSize: "20px", margin: "0" }}>AI Lawyer</h1>
-            </div>
-            <div
-              className="h-full"
-              style={{
-                margin: "15px",
-                overflow: "hidden",
-                overflowY: "scroll",
-              }}
-            >
-              <h1 style={{ fontSize: "15px" }}>{lawyerArgument}</h1>
-            </div>
-            <motion.div
-              className="py-2"
-              onClick={handleSwap}
-              whileTap={{ scale: "0.98" }}
+              className="bg-[#033E40] h-[300px]"
               style={{
                 display: "flex",
-                justifyContent: "flex-end",
+                flexDirection: "column",
+                justifyContent: "center",
                 alignItems: "center",
-                cursor: "pointer",
+                margin: "5px",
+                borderRadius: "10px",
               }}
             >
-              <svg
-                width="20"
-                height="20"
-                stroke="white"
-                fill="white"
-                clip-rule="evenodd"
-                fill-rule="evenodd"
-                stroke-linejoin="round"
-                stroke-miterlimit="2"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              <img alt="laoding" src={loader} className="w-28 h-28" />
+            </div>
+          ) : (
+            <div
+              className="bg-[#033E40] h-[300px]"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                margin: "5px",
+                borderRadius: "10px",
+              }}
+            >
+              <div
+                className=""
+                style={{ padding: "10px", display: "flex", gap: "10px" }}
               >
-                <path
-                  d="m21.897 13.404.008-.057v.002c.024-.178.044-.357.058-.537.024-.302-.189-.811-.749-.811-.391 0-.715.3-.747.69-.018.221-.044.44-.078.656-.645 4.051-4.158 7.153-8.391 7.153-3.037 0-5.704-1.597-7.206-3.995l1.991-.005c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-4.033c-.414 0-.75.336-.75.75v4.049c0 .414.336.75.75.75s.75-.335.75-.75l.003-2.525c1.765 2.836 4.911 4.726 8.495 4.726 5.042 0 9.217-3.741 9.899-8.596zm-19.774-2.974-.009.056v-.002c-.035.233-.063.469-.082.708-.024.302.189.811.749.811.391 0 .715-.3.747-.69.022-.28.058-.556.107-.827.716-3.968 4.189-6.982 8.362-6.982 3.037 0 5.704 1.597 7.206 3.995l-1.991.005c-.414 0-.75.336-.75.75s.336.75.75.75h4.033c.414 0 .75-.336.75-.75v-4.049c0-.414-.336-.75-.75-.75s-.75.335-.75.75l-.003 2.525c-1.765-2.836-4.911-4.726-8.495-4.726-4.984 0-9.12 3.654-9.874 8.426z"
-                  fill-rule="nonzero"
+                <img
+                  style={{ width: "25px", height: "25px" }}
+                  src={aiJudge}
+                  alt="judge-icon"
                 />
-              </svg>
-              <h1 style={{ margin: "5px", fontSize: "15px" }}>
-                Swap with AI Lawyer
-              </h1>
-            </motion.div>
-          </div>
+                <h1 style={{ fontSize: "20px", margin: "0" }}>AI Judge</h1>
+              </div>
+              <div
+                className="h-full"
+                style={{
+                  margin: "15px",
+                  overflow: "hidden",
+                  overflowY: "scroll",
+                }}
+              >
+                <h1 style={{ fontSize: "15px" }}>
+                  AGREEEMNT 1 I feel your pain. This is such a simple function
+                  and yet they make it so amazingly complicated. I find the same
+                  nonsense with adding a simple border to an object. They have
+                  400 ways to shade the color of a box, but not even 1 simple
+                  option for drawing a line around the box AGREEEMNT 1 I feel
+                  your pain. This is such a simple function and yet they make it
+                  so amazingly complicated. I find the same nonsense with adding
+                  a simple border to an object. They have 400 ways to shade the
+                  color of a box, but not even 1 simple option for drawing a
+                  line around the box AGREEEMNT 1 I feel your pain. This is such
+                  a simple function and yet they make it so amazingly
+                  complicated. I find the same nonsense with adding a simple
+                  border to an object. They have 400 ways to shade the color of
+                  a box, but not even 1 simple option for drawing a line around
+                  the box AGREEEMNT 1 I feel your pain. This is such a simple
+                  function and yet they make it so amazingly complicated. I find
+                  the same nonsense with adding a simple border to an object.
+                  They have 400 ways to shade the color of a box, but not even 1
+                  simple option for drawing a line around the box
+                </h1>
+              </div>
+            </div>
+          )}
+          {/* top right cont */}
+          {loading ? (
+            <div
+              className="bg-[#033E40] h-[300px]"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "5px",
+                borderRadius: "10px",
+              }}
+            >
+              <img alt="laoding" src={loader} className="w-28 h-28" />
+            </div>
+          ) : (
+            <div
+              className="h-[300px]"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                background: "#033E40",
+                margin: "5px",
+                borderRadius: "10px",
+              }}
+            >
+              <div
+                className=""
+                style={{ padding: "10px", display: "flex", gap: "10px" }}
+              >
+                <img
+                  style={{ width: "25px", height: "25px" }}
+                  src={aiLawyer}
+                  alt="judge-icon"
+                />
+                <h1 style={{ fontSize: "20px", margin: "0" }}>AI Lawyer</h1>
+              </div>
+              <div
+                className="h-full"
+                style={{
+                  margin: "15px",
+                  overflow: "hidden",
+                  overflowY: "scroll",
+                }}
+              >
+                <h1 style={{ fontSize: "15px" }}>{lawyerArgument}</h1>
+              </div>
+              <motion.div
+                className="py-2"
+                onClick={handleSwap}
+                whileTap={{ scale: "0.98" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  stroke="white"
+                  fill="white"
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="2"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m21.897 13.404.008-.057v.002c.024-.178.044-.357.058-.537.024-.302-.189-.811-.749-.811-.391 0-.715.3-.747.69-.018.221-.044.44-.078.656-.645 4.051-4.158 7.153-8.391 7.153-3.037 0-5.704-1.597-7.206-3.995l1.991-.005c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-4.033c-.414 0-.75.336-.75.75v4.049c0 .414.336.75.75.75s.75-.335.75-.75l.003-2.525c1.765 2.836 4.911 4.726 8.495 4.726 5.042 0 9.217-3.741 9.899-8.596zm-19.774-2.974-.009.056v-.002c-.035.233-.063.469-.082.708-.024.302.189.811.749.811.391 0 .715-.3.747-.69.022-.28.058-.556.107-.827.716-3.968 4.189-6.982 8.362-6.982 3.037 0 5.704 1.597 7.206 3.995l-1.991.005c-.414 0-.75.336-.75.75s.336.75.75.75h4.033c.414 0 .75-.336.75-.75v-4.049c0-.414-.336-.75-.75-.75s-.75.335-.75.75l-.003 2.525c-1.765-2.836-4.911-4.726-8.495-4.726-4.984 0-9.12 3.654-9.874 8.426z"
+                    fill-rule="nonzero"
+                  />
+                </svg>
+                <h1 style={{ margin: "5px", fontSize: "15px" }}>
+                  Swap with AI Lawyer
+                </h1>
+              </motion.div>
+            </div>
+          )}
           {/* </div> */}
         </div>
         {/* mid container */}
@@ -204,7 +238,7 @@ const CourtroomArgument = () => {
             <h1 style={{ fontSize: "20px", margin: "0" }}>User Argument</h1>
           </div>
           <div
-            className="h-[500px]"
+            className="h-[300px]"
             style={{
               margin: "10px",
               overflow: "hidden",
