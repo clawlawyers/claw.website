@@ -273,14 +273,14 @@ const CourtroomArgument = () => {
                 }}
               >
                 {editIndex === index ? (
-                  <input
+                  <textarea
                     className="text-black"
                     style={{
-                      margin: "0",
+                      margin: "5px",
                       fontSize: "15px",
                       padding: "15px",
                       borderRadius: "10px",
-                      width: "800px",
+                      width: "100%",
                     }}
                     value={editValue}
                     onChange={handleChange}
