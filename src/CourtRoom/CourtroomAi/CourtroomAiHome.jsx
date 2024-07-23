@@ -6,20 +6,38 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const CourtroomAiHome = () => {
+  const isUploaded = localStorage.getItem("FileUploaded") === "true";
+  console.log(isUploaded);
+
+  const buttonStyles = {
+    display: "flex",
+    gap: "5px",
+    border: "2px solid #00ffa3",
+    borderRadius: "20px",
+    padding: "10px",
+    color: "white",
+    cursor: isUploaded ? "pointer" : "not-allowed",
+    background: isUploaded ? "#00ffa3" : "#008080",
+  };
+
+  const inputStyles = {
+    border: "2px solid #00ffa3",
+    borderRadius: "20px",
+    padding: "10px",
+    width: "600px",
+    cursor: isUploaded ? "text" : "not-allowed",
+  };
+
   return (
-    <div className={Styles.mainContainer}>
-      <div className={Styles.rightTopContainer}>
+    <div className="w-full h-full flex flex-col justify-end">
+      <div className="flex md:flex-row flex-col px-2">
         <motion.div
-          whileHover={{ scale: "0.98" }}
-          style={{
-            margin: "10px",
-            background: "#161a25",
-            borderRadius: "10px",
-          }}
+          whileHover={{ scale: isUploaded ? "1.01" : "1" }}
+          className="m-2.5 bg-[#033E40] rounded-lg"
         >
           <h1
-            whileHover={{ scale: "0.95" }}
-            style={{ fontSize: "15px", padding: "15px", textAlign: "center" }}
+            whileHover={{ scale: "1.01" }}
+            className="text-sm p-4 text-center"
           >
             in publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
@@ -28,16 +46,10 @@ const CourtroomAiHome = () => {
           </h1>
         </motion.div>
         <motion.div
-          whileHover={{ scale: "0.98" }}
-          style={{
-            margin: "10px",
-            background: "#161a25",
-            borderRadius: "10px",
-          }}
+          whileHover={{ scale: isUploaded ? "0.98" : "1" }}
+          className="m-2.5 bg-[#033E40] rounded-lg"
         >
-          <h1
-            style={{ fontSize: "15px", padding: "15px", textAlign: "center" }}
-          >
+          <h1 className="text-sm p-4 text-center">
             in publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
             typeface without relying on meaningful content. Lorem ipsum may be
@@ -45,16 +57,10 @@ const CourtroomAiHome = () => {
           </h1>
         </motion.div>
         <motion.div
-          whileHover={{ scale: "0.98" }}
-          style={{
-            margin: "10px",
-            background: "#161a25",
-            borderRadius: "10px",
-          }}
+          whileHover={{ scale: isUploaded ? "1.01" : "1" }}
+          className="m-2.5 bg-[#033E40] rounded-lg"
         >
-          <h1
-            style={{ fontSize: "15px", padding: "15px", textAlign: "center" }}
-          >
+          <h1 className="text-sm p-4 text-center">
             in publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
             typeface without relying on meaningful content. Lorem ipsum may be
@@ -62,27 +68,34 @@ const CourtroomAiHome = () => {
           </h1>
         </motion.div>
       </div>
-      <div className={Styles.rightBottomContainer}>
-        <input
-          style={{
-            border: "2px solid #00ffa3",
-            borderRadius: "20px",
-            padding: "10px",
-            width: "600px",
-          }}
-          placeholder="Input Your Case Into The Courtroom"
-        />
-        <Link to={"/courtroom-ai/arguments"}>
-          <motion.div
-            whileTap={{ scale: "0.95" }}
+      <div className="w-full py-2 px-3 grid grid-cols-[65%_35%]">
+        <div className="py-2 pr-2">
+          <input
+            className="w-full"
+            style={{
+              border: "2px solid #00ffa3",
+              borderRadius: "20px",
+              padding: "10px",
+              // width: "600px",
+              cursor: "not-allowed",
+            }}
+            disabled
+            placeholder="Input Your Case Into The Courtroom"
+          />
+        </div>
+        <div className="flex gap-2">
+          <motion.button
+            className="flex-1 my-2"
             style={{
               display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               gap: "5px",
               border: "2px solid #00ffa3",
               borderRadius: "20px",
               background: "#008080",
               padding: "10px",
-              cursor: "pointer",
+              cursor: "not-allowed",
               color: "white",
             }}
           >
@@ -91,20 +104,22 @@ const CourtroomAiHome = () => {
               src={fight}
               alt="fight"
             />
-            <h2 style={{ fontSize: "15px", margin: "0" }}>Fight Yourself</h2>
-          </motion.div>
-        </Link>
-        <Link to={"/courtroom-ai/upload"}>
-          <motion.div
-            whileTap={{ scale: "0.95" }}
+            <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
+              Fight Yourself
+            </h2>
+          </motion.button>
+          <motion.button
+            className="flex-1 my-2"
             style={{
               display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               gap: "5px",
               border: "2px solid #00ffa3",
               borderRadius: "20px",
               background: "#008080",
               padding: "10px",
-              cursor: "pointer",
+              cursor: "not-allowed",
               color: "white",
             }}
           >
@@ -113,9 +128,11 @@ const CourtroomAiHome = () => {
               src={draft}
               alt="draft"
             />
-            <h2 style={{ fontSize: "15px", margin: "0" }}>Get First Draft</h2>
-          </motion.div>
-        </Link>
+            <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
+              Get First Draft
+            </h2>
+          </motion.button>
+        </div>
       </div>
     </div>
   );

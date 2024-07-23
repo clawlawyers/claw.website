@@ -8,20 +8,23 @@ import TimePickerValue from "./Clock"; // Assuming you have a separate TimePicke
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { addSelectedTime } from "../../features/bookCourtRoom/selectedDatesTimesSlice";
-
+import "./DateTime.module.css"
 const Container = styled.div`
   background: linear-gradient(100deg, #008080 0%, #15b3b3 100%);
   border-radius: 5px;
   border: 2px solid white;
-  padding: 20px;
+  padding: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vw;
+  height: 65vh;
   width: 60%;
   max-width: 570px;
-  max-height:550px;
-  font-weight:800;
+  max-height: 60vh;
+  font-weight: 900;
+  color: white;
+  box-shadow: 2px 4px 10px black; // Added drop shadow
+
   @media (max-width: 768px) {
     height: 90vw;
     width: 90vw;
@@ -35,8 +38,10 @@ const Container = styled.div`
 `;
 
 const ScaledCalendar = styled.div`
+
   transform: scale(1.7);
-  font-weight:800;
+  font-weight:900;
+  color:white;
   transform-origin: center;
 
   @media (max-width: 768px) {
@@ -79,31 +84,14 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
 
   return (
     <main
-      style={{
-        display: "flex",
-        width: "100%",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "70px",
-
-      }}
+    className="flex w-full flex-col justify-center items-center gap-[70px]"
     >
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <section
-          style={{
-            display: "flex",
-            width: "100%",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "70px",
-           
-
-          }}
+          className="flex w-full flex-row justify-center items-center gap-[70px]  h-[70vh]"
         >
           <Container>
-            <ScaledCalendar>
+           
               <DateCalendar
                 onChange={handleDateChange}
                 minDate={minDate}
@@ -112,17 +100,17 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
                   dayjs(date).isBefore(dayjs(), "day")
                 }
                 views={["day",]}
+                sx={{
+                  color:"white",
+                  marginTop:"50px",
+                  transform: "scale(1.7)",
+                  transformOrigin:"center"
+                }}
               />
-            </ScaledCalendar>
+            
           </Container>
-          <div style={{
-            border:"2px solid white",
-            padding:"5px",
-            borderRadius:"7px",
-            background: 'linear-gradient(100deg, #008080 0%, #15B3B3 100%)', 
-
-          }}>
-            <h3>Select Time:</h3>
+          <div className="border-2 border-white p-1 rounded-md bg-gradient-to-r from-teal-600 to-cyan-500">
+            <h3 className="text-[1.2rem] p-1 text-center font-semibold">Select Time:</h3>
             <TimePickerValue
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
@@ -130,22 +118,16 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
           </div>
         </section>
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+         className="flex flex-col gap-5 w-full justify-center items-center"
         >
           <Button
-            style={{
-              width: "10%",
-            }}
+          className="w-1/12 bg-teal-500 "
             variant="contained"
             color="primary"
             onClick={addSlot}
+            sx={{
+              backgroundColor:"#14b8a6"
+            }}
           >
             Add to Slot
           </Button>
@@ -157,7 +139,7 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
               width: "100%",
               justifyContent: "center",
               alignItems: "center",
-              padding: "10px",
+              padding: "60px",
             }}
           >
             <h3>Scheduled Slots:</h3>
@@ -179,19 +161,7 @@ const CalendarComponent = ({scheduledSlots,setScheduledSlots}) => {
               {scheduledSlots.map((slot, index) => (
                 <div
                   key={index}
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "fit-content",
-                    height: "max-content",
-                    padding: "5px",
-                    borderRadius: "4px",
-                    background:
-                      "linear-gradient(100deg, #008080 0%, #15b3b3 100%)",
-                    color: "white",
-                    gap: "20px",
-                    margin: "10px 0", // Add vertical margin
-                  }}
+                  className="flex flex-row p-2 w-fit h-max  rounded-lg font-semibold bg-gradient-to-r from-teal-800 to-teal-400 text-white gap-5 my-2"
                 >
                   {new Date(slot.date).toLocaleDateString("en-US", {
                     day: "numeric",

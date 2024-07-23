@@ -5,6 +5,7 @@ import image from "../../assets/images/courtroomPhoto.png";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BookNow = () => {
   const [receipt, setReceipt] = useState(`receipt_${Date.now()}`);
@@ -18,6 +19,7 @@ const BookNow = () => {
     contact: "",
     record: false, // Assuming 'record' checkbox state
   });
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -106,24 +108,7 @@ const BookNow = () => {
               data
             );
             alert(result.data.status);
-            // if (
-            //   plan === "AddOn" &&
-            //   result.data.status === "Payment verified successfully"
-            // ) {
-            //   axios.post(
-            //     `${NODE_API_ENDPOINT}/gpt/dummy`,
-            //     {
-            //       phoneNumber: currentUser.phoneNumber,
-            //     },
-            //     {
-            //       headers: {
-            //         Authorization: `Bearer ${currentUser.jwt}`,
-            //         "Content-Type": "application/json",
-            //       },
-            //     }
-            //   );
-            // }
-            // nav("/");
+            navigate("/");
           },
 
           theme: {
@@ -150,7 +135,7 @@ const BookNow = () => {
           fontWeight: 800,
         }}
       >
-        Book your CourtRoom
+        Book your Court Room
       </h1>
       <CalendarComponent
         scheduledSlots={scheduledSlots}
@@ -188,7 +173,7 @@ const BookNow = () => {
               onChange={handleInputChange}
               required
             />
-            <div style={{ position: "relative", width: "100%" }}>
+            <div className="relative w-[70%] bg-white/80 rounded-[10px]">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -197,6 +182,7 @@ const BookNow = () => {
                 value={formData.password}
                 onChange={handleInputChange}
                 required
+                className="text-black bg-transparent"
               />
               <button
                 type="button"
@@ -208,13 +194,25 @@ const BookNow = () => {
                   border: "1px",
                   background: "none",
                   cursor: "pointer",
-                  // width:"fit-content"
+                  width: "fit-content",
                 }}
                 onClick={() =>
                   showPassword ? setShowPassword(false) : setShowPassword(true)
                 }
               >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
+                {showPassword ? (
+                  <Visibility
+                    sx={{
+                      color: "black",
+                    }}
+                  />
+                ) : (
+                  <VisibilityOff
+                    sx={{
+                      color: "black",
+                    }}
+                  />
+                )}
               </button>
             </div>
             <input
