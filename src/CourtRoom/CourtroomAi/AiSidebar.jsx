@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/claw-login.png";
 import Styles from "./AiSidebar.module.css";
 import { motion } from "framer-motion";
@@ -13,7 +13,11 @@ const AiSidebar = () => {
   const overViewDetails = useSelector((state) => state.user.caseOverview);
 
   const [editDialog, setEditDialog] = useState(false);
-  const [text, setText] = useState(overViewDetails);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    setText(overViewDetails);
+  }, [overViewDetails]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
