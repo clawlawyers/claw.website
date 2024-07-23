@@ -17,6 +17,7 @@ function LoginToCourtRoom() {
   const [isHovered, setIsHovered] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [errorState, setErrorState] = useState(false);
+  const [errorData, setErrorData] = useState([]);
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -51,15 +52,18 @@ function LoginToCourtRoom() {
 
         // dispatch(setUser(response.data));
 
-        
-
         if (response.data === "No bookings found for the current time slot.") {
           console.log("No bookings found for the current time slot");
           setErrorState(true);
+          setErrorData([
+            response.data,
+            "Please comeback in your Booked Slot Timings",
+          ]);
           toast.error(response.data);
         } else if (response.data === "Invalid phone number or password.") {
           console.log("Invalid phone number or password");
           setErrorState(true);
+          setErrorData([response.data, "Please Try Again"]);
           toast.error(response.data);
         } else {
           toast.success("You have successfully logged in");
@@ -73,6 +77,7 @@ function LoginToCourtRoom() {
       })
       .catch((error) => {
         setErrorState(true);
+        setErrorData([error.message, "Please try again"]);
         toast.error(error.message);
       });
   };
@@ -272,7 +277,10 @@ function LoginToCourtRoom() {
                   }}
                 >
                   <svg
-                    onClick={() => setErrorState(false)}
+                    onClick={() => {
+                      setErrorState(false);
+                      setErrorData([]);
+                    }}
                     style={{ cursor: "pointer" }}
                     width="24"
                     height="24"
@@ -301,11 +309,9 @@ function LoginToCourtRoom() {
                   <h1
                     style={{ margin: "0", fontSize: "20px", color: "#008080" }}
                   >
-                    You're Entering The Courtroom in wrong Date/Time
+                    {errorData[0]}
                   </h1>
-                  <p style={{ color: "gray" }}>
-                    Please comeback in your Booked Slot Timings
-                  </p>
+                  <p style={{ color: "gray" }}>{errorData[1]}</p>
                 </div>
               </div>
             </div>
