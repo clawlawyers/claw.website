@@ -37,6 +37,8 @@ function LoginToCourtRoom() {
   const handleSave = (e) => {
     e.preventDefault();
     // Get current time in ISO format
+        // dispatch(setUser({ token:"1234",userId:"1234xyz",caseOverView:"lorem ipsum "}));
+       
 
     axios
       .post(`${NODE_API_ENDPOINT}/courtroom/login`, {
@@ -56,10 +58,8 @@ function LoginToCourtRoom() {
         } else {
           toast.success("You have successfully logged in");
           console.log(response);
-          // dispatch(setUser({ phoneNumber: phone, loginTime }));
           navigate("/courtroom-ai");
         }
-        // dispatch(setUser({ token:"1234",userId:"1234xyz",caseOverView:"lorem ipsum "}));
 
         navigate("/courtroom-ai");
       })
