@@ -9,7 +9,13 @@ import { NODE_API_ENDPOINT } from "../../utils/utils";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+<<<<<<< HEAD
+import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice";
+=======
+import { login } from "../../features/bookCourtRoom/LoginReducreSlice";
+import { useSelector } from "react-redux";
 // import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice";
+>>>>>>> 73eea0042105c9354df4d80040a962fd49405921
 
 function LoginToCourtRoom() {
   const [isHovered, setIsHovered] = useState(false);
@@ -18,7 +24,11 @@ function LoginToCourtRoom() {
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+<<<<<<< HEAD
+=======
+  // const currentUser = useSelector((state) => state.user.user);
 
+>>>>>>> 73eea0042105c9354df4d80040a962fd49405921
   const dispatch = useDispatch();
   const loginTime = new Date().toISOString();
   useEffect(() => {
@@ -37,6 +47,8 @@ function LoginToCourtRoom() {
   const handleSave = (e) => {
     e.preventDefault();
     // Get current time in ISO format
+       
+       
 
     axios
       .post(`${NODE_API_ENDPOINT}/courtroom/login`, {
@@ -45,6 +57,8 @@ function LoginToCourtRoom() {
       })
       .then((response) => {
         console.log(response);
+        dispatch(setUser(response.data));
+        
         if (response.data === "No bookings found for the current time slot.") {
           console.log("No bookings found for the current time slot");
           setErrorState(true);
@@ -55,13 +69,17 @@ function LoginToCourtRoom() {
           toast.error(response.data);
         } else {
           toast.success("You have successfully logged in");
+<<<<<<< HEAD
           console.log(response);
-          // dispatch(setUser({ phoneNumber: phone, loginTime }));
+=======
+          console.log(response.data.data);
+          dispatch(login(response.data.data));
+          // console.log(currentUser);
+>>>>>>> 73eea0042105c9354df4d80040a962fd49405921
           navigate("/courtroom-ai");
         }
-        // dispatch(setUser({ token:"1234",userId:"1234xyz",caseOverView:"lorem ipsum "}));
 
-        navigate("/courtroom-ai");
+        // navigate("/courtroom-ai");
       })
       .catch((error) => {
         setErrorState(true);

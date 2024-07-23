@@ -51,7 +51,7 @@ const CourtroomArgument = () => {
     setSelectedUserArgumentContent(null);
   };
   return (
-    <div className="grid h-full">
+    <div className="flex flex-col justify-between">
       {/* top container */}
       <div className="grid grid-cols-2">
         {/* topContainer */}
@@ -195,12 +195,12 @@ const CourtroomArgument = () => {
           <h1 style={{ fontSize: "20px", margin: "0" }}>User Argument</h1>
         </div>
         <div
-          className="h-[500px]"
+          className="h-[90%] flex flex-col "
           style={{
             margin: "10px",
             overflow: "hidden",
             overflowY: "scroll",
-          }}
+          }} 
         >
           {userArgumentsArr.map((x, index) => (
             <div
