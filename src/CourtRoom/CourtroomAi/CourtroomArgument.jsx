@@ -32,7 +32,7 @@ const CourtroomArgument = () => {
   const [selectedUserArgument, setSelectedUserArgument] = useState(null);
   const [selectedUserArgumentContent, setSelectedUserArgumentContent] =
     useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleEdit = (index) => {
     setEditIndex(index);
@@ -60,6 +60,13 @@ const CourtroomArgument = () => {
     setSelectedUserArgument(null);
     setSelectedUserArgumentContent(null);
   };
+
+  const handleArgumentSelect = (index, x) => {
+    setSelectedUserArgument(index);
+    setSelectedUserArgumentContent(x);
+    // api call here
+  };
+
   return (
     <div className="flex flex-col justify-between h-full">
       <div className="flex flex-col">
@@ -248,8 +255,7 @@ const CourtroomArgument = () => {
             {userArgumentsArr.map((x, index) => (
               <div
                 onClick={() => {
-                  setSelectedUserArgument(index);
-                  setSelectedUserArgumentContent(x);
+                  handleArgumentSelect(index, x);
                 }}
                 key={index}
                 style={{
