@@ -6,7 +6,7 @@ export const retrieveCourtroomAuth = createAsyncThunk(
   async () => {
     const storedAuth = localStorage.getItem("courtroom-auth");
     if (storedAuth) {
-      const parsedUser = await JSON.parse(storedAuth);
+      const parsedUser = JSON.parse(storedAuth);
       if (parsedUser.expiresAt < new Date().valueOf()) return null;
       const props = await fetch(`${NODE_API_ENDPOINT}/client/auth/me`, {
         method: "GET",
@@ -16,7 +16,6 @@ export const retrieveCourtroomAuth = createAsyncThunk(
       });
       const parsedProps = await props.json();
       return {
-        // props: { ambassador: parsedProps.data.ambassador },
         user: parsedUser,
       };
     } else return null;
@@ -27,7 +26,7 @@ export const retrieveCourtroomAuth = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: null,
+    user: {},
     caseOverview: "",
   },
   reducers: {
@@ -35,25 +34,16 @@ const userSlice = createSlice({
       const { user } = action.payload;
       state.user = user;
       localStorage.setItem("courtroom-auth", JSON.stringify(user));
-      return;
     },
     logout(state) {
-      state.user = null;
+      state.user = {};
       localStorage.removeItem("courtroom-auth");
-      return;
     },
     setOverview(state, action) {
-      state.caseOverview = action.payload.overView;
+      state.caseOverview = action.payload.overview;
     },
     setUser(state, action) {
       state.user = action.payload;
-    },
-    extraReducers: (builder) => {
-      builder.addCase(retrieveCourtroomAuth.fulfilled, (state, action) => {
-        if (action.payload && action.payload.user) {
-          state.user = action.payload.user;
-        }
-      });
     },
   },
   extraReducers: (builder) => {
