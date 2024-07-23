@@ -20,7 +20,7 @@ function LoginToCourtRoom() {
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const currentUser = useSelector((state) => state.user.user);
+  // const currentUser = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
   const loginTime = new Date().toISOString();
