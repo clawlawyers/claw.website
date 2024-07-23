@@ -28,8 +28,6 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
-    // token:'',
-    // userId:'',
     caseOverview: "",
   },
   reducers: {
@@ -44,21 +42,24 @@ const userSlice = createSlice({
       localStorage.removeItem("courtroom-auth");
       return;
     },
-    setOverview: (state, action) => {
+    setOverview(state, action) {
       state.caseOverview = action.payload.overView;
     },
-    extraReducers: (builder) => {
-      builder.addCase(retrieveCourtroomAuth.fulfilled, (state, action) => {
-        if (action.payload && action.payload.user) {
-          state.user = action.payload.user;
-        }
-      });
+    setUser(state, action) {
+      state.user = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(retrieveCourtroomAuth.fulfilled, (state, action) => {
+      if (action.payload && action.payload.user) {
+        state.user = action.payload.user;
+      }
+    });
   },
 });
 
 // Export the action creators
-export const { login, logout, setOverview } = userSlice.actions;
+export const { login, logout, setOverview, setUser } = userSlice.actions;
 
 // Export the reducer to be used in the store
 export default userSlice.reducer;

@@ -9,7 +9,7 @@ import { NODE_API_ENDPOINT } from "../../utils/utils";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice";
+import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice";
 
 function LoginToCourtRoom() {
   const [isHovered, setIsHovered] = useState(false);
@@ -18,7 +18,6 @@ function LoginToCourtRoom() {
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
-
   const dispatch = useDispatch();
   const loginTime = new Date().toISOString();
   useEffect(() => {
@@ -37,7 +36,7 @@ function LoginToCourtRoom() {
   const handleSave = (e) => {
     e.preventDefault();
     // Get current time in ISO format
-        // dispatch(setUser({ token:"1234",userId:"1234xyz",caseOverView:"lorem ipsum "}));
+       
        
 
     axios
@@ -47,6 +46,8 @@ function LoginToCourtRoom() {
       })
       .then((response) => {
         console.log(response);
+        dispatch(setUser(response.data));
+        
         if (response.data === "No bookings found for the current time slot.") {
           console.log("No bookings found for the current time slot");
           setErrorState(true);
