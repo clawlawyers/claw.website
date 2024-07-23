@@ -89,15 +89,15 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
         formData.append("file", file);
         formData.append("userId", "123");
 
-        const response = await axios.post(
-          `${NODE_API_ENDPOINT}/courtroom/newcase`,
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        // const response = await axios.post(
+        //   `${NODE_API_ENDPOINT}/courtroom/newcase`,
+        //   formData,
+        //   {
+        //     headers: { "Content-Type": "multipart/form-data" },
+        //   }
+        // );
 
-        console.log(response);
+        // console.log(response);
 
         setTimeout(() => {
           console.log("File uploaded successfully");
