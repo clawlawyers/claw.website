@@ -6,7 +6,7 @@ const Dialog = ({ open, onClose, title, text, buttonText, onButtonClick, lottieO
 
   return (
     <div className="fixed inset-0 w-full flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-      <div className="bg-gradient-to-r from-[#0e1118] to-[#008080] w-1/2 max-w-1/2 border border-white rounded-md p-4 relative">
+      <div className="bg-gradient-to-r from-[#0e1118] to-[#008080] w-2/4 max-w-2/4 border border-white rounded-md p-4 h-96 relative">
         {/* Close Button */}
         <div className="absolute top-2 right-2">
           <svg

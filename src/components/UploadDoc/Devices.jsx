@@ -36,6 +36,7 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
+    
   };
   const handleSave = () => {
     // text save logic
@@ -204,10 +205,10 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
         }
       >
         {uploading && (
-          <Lottie options={defaultOptions} height={150} width={150} />
+          <Lottie options={defaultOptions} height={250} width={250} />
         )}
         {analyzing && (
-          <Lottie options={analyzeLottie} height={150} width={150} />
+          <Lottie options={analyzeLottie} height={250} width={250} />
         )}
       </Dialog>
     </motion.div>
