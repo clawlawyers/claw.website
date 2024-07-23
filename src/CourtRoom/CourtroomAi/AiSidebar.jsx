@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setOverview } from "../../features/bookCourtRoom/LoginReducreSlice";
-const dialogText =
-  "n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is availablen publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is availablen publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available";
+import axios from "axios";
+import { NODE_API_ENDPOINT } from "../../utils/utils";
 
 const AiSidebar = () => {
   const overViewDetails = useSelector((state) => state.user.caseOverview);
+  const currentUser = useSelector((state) => state.user.user);
 
   const [editDialog, setEditDialog] = useState(false);
   const [text, setText] = useState("");
@@ -30,7 +31,25 @@ const AiSidebar = () => {
     navigate("/court-room");
   };
 
-  const handleSave = () => {
+  const ExitToCourtroom = () => {
+    saveHistory();
+
+    navigate("/court-room");
+  };
+
+  const saveHistory = async () => {
+    if (overViewDetails !== "") {
+      await axios.post(`${NODE_API_ENDPOINT}/courtroom/api/history`, {
+        user_id: currentUser.userId,
+      });
+    }
+  };
+
+  const handleSave = async () => {
+    await axios.post(`${NODE_API_ENDPOINT}/courtroom/edit_case`, {
+      user_id: currentUser.userId,
+      case_overview: text,
+    });
     dispatch(setOverview(text));
     setEditDialog(false);
   };
@@ -205,6 +224,7 @@ const AiSidebar = () => {
                     </svg>
                     <h1
                       style={{ fontSize: "15px", margin: "0", color: "white" }}
+                      onClick={() => saveHistory()}
                     >
                       New Case Input
                     </h1>
@@ -256,7 +276,10 @@ const AiSidebar = () => {
                     <path d="M11 21h8.033v-2l1-1v4h-9.033v2l-10-3v-18l10-3v2h9.033v5l-1-1v-3h-8.033v18zm-1 1.656v-21.312l-8 2.4v16.512l8 2.4zm11.086-10.656l-3.293-3.293.707-.707 4.5 4.5-4.5 4.5-.707-.707 3.293-3.293h-9.053v-1h9.053z" />
                   </svg>
 
-                  <h1 style={{ fontSize: "15px", margin: "0" }}>
+                  <h1
+                    style={{ fontSize: "15px", margin: "0" }}
+                    onClick={() => ExitToCourtroom()}
+                  >
                     Exit Courtroom
                   </h1>
                 </motion.div>

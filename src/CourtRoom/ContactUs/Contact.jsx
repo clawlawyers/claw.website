@@ -16,7 +16,14 @@ const Contact = () => {
   };
 
   return (
-    <div className="">
+    <div className="mx-32">
+      <div className="flex flex-col justify-center items-center text-center">
+        <h1 className="text-white text-6xl">Get In Touch</h1>
+        <p className="m-0  mt-5 text-white text-lg">
+          Want to get along with the 1st Generative AI in Indian Legal Niche?
+        </p>
+        <p className="text-white text-lg">We are waiting to hear from you</p>
+      </div>
       <div className="grid grid-cols-[40%_60%] items-center text-black">
         <div>
           <img
@@ -79,7 +86,9 @@ const Contact = () => {
               </div>
               <div className="flex justify-between items-center mx-2 mb-3">
                 <div className="flex gap-1 items-baseline">
-                  <h2 className="text-sm m-0">Preferred Contact Mode: </h2>
+                  <h2 className="text-sm m-0 text-white">
+                    Preferred Contact Mode:{" "}
+                  </h2>
                   <div className="flex flex-col gap-1">
                     <div className="w-full flex gap-1">
                       <input
@@ -89,7 +98,7 @@ const Contact = () => {
                         onChange={(e) => setContactMode(e.target.value)}
                         className=""
                       />
-                      <h1 className="m-0 text-xs">via E-Mail</h1>
+                      <h1 className="m-0 text-xs text-white">via E-Mail</h1>
                     </div>
                     <div className="w-full flex gap-1">
                       <input
@@ -99,18 +108,19 @@ const Contact = () => {
                         onChange={(e) => setContactMode(e.target.value)}
                         className=""
                       />
-                      <h1 className="m-0 text-xs">via Call</h1>
+                      <h1 className="m-0 text-xs text-white">via Call</h1>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <button
+                  <motion.button
+                    whileTap={{ scale: "0.95" }}
                     type="submit"
                     style={{ border: "2px solid white" }}
-                    className="bg-transparent px-24 rounded-md"
+                    className="px-24 rounded-md hover:bg-transparent"
                   >
                     Send
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </div>

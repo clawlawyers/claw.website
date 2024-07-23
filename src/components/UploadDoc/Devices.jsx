@@ -55,8 +55,14 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
     setCaseOverview(e.target.value);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // text save logic
+
+    await axios.post(`${NODE_API_ENDPOINT}/courtroom/edit_case`, {
+      user_id: currentUser.userId,
+      case_overview: inputText,
+    });
+
     dispatch(setOverview(inputText));
     handleDialogClose();
   };
