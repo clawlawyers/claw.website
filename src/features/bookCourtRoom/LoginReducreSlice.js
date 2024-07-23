@@ -48,6 +48,13 @@ const userSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
     },
+    extraReducers: (builder) => {
+      builder.addCase(retrieveCourtroomAuth.fulfilled, (state, action) => {
+        if (action.payload && action.payload.user) {
+          state.user = action.payload.user;
+        }
+      });
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(retrieveCourtroomAuth.fulfilled, (state, action) => {
