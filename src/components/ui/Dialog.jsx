@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Lottie from "react-lottie";
 
-const Dialog = ({ open, onClose, title, text, buttonText, onButtonClick, lottieOptions }) => {
+const Dialog = ({
+  open,
+  onClose,
+  title,
+  text,
+  buttonText,
+  onButtonClick,
+  lottieOptions,
+  inputText,
+  setInputText,
+}) => {
   if (!open) return null;
 
   return (
@@ -29,40 +39,35 @@ const Dialog = ({ open, onClose, title, text, buttonText, onButtonClick, lottieO
             />
           </svg>
         </div>
-        
+
         {/* Dialog Content */}
         <div className="text-center">
           <h1 className="text-2xl text-white font-bold mb-4">{title}</h1>
           {text && (
             <textarea
               className="w-full h-40 p-2.5 mb-4 text-black rounded-md resize-none"
-              value={text}
-              
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
             />
           )}
           {lottieOptions && (
             <div className="my-4">
-              <Lottie
-                options={lottieOptions}
-                height={150}
-                width={150}
-              />
+              <Lottie options={lottieOptions} height={150} width={150} />
             </div>
           )}
         </div>
-        
+
         {/* Action Button */}
         {buttonText && (
-            <div className="flex justify-center">
-          <button
-            className="bg-white text-black rounded-md px-4 py-2 font-semibold"
-            onClick={onButtonClick}
-          >
-            {buttonText}
-          </button>
-        </div>
+          <div className="flex justify-center">
+            <button
+              className="bg-white text-black rounded-md px-4 py-2 font-semibold"
+              onClick={onButtonClick}
+            >
+              {buttonText}
+            </button>
+          </div>
         )}
-        
       </div>
     </div>
   );

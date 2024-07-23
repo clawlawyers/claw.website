@@ -12,14 +12,21 @@ import { useNavigate } from "react-router-dom";
 import analyze from "../../assets/icons/Animation - 1721467138603.json";
 import axios from "axios";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
+import { useDispatch } from "react-redux";
+import { setOverview } from "../../features/bookCourtRoom/LoginReducreSlice";
+
 const Devices = ({ uploadedFile, setUploadedFile }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [uploading, setUploading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
   const [previewContent, setPreviewContent] = useState("");
   const [closed, setClosed] = useState(false);
   const [files, setFile] = useState(null);
+  const [inputText, setInputText] = useState("");
+  // console.log(inputText);
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -36,11 +43,11 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
-    
   };
   const handleSave = () => {
     // text save logic
-  }
+    dispatch(setOverview(inputText));
+  };
   const handleClick = (source) => {
     switch (source) {
       case "local":
@@ -89,6 +96,9 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
 
             console.log(mockCaseOverview);
             setPreviewContent(mockCaseOverview);
+            setInputText(mockCaseOverview);
+            //dispatch function
+            dispatch(setOverview(mockCaseOverview));
           }, 3000); // Simulate analyzing
         }, 3000); // Simulate upload
       }
@@ -107,6 +117,9 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
         setPreviewContent(
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
         ); // Set preview content
+
+        //dispatch function
+        // dispatch(setOverview())
       }, 3000); // Simulate analyzing
     }, 3000); // Simulate upload
   };
@@ -122,6 +135,9 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
         setPreviewContent(
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
         ); // Set preview content
+
+        //dispatch function
+        // dispatch(setOverview())
       }, 3000); // Simulate analyzing
     }, 3000); // Simulate upload
   };
@@ -198,7 +214,9 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
             : ""
         }
         text={uploading || analyzing ? "" : previewContent}
-        buttonText={`${uploadComplete? "Save":""}`}
+        inputText={inputText}
+        setInputText={setInputText}
+        buttonText={`${uploadComplete ? "Save" : ""}`}
         onButtonClick={handleSave}
         lottieOptions={
           uploading ? defaultOptions : analyzing ? analyzeLottie : ""
