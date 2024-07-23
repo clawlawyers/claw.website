@@ -10,6 +10,13 @@ const userArgumentsArr = [
   "I get the feeling the Figma designers don’t ever use their product",
   "I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
   "This is such a simple function and yet they make it so amazingly complicated.",
+  "This is such a simple function and yet they make it so amazingly complicated.",
+  "This is such a simple function and yet they make it so amazingly complicated.",
+  "This is such a simple function and yet they make it so amazingly complicated.",
+  "This is such a simple function and yet they make it so amazingly complicated.", "This is such a simple function and yet they make it so amazingly complicated.",
+  "This is such a simple function and yet they make it so amazingly complicated.",
+  "This is such a simple function and yet they make it so amazingly complicated.",
+  "This is such a simple function and yet they make it so amazingly complicated.",
 ];
 
 const aiLawyerArr = [
@@ -113,7 +120,7 @@ const CourtroomArgument = () => {
           style={{
             display: "flex",
             flexDirection: "column",
-
+            height:"90%",
             background: "#033E40",
             margin: "5px",
             borderRadius: "10px",
@@ -131,7 +138,7 @@ const CourtroomArgument = () => {
             <h1 style={{ fontSize: "20px", margin: "0" }}>AI Lawyer</h1>
           </div>
           <div
-            className="h-[150px]"
+            className="h-[90%]"
             style={{
               margin: "15px",
               overflow: "hidden",
@@ -195,7 +202,7 @@ const CourtroomArgument = () => {
           <h1 style={{ fontSize: "20px", margin: "0" }}>User Argument</h1>
         </div>
         <div
-          className="h-[90%] flex flex-col "
+          className="h-[200px] flex flex-col "
           style={{
             margin: "10px",
             overflow: "hidden",
