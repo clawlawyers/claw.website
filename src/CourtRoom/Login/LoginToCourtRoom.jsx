@@ -40,8 +40,6 @@ function LoginToCourtRoom() {
   const handleSave = (e) => {
     e.preventDefault();
     // Get current time in ISO format
-       
-       
 
     axios
       .post(`${NODE_API_ENDPOINT}/courtroom/login`, {
@@ -50,8 +48,13 @@ function LoginToCourtRoom() {
       })
       .then((response) => {
         console.log(response);
+
         // dispatch(setUser(response.data));
         
+
+        // dispatch(setUser(response.data));
+
+
         if (response.data === "No bookings found for the current time slot.") {
           console.log("No bookings found for the current time slot");
           setErrorState(true);
