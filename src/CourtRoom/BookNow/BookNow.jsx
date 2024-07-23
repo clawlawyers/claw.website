@@ -5,6 +5,7 @@ import image from "../../assets/images/courtroomPhoto.png";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BookNow = () => {
   const [receipt, setReceipt] = useState(`receipt_${Date.now()}`);
@@ -18,6 +19,7 @@ const BookNow = () => {
     contact: "",
     record: false, // Assuming 'record' checkbox state
   });
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -106,7 +108,7 @@ const BookNow = () => {
               data
             );
             alert(result.data.status);
-           
+            navigate("/");
           },
 
           theme: {
@@ -190,20 +192,27 @@ const BookNow = () => {
                   right: "10px",
                   transform: "translateY(-50%)",
                   border: "1px",
-                  background:"none",
+                  background: "none",
                   cursor: "pointer",
-                  width:"fit-content",
-
+                  width: "fit-content",
                 }}
                 onClick={() =>
                   showPassword ? setShowPassword(false) : setShowPassword(true)
                 }
               >
-                {showPassword ? <Visibility sx={{
-                  color:"black"
-                }} /> : <VisibilityOff sx={{
-                  color:"black"
-                }} />}
+                {showPassword ? (
+                  <Visibility
+                    sx={{
+                      color: "black",
+                    }}
+                  />
+                ) : (
+                  <VisibilityOff
+                    sx={{
+                      color: "black",
+                    }}
+                  />
+                )}
               </button>
             </div>
             <input

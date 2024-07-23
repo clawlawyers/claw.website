@@ -23,6 +23,9 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
   const [analyzing, setAnalyzing] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
   const [previewContent, setPreviewContent] = useState("");
+  const [caseOverview, setCaseOverview] = useState(
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus."
+  );
   const [closed, setClosed] = useState(false);
   const [files, setFile] = useState(null);
   const [inputText, setInputText] = useState("");
@@ -44,6 +47,12 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+
+  const handleChange = (e) => {
+    console.log("Textarea changed:", e.target.value);
+    setCaseOverview(e.target.value);
+  };
+
   const handleSave = () => {
     // text save logic
     dispatch(setOverview(inputText));
@@ -202,6 +211,7 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
         </div>
       </section>
       <Dialog
+        setOnChange={handleChange}
         open={uploading || analyzing || uploadComplete}
         onClose={handleDialogClose}
         title={
@@ -227,6 +237,13 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
         )}
         {analyzing && (
           <Lottie options={analyzeLottie} height={250} width={250} />
+        )}
+        {uploadComplete && (
+          <textarea
+            className="w-full h-40 p-2.5 mb-4 text-black rounded-md resize-none"
+            value={caseOverview}
+            onChange={handleChange}
+          />
         )}
       </Dialog>
     </motion.div>
