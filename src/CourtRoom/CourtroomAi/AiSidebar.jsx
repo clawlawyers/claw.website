@@ -4,11 +4,20 @@ import Styles from "./AiSidebar.module.css";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setOverview } from "../../features/bookCourtRoom/LoginReducreSlice";
 const dialogText =
   "n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is availablen publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is availablen publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available";
 
 const AiSidebar = () => {
+  const overViewDetails = useSelector((state) => state.user.caseOverview);
+
+  const [editDialog, setEditDialog] = useState(false);
+  const [text, setText] = useState(overViewDetails);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleExit = () => {
     localStorage.removeItem("hasSeenSplash");
 
@@ -16,13 +25,16 @@ const AiSidebar = () => {
 
     navigate("/court-room");
   };
-  const [editDialog, setEditDialog] = useState(false);
-  const [text, setText] = useState(dialogText);
+
+  const handleSave = () => {
+    dispatch(setOverview(text));
+    setEditDialog(false);
+  };
   return (
     <>
       <div className="flex flex-col gap-3 h-full py-3 pl-3">
         {/* top container */}
-        <div className="bg-[#008080] p-4 border-2 border-black rounded h-1/3 gap-5 flex flex-col justify-between">
+        <div className="bg-[#008080] p-4 border-2 border-black rounded h-1/3 gap-4 flex flex-col">
           <div className="flex flex-row justify-between items-center ">
             <h1 className="text-[#00FFA3] text-[18px] m-0">Case Details : </h1>
 
@@ -34,7 +46,9 @@ const AiSidebar = () => {
               Edit
             </motion.button>
           </div>
-          <div className=""></div>
+          <div className="h-[50%] overflow-hidden">
+            <h1 className="text-sm m-0 py-2">{overViewDetails}</h1>
+          </div>
           <div className="flex justify-between items-center p-2 bg-[#C5C5C5] text-[#008080] border-2 border-white rounded">
             <h1 className="text-sm m-0">Time Remaining:</h1>
             <h1 className="text-sm m-0">00 : 00</h1>
@@ -308,7 +322,9 @@ const AiSidebar = () => {
               />
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <button style={{ borderRadius: "10px" }}>Save</button>
+              <button onClick={handleSave} style={{ borderRadius: "10px" }}>
+                Save
+              </button>
             </div>
           </div>
         </div>
