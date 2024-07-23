@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/bookCourtRoom/LoginReducreSlice";
 import { useSelector } from "react-redux";
-import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice";
+// import { setUser } from "../../features/bookCourtRoom/LoginReducreSlice";
 
 function LoginToCourtRoom() {
   const [isHovered, setIsHovered] = useState(false);
@@ -51,7 +51,7 @@ function LoginToCourtRoom() {
 
         // dispatch(setUser(response.data));
 
-        
+        // dispatch(setUser(response.data));
 
         if (response.data === "No bookings found for the current time slot.") {
           console.log("No bookings found for the current time slot");
@@ -61,13 +61,15 @@ function LoginToCourtRoom() {
           console.log("Invalid phone number or password");
           setErrorState(true);
           toast.error(response.data);
-        } else {
+        } else if (response.data.token) {
           toast.success("You have successfully logged in");
           console.log(response.data);
-          dispatch(login(response.data.data));
+          dispatch(login({ user: response.data }));
           // console.log(currentUser);
           navigate("/courtroom-ai");
         }
+
+        console.log("error");
 
         // navigate("/courtroom-ai");
       })
