@@ -5,7 +5,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setOverview } from "../../features/bookCourtRoom/LoginReducreSlice";
+import {
+  logout,
+  setOverview,
+} from "../../features/bookCourtRoom/LoginReducreSlice";
 import aiAssistant from "../../assets/images/aiAssistant.png";
 import assistantLogo from "../../assets/images/virtualAssistant.gif";
 import searchIcon from "../../assets/images/assistantSearch.gif";
@@ -45,6 +48,7 @@ const AiSidebar = () => {
 
   const ExitToCourtroom = () => {
     saveHistory();
+    dispatch(logout());
 
     navigate("/court-room");
   };
