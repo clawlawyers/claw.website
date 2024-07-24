@@ -59,13 +59,16 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
   const handleSave = async () => {
     // text save logic
 
-    await axios.post(`${NODE_API_ENDPOINT}/courtroom/edit_case`, {
-      user_id: currentUser.userId,
-      case_overview: inputText,
-    });
-
-    dispatch(setOverview(inputText));
-    handleDialogClose();
+    try {
+      await axios.post(`${NODE_API_ENDPOINT}/courtroom/edit_case`, {
+        user_id: currentUser.userId,
+        case_overview: inputText,
+      });
+      dispatch(setOverview(inputText));
+      handleDialogClose();
+    } catch (error) {
+      toast.error("Failed to save case overview");
+    }
   };
   const handleClick = (source) => {
     switch (source) {
