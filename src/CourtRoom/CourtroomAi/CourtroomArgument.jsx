@@ -38,6 +38,8 @@ const CourtroomArgument = () => {
   const [selectedUserArgumentContent, setSelectedUserArgumentContent] =
     useState(null);
   const [loading, setLoading] = useState(false);
+  const [addArgumentInputText, setAddArgumentInputText] = useState(null);
+
   const currentUser = useSelector((state) => state.user.user);
 
   const handleEdit = (index) => {
@@ -91,6 +93,14 @@ const CourtroomArgument = () => {
     setJudgeArgument(judgeArgument);
 
     // api call here
+  };
+
+  const handleAddArgument = () => {
+    setUserArgument([...userArgument, addArgumentInputText]);
+    //api calls here
+
+    //clear input text
+    setAddArgumentInputText(null);
   };
 
   // useEffect(() => {
@@ -297,14 +307,14 @@ const CourtroomArgument = () => {
                 }}
               >
                 {editIndex === index ? (
-                  <input
+                  <textarea
                     className="text-black"
                     style={{
                       margin: "0",
                       fontSize: "15px",
                       padding: "15px",
                       borderRadius: "10px",
-                      width: "800px",
+                      width: "100%",
                     }}
                     value={editValue}
                     onChange={handleChange}
@@ -357,6 +367,8 @@ const CourtroomArgument = () => {
         <div className="w-full py-2 px-3 grid grid-cols-[65%_35%]">
           <div className="py-2 pr-2">
             <input
+              value={addArgumentInputText !== null ? addArgumentInputText : ""}
+              onChange={(e) => setAddArgumentInputText(e.target.value)}
               className="w-full text-black"
               style={{
                 border: "2px solid #00ffa3",
@@ -370,6 +382,9 @@ const CourtroomArgument = () => {
           </div>
           <div className="flex gap-2">
             <motion.button
+              whileTap={{ scale: "0.95" }}
+              onClick={handleAddArgument}
+              disabled={addArgumentInputText === null}
               className="flex-1 my-2"
               style={{
                 display: "flex",
