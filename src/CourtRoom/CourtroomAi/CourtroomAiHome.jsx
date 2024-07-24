@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import fight from "../../assets/images/fightYourself.png";
 import draft from "../../assets/images/draft.png";
 import Styles from "./CourtroomAiHome.module.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const CourtroomAiHome = () => {
+  const caseOverView = useSelector((state) => state.user.caseOverview);
   const isUploaded = localStorage.getItem("FileUploaded") === "true";
   console.log(isUploaded);
+
+  const [overviewText, setOverViewText] = useState(null);
+
+  useEffect(() => {
+    setOverViewText(caseOverView);
+  }, [caseOverView]);
 
   const buttonStyles = {
     display: "flex",
@@ -79,7 +87,7 @@ const CourtroomAiHome = () => {
               // width: "600px",
               cursor: "not-allowed",
             }}
-            disabled
+            disabled={overviewText === null}
             placeholder="Input Your Case Into The Courtroom"
           />
         </div>
@@ -95,7 +103,7 @@ const CourtroomAiHome = () => {
               borderRadius: "20px",
               background: "#008080",
               padding: "10px",
-              cursor: "not-allowed",
+              cursor: overviewText !== null ? "pointer" : "not-allowed",
               color: "white",
             }}
           >
@@ -119,7 +127,7 @@ const CourtroomAiHome = () => {
               borderRadius: "20px",
               background: "#008080",
               padding: "10px",
-              cursor: "not-allowed",
+              cursor: overviewText !== null ? "pointer" : "not-allowed",
               color: "white",
             }}
           >

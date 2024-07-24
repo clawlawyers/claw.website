@@ -75,10 +75,10 @@ const CourtRoomAiLayout = () => {
           )}
         </div>
       ) : (
-        <div className="h-screen grid grid-cols-1 md:grid-cols-[25%_75%] bg-gradient-to-r from-[#008080] to-[#0e1118]">
+        <div className="min-h-screen grid grid-cols-1 md:grid-cols-[25%_75%] bg-gradient-to-r from-[#008080] to-[#0e1118]">
           <AiSidebar />
-          <div className="flex flex-col w-full h-screen">
-            <div className="m-3.5 border-2 border-black bg-[#008080] rounded flex flex-col h-screen">
+          <div className="flex flex-col w-full h-full">
+            <div className="m-3.5 border-2 border-black bg-[#008080] rounded flex flex-col h-full">
               <Outlet />
             </div>
           </div>
