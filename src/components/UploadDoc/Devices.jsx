@@ -181,7 +181,7 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
     setAnalyzing(false);
     setUploadComplete(false);
     setPreviewContent("");
-    navigate("/courtroom-ai/arguments");
+    navigate("/courtroom-ai/");
   };
 
   return (

@@ -252,7 +252,7 @@ const CourtroomArgument = () => {
             <h1 style={{ fontSize: "20px", margin: "0" }}>User Argument</h1>
           </div>
           <div
-            className="h-[300px]"
+            className="h-[200px]"
             style={{
               margin: "10px",
               overflow: "hidden",

@@ -10,7 +10,7 @@ import {
   setOverview,
 } from "../../features/bookCourtRoom/LoginReducreSlice";
 import aiAssistant from "../../assets/images/aiAssistant.png";
-import assistantLogo from "../../assets/images/assistantLogo.png";
+import assistantLogo from "../../assets/images/virtualAssistant.gif";
 import searchIcon from "../../assets/images/assistantSearch.gif";
 import axios from "axios";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
