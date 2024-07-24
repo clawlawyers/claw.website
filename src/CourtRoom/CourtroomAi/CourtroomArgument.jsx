@@ -88,20 +88,63 @@ const CourtroomArgument = () => {
   const handleArgumentSelect = (index, x) => {
     setSelectedUserArgument(index);
     setSelectedUserArgumentContent(x);
+    setLoading(true);
     const { laywerArgument, judgeArgument } = RetieveDetails(index);
     setLawyerArgument(laywerArgument);
     setJudgeArgument(judgeArgument);
+    setLoading(false);
 
     // api call here
   };
 
-  const handleAddArgument = () => {
+  const GenerateDetails = async (index) => {
+    const laywerArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/api/lawyer`,
+      { user_id: currentUser.userId, action: "Generate", argument_index: index }
+    );
+    const judgeArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/api/judge`,
+      { user_id: currentUser.userId, action: "Generate", argument_index: index }
+    );
+
+    return {
+      laywerArgument: laywerArgument.data.data.lawyerArguemnt.counter_argument,
+      judgeArgument: judgeArgument.data.data.judgeArguemnt.judgement,
+    };
+  };
+
+  const handleAddArgument = async () => {
     setUserArgument([...userArgument, addArgumentInputText]);
     //api calls here
+
+    const inserUserArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/user_arguemnt`,
+      {
+        user_id: currentUser.userId,
+        argument: addArgumentInputText,
+        argument_index: "NA",
+      }
+    );
+
+    console.log(inserUserArgument.data.data.argumentIndex.argument_index);
+
+    setLoading(true);
+    const { laywerArgument, judgeArgument } = await GenerateDetails(
+      inserUserArgument.data.data.argumentIndex.argument_index
+    );
+    setLawyerArgument(laywerArgument);
+    setJudgeArgument(judgeArgument);
+
+    console.log(laywerArgument, judgeArgument);
+
+    setLoading(false);
 
     //clear input text
     setAddArgumentInputText(null);
   };
+
+  console.log(lawyerArgument);
+  console.log(judgeArgument);
 
   // useEffect(() => {
   //   const getDraft = async () => {
