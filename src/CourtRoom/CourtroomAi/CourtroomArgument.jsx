@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import aiJudge from "../../assets/images/aiJudge.png";
 import aiLawyer from "../../assets/images/aiLawyer.png";
 import userIcon from "../../assets/images/userArgument.png";
@@ -9,32 +9,31 @@ import axios from "axios";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 import { useSelector } from "react-redux";
 
-const userArgumentsArr = [
-  "I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
-  "I get the feeling the Figma designers don’t ever use their product",
-  "I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-];
+// const userArgument = [
+//   "I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
+//   "I get the feeling the Figma designers don’t ever use their product",
+//   "I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+// ];
 
-const aiLawyerArr = [
-  "This is such a simple function and yet they make it so amazingly complicated.",
-];
+// const aiLawyerArr = [
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+// ];
 
 const CourtroomArgument = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
-  const [lawyerArgument, setLawyerArgument] = useState(aiLawyerArr[0]);
-  const [judgeArgument, setJudgeArgument] = useState(
-    "AGREEEMNT 1 I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box AGREEEMNT 1 I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box AGREEEMNT 1 I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box AGREEEMNT 1 I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box"
-  );
+  const [lawyerArgument, setLawyerArgument] = useState("");
+  const [userArgument, setUserArgument] = useState([]);
+  const [judgeArgument, setJudgeArgument] = useState("");
   const [selectedUserArgument, setSelectedUserArgument] = useState(null);
   const [selectedUserArgumentContent, setSelectedUserArgumentContent] =
     useState(null);
@@ -43,7 +42,7 @@ const CourtroomArgument = () => {
 
   const handleEdit = (index) => {
     setEditIndex(index);
-    setEditValue(userArgumentsArr[index]);
+    setEditValue(userArgument[index]);
   };
 
   const handleChange = (e) => {
@@ -51,7 +50,7 @@ const CourtroomArgument = () => {
   };
 
   const handleSave = (index) => {
-    const updatedArguments = [...userArgumentsArr];
+    const updatedArguments = [...userArgument];
     updatedArguments[index] = editValue;
     setEditIndex(null);
     setEditValue("");
@@ -61,7 +60,7 @@ const CourtroomArgument = () => {
     if (selectedUserArgument !== null) {
       setLawyerArgument(selectedUserArgumentContent);
     } else {
-      const swapArgument = userArgumentsArr[userArgumentsArr.length - 1];
+      const swapArgument = userArgument[userArgument.length - 1];
       setLawyerArgument(swapArgument);
     }
     setSelectedUserArgument(null);
@@ -93,6 +92,24 @@ const CourtroomArgument = () => {
 
     // api call here
   };
+
+  // useEffect(() => {
+  //   const getDraft = async () => {
+  //     const response = await axios.post(
+  //       `${NODE_API_ENDPOINT}/courtroom/api/draft`,
+  //       {
+  //         user_id: currentUser.userId,
+  //       }
+  //     );
+  //     setUserArgument(...response.data.data.draft.argument);
+  //     setLawyerArgument(response.data.data.draft.counter_argument[2]);
+  //     setLawyerArgument(response.data.data.draft.judgement[2]);
+  //   };
+  //   if (currentUser.userId) {
+  //     getDraft();
+  //   }
+  //   getDraft();
+  // }, []);
 
   return (
     <div className="flex flex-col justify-between h-full">
@@ -259,7 +276,7 @@ const CourtroomArgument = () => {
               overflowY: "scroll",
             }}
           >
-            {userArgumentsArr.map((x, index) => (
+            {userArgument.map((x, index) => (
               <div
                 onClick={() => {
                   handleArgumentSelect(index, x);
