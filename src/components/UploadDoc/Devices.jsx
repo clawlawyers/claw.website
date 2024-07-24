@@ -15,6 +15,7 @@ import { NODE_API_ENDPOINT } from "../../utils/utils";
 import { useDispatch } from "react-redux";
 import { setOverview } from "../../features/bookCourtRoom/LoginReducreSlice";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const Devices = ({ uploadedFile, setUploadedFile }) => {
   const navigate = useNavigate();
@@ -100,52 +101,37 @@ const Devices = ({ uploadedFile, setUploadedFile }) => {
 
         console.log(currentUser.userId);
 
-        const response = await axios.post(
-          `${NODE_API_ENDPOINT}/courtroom/newcase`,
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        try {
+          const response = await axios.post(
+            `${NODE_API_ENDPOINT}/courtroom/newcase`,
+            formData,
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          );
 
-        setUploading(false);
-        setAnalyzing(true);
+          console.log(response);
 
-        setTimeout(() => {
-          setAnalyzing(false);
-          setUploadComplete(true);
+          setUploading(false);
+          setAnalyzing(true);
 
-          console.log(response.data.data.case_overview.case_overview);
+          setTimeout(() => {
+            setAnalyzing(false);
+            setUploadComplete(true);
 
-          setPreviewContent(response.data.data.case_overview.case_overview);
-          setInputText(response.data.data.case_overview.case_overview);
-          dispatch(setOverview(response.data.data.case_overview.case_overview));
-        }, 3000);
+            console.log(response.data.data.case_overview.case_overview);
 
-        // setTimeout(() => {
-        //   console.log("File uploaded successfully");
-        //   setUploadedFile(true);
-        //   localStorage.setItem("FileUploaded", true);
-
-        //   // Mock the file URL
-
-        //   setUploading(false);
-        //   setAnalyzing(true);
-
-        //   setTimeout(() => {
-        //     setAnalyzing(false);
-        //     setUploadComplete(true);
-
-        //     const mockCaseOverview =
-        //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula, est non blandit luctus, orci justo bibendum urna, at gravida ligula eros eget lectus.";
-
-        //     console.log(mockCaseOverview);
-        //     setPreviewContent(mockCaseOverview);
-        //     setInputText(mockCaseOverview);
-        //     //dispatch function
-        //     dispatch(setOverview(mockCaseOverview));
-        //   }, 3000); // Simulate analyzing
-        // }, 3000); // Simulate upload
+            setPreviewContent(response.data.data.case_overview.case_overview);
+            setInputText(response.data.data.case_overview.case_overview);
+            dispatch(
+              setOverview(response.data.data.case_overview.case_overview)
+            );
+          }, 3000);
+        } catch (error) {
+          console.log(error);
+          toast.error("Only accept Law Documentation");
+          setUploading(false);
+        }
       }
     });
     fileInput.click();
