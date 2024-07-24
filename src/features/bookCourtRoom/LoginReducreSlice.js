@@ -8,12 +8,15 @@ export const retrieveCourtroomAuth = createAsyncThunk(
     if (storedAuth) {
       const parsedUser = JSON.parse(storedAuth);
       if (parsedUser.expiresAt < new Date().valueOf()) return null;
-      const props = await fetch(`${NODE_API_ENDPOINT}/client/auth/me`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${parsedUser.jwt}`,
-        },
-      });
+      const props = await fetch(
+        `${NODE_API_ENDPOINT}/courtroom/getCourtroomUser`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${parsedUser.jwt}`,
+          },
+        }
+      );
       const parsedProps = await props.json();
       return {
         user: parsedUser,

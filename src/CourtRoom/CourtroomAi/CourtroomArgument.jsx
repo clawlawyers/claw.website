@@ -5,6 +5,9 @@ import userIcon from "../../assets/images/userArgument.png";
 import Styles from "./CourtroomArgument.module.css";
 import { motion } from "framer-motion";
 import loader from "../../assets/images/argumentLoading.gif";
+import axios from "axios";
+import { NODE_API_ENDPOINT } from "../../utils/utils";
+import { useSelector } from "react-redux";
 
 const userArgumentsArr = [
   "I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
@@ -29,10 +32,14 @@ const CourtroomArgument = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
   const [lawyerArgument, setLawyerArgument] = useState(aiLawyerArr[0]);
+  const [judgeArgument, setJudgeArgument] = useState(
+    "AGREEEMNT 1 I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box AGREEEMNT 1 I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box AGREEEMNT 1 I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box AGREEEMNT 1 I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box"
+  );
   const [selectedUserArgument, setSelectedUserArgument] = useState(null);
   const [selectedUserArgumentContent, setSelectedUserArgumentContent] =
     useState(null);
   const [loading, setLoading] = useState(false);
+  const currentUser = useSelector((state) => state.user.user);
 
   const handleEdit = (index) => {
     setEditIndex(index);
@@ -61,9 +68,29 @@ const CourtroomArgument = () => {
     setSelectedUserArgumentContent(null);
   };
 
+  const RetieveDetails = async (index) => {
+    const laywerArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/api/lawyer`,
+      { user_id: currentUser.userId, action: "Retrieve", argument_index: index }
+    );
+    const judgeArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/api/judge`,
+      { user_id: currentUser.userId, action: "Retrieve", argument_index: index }
+    );
+
+    return {
+      laywerArgument: laywerArgument.data.data.lawyerArguemnt.counter_argument,
+      judgeArgument: judgeArgument.data.data.judgeArguemnt.judgement,
+    };
+  };
+
   const handleArgumentSelect = (index, x) => {
     setSelectedUserArgument(index);
     setSelectedUserArgumentContent(x);
+    const { laywerArgument, judgeArgument } = RetieveDetails(index);
+    setLawyerArgument(laywerArgument);
+    setJudgeArgument(judgeArgument);
+
     // api call here
   };
 
@@ -118,27 +145,7 @@ const CourtroomArgument = () => {
                   overflowY: "scroll",
                 }}
               >
-                <h1 style={{ fontSize: "15px" }}>
-                  AGREEEMNT 1 I feel your pain. This is such a simple function
-                  and yet they make it so amazingly complicated. I find the same
-                  nonsense with adding a simple border to an object. They have
-                  400 ways to shade the color of a box, but not even 1 simple
-                  option for drawing a line around the box AGREEEMNT 1 I feel
-                  your pain. This is such a simple function and yet they make it
-                  so amazingly complicated. I find the same nonsense with adding
-                  a simple border to an object. They have 400 ways to shade the
-                  color of a box, but not even 1 simple option for drawing a
-                  line around the box AGREEEMNT 1 I feel your pain. This is such
-                  a simple function and yet they make it so amazingly
-                  complicated. I find the same nonsense with adding a simple
-                  border to an object. They have 400 ways to shade the color of
-                  a box, but not even 1 simple option for drawing a line around
-                  the box AGREEEMNT 1 I feel your pain. This is such a simple
-                  function and yet they make it so amazingly complicated. I find
-                  the same nonsense with adding a simple border to an object.
-                  They have 400 ways to shade the color of a box, but not even 1
-                  simple option for drawing a line around the box
-                </h1>
+                <h1 style={{ fontSize: "15px" }}>{judgeArgument}</h1>
               </div>
             </div>
           )}
@@ -273,14 +280,14 @@ const CourtroomArgument = () => {
                 }}
               >
                 {editIndex === index ? (
-                  <textarea
+                  <input
                     className="text-black"
                     style={{
-                      margin: "5px",
+                      margin: "0",
                       fontSize: "15px",
                       padding: "15px",
                       borderRadius: "10px",
-                      width: "100%",
+                      width: "800px",
                     }}
                     value={editValue}
                     onChange={handleChange}

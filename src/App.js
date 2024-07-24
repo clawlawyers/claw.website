@@ -60,6 +60,7 @@ import CourtroomArgument from "./CourtRoom/CourtroomAi/CourtroomArgument.jsx";
 import UploadDoc from "./CourtRoom/CourtroomAi/UploadDoc.jsx";
 import Verdict from "./CourtRoom/CourtroomAi/Verdict.jsx";
 import Contact from "./CourtRoom/ContactUs/Contact.jsx";
+import { retrieveCourtroomAuth } from "./features/bookCourtRoom/LoginReducreSlice.js";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -110,6 +111,7 @@ function App() {
   // this should be run only once per application lifetime
   useEffect(() => {
     store.dispatch(retrieveAuth());
+    store.dispatch(retrieveCourtroomAuth());
   }, []);
   useEffect(() => {
     initParticlesEngine(async (engine) => {
