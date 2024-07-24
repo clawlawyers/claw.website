@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Lottie from "react-lottie";
+import { motion } from "framer-motion";
 
 const Dialog = ({
   open,
@@ -59,12 +60,13 @@ const Dialog = ({
         {/* Action Button */}
         {buttonText && (
           <div className="flex justify-center">
-            <button
+            <motion.button
+              whileTap={{ scale: "0.95" }}
               className="bg-white text-black rounded-md px-4 py-2 font-semibold"
               onClick={onButtonClick}
             >
               {buttonText}
-            </button>
+            </motion.button>
           </div>
         )}
       </div>
