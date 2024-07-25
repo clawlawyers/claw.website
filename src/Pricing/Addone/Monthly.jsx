@@ -22,10 +22,10 @@ const Monthly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>100</td>
               <td>1</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹250/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹249/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(100, 1, 250, "Monthly")}
+                  onClick={() => handleCartAddition(100, 1, 249, "MONTHLY")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -36,10 +36,10 @@ const Monthly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>500</td>
               <td>1</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹500/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹499/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(500, 1, 500, "Monthly")}
+                  onClick={() => handleCartAddition(500, 1, 499, "MONTHLY")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -50,10 +50,10 @@ const Monthly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>500</td>
               <td>2</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹650/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹649/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(500, 2, 650, "Monthly")}
+                  onClick={() => handleCartAddition(500, 2, 649, "MONTHLY")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -64,10 +64,10 @@ const Monthly = ({ handleCartAddition }) => {
               <td style={{ textAlign: "left" }}>Tokens</td>
               <td>500</td>
               <td>4</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹850/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹849/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(500, 4, 850, "Monthly")}
+                  onClick={() => handleCartAddition(500, 4, 849, "MONTHLY")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -77,7 +77,7 @@ const Monthly = ({ handleCartAddition }) => {
           </tbody>
         </table>
       </div>
-
+      {/* 
       <div className={Styles.pricingSection}>
         <div
           style={{
@@ -89,7 +89,7 @@ const Monthly = ({ handleCartAddition }) => {
           <h1 style={{ fontWeight: "800" }}>Monthly Add On</h1>{" "}
           <p className={Styles.pricingNote}>
             *Min Purchase Required of
-            <span style={{ color: "#008080" }}> Rs500</span>
+            <span style={{ color: "#008080" }}> Rs499</span>
           </p>
         </div>
         <table className={Styles.pricingTable}>
@@ -105,10 +105,10 @@ const Monthly = ({ handleCartAddition }) => {
             <tr>
               <td style={{ textAlign: "left" }}>Case Search</td>
               <td>Minimum tokens - 100</td>
-              <td style={{ color: "#008080", textAlign: "right" }}>₹500/-</td>
+              <td style={{ color: "#008080", textAlign: "right" }}>₹499/-</td>
               <td style={{ textAlign: "left" }}>
                 <button
-                  onClick={() => handleCartAddition(100, 1, 500, "AddOn")}
+                  onClick={() => handleCartAddition(100, 1, 499, "AddOn")}
                   className={Styles.pricingButton}
                 >
                   Get it Now
@@ -117,7 +117,7 @@ const Monthly = ({ handleCartAddition }) => {
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -81,23 +81,23 @@ export default function CaseFinder({
   async function handleCaseSearch(e) {
     e.preventDefault();
 
-    const isEligible = await axios.post(
-      `${NODE_API_ENDPOINT}/gpt/dummyCheckbox`,
-      {
-        phoneNumber: currentUser.phoneNumber,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${currentUser.jwt}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(isEligible);
-    if (!isEligible.data.data) {
-      dispatch(open());
-      return;
-    }
+    // const isEligible = await axios.post(
+    //   `${NODE_API_ENDPOINT}/gpt/dummyCheckbox`,
+    //   {
+    //     phoneNumber: currentUser.phoneNumber,
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${currentUser.jwt}`,
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    // console.log(isEligible);
+    // if (!isEligible.data.data) {
+    //   dispatch(open());
+    //   return;
+    // }
     if (selectedCourts.length === 0) {
       alert("Please select at least one court.");
       return;
@@ -105,15 +105,17 @@ export default function CaseFinder({
     const courtsString = selectedCourts.join(",");
     try {
       setLoading(true);
-      // if (
-      //   token?.used >= token?.total ||
-      //   parseFloat(token?.used) + 0.2 > token?.total
-      // ) {
-      //   dispatch(open());
-      //   throw new Error(
-      //     "Not enough tokens, please upgrade or try again later!"
-      //   );
-      // }
+      if (
+        token?.used?.caseSearchTokenUsed >=
+          token?.total?.totalCaseSearchTokens ||
+        parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
+          token?.total?.totalCaseSearchTokens
+      ) {
+        dispatch(open());
+        throw new Error(
+          "Not enough tokens, please upgrade or try again later!"
+        );
+      }
 
       const response = await fetch(`${NODE_API_ENDPOINT}/gpt/case/search`, {
         method: "POST",
@@ -129,8 +131,11 @@ export default function CaseFinder({
         }),
       });
       const parsed = await response.json();
-      setResult(parsed.data.result);
-      dispatch(setToken({ token: parsed.data.token }));
+      console.log(parsed.success);
+      if (parsed.success) {
+        setResult(parsed.data.result);
+        dispatch(setToken({ token: parsed.data.token }));
+      }
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");

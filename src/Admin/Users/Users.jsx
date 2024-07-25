@@ -3,36 +3,65 @@ import { NODE_API_ENDPOINT } from "../../utils/utils";
 import Styles from "./Users.module.css";
 import DataTable from "../components/DataTable/DataTable";
 import axios from "axios";
+import { Select, MenuItem, Checkbox, ListItemText } from "@mui/material";
+
+const PlanSelectEditor = ({ id, value, api }) => {
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    api.setEditCellValue({
+      id,
+      field: "planNames",
+      value: typeof value === "string" ? value.split(",") : value,
+    });
+  };
+
+  return (
+    <Select
+      multiple
+      value={value}
+      onChange={handleChange}
+      renderValue={(selected) => selected.join(", ")}
+    >
+      {[
+        "PROC_500_1",
+        "PRO_10000_4",
+        "PRO_1000_1",
+        "PRO_100_1",
+        "PRO_5000_1",
+        "PRO_5000_2",
+        "PRO_5000_4",
+        "PRO_500_1",
+        "PRO_500_2",
+        "PRO_500_4",
+        "PRO_U_4",
+        "TOPUP_5_1",
+        "TRAIL_10_1",
+        "free",
+        "student",
+        "CustomPlan",
+      ].map((plan) => (
+        <MenuItem key={plan} value={plan}>
+          <Checkbox checked={value.indexOf(plan) > -1} />
+          <ListItemText primary={plan} />
+        </MenuItem>
+      ))}
+    </Select>
+  );
+};
 
 const columns = [
   { field: "phoneNumber", headerName: "Phone Number", width: 150 },
   {
-    field: "planName",
-    headerName: "Plan Name",
-    width: 120,
+    field: "planNames",
+    headerName: "Plans",
+    width: 200,
     editable: true,
-    type: "singleSelect",
-    valueOptions: [
-      "PRO_1000_1",
-      "PRO_1000_2",
-      "PRO_1000_3",
-      "PRO_1000_4",
-      "PRO_5000_1",
-      "PRO_5000_2",
-      "PRO_5000_3",
-      "PRO_5000_4",
-      "PRO_500_1",
-      "PRO_500_2",
-      "PRO_500_3",
-      "PRO_500_4",
-      "PRO_U_1",
-      "PRO_U_2",
-      "PRO_U_3",
-      "PRO_U_4",
-      "TOPUP_5_1",
-      "free",
-      "student",
-    ],
+    renderCell: (params) => params.value.join(", "),
+    renderEditCell: (params) => (
+      <PlanSelectEditor id={params.id} value={params.value} api={params.api} />
+    ),
   },
   { field: "totalTokenUsed", headerName: "Tokens Used", width: 120 },
   { field: "numberOfSessions", headerName: "Total Sessions", width: 120 },
@@ -173,9 +202,10 @@ export default function Users() {
         }
 
         // Add other field-specific API calls here
-        if (updatedFields.includes("planName")) {
-          await axios.patch(`${NODE_API_ENDPOINT}/admin/updateUserPlan`, {
-            planName: newRow.planName,
+        if (updatedFields.includes("planNames")) {
+          console.log(newRow.planNames);
+          await axios.patch(`${NODE_API_ENDPOINT}/admin/updateUserPlans`, {
+            planNames: newRow.planNames,
             id: newRow.mongoId,
           });
         }
@@ -209,11 +239,8 @@ export default function Users() {
           throw new Error("Failed to fetch users");
         }
         const data = await response.json();
-
-        // Filter users with tokenUsed not equal to zero
-        // const filteredUsers = data.filter(user => user.tokenUsed !== 0);
-
         setUsers(data);
+        console.log(data);
       } catch (error) {
         console.error("Fetch error:", error);
       }
@@ -222,7 +249,7 @@ export default function Users() {
     fetchUsers();
   }, []);
 
-  console.log(users);
+  // console.log(users);
 
   const rows = users.map((user, index) => ({
     id: index + 1,

@@ -40,8 +40,13 @@ const AddAmbassadorForm = () => {
       style={{ backgroundColor: "white", height: "90%", borderRadius: "5px" }}
     >
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Client Form
+        <Typography
+          style={{ color: "black" }}
+          variant="h4"
+          component="h1"
+          gutterBottom
+        >
+          Add new Ambassador
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField

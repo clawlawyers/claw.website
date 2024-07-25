@@ -1,0 +1,54 @@
+/* DateCalendarValue.css */
+.container {
+    background: linear-gradient(100deg, #008080 0%, #15B3B3 100%);
+    border-radius: 5px;
+    border: 1px solid white;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vw;
+    width: 80vw;
+    max-width: 600px;
+    max-height: 600px;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      height: 90vw;
+      width: 90vw;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      height: 100vw;
+      width: 100vw;
+      padding: 10px;
+    }
+  }
+  
+  .scaled-calendar {
+    transform: scale(1.2);
+    transform-origin: center;
+  }
+  
+  @media (max-width: 768px) {
+    .scaled-calendar {
+      transform: scale(1);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .scaled-calendar {
+      transform: scale(0.8);
+    }
+  }
+  
+.css-23p0if-MuiButtonBase-root-MuiPickersDay-root{
+    color:white;
+  }
+  .MuiButtonBase-root MuiPickersDay-root MuiPickersDay-dayWithMargin css-1wy8uaa-MuiButtonBase-root-MuiPickersDay-root{
+    color:white !important;
+  }

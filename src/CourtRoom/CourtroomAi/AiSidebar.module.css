@@ -1,0 +1,11 @@
+.leftContainer {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.logoImage {
+  width: 40% !important;
+  height: 100% !important;
+  border-radius: 0px;
+}

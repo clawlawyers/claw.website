@@ -115,19 +115,30 @@ export default function Payment() {
     };
     script.onload = async () => {
       try {
+        const planeName = `${type}_${request}_${session}`;
         const result = await axios.post(
           `${NODE_API_ENDPOINT}/payment/create-order`,
           {
             amount: Total,
             currency: "INR",
             receipt: receipt,
+            plan: planeName,
+            billingCycle: plan,
+            request,
+            session,
+            phoneNumber: currentUser.phoneNumber,
           }
         );
 
-        const { amount, id, currency } = result.data;
+        console.log(result);
+
+        const { amount, id, currency } = result.data.razorpayOrder;
+        const { _id } = result.data.createdOrder;
         const options = {
-          key: "rzp_live_YYdJhRryhFbI5i",
-          amount: amount.toString(),
+
+          key: "rzp_test_UWcqHHktRV6hxM",
+          amount: String(amount),
+
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
           description: "Transaction",
@@ -137,6 +148,7 @@ export default function Payment() {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
+              _id,
             };
 
             const result = await axios.post(
@@ -144,23 +156,23 @@ export default function Payment() {
               data
             );
             alert(result.data.status);
-            if (
-              plan === "AddOn" &&
-              result.data.status === "Payment verified successfully"
-            ) {
-              axios.post(
-                `${NODE_API_ENDPOINT}/gpt/dummy`,
-                {
-                  phoneNumber: currentUser.phoneNumber,
-                },
-                {
-                  headers: {
-                    Authorization: `Bearer ${currentUser.jwt}`,
-                    "Content-Type": "application/json",
-                  },
-                }
-              );
-            }
+            // if (
+            //   plan === "AddOn" &&
+            //   result.data.status === "Payment verified successfully"
+            // ) {
+            //   axios.post(
+            //     `${NODE_API_ENDPOINT}/gpt/dummy`,
+            //     {
+            //       phoneNumber: currentUser.phoneNumber,
+            //     },
+            //     {
+            //       headers: {
+            //         Authorization: `Bearer ${currentUser.jwt}`,
+            //         "Content-Type": "application/json",
+            //       },
+            //     }
+            //   );
+            // }
             nav("/");
           },
 
@@ -179,6 +191,8 @@ export default function Payment() {
     };
     document.body.appendChild(script);
   };
+
+  console.log(type + "_" + request + "_" + session);
 
   return (
     <div
