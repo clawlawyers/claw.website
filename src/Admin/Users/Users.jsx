@@ -40,6 +40,7 @@ const PlanSelectEditor = ({ id, value, api }) => {
         "TRAIL_10_1",
         "free",
         "student",
+        "custom",
       ].map((plan) => (
         <MenuItem key={plan} value={plan}>
           <Checkbox checked={value.indexOf(plan) > -1} />

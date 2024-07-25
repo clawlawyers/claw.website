@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import fight from "../../assets/images/fightYourself.png";
 import draft from "../../assets/images/draft.png";
 import Styles from "./CourtroomAiHome.module.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const CourtroomAiHome = () => {
+  const caseOverView = useSelector((state) => state.user.caseOverview);
   const isUploaded = localStorage.getItem("FileUploaded") === "true";
   console.log(isUploaded);
+
+  const [overviewText, setOverViewText] = useState(null);
+
+  useEffect(() => {
+    if (caseOverView === "") return;
+    setOverViewText(caseOverView);
+  }, [caseOverView]);
 
   const buttonStyles = {
     display: "flex",
@@ -68,7 +77,7 @@ const CourtroomAiHome = () => {
           </h1>
         </motion.div>
       </div>
-      <div className="w-full py-2 px-3 grid grid-cols-[65%_35%]">
+      <div className="w-full px-3 grid grid-cols-[65%_35%] items-center">
         <div className="py-2 pr-2">
           <input
             className="w-full"
@@ -77,61 +86,83 @@ const CourtroomAiHome = () => {
               borderRadius: "20px",
               padding: "10px",
               // width: "600px",
-              cursor: "not-allowed",
+              cursor: overviewText !== null ? "pointer" : "not-allowed",
+              color: "black",
             }}
-            disabled
+            disabled={overviewText === null}
             placeholder="Input Your Case Into The Courtroom"
           />
         </div>
-        <div className="flex gap-2">
-          <motion.button
-            className="flex-1 my-2"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "5px",
-              border: "2px solid #00ffa3",
-              borderRadius: "20px",
-              background: "#008080",
-              padding: "10px",
-              cursor: "not-allowed",
-              color: "white",
-            }}
+        <div className="flex">
+          <Link className="flex-1 flex justify-center items-center gap-1 my-2 p-[10px]">
+            <motion.button
+              whileTap={{ scale: "0.95" }}
+              className="flex-1 my-2"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+                border: "2px solid #00ffa3",
+                borderRadius: "20px",
+                background: "#008080",
+                padding: "10px",
+                cursor: overviewText !== null ? "pointer" : "not-allowed",
+                color: "white",
+              }}
+            >
+              <img
+                style={{ width: "20px", height: "20px" }}
+                src={fight}
+                alt="fight"
+              />
+              <h2
+                style={{
+                  fontSize: "15px",
+                  margin: "0",
+                  color: overviewText === null ? "gray" : "white",
+                }}
+              >
+                Fight Yourself
+              </h2>
+            </motion.button>
+          </Link>
+          <Link
+            className="flex-1 flex justify-center items-center gap-1 my-2 p-[10px]"
+            to={"/courtroom-ai/arguments"}
           >
-            <img
-              style={{ width: "20px", height: "20px" }}
-              src={fight}
-              alt="fight"
-            />
-            <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
-              Fight Yourself
-            </h2>
-          </motion.button>
-          <motion.button
-            className="flex-1 my-2"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "5px",
-              border: "2px solid #00ffa3",
-              borderRadius: "20px",
-              background: "#008080",
-              padding: "10px",
-              cursor: "not-allowed",
-              color: "white",
-            }}
-          >
-            <img
-              style={{ width: "20px", height: "20px" }}
-              src={draft}
-              alt="draft"
-            />
-            <h2 style={{ fontSize: "15px", margin: "0", color: "gray" }}>
-              Get First Draft
-            </h2>
-          </motion.button>
+            <motion.button
+              whileTap={{ scale: "0.95" }}
+              className="flex-1 my-2"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+                border: "2px solid #00ffa3",
+                borderRadius: "20px",
+                background: "#008080",
+                padding: "10px",
+                cursor: overviewText !== null ? "pointer" : "not-allowed",
+                color: "white",
+              }}
+            >
+              <img
+                style={{ width: "20px", height: "20px" }}
+                src={draft}
+                alt="draft"
+              />
+              <h2
+                style={{
+                  fontSize: "15px",
+                  margin: "0",
+                  color: overviewText === null ? "gray" : "white",
+                }}
+              >
+                Get First Draft
+              </h2>
+            </motion.button>
+          </Link>
         </div>
       </div>
     </div>

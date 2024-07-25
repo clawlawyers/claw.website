@@ -1,42 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import aiJudge from "../../assets/images/aiJudge.png";
 import aiLawyer from "../../assets/images/aiLawyer.png";
 import userIcon from "../../assets/images/userArgument.png";
 import Styles from "./CourtroomArgument.module.css";
 import { motion } from "framer-motion";
 import loader from "../../assets/images/argumentLoading.gif";
+import axios from "axios";
+import { NODE_API_ENDPOINT } from "../../utils/utils";
+import { useSelector } from "react-redux";
 
-const userArgumentsArr = [
-  "I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
-  "I get the feeling the Figma designers don’t ever use their product",
-  "I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-  "This is such a simple function and yet they make it so amazingly complicated.",
-];
+// const userArgument = [
+//   "I feel your pain. This is such a simple function and yet they make it so amazingly complicated. I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
+//   "I get the feeling the Figma designers don’t ever use their product",
+//   "I find the same nonsense with adding a simple border to an object. They have 400 ways to shade the color of a box, but not even 1 simple option for drawing a line around the box. I get the feeling the Figma designers don’t ever use their product",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+// ];
 
-const aiLawyerArr = [
-  "This is such a simple function and yet they make it so amazingly complicated.",
-];
+// const aiLawyerArr = [
+//   "This is such a simple function and yet they make it so amazingly complicated.",
+// ];
 
 const CourtroomArgument = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
-  const [lawyerArgument, setLawyerArgument] = useState(aiLawyerArr[0]);
+  const [lawyerArgument, setLawyerArgument] = useState("");
+  const [userArgument, setUserArgument] = useState([]);
+  const [judgeArgument, setJudgeArgument] = useState("");
   const [selectedUserArgument, setSelectedUserArgument] = useState(null);
   const [selectedUserArgumentContent, setSelectedUserArgumentContent] =
     useState(null);
   const [loading, setLoading] = useState(false);
+  const [addArgumentInputText, setAddArgumentInputText] = useState(null);
+
+  const currentUser = useSelector((state) => state.user.user);
 
   const handleEdit = (index) => {
     setEditIndex(index);
-    setEditValue(userArgumentsArr[index]);
+    setEditValue(userArgument[index]);
   };
 
   const handleChange = (e) => {
@@ -44,7 +52,7 @@ const CourtroomArgument = () => {
   };
 
   const handleSave = (index) => {
-    const updatedArguments = [...userArgumentsArr];
+    const updatedArguments = [...userArgument];
     updatedArguments[index] = editValue;
     setEditIndex(null);
     setEditValue("");
@@ -54,18 +62,107 @@ const CourtroomArgument = () => {
     if (selectedUserArgument !== null) {
       setLawyerArgument(selectedUserArgumentContent);
     } else {
-      const swapArgument = userArgumentsArr[userArgumentsArr.length - 1];
+      const swapArgument = userArgument[userArgument.length - 1];
       setLawyerArgument(swapArgument);
     }
     setSelectedUserArgument(null);
     setSelectedUserArgumentContent(null);
   };
 
+  const RetieveDetails = async (index) => {
+    const laywerArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/api/lawyer`,
+      { user_id: currentUser.userId, action: "Retrieve", argument_index: index }
+    );
+    const judgeArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/api/judge`,
+      { user_id: currentUser.userId, action: "Retrieve", argument_index: index }
+    );
+
+    return {
+      laywerArgument: laywerArgument.data.data.lawyerArguemnt.counter_argument,
+      judgeArgument: judgeArgument.data.data.judgeArguemnt.judgement,
+    };
+  };
+
   const handleArgumentSelect = (index, x) => {
     setSelectedUserArgument(index);
     setSelectedUserArgumentContent(x);
+    setLoading(true);
+    const { laywerArgument, judgeArgument } = RetieveDetails(index);
+    setLawyerArgument(laywerArgument);
+    setJudgeArgument(judgeArgument);
+    setLoading(false);
+
     // api call here
   };
+
+  const GenerateDetails = async (index) => {
+    const laywerArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/api/lawyer`,
+      { user_id: currentUser.userId, action: "Generate", argument_index: index }
+    );
+    const judgeArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/api/judge`,
+      { user_id: currentUser.userId, action: "Generate", argument_index: index }
+    );
+
+    return {
+      laywerArgument: laywerArgument.data.data.lawyerArguemnt.counter_argument,
+      judgeArgument: judgeArgument.data.data.judgeArguemnt.judgement,
+    };
+  };
+
+  const handleAddArgument = async () => {
+    setUserArgument([...userArgument, addArgumentInputText]);
+    //api calls here
+
+    const inserUserArgument = await axios.post(
+      `${NODE_API_ENDPOINT}/courtroom/user_arguemnt`,
+      {
+        user_id: currentUser.userId,
+        argument: addArgumentInputText,
+        argument_index: "NA",
+      }
+    );
+
+    console.log(inserUserArgument.data.data.argumentIndex.argument_index);
+
+    setLoading(true);
+    const { laywerArgument, judgeArgument } = await GenerateDetails(
+      inserUserArgument.data.data.argumentIndex.argument_index
+    );
+    setLawyerArgument(laywerArgument);
+    setJudgeArgument(judgeArgument);
+
+    console.log(laywerArgument, judgeArgument);
+
+    setLoading(false);
+
+    //clear input text
+    setAddArgumentInputText(null);
+  };
+
+  console.log(lawyerArgument);
+  console.log(judgeArgument);
+
+  // useEffect(() => {
+  //   const getDraft = async () => {
+  //     const response = await axios.post(
+  //       `${NODE_API_ENDPOINT}/courtroom/api/draft`,
+  //       {
+  //         user_id: currentUser.userId,
+  //       }
+  //     );
+  //     setUserArgument(...response.data.data.draft.argument);
+  //     setLawyerArgument(response.data.data.draft.counter_argument[2]);
+  //     setLawyerArgument(response.data.data.draft.judgement[2]);
+  //   };
+  //   if (currentUser.userId) {
+  //     getDraft();
+  //   }
+  //   getDraft();
+  // }, []);
 
   return (
     <div className="flex flex-col justify-between h-full">
@@ -118,27 +215,7 @@ const CourtroomArgument = () => {
                   overflowY: "scroll",
                 }}
               >
-                <h1 style={{ fontSize: "15px" }}>
-                  AGREEEMNT 1 I feel your pain. This is such a simple function
-                  and yet they make it so amazingly complicated. I find the same
-                  nonsense with adding a simple border to an object. They have
-                  400 ways to shade the color of a box, but not even 1 simple
-                  option for drawing a line around the box AGREEEMNT 1 I feel
-                  your pain. This is such a simple function and yet they make it
-                  so amazingly complicated. I find the same nonsense with adding
-                  a simple border to an object. They have 400 ways to shade the
-                  color of a box, but not even 1 simple option for drawing a
-                  line around the box AGREEEMNT 1 I feel your pain. This is such
-                  a simple function and yet they make it so amazingly
-                  complicated. I find the same nonsense with adding a simple
-                  border to an object. They have 400 ways to shade the color of
-                  a box, but not even 1 simple option for drawing a line around
-                  the box AGREEEMNT 1 I feel your pain. This is such a simple
-                  function and yet they make it so amazingly complicated. I find
-                  the same nonsense with adding a simple border to an object.
-                  They have 400 ways to shade the color of a box, but not even 1
-                  simple option for drawing a line around the box
-                </h1>
+                <h1 style={{ fontSize: "15px" }}>{judgeArgument}</h1>
               </div>
             </div>
           )}
@@ -245,14 +322,14 @@ const CourtroomArgument = () => {
             <h1 style={{ fontSize: "20px", margin: "0" }}>User Argument</h1>
           </div>
           <div
-            className="h-[300px]"
+            className="h-[200px]"
             style={{
               margin: "10px",
               overflow: "hidden",
               overflowY: "scroll",
             }}
           >
-            {userArgumentsArr.map((x, index) => (
+            {userArgument.map((x, index) => (
               <div
                 onClick={() => {
                   handleArgumentSelect(index, x);
@@ -276,7 +353,7 @@ const CourtroomArgument = () => {
                   <textarea
                     className="text-black"
                     style={{
-                      margin: "5px",
+                      margin: "0",
                       fontSize: "15px",
                       padding: "15px",
                       borderRadius: "10px",
@@ -333,6 +410,8 @@ const CourtroomArgument = () => {
         <div className="w-full py-2 px-3 grid grid-cols-[65%_35%]">
           <div className="py-2 pr-2">
             <input
+              value={addArgumentInputText !== null ? addArgumentInputText : ""}
+              onChange={(e) => setAddArgumentInputText(e.target.value)}
               className="w-full text-black"
               style={{
                 border: "2px solid #00ffa3",
@@ -346,6 +425,9 @@ const CourtroomArgument = () => {
           </div>
           <div className="flex gap-2">
             <motion.button
+              whileTap={{ scale: "0.95" }}
+              onClick={handleAddArgument}
+              disabled={addArgumentInputText === null}
               className="flex-1 my-2"
               style={{
                 display: "flex",
