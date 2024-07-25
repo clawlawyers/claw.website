@@ -135,8 +135,10 @@ export default function Payment() {
         const { amount, id, currency } = result.data.razorpayOrder;
         const { _id } = result.data.createdOrder;
         const options = {
+
           key: "rzp_test_UWcqHHktRV6hxM",
           amount: String(amount),
+
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
           description: "Transaction",
