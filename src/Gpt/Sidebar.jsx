@@ -153,7 +153,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   >
                     <StarIcon style={{ backgroundColor: "transparent" }} />
                   </div>
-                  {isAuthLoading ? (
+                  {!isAuthLoading ? (
                     <div style={{ fontSize: 16 }}>
                       {currentUser ? currentUser.phoneNumber : <>Guest</>}
                     </div>
