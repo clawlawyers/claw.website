@@ -123,6 +123,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 onClick={handleAccount}
                 style={{
                   display: "flex",
+                  flexDirection: "column",
                   color: "white",
                   border: "none",
                   backgroundColor: "rgba(255,255,255,0.05)",
@@ -134,6 +135,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 <div
                   style={{
                     display: "flex",
+                    gap: "10px",
                     height: "100%",
                     alignItems: "center",
                   }}
@@ -151,44 +153,67 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   >
                     <StarIcon style={{ backgroundColor: "transparent" }} />
                   </div>
-                </div>
-                {!isAuthLoading ? (
-                  <div style={{ flex: 1, textAlign: "left" }}>
+                  {isAuthLoading ? (
                     <div style={{ fontSize: 16 }}>
                       {currentUser ? currentUser.phoneNumber : <>Guest</>}
                     </div>
+                  ) : (
+                    <CircularProgress style={{ padding: 10, color: "white" }} />
+                  )}
+                </div>
+                {!isAuthLoading ? (
+                  <div style={{ flex: 1, textAlign: "left" }}>
+                    {/* <div style={{ fontSize: 16 }}>
+                      {currentUser ? currentUser.phoneNumber : <>Guest</>}
+                    </div> */}
                     <div style={{ fontSize: 14, color: "#777" }}>
                       {plan ? (
                         <>
                           <div>
-                            Plan -
+                            <span className="text-white">Plan Type : </span>
                             <span style={{ textTransform: "capitalize" }}>
                               {plan.length
                                 ? plan[0]?.split("_")[0]
                                 : " No Plan"}
+                              {/* No Plan */}
                             </span>
                           </div>
                           {plan.length && (
                             <div>
-                              Token - {Math.floor(token?.used?.gptTokenUsed)}/
+                              <span className="text-white">Token : </span>
+                              {Math.floor(token?.used?.gptTokenUsed)}/
                               {token?.total?.totalGptTokens}
                             </div>
                           )}
-
-                          <button
-                            style={{
-                              display: "flex",
-                              color: "white",
-                              border: "none",
-                              padding: "6px 10px",
-                              marginTop: 5,
-                              borderRadius: 5,
-                              backgroundColor: primaryColor,
-                            }}
-                            onClick={() => dispatch(open())}
-                          >
-                            Upgrade
-                          </button>
+                          <div className="mt-3 flex justify-between">
+                            <button
+                              style={{
+                                display: "flex",
+                                color: "white",
+                                border: "none",
+                                padding: "6px 20px",
+                                marginTop: 5,
+                                borderRadius: 5,
+                                backgroundColor: primaryColor,
+                              }}
+                              onClick={() => dispatch(open())}
+                            >
+                              Upgrade
+                            </button>
+                            <button
+                              style={{
+                                display: "flex",
+                                color: "#00969A",
+                                border: "none",
+                                padding: "6px 20px",
+                                marginTop: 5,
+                                borderRadius: 5,
+                                background: "white",
+                              }}
+                            >
+                              Log Out
+                            </button>
+                          </div>
                         </>
                       ) : (
                         <CircularProgress
