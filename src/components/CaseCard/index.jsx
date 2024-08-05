@@ -82,11 +82,13 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
   async function handleOpen() {
     try {
       console.log(token);
-      console.log(parseFloat(token?.used) + 1);
+      console.log(parseFloat(token?.used?.caseSearchTokenUsed) + 1);
 
       if (
-        token?.used >= token?.total ||
-        parseFloat(token?.used) + 1 > token?.total
+        token?.used?.caseSearchTokenUsed >=
+          token?.total?.totalCaseSearchTokens ||
+        parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
+          token?.total?.totalCaseSearchTokens
       ) {
         console.log("token exipred");
         dispatch(open());
