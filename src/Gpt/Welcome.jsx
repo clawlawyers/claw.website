@@ -1,8 +1,8 @@
 import React from "react";
 import WelcomePointers from "./WelcomePointers";
-import GavelIcon from "@mui/icons-material/Gavel";
-import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import GetAppIcon from "@mui/icons-material/GetApp";
+import hammer from "../assets/images/hammer.png";
+import headset from "../assets/images/headset.png";
+import uploadIcon from "../assets/images/upload.png";
 import CustomInputForm from "./components/CustomInputForm";
 
 import Styles from "./Welcome.module.css";
@@ -13,6 +13,7 @@ export default function Welcome({
   primaryColor,
   textGradient,
 }) {
+  let containerStyles = { width: "60%" };
   return (
     <div
       style={{
@@ -66,29 +67,55 @@ export default function Welcome({
         </div>
         <div className={Styles.secondaryContainer}>
           <CustomInputForm
+            containerStyles={containerStyles}
             primaryColor={primaryColor}
             onSubmit={submitPrompt}
           />
-          {/* <div className={Styles.welcomePointerContainer}>
-            <WelcomePointers
+          <div className={Styles.welcomePointerContainer}>
+            <div className="flex flex-col gap-2 items-center justify-center text-center">
+              <img src={hammer} />
+              <h3>Legal Perspectives</h3>
+              <p>
+                Acquire invaluable legal perspectives on any scenario or query
+                concerning Indian law.
+              </p>
+            </div>
+            {/* <WelcomePointers
               style={{ gridColumn: "1/2" }}
-              icon={GavelIcon}
+              icon={hammer}
               heading={"Legal Perspectives"}
               subHeading={`Acquire invaluable legal perspectives on any scenario or query concerning Indian law.`}
-            />
-            <WelcomePointers
+            /> */}
+            <div className="flex flex-col gap-2 items-center justify-center text-center">
+              <img src={headset} />
+              <h3>Tailored Support</h3>
+              <p>
+                Obtain legal insights tailored to your specific circumstances by
+                securely providing personal details within an end-to-end
+                encrypted framework.
+              </p>
+            </div>
+            {/* <WelcomePointers
               style={{ gridColumn: "2/3" }}
-              icon={SupportAgentIcon}
+              icon={headset}
               heading={"Tailored Support"}
               subHeading={`Obtain legal insights tailored to your specific circumstances by securely providing personal details within an end-to-end encrypted framework.`}
-            />
-            <WelcomePointers
+            /> */}
+            <div className="flex flex-col gap-2 items-center justify-center text-center">
+              <img src={uploadIcon} />
+              <h3>Case Retrieval</h3>
+              <p>
+                Access highly contextual and relevant cases with just a single
+                click.
+              </p>
+            </div>
+            {/* <WelcomePointers
               style={{ gridColumn: "3/4" }}
-              icon={GetAppIcon}
+              icon={uploadIcon}
               heading={"Case Retrieval"}
               subHeading={`Access highly contextual and relevant cases with just a single click.`}
-            />
-          </div> */}
+            /> */}
+          </div>
         </div>
       </div>
     </div>

@@ -20,6 +20,7 @@ import { collapse, expand, toggle } from "../features/sidebar/sidebarSlice";
 import { open } from "../features/popup/popupSlice";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Home } from "@mui/icons-material";
+import whatLegal from "../assets/images/whatLegal.gif";
 
 export default function Sidebar({ keyword, primaryColor, model }) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
@@ -237,11 +238,19 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   overflow: "hidden",
                 }}
               >
-                <div style={{ display: "flex", padding: 12, gap: 15 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: 12,
+                    gap: 15,
+                  }}
+                >
                   <div>
-                    <ChatBubbleOutlineIcon
+                    <img src={whatLegal} />
+                    {/* <ChatBubbleOutlineIcon
                       style={{ backgroundColor: "transparent" }}
-                    />
+                    /> */}
                   </div>
                   <div>What is {keyword}GPT</div>
                 </div>
