@@ -286,7 +286,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 backgroundColor: "transparent",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "center",
               }}
             >
               <div className={HeaderStyles.headerLogo}>
@@ -298,6 +298,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     backgroundColor: "transparent",
                     display: "flex",
                     alignItems: "center",
+                    gap: "5px",
                   }}
                 >
                   <Home />
@@ -312,7 +313,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   />
                 </Link>
               </div>
-              <button
+              {/* <button
                 onClick={handleClearConversations}
                 style={{
                   display: "flex",
@@ -326,7 +327,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 <DeleteOutlineOutlinedIcon
                   style={{ backgroundColor: "transparent" }}
                 />
-              </button>
+              </button> */}
             </div>
           </div>
           <div

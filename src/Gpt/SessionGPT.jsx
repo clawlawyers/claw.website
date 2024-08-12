@@ -47,6 +47,12 @@ export default function SessionGPT({ model, primaryColor }) {
   const [hover, setHover] = useState(-1);
   const [courtName, setcourtName] = useState("");
   const [caseCount, setCaseCount] = useState(2);
+  const [showRelevantCase, setShowRelevantCase] = useState(false);
+  const [refRelevantCase, setRefRelevantCase] = useState(null);
+  const [showSupremeCourtCases, setSupremeCourtCases] = useState(false);
+  const [refSupremeCase, setRefSupremeCase] = useState(null);
+  const [relevantCaseLoading, setRelevantCaseLoading] = useState(false);
+
   const greetingRegex =
     /\b(hello|namaste|hola|hey|how are you|greetings|(hi+))\b/gi;
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
@@ -57,11 +63,6 @@ export default function SessionGPT({ model, primaryColor }) {
     prompts[prompts.length - 1].id !== relatedCases.messageId &&
     isError;
 
-  const [selectHighCourt, setSelectHighCourt] = useState("");
-
-  const handleHighCourtChange = (event) => {
-    setSelectHighCourt(event.target.value);
-  };
   useEffect(() => {
     if (status === "succeeded" && response) {
       setIsLoading(false);
@@ -173,6 +174,25 @@ export default function SessionGPT({ model, primaryColor }) {
       setIsLoading(false);
     }
   }
+
+  //for relevant cases api call
+  const handleShowRelevantAct = () => {
+    setRelevantCaseLoading(true);
+    setShowRelevantCase(true);
+    //api call
+
+    //set loading state false
+  };
+
+  //for supreme court cases api call
+  const handleShowSupremeCourtJudgements = () => {
+    setRelevantCaseLoading(true);
+    setSupremeCourtCases(true);
+    //api call
+
+    //set loading state false
+  };
+
   return (
     <div className={Style.formContainer}>
       <div className="flex justify-start items-start pb-3 gap-3">
@@ -188,7 +208,6 @@ export default function SessionGPT({ model, primaryColor }) {
             style={{
               width: "100%",
               height: "100%",
-              // background: "#303030",
               borderRadius: "10px",
             }}
           >
@@ -202,9 +221,6 @@ export default function SessionGPT({ model, primaryColor }) {
             ))}
 
             {isLoading && (
-              // <div style={{ width: "100%", height: "100%" }}>
-              //   <CustomLoader />
-              // </div>
               <div className="h-full w-full p-3 flex flex-col gap-2">
                 <div className="w-full h-3 bg-slate-600 animate-pulse  rounded-full"></div>
                 <div className="w-full h-3 bg-slate-600 animate-pulse  rounded-full"></div>
@@ -255,6 +271,7 @@ export default function SessionGPT({ model, primaryColor }) {
                       Load cases
                     </button>
                     <button
+                      onClick={handleShowRelevantAct}
                       style={{
                         borderRadius: 5,
                         backgroundColor: "#008080",
@@ -268,6 +285,7 @@ export default function SessionGPT({ model, primaryColor }) {
                       Ref. To Relavant Act
                     </button>
                     <button
+                      onClick={handleShowSupremeCourtJudgements}
                       style={{
                         borderRadius: 5,
                         backgroundColor: "#008080",
@@ -340,6 +358,7 @@ export default function SessionGPT({ model, primaryColor }) {
                           Case search
                         </Link>
                         <button
+                          onClick={handleShowRelevantAct}
                           style={{
                             borderRadius: 5,
                             backgroundColor: "#008080",
@@ -353,6 +372,7 @@ export default function SessionGPT({ model, primaryColor }) {
                           Ref. To Relavant Act
                         </button>
                         <button
+                          onClick={handleShowSupremeCourtJudgements}
                           style={{
                             borderRadius: 5,
                             backgroundColor: "#008080",
@@ -399,64 +419,95 @@ export default function SessionGPT({ model, primaryColor }) {
                   </div>
                 )}
             </div>
-            <div className="m-2 p-3 border-2 border-white rounded bg-[#018081] flex flex-col gap-3">
-              <div className="flex justify-between items-center">
-                <p className="font-bold m-0 text-lg text-white">
-                  Reference to adequate Hight Court Judgements
-                </p>
-
-                <Box sx={{ minWidth: 300 }}>
-                  <FormControl fullWidth>
-                    {/* <InputLabel
-                      id="demo-simple-select-label"
-                      sx={{ background: "transparent", color: "black" }}
-                    >
-                      Age
-                    </InputLabel> */}
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      defaultValue="Select High Courts"
-                      value={selectHighCourt}
-                      // label="Select High Courts"
-                      sx={{ color: "black", background: "white" }}
-                      onChange={handleHighCourtChange}
-                    >
-                      {highCourtArr.map((x, index) => (
-                        <MenuItem key={index} value={x}>
-                          {x}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Box>
+            {showRelevantCase ? (
+              <div className="m-2 p-3 border-2 border-white rounded bg-[#018081] flex flex-col gap-3">
+                <div className="flex justify-between items-center">
+                  <p className="font-bold m-0 px-3 text-2xl text-white">
+                    Reference to Relevant Cases
+                  </p>
+                </div>
+                {!relevantCaseLoading && refRelevantCase ? (
+                  <div className="text-sm">
+                    What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
+                    printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an
+                    unknown printer took a galley of type and scrambled it to
+                    make a type specimen book. It has survived not only five
+                    centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged. It was popularised in the
+                    1960s with the release of Letraset sheets containing Lorem
+                    Ipsum passages, and more recently with desktop publishing
+                    software like Aldus PageMaker including versions of Lorem
+                    IpsumWhere does it come from? Contrary to popular belief,
+                    Lorem Ipsum is not simply random text. It has roots in a
+                    piece of classical Latin literature from 45 BC, making it
+                    over 2000 years old. Richard McClintock, a Latin professor
+                    at Hampden-Sydney College in Virginia, looked up one of the
+                    more obscure Latin words, consectetur, from a Lorem Ipsum
+                    passage, and going through the cites of the word in
+                    classical literature, discovered the undoubtable source.
+                    Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de
+                    Finibus Bonorum et Malorum" (The Extremes of Good and Evil)
+                    by Cicero, written in 45 BC. This book is a treatise on the
+                    theory of ethics, very popular during the Renaissance. The
+                    first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..",
+                    comes from a line in section 1.10.32.
+                  </div>
+                ) : (
+                  <div className="h-full w-full p-3 flex flex-col gap-2">
+                    <div className="w-full h-3 bg-slate-300 animate-pulse  rounded-full"></div>
+                    <div className="w-full h-3 bg-slate-300 animate-pulse  rounded-full"></div>
+                    <div className="w-[60%] h-3 bg-slate-300 animate-pulse  rounded-full"></div>
+                    <div className="w-[40%] h-3 bg-slate-300 animate-pulse  rounded-full"></div>
+                  </div>
+                )}
               </div>
-              <div className="text-sm">
-                What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
-                printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a
-                type specimen book. It has survived not only five centuries, but
-                also the leap into electronic typesetting, remaining essentially
-                unchanged. It was popularised in the 1960s with the release of
-                Letraset sheets containing Lorem Ipsum passages, and more
-                recently with desktop publishing software like Aldus PageMaker
-                including versions of Lorem IpsumWhere does it come from?
-                Contrary to popular belief, Lorem Ipsum is not simply random
-                text. It has roots in a piece of classical Latin literature from
-                45 BC, making it over 2000 years old. Richard McClintock, a
-                Latin professor at Hampden-Sydney College in Virginia, looked up
-                one of the more obscure Latin words, consectetur, from a Lorem
-                Ipsum passage, and going through the cites of the word in
-                classical literature, discovered the undoubtable source. Lorem
-                Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
-                Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
-                written in 45 BC. This book is a treatise on the theory of
-                ethics, very popular during the Renaissance. The first line of
-                Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line
-                in section 1.10.32.
+            ) : showSupremeCourtCases ? (
+              <div className="m-2 p-3 border-2 border-white rounded bg-[#018081] flex flex-col gap-3">
+                <div className="flex justify-between items-center">
+                  <p className="font-bold m-0 px-3 text-2xl text-white">
+                    Reference to Supreme Court Judgements
+                  </p>
+                </div>
+                {!relevantCaseLoading && refSupremeCase ? (
+                  <div className="text-sm">
+                    What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
+                    printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an
+                    unknown printer took a galley of type and scrambled it to
+                    make a type specimen book. It has survived not only five
+                    centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged. It was popularised in the
+                    1960s with the release of Letraset sheets containing Lorem
+                    Ipsum passages, and more recently with desktop publishing
+                    software like Aldus PageMaker including versions of Lorem
+                    IpsumWhere does it come from? Contrary to popular belief,
+                    Lorem Ipsum is not simply random text. It has roots in a
+                    piece of classical Latin literature from 45 BC, making it
+                    over 2000 years old. Richard McClintock, a Latin professor
+                    at Hampden-Sydney College in Virginia, looked up one of the
+                    more obscure Latin words, consectetur, from a Lorem Ipsum
+                    passage, and going through the cites of the word in
+                    classical literature, discovered the undoubtable source.
+                    Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de
+                    Finibus Bonorum et Malorum" (The Extremes of Good and Evil)
+                    by Cicero, written in 45 BC. This book is a treatise on the
+                    theory of ethics, very popular during the Renaissance. The
+                    first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..",
+                    comes from a line in section 1.10.32.
+                  </div>
+                ) : (
+                  <div className="h-full w-full p-3 flex flex-col gap-2">
+                    <div className="w-full h-3 bg-slate-300 animate-pulse  rounded-full"></div>
+                    <div className="w-full h-3 bg-slate-300 animate-pulse  rounded-full"></div>
+                    <div className="w-[60%] h-3 bg-slate-300 animate-pulse  rounded-full"></div>
+                    <div className="w-[40%] h-3 bg-slate-300 animate-pulse  rounded-full"></div>
+                  </div>
+                )}
               </div>
-            </div>
+            ) : (
+              ""
+            )}
           </div>
           {/* <div>
                         {isLoading && (
