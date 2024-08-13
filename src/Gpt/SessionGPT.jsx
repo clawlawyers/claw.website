@@ -25,6 +25,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import toast from "react-hot-toast";
 
 const highCourtArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -185,11 +186,33 @@ export default function SessionGPT({ model, primaryColor }) {
   };
 
   //for supreme court cases api call
-  const handleShowSupremeCourtJudgements = () => {
+  const handleShowSupremeCourtJudgements = async () => {
     setRelevantCaseLoading(true);
     setSupremeCourtCases(true);
     //api call
+    try {
+      const fetchData = await fetch(
+        `${NODE_API_ENDPOINT}/gpt/session/judgement`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sessionId }),
+        }
+      );
 
+      const response = await fetchData.json();
+
+      console.log(response.data.judgments);
+      setRefSupremeCase(response.data.judgments);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+    setRelevantCaseLoading(false);
+    setSupremeCourtCases(false);
     //set loading state false
   };
 
