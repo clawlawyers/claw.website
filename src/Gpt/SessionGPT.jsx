@@ -184,7 +184,7 @@ export default function SessionGPT({ model, primaryColor }) {
 
   //for relevant cases api call
   const handleShowRelevantAct = async () => {
-    setRelevantCaseLoading(true);
+    // setRelevantCaseLoading(true);
     setShowRelevantCase(true);
     //api call
 
@@ -209,12 +209,11 @@ export default function SessionGPT({ model, primaryColor }) {
       console.log(error);
       toast.error(error.message);
     }
-    //set loading state false
   };
 
   //for supreme court cases api call
   const handleShowSupremeCourtJudgements = async () => {
-    setRelevantCaseLoading(true);
+    // setSupremeCourtLoading(true);
     setSupremeCourtCases(true);
     //api call
     try {
@@ -233,14 +232,13 @@ export default function SessionGPT({ model, primaryColor }) {
       const response = await fetchData.json();
 
       console.log(response.data.judgments);
-      setHighCourtJudgement(response.data.judgments);
+      setRefSupremeCase(response.data.judgments);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
     }
-    setRelevantCaseLoading(false);
-    setSupremeCourtCases(false);
-    //set loading state false
+    // setRelevantCaseLoading(false);
+    // setSupremeCourtCases(false);
   };
 
   return (
@@ -320,7 +318,7 @@ export default function SessionGPT({ model, primaryColor }) {
                     >
                       Load cases
                     </button>
-                    <button
+                    {/* <button
                       onClick={handleShowRelevantAct}
                       style={{
                         borderRadius: 5,
@@ -347,7 +345,7 @@ export default function SessionGPT({ model, primaryColor }) {
                       }}
                     >
                       Ref. to Supreme Court Judgement
-                    </button>
+                    </button> */}
                   </div>
                 ))}
             </div>
@@ -534,38 +532,8 @@ export default function SessionGPT({ model, primaryColor }) {
                               Reference to Relevant Cases
                             </p>
                           </div>
-                          {!relevantCaseLoading && refRelevantCase ? (
-                            <div className="text-sm">
-                              What is Lorem Ipsum? Lorem Ipsum is simply dummy
-                              text of the printing and typesetting industry.
-                              Lorem Ipsum has been the industry's standard dummy
-                              text ever since the 1500s, when an unknown printer
-                              took a galley of type and scrambled it to make a
-                              type specimen book. It has survived not only five
-                              centuries, but also the leap into electronic
-                              typesetting, remaining essentially unchanged. It
-                              was popularised in the 1960s with the release of
-                              Letraset sheets containing Lorem Ipsum passages,
-                              and more recently with desktop publishing software
-                              like Aldus PageMaker including versions of Lorem
-                              IpsumWhere does it come from? Contrary to popular
-                              belief, Lorem Ipsum is not simply random text. It
-                              has roots in a piece of classical Latin literature
-                              from 45 BC, making it over 2000 years old. Richard
-                              McClintock, a Latin professor at Hampden-Sydney
-                              College in Virginia, looked up one of the more
-                              obscure Latin words, consectetur, from a Lorem
-                              Ipsum passage, and going through the cites of the
-                              word in classical literature, discovered the
-                              undoubtable source. Lorem Ipsum comes from
-                              sections 1.10.32 and 1.10.33 of "de Finibus
-                              Bonorum et Malorum" (The Extremes of Good and
-                              Evil) by Cicero, written in 45 BC. This book is a
-                              treatise on the theory of ethics, very popular
-                              during the Renaissance. The first line of Lorem
-                              Ipsum, "Lorem ipsum dolor sit amet..", comes from
-                              a line in section 1.10.32.
-                            </div>
+                          {refRelevantCase ? (
+                            <div className="text-sm">{refRelevantCase}</div>
                           ) : (
                             <div className="h-full w-full p-3 flex flex-col gap-2">
                               <div className="w-full h-3 bg-slate-300 animate-pulse  rounded-full"></div>
@@ -586,7 +554,7 @@ export default function SessionGPT({ model, primaryColor }) {
                               Reference to Supreme Court Judgements
                             </p>
                           </div>
-                          {!relevantCaseLoading && refSupremeCase ? (
+                          {refSupremeCase ? (
                             <div className="text-sm">{refSupremeCase}</div>
                           ) : (
                             <div className="h-full w-full p-3 flex flex-col gap-2">
