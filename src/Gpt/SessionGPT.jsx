@@ -26,6 +26,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import toast from "react-hot-toast";
+import ReactMarkdown from "react-markdown";
 
 const highCourtArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -533,7 +534,9 @@ export default function SessionGPT({ model, primaryColor }) {
                             </p>
                           </div>
                           {refRelevantCase ? (
-                            <div className="text-sm">{refRelevantCase}</div>
+                            <div className="text-sm">
+                              <ReactMarkdown>{refRelevantCase}</ReactMarkdown>
+                            </div>
                           ) : (
                             <div className="h-full w-full p-3 flex flex-col gap-2">
                               <div className="w-full h-3 bg-slate-300 animate-pulse  rounded-full"></div>
@@ -555,7 +558,9 @@ export default function SessionGPT({ model, primaryColor }) {
                             </p>
                           </div>
                           {refSupremeCase ? (
-                            <div className="text-sm">{refSupremeCase}</div>
+                            <div className="text-sm">
+                              <ReactMarkdown>{refSupremeCase}</ReactMarkdown>
+                            </div>
                           ) : (
                             <div className="h-full w-full p-3 flex flex-col gap-2">
                               <div className="w-full h-3 bg-slate-300 animate-pulse  rounded-full"></div>
