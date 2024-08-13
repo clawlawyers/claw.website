@@ -53,11 +53,10 @@ export default function SessionGPT({ model, primaryColor }) {
   const [showSupremeCourtCases, setSupremeCourtCases] = useState(false);
   const [refSupremeCase, setRefSupremeCase] = useState(null);
   const [relevantCaseLoading, setRelevantCaseLoading] = useState(false);
+  const [highCourtName, setHighCourtName] = useState("");
 
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleHighCourtChange = (event) => {
+    setHighCourtName(event.target.value);
   };
 
   const greetingRegex =
@@ -357,8 +356,8 @@ export default function SessionGPT({ model, primaryColor }) {
                             size="small"
                           >
                             <Select
-                              value={age}
-                              onChange={handleChange}
+                              value={highCourtName}
+                              onChange={handleHighCourtChange}
                               displayEmpty
                               autoWidth
                               inputProps={{ "aria-label": "Without label" }}
