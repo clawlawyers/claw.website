@@ -183,11 +183,32 @@ export default function SessionGPT({ model, primaryColor }) {
   }
 
   //for relevant cases api call
-  const handleShowRelevantAct = () => {
+  const handleShowRelevantAct = async () => {
     setRelevantCaseLoading(true);
     setShowRelevantCase(true);
     //api call
 
+    try {
+      const fetchData = await fetch(
+        `${NODE_API_ENDPOINT}/gpt/session/relevantAct`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sessionId }),
+        }
+      );
+
+      const response = await fetchData.json();
+
+      console.log(response.data.references);
+      setRefRelevantCase(response.data.references);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
     //set loading state false
   };
 
@@ -212,7 +233,7 @@ export default function SessionGPT({ model, primaryColor }) {
       const response = await fetchData.json();
 
       console.log(response.data.judgments);
-      setRefSupremeCase(response.data.judgments);
+      setHighCourtJudgement(response.data.judgments);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
