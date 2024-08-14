@@ -47,13 +47,14 @@ export default function CustomInputForm({
           value={query}
         />
         <button
-          disabled={isLoading || isError}
+          disabled={isLoading || isError || query === ""}
           type="submit"
           style={{
             border: "none",
             backgroundColor: primaryColor,
             borderRadius: 10,
             padding: 10,
+            cursor: "pointer",
           }}
         >
           <SendIcon
