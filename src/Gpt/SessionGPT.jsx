@@ -28,7 +28,36 @@ import Select from "@mui/material/Select";
 import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 
-const highCourtArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const highCourtArr = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Bombay",
+  "Chhattisgarh",
+  "Delhi",
+  "Goa",
+  "Gujarat",
+  "Himachal Pradesh",
+  "Jammu and Kashmir",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab and Haryana",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttarakhand",
+  "West Bengal",
+];
 
 export default function SessionGPT({ model, primaryColor }) {
   let containerStyles = { width: "100%" };
@@ -49,12 +78,10 @@ export default function SessionGPT({ model, primaryColor }) {
   const [hover, setHover] = useState(-1);
   const [courtName, setcourtName] = useState("");
   const [caseCount, setCaseCount] = useState(2);
-  const [highCourtJudgeMent, setHighCourtJudgement] = useState(null);
   const [showRelevantCase, setShowRelevantCase] = useState(false);
   const [refRelevantCase, setRefRelevantCase] = useState(null);
   const [showSupremeCourtCases, setSupremeCourtCases] = useState(false);
   const [refSupremeCase, setRefSupremeCase] = useState(null);
-  const [relevantCaseLoading, setRelevantCaseLoading] = useState(false);
   const [highCourtName, setHighCourtName] = useState("");
 
   const handleHighCourtChange = (event) => {
@@ -244,8 +271,8 @@ export default function SessionGPT({ model, primaryColor }) {
 
   return (
     <div className={Style.formContainer}>
-      <div className="flex justify-start items-start pb-3 gap-3">
-        <h3 className="m-0 text-[#018081]">Legal GPT</h3>
+      <div className="flex justify-start items-start pl-[35px] pb-3 gap-3">
+        <h3 className="m-0 text-[#018081] font-bold">LegalGPT</h3>
         <p className="m-0 text-xs pt-[3px]">by Claw</p>
       </div>
       <div ref={promptsRef} className={Style.prompts}>
@@ -357,33 +384,7 @@ export default function SessionGPT({ model, primaryColor }) {
                 prompts[prompts.length - 1].id === relatedCases.messageId &&
                 relatedCases.cases.length > 0 && (
                   <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 5,
-                        marginTop: 5,
-                        padding: "0px 10px",
-                      }}
-                    >
-                      {relatedCases.cases
-                        .slice(0, caseCount)
-                        .map((relatedCase) => {
-                          return (
-                            <CasecardGpt
-                              messageId={relatedCases.messageId}
-                              name={relatedCase.Title}
-                              caseId={relatedCase.case_id}
-                              citations={relatedCase.num_cites}
-                              date={relatedCase.Date}
-                              court={relatedCase.court}
-                              key={relatedCase.id}
-                              query={query}
-                            />
-                          );
-                        })}
-                    </div>
-                    <div className="m-2 p-3 border-2 border-white rounded bg-[#018081] flex flex-col gap-3">
+                    <div className="m-2 p-3 border-2 border-[#018081] rounded bg-[#303030] flex flex-col gap-3">
                       <div className="flex justify-between items-center">
                         <p className="font-bold m-0 px-3 text-2xl text-white">
                           Reference to High Court Judgements
@@ -410,14 +411,14 @@ export default function SessionGPT({ model, primaryColor }) {
                               </MenuItem>
                               {highCourtArr.map((x, index) => (
                                 <MenuItem key={index} value={x}>
-                                  {x}
+                                  {x} High Court
                                 </MenuItem>
                               ))}
                             </Select>
                           </FormControl>
                         </div>
                       </div>
-                      {highCourtJudgeMent ? (
+                      {/* {highCourtJudgeMent ? (
                         <div className="text-sm">
                           What is Lorem Ipsum? Lorem Ipsum is simply dummy text
                           of the printing and typesetting industry. Lorem Ipsum
@@ -435,7 +436,33 @@ export default function SessionGPT({ model, primaryColor }) {
                           <div className="w-[60%] h-3 bg-slate-300 animate-pulse  rounded-full"></div>
                           <div className="w-[40%] h-3 bg-slate-300 animate-pulse  rounded-full"></div>
                         </div>
-                      )}
+                      )} */}
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 5,
+                          marginTop: 5,
+                          padding: "0px 10px",
+                        }}
+                      >
+                        {relatedCases.cases
+                          .slice(0, caseCount)
+                          .map((relatedCase) => {
+                            return (
+                              <CasecardGpt
+                                messageId={relatedCases.messageId}
+                                name={relatedCase.Title}
+                                caseId={relatedCase.case_id}
+                                citations={relatedCase.num_cites}
+                                date={relatedCase.Date}
+                                court={relatedCase.court}
+                                key={relatedCase.id}
+                                query={query}
+                              />
+                            );
+                          })}
+                      </div>
                     </div>
                     <div
                       style={{
@@ -446,19 +473,20 @@ export default function SessionGPT({ model, primaryColor }) {
                       }}
                     >
                       <div className="flex gap-2">
-                        <Link
-                          style={{
-                            borderRadius: 5,
-                            background: "#008080",
-                            color: "white",
-                            textDecoration: "none",
-                            padding: 10,
-                            width: "fit-content",
-                            border: "1px solid white",
-                          }}
-                          to={`/case/search?id=${relatedCases.messageId}`}
-                        >
-                          Case search
+                        <Link to={`/case/search?id=${relatedCases.messageId}`}>
+                          <button
+                            style={{
+                              borderRadius: 5,
+                              backgroundColor: "#008080",
+                              color: "white",
+                              textDecoration: "none",
+                              padding: 10,
+                              width: "fit-content",
+                              border: "1px solid white",
+                            }}
+                          >
+                            Case search
+                          </button>
                         </Link>
                         <button
                           onClick={handleShowRelevantAct}

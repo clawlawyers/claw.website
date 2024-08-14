@@ -68,7 +68,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         <button
           style={{
             position: "absolute",
-            top: 20,
+            top: 10,
             left: 12,
             backgroundColor: "transparent",
             zIndex: 4,
@@ -86,7 +86,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         <button
           style={{
             position: "absolute",
-            top: 40,
+            top: 20,
             left: 225,
             backgroundColor: "transparent",
             backgroundImage: "none",
