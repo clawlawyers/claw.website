@@ -214,6 +214,9 @@ export default function SessionGPT({ model, primaryColor }) {
 
   //for relevant cases api call
   const handleShowRelevantAct = async () => {
+    if (refRelevantCase) {
+      return;
+    }
     // setRelevantCaseLoading(true);
     setShowRelevantCase(true);
     //api call
@@ -243,6 +246,9 @@ export default function SessionGPT({ model, primaryColor }) {
 
   //for supreme court cases api call
   const handleShowSupremeCourtJudgements = async () => {
+    if (refSupremeCase) {
+      return;
+    }
     // setSupremeCourtLoading(true);
     setSupremeCourtCases(true);
     //api call

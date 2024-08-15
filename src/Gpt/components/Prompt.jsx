@@ -20,7 +20,7 @@ export function Prompt({ isUser, text, primaryColor }) {
           : { padding: "5px 10px" }
       }
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-start gap-2">
         <div className="flex items-center">
           {isUser ? (
             // <PersonIcon style={{
