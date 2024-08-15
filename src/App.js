@@ -61,6 +61,7 @@ import UploadDoc from "./CourtRoom/CourtroomAi/UploadDoc.jsx";
 import Verdict from "./CourtRoom/CourtroomAi/Verdict.jsx";
 import Contact from "./CourtRoom/ContactUs/Contact.jsx";
 import { retrieveCourtroomAuth } from "./features/bookCourtRoom/LoginReducreSlice.js";
+import SessionGptNew from "./Gpt/components/SessionGptNew.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)

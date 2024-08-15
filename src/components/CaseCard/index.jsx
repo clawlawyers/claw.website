@@ -8,6 +8,7 @@ import { setToken } from "../../features/gpt/gptSlice";
 import Styles from "./index.module.css";
 import { useDispatch } from "react-redux";
 import { open } from "../../features/popup/popupSlice";
+import toast from "react-hot-toast";
 
 const courtIdMapping = {
   "Supreme Court of India": "1bgi-zbCWObiTNjkegNXryni4ZJzZyCFV",
@@ -64,6 +65,7 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
       setsummery(data.content);
       setIsLoading(false);
     } catch (error) {
+      toast.error("Summery not found");
       console.log(error);
       setIsLoading(false);
     }

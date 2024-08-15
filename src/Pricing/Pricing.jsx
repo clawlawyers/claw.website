@@ -50,7 +50,7 @@ export default function Pricing() {
           request: noOfRequests,
           session: noOfSessions,
           total: price,
-          plan: duration,
+          plan: duration === "AddOn" ? "LIFETIME" : duration,
           type: type,
         })
       );
