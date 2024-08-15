@@ -495,7 +495,7 @@ export default function SessionGPT({ model, primaryColor }) {
                             border: "1px solid white",
                           }}
                         >
-                          Ref. To Relavant Act
+                          References
                         </button>
                         <button
                           onClick={handleShowSupremeCourtJudgements}
@@ -509,7 +509,7 @@ export default function SessionGPT({ model, primaryColor }) {
                             border: "1px solid white",
                           }}
                         >
-                          Ref. to Supreme Court Judgement
+                          Supreme Court Judgement
                         </button>
                       </div>
                       <button
