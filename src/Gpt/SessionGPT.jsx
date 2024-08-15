@@ -66,16 +66,23 @@ export default function SessionGPT({ model, primaryColor }) {
   const [refSupremeCase, setRefSupremeCase] = useState(null);
   const [highCourtName, setHighCourtName] = useState("");
 
-  const handleHighCourtChange = async (event) => {
+  const handleHighCourtChange = (event) => {
     setcourtName(event.target.value);
-    console.log(event.target.value);
-    console.log(courtName);
+  };
+
+  const handleHighCourtNameChange = async () => {
+    // console.log(event.target.value);
+    // console.log(courtName);
 
     dispatch(setRelatedCases({}));
 
     await fetchRelatedCases();
-    console.log(courtName);
+    // console.log(courtName);
   };
+
+  useEffect(() => {
+    handleHighCourtNameChange();
+  }, [courtName]);
 
   const greetingRegex =
     /\b(hello|namaste|hola|hey|how are you|greetings|(hi+))\b/gi;
