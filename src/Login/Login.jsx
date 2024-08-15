@@ -23,6 +23,7 @@ export default function Login() {
   const [searchParams] = useSearchParams();
   let area;
   const [location, setLocation] = useState({ latitude: null, longitude: null });
+  console.log(location);
   const [areaName, setAreaName] = useState(null);
 
   const dispatch = useDispatch();

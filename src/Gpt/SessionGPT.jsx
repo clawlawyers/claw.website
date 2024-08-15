@@ -179,6 +179,10 @@ export default function SessionGPT({ model, primaryColor }) {
     setIsLoading(true);
     setQuery({ query });
     setPrompts((prompts) => [...prompts, { text: query, isUser: true }]);
+    setShowRelevantCase(false);
+    setRefRelevantCase(null);
+    setSupremeCourtCases(false);
+    setRefSupremeCase(null);
     dispatch(setGpt({ prompt: query }));
     dispatch(generateResponse({ sessionId, model }));
   }
