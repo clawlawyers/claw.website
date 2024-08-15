@@ -186,7 +186,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               {token?.total?.totalGptTokens}
                             </div>
                           )}
-                          <div className="mt-3 flex justify-between">
+                          <div className="mt-3 flex">
                             <button
                               style={{
                                 display: "flex",
@@ -201,7 +201,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             >
                               Upgrade
                             </button>
-                            <button
+                            {/* <button
                               style={{
                                 display: "flex",
                                 color: "#00969A",
@@ -213,7 +213,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               }}
                             >
                               Log Out
-                            </button>
+                            </button> */}
                           </div>
                         </>
                       ) : (
