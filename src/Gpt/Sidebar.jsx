@@ -32,6 +32,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   const { isAuthLoading } = useAuthState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [startnew, setStartNew] = useState(0);
 
   function handleAccount() {
     if (!currentUser) navigate("/login");
@@ -57,6 +58,8 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   function handleNewConversation() {
     if (keyword === "Legal") navigate("/gpt/legalGPT");
     else navigate("/gpt/finGPT");
+
+    setStartNew(startnew + 1);
   }
   useEffect(() => {
     if (isPhoneMode) dispatch(collapse());
@@ -273,7 +276,12 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 </button>
                 <div style={{ flex: 1, overflow: "scroll" }}>
                   {currentUser && !isAuthLoading && !loading && (
-                    <UserSessions model={model} jwt={currentUser.jwt} />
+                    <UserSessions
+                      model={model}
+                      jwt={currentUser.jwt}
+                      setStartNew={setStartNew}
+                      startnew={startnew}
+                    />
                   )}
                 </div>
               </div>
