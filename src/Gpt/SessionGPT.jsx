@@ -66,9 +66,15 @@ export default function SessionGPT({ model, primaryColor }) {
   const [refSupremeCase, setRefSupremeCase] = useState(null);
   const [highCourtName, setHighCourtName] = useState("");
 
-  const handleHighCourtChange = (event) => {
+  const handleHighCourtChange = async (event) => {
     setcourtName(event.target.value);
-    fetchRelatedCases();
+    console.log(event.target.value);
+    console.log(courtName);
+
+    dispatch(setRelatedCases({}));
+
+    await fetchRelatedCases();
+    console.log(courtName);
   };
 
   const greetingRegex =
@@ -389,7 +395,7 @@ export default function SessionGPT({ model, primaryColor }) {
                             size="small"
                           >
                             <Select
-                              value={highCourtName}
+                              value={courtName}
                               onChange={handleHighCourtChange}
                               displayEmpty
                               autoWidth
