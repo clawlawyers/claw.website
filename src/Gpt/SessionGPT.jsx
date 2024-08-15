@@ -29,34 +29,16 @@ import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 
 const highCourtArr = [
-  "Andhra Pradesh",
-  "Arunachal Pradesh",
-  "Assam",
-  "Bihar",
-  "Bombay",
-  "Chhattisgarh",
-  "Delhi",
-  "Goa",
-  "Gujarat",
-  "Himachal Pradesh",
-  "Jammu and Kashmir",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Punjab and Haryana",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttarakhand",
-  "West Bengal",
+  "Supreme Court of India",
+  "Chattisgarh High Court",
+  "Sikkim High Court",
+  "Uttarakhand High Court",
+  "Calcutta High Court",
+  "Delhi High Court",
+  "Jammu and Kashmir High Court",
+  "Gujarat High Court",
+  "Delhi District Court",
+  "Rajasthan High Court",
 ];
 
 export default function SessionGPT({ model, primaryColor }) {
@@ -85,7 +67,8 @@ export default function SessionGPT({ model, primaryColor }) {
   const [highCourtName, setHighCourtName] = useState("");
 
   const handleHighCourtChange = (event) => {
-    setHighCourtName(event.target.value);
+    setcourtName(event.target.value);
+    fetchRelatedCases();
   };
 
   const greetingRegex =
@@ -149,7 +132,9 @@ export default function SessionGPT({ model, primaryColor }) {
     else if (userlocation === "Delhi") setcourtName("Delhi High Court");
     else if (userlocation === "Gujarat" || userlocation === "gujarat")
       setcourtName("Gujarat High Court");
-    else setcourtName("Supreme Court of India");
+    if (userlocation === "Rajasthan" || userlocation === "rajasthan") {
+      setcourtName("Rajasthan High Court");
+    } else setcourtName("Supreme Court of India");
 
     if (!prompt && currentUser) {
       async function fetchSessionMessages() {
