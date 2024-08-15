@@ -158,6 +158,8 @@ export default function Login() {
           } else {
             setError("Geolocation not supported");
           }
+        } else {
+          localStorage.setItem("userLocation", data.stateLocation);
         }
         dispatch(
           login({
@@ -167,7 +169,7 @@ export default function Login() {
             expiresAt: data.expiresAt,
             newGptUser: data.newGptUser,
             ambassador: data.ambassador,
-            stateLocation: area,
+            stateLocation: area ? area : data.stateLocation,
           })
         );
       } else throw new Error("Otp length should be of 6");
