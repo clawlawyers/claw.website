@@ -406,7 +406,7 @@ export default function SessionGPT({ model, primaryColor }) {
                               </MenuItem>
                               {highCourtArr.map((x, index) => (
                                 <MenuItem key={index} value={x}>
-                                  {x} High Court
+                                  {x}
                                 </MenuItem>
                               ))}
                             </Select>
