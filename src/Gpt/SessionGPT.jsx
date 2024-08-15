@@ -64,7 +64,7 @@ export default function SessionGPT({ model, primaryColor }) {
   const [refRelevantCase, setRefRelevantCase] = useState(null);
   const [showSupremeCourtCases, setSupremeCourtCases] = useState(false);
   const [refSupremeCase, setRefSupremeCase] = useState(null);
-  const [highCourtName, setHighCourtName] = useState("");
+  const [boolFlag, setBoolFlag] = useState(false);
 
   const handleHighCourtChange = (event) => {
     setcourtName(event.target.value);
@@ -81,7 +81,9 @@ export default function SessionGPT({ model, primaryColor }) {
   };
 
   useEffect(() => {
-    handleHighCourtNameChange();
+    if (boolFlag) {
+      handleHighCourtNameChange();
+    }
   }, [courtName]);
 
   const greetingRegex =
@@ -174,6 +176,7 @@ export default function SessionGPT({ model, primaryColor }) {
   }, [sessionId]);
 
   async function submitPrompt({ query }) {
+    console.log(query);
     setIsLoading(true);
     setQuery({ query });
     setPrompts((prompts) => [...prompts, { text: query, isUser: true }]);
@@ -186,6 +189,8 @@ export default function SessionGPT({ model, primaryColor }) {
   }
 
   async function fetchRelatedCases() {
+    setBoolFlag(true);
+
     console.log(courtName);
     setIsLoading(true);
     setCaseCount(2);
@@ -350,7 +355,9 @@ export default function SessionGPT({ model, primaryColor }) {
                         width: "fit-content",
                         border: "1px solid white",
                       }}
-                      onClick={fetchRelatedCases}
+                      onClick={() => {
+                        fetchRelatedCases();
+                      }}
                     >
                       Load cases
                     </button>
