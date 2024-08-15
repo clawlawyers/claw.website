@@ -381,7 +381,7 @@ export default function CaseFinder({
                 fontSize: 16,
                 outline: "none",
                 border: "none",
-                color: "black",
+                color:"black"
               }}
               placeholder="Enter Prompt Here ..."
             />
