@@ -200,13 +200,13 @@ function FooterBanner() {
               </a>
             </div>
             <div className={Styles.hover}>
-              {/* <a
+              <a
                 href="https://play.google.com/store/games?hl=en_IN&gl=US"
                 target="_blank"
                 rel="noreferrer"
-              > */}
-              <ShopIcon />
-              {/* </a> */}
+              >
+                <ShopIcon />
+              </a>
             </div>
           </div>
         </div>
@@ -263,7 +263,8 @@ function FooterBanner() {
             Terms & Conditions
           </Link>
 
-          <Link
+              <Link
+
             to="/shipping-and-delivery"
             className={Styles.muted}
             style={{ textDecoration: "none" }}

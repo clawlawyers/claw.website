@@ -20,7 +20,6 @@ import { collapse, expand, toggle } from "../features/sidebar/sidebarSlice";
 import { open } from "../features/popup/popupSlice";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Home } from "@mui/icons-material";
-import whatLegal from "../assets/images/whatLegal.gif";
 
 export default function Sidebar({ keyword, primaryColor, model }) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
@@ -32,7 +31,6 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   const { isAuthLoading } = useAuthState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [startnew, setStartNew] = useState(0);
 
   function handleAccount() {
     if (!currentUser) navigate("/login");
@@ -58,8 +56,6 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   function handleNewConversation() {
     if (keyword === "Legal") navigate("/gpt/legalGPT");
     else navigate("/gpt/finGPT");
-
-    setStartNew(startnew + 1);
   }
   useEffect(() => {
     if (isPhoneMode) dispatch(collapse());
@@ -71,7 +67,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         <button
           style={{
             position: "absolute",
-            top: 10,
+            top: 20,
             left: 12,
             backgroundColor: "transparent",
             zIndex: 4,
@@ -89,7 +85,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         <button
           style={{
             position: "absolute",
-            top: 20,
+            top: 40,
             left: 225,
             backgroundColor: "transparent",
             backgroundImage: "none",
@@ -127,7 +123,6 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 onClick={handleAccount}
                 style={{
                   display: "flex",
-                  flexDirection: "column",
                   color: "white",
                   border: "none",
                   backgroundColor: "rgba(255,255,255,0.05)",
@@ -139,7 +134,6 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 <div
                   style={{
                     display: "flex",
-                    gap: "10px",
                     height: "100%",
                     alignItems: "center",
                   }}
@@ -157,67 +151,44 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   >
                     <StarIcon style={{ backgroundColor: "transparent" }} />
                   </div>
-                  {!isAuthLoading ? (
-                    <div style={{ fontSize: 16 }}>
-                      {currentUser ? currentUser.phoneNumber : <>Guest</>}
-                    </div>
-                  ) : (
-                    <CircularProgress style={{ padding: 10, color: "white" }} />
-                  )}
                 </div>
                 {!isAuthLoading ? (
                   <div style={{ flex: 1, textAlign: "left" }}>
-                    {/* <div style={{ fontSize: 16 }}>
+                    <div style={{ fontSize: 16 }}>
                       {currentUser ? currentUser.phoneNumber : <>Guest</>}
-                    </div> */}
+                    </div>
                     <div style={{ fontSize: 14, color: "#777" }}>
                       {plan ? (
                         <>
                           <div>
-                            <span className="text-white">Plan Type : </span>
+                            Plan -
                             <span style={{ textTransform: "capitalize" }}>
                               {plan.length
                                 ? plan[0]?.split("_")[0]
                                 : " No Plan"}
-                              {/* No Plan */}
                             </span>
                           </div>
                           {plan.length && (
                             <div>
-                              <span className="text-white">Token : </span>
-                              {Math.floor(token?.used?.gptTokenUsed)}/
+                              Token - {Math.floor(token?.used?.gptTokenUsed)}/
                               {token?.total?.totalGptTokens}
                             </div>
                           )}
-                          <div className="mt-3 flex">
-                            <button
-                              style={{
-                                display: "flex",
-                                color: "white",
-                                border: "none",
-                                padding: "6px 20px",
-                                marginTop: 5,
-                                borderRadius: 5,
-                                backgroundColor: primaryColor,
-                              }}
-                              onClick={() => dispatch(open())}
-                            >
-                              Upgrade
-                            </button>
-                            {/* <button
-                              style={{
-                                display: "flex",
-                                color: "#00969A",
-                                border: "none",
-                                padding: "6px 20px",
-                                marginTop: 5,
-                                borderRadius: 5,
-                                background: "white",
-                              }}
-                            >
-                              Log Out
-                            </button> */}
-                          </div>
+
+                          <button
+                            style={{
+                              display: "flex",
+                              color: "white",
+                              border: "none",
+                              padding: "6px 10px",
+                              marginTop: 5,
+                              borderRadius: 5,
+                              backgroundColor: primaryColor,
+                            }}
+                            onClick={() => dispatch(open())}
+                          >
+                            Upgrade
+                          </button>
                         </>
                       ) : (
                         <CircularProgress
@@ -241,19 +212,11 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   overflow: "hidden",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 12,
-                    gap: 15,
-                  }}
-                >
+                <div style={{ display: "flex", padding: 12, gap: 15 }}>
                   <div>
-                    <img src={whatLegal} />
-                    {/* <ChatBubbleOutlineIcon
+                    <ChatBubbleOutlineIcon
                       style={{ backgroundColor: "transparent" }}
-                    /> */}
+                    />
                   </div>
                   <div>What is {keyword}GPT</div>
                 </div>
@@ -276,12 +239,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 </button>
                 <div style={{ flex: 1, overflow: "scroll" }}>
                   {currentUser && !isAuthLoading && !loading && (
-                    <UserSessions
-                      model={model}
-                      jwt={currentUser.jwt}
-                      setStartNew={setStartNew}
-                      startnew={startnew}
-                    />
+                    <UserSessions model={model} jwt={currentUser.jwt} />
                   )}
                 </div>
               </div>
@@ -294,7 +252,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 backgroundColor: "transparent",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "space-between",
               }}
             >
               <div className={HeaderStyles.headerLogo}>
@@ -306,7 +264,6 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     backgroundColor: "transparent",
                     display: "flex",
                     alignItems: "center",
-                    gap: "5px",
                   }}
                 >
                   <Home />
@@ -321,7 +278,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   />
                 </Link>
               </div>
-              {/* <button
+              <button
                 onClick={handleClearConversations}
                 style={{
                   display: "flex",
@@ -335,7 +292,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 <DeleteOutlineOutlinedIcon
                   style={{ backgroundColor: "transparent" }}
                 />
-              </button> */}
+              </button>
             </div>
           </div>
           <div
