@@ -13,10 +13,12 @@ export default function Welcome({
   primaryColor,
   textGradient,
 }) {
-  let containerStyles = { width: "60%" };
+  let containerStyles = { width: "80%" };
   return (
     <div
+      // className="my-20 md:my-0"
       style={{
+        overflow: "auto",
         backgroundColor: "transparent",
         height: "100%",
         width: "100%",
@@ -71,7 +73,7 @@ export default function Welcome({
             primaryColor={primaryColor}
             onSubmit={submitPrompt}
           />
-          <div className={Styles.welcomePointerContainer}>
+          <div className="grid md:grid-cols-3 px-3 md:gap-5">
             <div className="flex flex-col gap-2 items-center justify-center text-center">
               <img src={hammer} />
               <h3>Legal Perspectives</h3>
@@ -80,12 +82,6 @@ export default function Welcome({
                 concerning Indian law.
               </p>
             </div>
-            {/* <WelcomePointers
-              style={{ gridColumn: "1/2" }}
-              icon={hammer}
-              heading={"Legal Perspectives"}
-              subHeading={`Acquire invaluable legal perspectives on any scenario or query concerning Indian law.`}
-            /> */}
             <div className="flex flex-col gap-2 items-center justify-center text-center">
               <img src={headset} />
               <h3>Tailored Support</h3>
@@ -95,12 +91,6 @@ export default function Welcome({
                 encrypted framework.
               </p>
             </div>
-            {/* <WelcomePointers
-              style={{ gridColumn: "2/3" }}
-              icon={headset}
-              heading={"Tailored Support"}
-              subHeading={`Obtain legal insights tailored to your specific circumstances by securely providing personal details within an end-to-end encrypted framework.`}
-            /> */}
             <div className="flex flex-col gap-2 items-center justify-center text-center">
               <img src={uploadIcon} />
               <h3>Case Retrieval</h3>

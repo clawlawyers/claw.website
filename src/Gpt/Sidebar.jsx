@@ -67,7 +67,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   }, [isPhoneMode]);
   return (
     <div className={Style.sidebarContainer}>
-      {collapsed && (
+      {collapsed && !isPhoneMode && (
         <button
           style={{
             position: "absolute",
@@ -103,7 +103,16 @@ export default function Sidebar({ keyword, primaryColor, model }) {
           />
         </button>
       )}
-      {!collapsed && (
+      {isPhoneMode && collapsed && (
+        <div className="absolute p-2 w-full bg-[#018081]  z-10 flex justify-between items-center">
+          <h3 className="m-0 pl-3">CLAW</h3>
+          <MenuOutlinedIcon
+            onClick={() => dispatch(toggle())}
+            style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }}
+          />
+        </div>
+      )}
+      {!collapsed && !isPhoneMode && (
         <div
           style={{
             width: "100%",
@@ -342,6 +351,268 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             style={{ flex: 1, zIndex: 6, backgroundColor: "transparent" }}
             onClick={() => dispatch(collapse())}
           />
+        </div>
+      )}
+      {!collapsed && isPhoneMode && (
+        <div className="relative">
+          <div className="absolute p-2 w-full bg-[#018081]  z-10 flex justify-between items-center">
+            <h3 className="m-0 pl-3">CLAW</h3>
+            <MenuOutlinedIcon
+              onClick={() => dispatch(toggle())}
+              style={{
+                color: "white",
+                fontSize: 40,
+                backgroundColor: "inherit",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              zIndex: "11",
+              position: "relative",
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              flexDirection: "row-reverse",
+              backgroundColor: "transparent",
+            }}
+          >
+            <div
+              className={Style.sidebar}
+              style={{ background: "#018081", height: "100vh" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 25,
+                  width: "100%",
+                  flex: 1,
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  onClick={handleAccount}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    color: "white",
+                    border: "none",
+                    backgroundColor: "#303030",
+                    padding: 15,
+                    gap: 15,
+                    borderRadius: 10,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "10px",
+                      height: "100%",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      style={{
+                        height: 40,
+                        width: 40,
+                        borderRadius: 40,
+                        backgroundColor: primaryColor,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <StarIcon style={{ backgroundColor: "transparent" }} />
+                    </div>
+                    {!isAuthLoading ? (
+                      <div style={{ fontSize: 16 }}>
+                        {currentUser ? currentUser.phoneNumber : <>Guest</>}
+                      </div>
+                    ) : (
+                      <CircularProgress
+                        style={{ padding: 10, color: "white" }}
+                      />
+                    )}
+                  </div>
+                  {!isAuthLoading ? (
+                    <div style={{ flex: 1, textAlign: "left" }}>
+                      {/* <div style={{ fontSize: 16 }}>
+                      {currentUser ? currentUser.phoneNumber : <>Guest</>}
+                    </div> */}
+                      <div style={{ fontSize: 14, color: "#777" }}>
+                        {plan ? (
+                          <>
+                            <div>
+                              <span className="text-white">Plan Type : </span>
+                              <span style={{ textTransform: "capitalize" }}>
+                                {plan.length
+                                  ? plan[0]?.split("_")[0]
+                                  : " No Plan"}
+                                {/* No Plan */}
+                              </span>
+                            </div>
+                            {plan.length && (
+                              <div>
+                                <span className="text-white">Token : </span>
+                                {Math.floor(token?.used?.gptTokenUsed)}/
+                                {token?.total?.totalGptTokens}
+                              </div>
+                            )}
+                            <div className="mt-3 flex">
+                              <button
+                                style={{
+                                  display: "flex",
+                                  color: "white",
+                                  border: "none",
+                                  padding: "6px 20px",
+                                  marginTop: 5,
+                                  borderRadius: 5,
+                                  backgroundColor: primaryColor,
+                                }}
+                                onClick={() => dispatch(open())}
+                              >
+                                Upgrade
+                              </button>
+                              {/* <button
+                              style={{
+                                display: "flex",
+                                color: "#00969A",
+                                border: "none",
+                                padding: "6px 20px",
+                                marginTop: 5,
+                                borderRadius: 5,
+                                background: "white",
+                              }}
+                            >
+                              Log Out
+                            </button> */}
+                            </div>
+                          </>
+                        ) : (
+                          <CircularProgress
+                            style={{ padding: 10, color: "white" }}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ flex: 1, textAlign: "left" }}>
+                      <CircularProgress style={{ color: "white" }} size={14} />
+                    </div>
+                  )}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flex: 1,
+                    gap: 10,
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: 12,
+                      gap: 15,
+                    }}
+                  >
+                    <div>
+                      <img src={whatLegal} />
+                      {/* <ChatBubbleOutlineIcon
+                      style={{ backgroundColor: "transparent" }}
+                    /> */}
+                    </div>
+                    <div>What is {keyword}GPT</div>
+                  </div>
+                  <button
+                    style={{
+                      display: "flex",
+                      color: "white",
+                      border: "none",
+                      padding: 12,
+                      gap: 15,
+                      borderRadius: 10,
+                      backgroundColor: primaryColor,
+                    }}
+                    onClick={handleNewConversation}
+                  >
+                    <div>
+                      <AddIcon style={{ backgroundColor: "transparent" }} />
+                    </div>
+                    <div>Start a new chat</div>
+                  </button>
+                  <div style={{ flex: 1, overflow: "scroll" }}>
+                    {currentUser && !isAuthLoading && !loading && (
+                      <UserSessions
+                        model={model}
+                        jwt={currentUser.jwt}
+                        setStartNew={setStartNew}
+                        startnew={startnew}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div
+                style={{
+                  borderTop: "1px solid white",
+                  width: "100%",
+                  padding: 10,
+                  backgroundColor: "transparent",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div className={HeaderStyles.headerLogo}>
+                  <Link
+                    to="/"
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      backgroundColor: "transparent",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
+                    <Home />
+                    <img
+                      alt="Claw"
+                      style={{
+                        backgroundColor: "transparent",
+                        height: "100%",
+                        marginTop: 8,
+                      }}
+                      src={clawLogo}
+                    />
+                  </Link>
+                </div>
+                {/* <button
+                onClick={handleClearConversations}
+                style={{
+                  display: "flex",
+                  color: "white",
+                  alignItems: "center",
+                  border: "none",
+                  backgroundColor: "transparent",
+                  backgroundImage: "none",
+                }}
+              >
+                <DeleteOutlineOutlinedIcon
+                  style={{ backgroundColor: "transparent" }}
+                />
+              </button> */}
+              </div>
+            </div>
+            <div
+              style={{ flex: 1, zIndex: 6, backgroundColor: "transparent" }}
+              onClick={() => dispatch(collapse())}
+            />
+          </div>
         </div>
       )}
     </div>

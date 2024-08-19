@@ -42,7 +42,7 @@ const highCourtArr = [
 ];
 
 export default function SessionGPT({ model, primaryColor }) {
-  let containerStyles = { width: "100%" };
+  let containerStyles = { width: "90%" };
   const { prompt, status, response, error, relatedCases } = useSelector(
     (state) => state.gpt
   );
@@ -400,7 +400,7 @@ export default function SessionGPT({ model, primaryColor }) {
                 relatedCases.cases.length > 0 && (
                   <div>
                     <div className="m-2 p-3 border-2 border-[#018081] rounded bg-[#303030] flex flex-col gap-3">
-                      <div className="flex justify-between items-center">
+                      <div className="flex flex-col md:flex-row justify-between md:items-center">
                         <p className="font-bold m-0 px-3 text-2xl text-white">
                           Reference to High Court Judgements
                         </p>
@@ -433,25 +433,6 @@ export default function SessionGPT({ model, primaryColor }) {
                           </FormControl>
                         </div>
                       </div>
-                      {/* {highCourtJudgeMent ? (
-                        <div className="text-sm">
-                          What is Lorem Ipsum? Lorem Ipsum is simply dummy text
-                          of the printing and typesetting industry. Lorem Ipsum
-                          has been the industry's standard dummy text ever since
-                          the 1500s, when an unknown printer took a galley of
-                          type and scrambled it to make a type specimen book. It
-                          has survived not only five centuries, but also the
-                          leap into electronic typesetting, remaining
-                          essentially unchanged.
-                        </div>
-                      ) : (
-                        <div className="h-full w-full p-3 flex flex-col gap-2">
-                          <div className="w-full h-3 bg-slate-300 animate-pulse  rounded-full"></div>
-                          <div className="w-full h-3 bg-slate-300 animate-pulse  rounded-full"></div>
-                          <div className="w-[60%] h-3 bg-slate-300 animate-pulse  rounded-full"></div>
-                          <div className="w-[40%] h-3 bg-slate-300 animate-pulse  rounded-full"></div>
-                        </div>
-                      )} */}
                       <div
                         style={{
                           display: "flex",
@@ -482,63 +463,66 @@ export default function SessionGPT({ model, primaryColor }) {
                     <div
                       style={{
                         display: "flex",
-                        justifyContent: "space-between",
                         marginTop: 5,
+                        gap: "5px",
                         padding: "10px",
                       }}
                     >
-                      <div className="flex gap-2">
-                        <Link to={`/case/search?id=${relatedCases.messageId}`}>
-                          <button
-                            style={{
-                              borderRadius: 5,
-                              backgroundColor: "#008080",
-                              color: "white",
-                              textDecoration: "none",
-                              padding: 10,
-                              width: "fit-content",
-                              border: "1px solid white",
-                            }}
-                          >
-                            Case search
-                          </button>
-                        </Link>
+                      {/* <div className="flex gap-2"> */}
+                      <Link to={`/case/search?id=${relatedCases.messageId}`}>
                         <button
-                          onClick={handleShowRelevantAct}
+                          className="px-1"
                           style={{
                             borderRadius: 5,
                             backgroundColor: "#008080",
                             color: "white",
                             textDecoration: "none",
-                            padding: 10,
                             width: "fit-content",
                             border: "1px solid white",
                           }}
                         >
-                          References
+                          Case search
                         </button>
-                        <button
-                          onClick={handleShowSupremeCourtJudgements}
-                          style={{
-                            borderRadius: 5,
-                            backgroundColor: "#008080",
-                            color: "white",
-                            textDecoration: "none",
-                            padding: 10,
-                            width: "fit-content",
-                            border: "1px solid white",
-                          }}
-                        >
-                          Supreme Court Judgement
-                        </button>
-                      </div>
+                      </Link>
                       <button
+                        onClick={handleShowRelevantAct}
+                        className="px-1"
                         style={{
                           borderRadius: 5,
                           backgroundColor: "#008080",
                           color: "white",
                           textDecoration: "none",
-                          padding: 10,
+                          // padding: 10,
+                          width: "fit-content",
+                          border: "1px solid white",
+                        }}
+                      >
+                        References
+                      </button>
+                      <button
+                        onClick={handleShowSupremeCourtJudgements}
+                        className="px-1"
+                        style={{
+                          borderRadius: 5,
+                          backgroundColor: "#008080",
+                          color: "white",
+                          textDecoration: "none",
+                          // padding: 10,
+                          width: "fit-content",
+                          border: "1px solid white",
+                        }}
+                      >
+                        Supreme Court Judgement
+                      </button>
+                      {/* </div> */}
+                      <button
+                        className="px-1"
+                        style={{
+                          borderRadius: 5,
+                          backgroundColor: "#008080",
+                          color: "white",
+                          textDecoration: "none",
+                          // padding: 10,
                           width: "fit-content",
                           border: "1px solid white",
                         }}
