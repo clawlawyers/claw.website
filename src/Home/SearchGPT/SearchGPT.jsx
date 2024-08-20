@@ -103,7 +103,6 @@ export default function SearchGPT() {
                 fontSize: 16,
                 outline: "none",
                 border: "none",
-                color: "black",
               }}
               placeholder="Enter Prompt Here ..."
             />

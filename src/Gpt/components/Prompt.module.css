@@ -6,12 +6,12 @@
 }
 
 .promptText {
-  /* border: 2px solid white; */
   font-family: "Lato";
   overflow-wrap: break-word;
   width: 100%;
   white-space: pre-line;
   font-size: 15;
+  
 }
 
 @media only screen and (max-width: 768px) {

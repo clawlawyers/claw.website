@@ -133,7 +133,6 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
         borderRadius: 10,
       }}
     >
-      {/* <div className="flex justify-between gap-3"> */}
       <div style={{ flex: 1 }}>
         <h2 style={{ fontSize: 23, fontWeight: 700 }}>{name}</h2>
         <div style={{ fontSize: 13, color: "#DBD8D8" }}>
@@ -143,46 +142,42 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
           Number of citations- {citations}
         </p>
       </div>
-      <div className="flex gap-2">
-        <button
-          onClick={handleOpen}
-          style={{
-            border: "none",
-            padding: "10px 12px",
-            minWidth: "fit-content",
-            backgroundColor: "#008080",
-            borderRadius: 5,
-            fontWeight: 700,
-            fontSize: 14,
-            textDecoration: "none",
-            color: "white",
-            border: "1px solid white",
-            backgroundImage: "none",
-          }}
-        >
-          View document
-        </button>
-        <button
-          onClick={handleSummaryToggle}
-          style={{
-            border: "none",
-            padding: "10px 12px",
-            minWidth: "fit-content",
-            backgroundColor: "#008080",
-            borderRadius: 5,
-            fontWeight: 700,
-            fontSize: 14,
-            textDecoration: "none",
-            color: "white",
-            border: "1px solid white",
-            backgroundImage: "none",
-            cursor: "pointer",
-          }}
-        >
-          {isSummaryOpen ? "Hide summary" : "View summary"}
-        </button>
-      </div>
-      {/* </div> */}
+
+      <button
+        onClick={handleOpen}
+        style={{
+          border: "none",
+          padding: "10px 12px",
+          minWidth: "fit-content",
+          backgroundColor: "white",
+          borderRadius: 10,
+          fontWeight: 700,
+          fontSize: 14,
+          textDecoration: "none",
+          color: "black",
+          backgroundImage: "none",
+        }}
+      >
+        View document
+      </button>
+      <button
+        onClick={handleSummaryToggle}
+        style={{
+          border: "none",
+          padding: "10px 12px",
+          minWidth: "fit-content",
+          backgroundColor: "white",
+          borderRadius: 10,
+          fontWeight: 700,
+          fontSize: 14,
+          textDecoration: "none",
+          color: "black",
+          backgroundImage: "none",
+          cursor: "pointer",
+        }}
+      >
+        {isSummaryOpen ? "Hide summary" : "View summary"}
+      </button>
       <div>
         {isSummaryOpen && (
           <>
