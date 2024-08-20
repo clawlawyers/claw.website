@@ -4,7 +4,7 @@
 .container {
   padding: 12px 12px 12px 321px;
   height: 100%;
-  background-color: black;
+  background: linear-gradient(45deg, #018081, black);
 }
 
 .backdrop button {
@@ -14,13 +14,12 @@
   background-image: url("../assets/images/button-gradient.png");
 }
 
-
 .formContainer {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 40px;
+  padding: 10px 20px;
   background-color: #222222;
 }
 
@@ -52,9 +51,10 @@
   flex: 1;
   overflow-y: scroll;
 
-  width: 90%;
+  width: 100%;
   margin: auto;
-  background-color: transparent;
+  background-color: black;
+  border-radius: 10px;
 }
 .clawBackdrop {
   position: absolute;
@@ -70,7 +70,7 @@
   max-height: 100%;
 }
 .prompts div {
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 
 .welcome {
@@ -175,7 +175,9 @@
   gap: 10;
 }
 .subContainer {
-  width: 80%;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
   margin: auto;
   z-index: 2;
   position: inherit;

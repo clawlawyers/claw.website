@@ -3,10 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 
-export function UserSessions({ jwt, model }) {
+export function UserSessions({ jwt, model, startnew, setStartNew }) {
   const [isLoading, setIsLoading] = useState();
   const [sessions, setSessions] = useState([]);
   const { sessionId } = useParams();
+  console.log(startnew);
 
   useEffect(() => {
     async function fetchUserSessions() {
@@ -28,7 +29,7 @@ export function UserSessions({ jwt, model }) {
       }
     }
     fetchUserSessions();
-  }, [jwt, model]);
+  }, [jwt, model, startnew]);
   return (
     <div style={{ height: "100%" }}>
       {isLoading ? (
