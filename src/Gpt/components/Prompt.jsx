@@ -22,14 +22,7 @@ export function Prompt({ isUser, text, primaryColor }) {
     >
       <div className="flex items-start gap-2">
         <div className="flex items-center">
-          {isUser ? (
-            // <PersonIcon style={{
-            //     fontSize: 30
-            // }} color='white' icon={faUser} />
-            <img className="w-7 h-[27px]" src={personIcon} />
-          ) : (
-            ""
-          )}
+          {isUser ? <img className="w-7 h-[27px]" src={personIcon} /> : ""}
         </div>
         <div className={Styles.promptText}>{text}</div>
       </div>
