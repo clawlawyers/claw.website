@@ -66,6 +66,7 @@ export default function SearchGPT() {
       const searchParams = new URLSearchParams({
         callbackUrl: "/gpt/legalGPT",
       }).toString();
+      dispatch(setGpt({ prompt: query }));
       navigate(`/login?${searchParams}`);
     }
   }

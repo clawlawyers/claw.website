@@ -11,6 +11,12 @@ import ErrorIcon from "@mui/icons-material/Error";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import {
+  generateResponse,
+  setGpt,
+  setPlan,
+  setToken,
+} from "../features/gpt/gptSlice";
 
 export default function Login() {
   const [otp, setOtp] = useState("");
@@ -28,13 +34,38 @@ export default function Login() {
   const [areaName, setAreaName] = useState(null);
 
   const dispatch = useDispatch();
+  const { prompt } = useSelector((state) => state.gpt);
 
   useEffect(() => {
-    if (currentUser) {
-      if (searchParams.get("callbackUrl"))
-        navigate(searchParams.get("callbackUrl"));
-      else navigate("/");
-    }
+    const callbackfunction = async () => {
+      if (currentUser) {
+        console.log(prompt);
+        if (searchParams.get("callbackUrl")) {
+          if (searchParams.get("callbackUrl") == "/gpt/legalGPT") {
+            const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${currentUser.jwt}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ prompt: prompt, model: "legalGPT" }),
+            });
+            const { data } = await res.json();
+            console.log(data);
+            console.log("hi");
+
+            dispatch(
+              generateResponse({ sessionId: data.id, model: "legalGPT" })
+            );
+
+            navigate(`/gpt/legalGPT/session/${data.id}`);
+          } else {
+            navigate(searchParams.get("callbackUrl"));
+          }
+        } else navigate("/");
+      }
+    };
+    callbackfunction();
   }, [navigate, searchParams, currentUser]);
 
   const generateRecaptcha = () => {
