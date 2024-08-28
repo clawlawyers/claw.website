@@ -4,6 +4,7 @@ import { ExpandedCard } from "./components/ExpandedCard";
 import { CollapsedCard } from "./components/CollapsedCard";
 import axios from "axios";
 import "./index.css";
+import { Helmet } from "react-helmet";
 
 export default function News() {
   const [newsData, setNewsData] = useState([]);
@@ -41,6 +42,17 @@ export default function News() {
 
   return (
     <div className="news-container">
+      <Helmet>
+        <title>Legal Industry Updates and Insights </title>
+        <meta
+          name="description"
+          content="Our news section provides you with the latest legal industry news and insights, all conveniently located in one place."
+        />
+        {/* <meta
+          name="keywords"
+          content=""
+        /> */}
+      </Helmet>
       <div>
         <ExpandedCard newsData={newsData} />
       </div>

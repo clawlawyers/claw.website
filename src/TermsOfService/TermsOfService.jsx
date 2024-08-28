@@ -1,56 +1,131 @@
-import React from 'react'
+import React from "react";
+import { Helmet } from "react-helmet";
 
 export default function TermsOfService() {
-    return (
-        <div style={{ width: "80%", margin: "auto" }}>
-            <div>
-
-                Terms of Service
-            </div>
-            <div>
-
-                Last Updated: April 6, 2024
-            </div>
-            <p>
-                Welcome to ClawLaw.in (referred to as "the Website"). These Terms of Service ("Terms") govern your use of the Website. By accessing or using the Website, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use the Website.
-
-                1. Acceptance of Terms
-                By accessing or using the Website, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, you may not access or use the Website.
-
-                2. Payment and Subscription
-                a. The Website accepts payments for subscriptions through various payment methods provided on the platform.
-                b. By subscribing to our services, you agree to pay all subscription fees and any applicable taxes in accordance with the billing terms in effect at the time the subscription fee becomes payable.
-                c. Subscription fees are non-refundable except as expressly set forth in our Cancellation and Refund Policy.
-
-                3. Cancellation and Refund Policy
-                a. Users may cancel their subscription at any time. However, no refunds will be issued for the remaining portion of the subscription period.
-                b. To cancel a subscription, users must follow the instructions provided on the Website or contact customer support.
-                c. ClawLaw.in reserves the right to modify, suspend, or terminate subscriptions and access to the Website at any time without prior notice or liability.
-
-                4. Intellectual Property
-                a. All content on the Website, including but not limited to text, graphics, logos, images, and software, is the property of ClawLaw.in or its licensors and is protected by copyright, trademark, and other intellectual property laws.
-                b. Users may not modify, reproduce, distribute, transmit, display, perform, publish, license, create derivative works from, transfer, or sell any content obtained from the Website without the prior written consent of ClawLaw.in.
-
-                5. Disclaimer
-                a. The information provided on the Website is for general informational purposes only and should not be construed as legal advice. ClawLaw.in does not provide legal advice or representation.
-                b. ClawLaw.in makes no representations or warranties of any kind, express or implied, regarding the accuracy, reliability, or completeness of any information on the Website.
-
-                6. Limitation of Liability
-                a. In no event shall ClawLaw.in or its affiliates be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or in connection with your use of the Website or reliance on any information provided on the Website.
-                b. ClawLaw.in's total liability to you for all claims arising out of or related to the Website shall not exceed the amount paid by you, if any, for accessing the Website.
-
-                7. Governing Law
-                These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions.
-
-                8. Changes to Terms
-                ClawLaw.in reserves the right to modify or revise these Terms at any time. Any changes will be effective immediately upon posting on the Website. Your continued use of the Website following the posting of changes constitutes your acceptance of such changes.
-
-                9. Contact Us
-
-                If you have any questions or concerns about these Terms, please contact us at Claw.lawyers@gmail.com.
-            </p>
-
-            By using ClawLaw.in, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
-        </div>
-    )
+  return (
+    <div
+      style={{
+        width: "80%",
+        margin: "auto",
+        zIndex: 2,
+        backgroundColor: "#13161f",
+        padding: 20,
+        position: "inherit",
+      }}
+    >
+      <Helmet>
+        <title>Terms of Service</title>
+        <meta
+          name="description"
+          content="This document outlines the legal agreement between you and Claw regarding your use of our website and services."
+        />
+        {/* <meta
+          name="keywords"
+          content=""
+        /> */}
+      </Helmet>
+      <h1>Terms & Conditions</h1>
+      <p>Last updated on 20-06-2024 10:26:48</p>
+      <p>
+        These Terms and Conditions, along with the privacy policy or other terms
+        (“Terms”) constitute a binding agreement by and between CLAW LEGALTECH
+        PRIVATE LIMITED, (“Website Owner” or “we” or “us” or “our”) and you
+        (“you” or “your”) and relate to your use of our website, goods (as
+        applicable) or services (as applicable) (collectively, “Services”).
+      </p>
+      <p>
+        By using our website and availing the Services, you agree that you have
+        read and accepted these Terms (including the Privacy Policy). We reserve
+        the right to modify these Terms at any time and without assigning any
+        reason. It is your responsibility to periodically review these Terms to
+        stay informed of updates.
+      </p>
+      <p>
+        The use of this website or availing of our Services is subject to the
+        following terms of use:
+      </p>
+      <ul>
+        <li>
+          To access and use the Services, you agree to provide true, accurate,
+          and complete information to us during and after registration, and you
+          shall be responsible for all acts done through the use of your
+          registered account.
+        </li>
+        <li>
+          Neither we nor any third parties provide any warranty or guarantee as
+          to the accuracy, timeliness, performance, completeness or suitability
+          of the information and materials offered on this website or through
+          the Services, for any specific purpose. You acknowledge that such
+          information and materials may contain inaccuracies or errors and we
+          expressly exclude liability for any such inaccuracies or errors to the
+          fullest extent permitted by law.
+        </li>
+        <li>
+          Your use of our Services and the website is solely at your own risk
+          and discretion. You are required to independently assess and ensure
+          that the Services meet your requirements.
+        </li>
+        <li>
+          The contents of the Website and the Services are proprietary to Us and
+          you will not have any authority to claim any intellectual property
+          rights, title, or interest in its contents.
+        </li>
+        <li>
+          You acknowledge that unauthorized use of the Website or the Services
+          may lead to action against you as per these Terms or applicable laws.
+        </li>
+        <li>
+          You agree to pay us the charges associated with availing the Services.
+        </li>
+        <li>
+          You agree not to use the website and/or Services for any purpose that
+          is unlawful, illegal, or forbidden by these Terms, or Indian or local
+          laws that might apply to you.
+        </li>
+        <li>
+          You agree and acknowledge that the website and the Services may
+          contain links to other third-party websites. On accessing these links,
+          you will be governed by the terms of use, privacy policy, and such
+          other policies of such third-party websites.
+        </li>
+        <li>
+          You understand that upon initiating a transaction for availing the
+          Services, you are entering into a legally binding and enforceable
+          contract with us for the Services.
+        </li>
+        <li>
+          You shall be entitled to claim a refund of the payment made by you in
+          case we are not able to provide the Service. The timelines for such
+          return and refund will be according to the specific Service you have
+          availed or within the time period provided in our policies (as
+          applicable). In case you do not raise a refund claim within the
+          stipulated time, then this would make you ineligible for a refund.
+        </li>
+        <li>
+          Notwithstanding anything contained in these Terms, the parties shall
+          not be liable for any failure to perform an obligation under these
+          Terms if performance is prevented or delayed by a force majeure event.
+        </li>
+        <li>
+          These Terms and any dispute or claim relating to it, or its
+          enforceability, shall be governed by and construed in accordance with
+          the laws of India.
+        </li>
+        <li>
+          All disputes arising out of or in connection with these Terms shall be
+          subject to the exclusive jurisdiction of the courts in Ahmedabad,
+          Gujarat.
+        </li>
+        <li>
+          All concerns or communications relating to these Terms must be
+          communicated to us using the contact information provided on this
+          website.
+        </li>
+      </ul>
+      <p>
+        By using ClawLaw.in, you acknowledge that you have read, understood, and
+        agree to be bound by these Terms and Conditions.
+      </p>
+    </div>
+  );
 }

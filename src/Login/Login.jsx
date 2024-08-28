@@ -10,6 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 export default function Login() {
   const [otp, setOtp] = useState("");
@@ -181,6 +182,17 @@ export default function Login() {
   };
   return (
     <div style={{ width: "100%" }}>
+      <Helmet>
+        <title>Login</title>
+        <meta
+          name="description"
+          content="Join us to access comprehensive legal resources, expert insights, and efficient case management tools."
+        />
+        {/* <meta
+          name="keywords"
+          content=""
+        /> */}
+      </Helmet>
       <div
         style={{
           backgroundColor: "#13161f",

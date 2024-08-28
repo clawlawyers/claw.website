@@ -25,6 +25,7 @@ import moment from "moment";
 import { close, open } from "../features/popup/popupSlice";
 import bgimage from "../assets/images/button-gradient.png";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 export default function CaseFinder({
   keyword = "Legal",
@@ -158,6 +159,17 @@ export default function CaseFinder({
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
+      <Helmet>
+        <title>Claw Case Search</title>
+        <meta
+          name="description"
+          content="Claw's advanced case search empowers you to efficiently find relevant legal precedents. Search to navigate India's vast legal landscape with ease."
+        />
+        {/* <meta
+          name="keywords"
+          content=""
+        /> */}
+      </Helmet>
       <div className={`${Styles.container} `}>
         <div className={`${Styles.sidebarContainer}`}>
           <Sidebar
@@ -381,7 +393,7 @@ export default function CaseFinder({
                 fontSize: 16,
                 outline: "none",
                 border: "none",
-                color:"black"
+                color: "black",
               }}
               placeholder="Enter Prompt Here ..."
             />
