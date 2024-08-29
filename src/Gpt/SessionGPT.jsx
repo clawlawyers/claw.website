@@ -27,6 +27,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
+import markdownit from "markdown-it";
 
 const highCourtArr = [
   "Supreme Court of India",
@@ -43,6 +44,42 @@ const highCourtArr = [
 
 export default function SessionGPT({ model, primaryColor }) {
   let containerStyles = { width: "90%" };
+  const md = markdownit({
+    // Enable HTML tags in source
+    html: false,
+
+    // Use '/' to close single tags (<br />).
+    // This is only for full CommonMark compatibility.
+    xhtmlOut: true,
+
+    // Convert '\n' in paragraphs into <br>
+    breaks: true,
+
+    // CSS language prefix for fenced blocks. Can be
+    // useful for external highlighters.
+    langPrefix: "language-",
+
+    // Autoconvert URL-like text to links
+    linkify: true,
+
+    // Enable some language-neutral replacement + quotes beautification
+    // For the full list of replacements, see https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/replacements.mjs
+    typographer: false,
+
+    // Double + single quotes replacement pairs, when typographer enabled,
+    // and smartquotes on. Could be either a String or an Array.
+    //
+    // For example, you can use '«»„“' for Russian, '„“‚‘' for German,
+    // and ['«\xA0', '\xA0»', '‹\xA0', '\xA0›'] for French (including nbsp).
+    quotes: "“”‘’",
+
+    // Highlighter function. Should return escaped HTML,
+    // or '' if the source string is not changed and should be escaped externally.
+    // If result starts with <pre... internal wrapper is skipped.
+    highlight: function (/*str, lang*/) {
+      return "";
+    },
+  });
   const { prompt, status, response, error, relatedCases } = useSelector(
     (state) => state.gpt
   );
@@ -120,6 +157,12 @@ export default function SessionGPT({ model, primaryColor }) {
       setPrompts([{ text: prompt, isUser: true }]);
     }
   }, []);
+  const formatText = (text) => {
+    return text
+      .replace(/\\n\\n/g, "<br/><br/>") // Ensure two \n result in a new paragraph
+      .replace(/\\n/g, "  <br/>")
+      .replace(/\u20B9/g, "₹");
+  };
 
   useEffect(() => {
     if (promptsRef.current) {
@@ -172,6 +215,10 @@ export default function SessionGPT({ model, primaryColor }) {
   }, [sessionId, isAuthLoading, navigate]);
 
   useEffect(() => {
+    setRefRelevantCase(null);
+    setRefSupremeCase(null);
+    setShowRelevantCase(false);
+    setSupremeCourtCases(false);
     return () => dispatch(resetGpt());
   }, [sessionId]);
 
@@ -241,8 +288,9 @@ export default function SessionGPT({ model, primaryColor }) {
 
       const response = await fetchData.json();
 
-      console.log(response.data.references);
-      setRefRelevantCase(response.data.references);
+      console.log(await formatText(response.data.references));
+
+      setRefRelevantCase(await md.render(response.data.references));
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -273,7 +321,7 @@ export default function SessionGPT({ model, primaryColor }) {
       const response = await fetchData.json();
 
       console.log(response.data.judgments);
-      setRefSupremeCase(response.data.judgments);
+      setRefSupremeCase(await md.render(response.data.judgments));
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -542,8 +590,14 @@ export default function SessionGPT({ model, primaryColor }) {
                             </p>
                           </div>
                           {refRelevantCase ? (
-                            <div className="text-sm">
-                              <ReactMarkdown>{refRelevantCase}</ReactMarkdown>
+                            <div
+                              className="text-sm"
+                              dangerouslySetInnerHTML={{
+                                __html: refRelevantCase,
+                              }}
+                            >
+                              {/* <ReactMarkdown>{refRelevantCase}</ReactMarkdown> */}
+                              {/* (refRelevantCase) */}
                             </div>
                           ) : (
                             <div className="h-full w-full p-3 flex flex-col gap-2">
@@ -566,8 +620,14 @@ export default function SessionGPT({ model, primaryColor }) {
                             </p>
                           </div>
                           {refSupremeCase ? (
-                            <div className="text-sm">
-                              <ReactMarkdown>{refSupremeCase}</ReactMarkdown>
+                            <div
+                              className="text-sm"
+                              dangerouslySetInnerHTML={{
+                                __html: refSupremeCase,
+                              }}
+                            >
+                              {/* <ReactMarkdown>{refSupremeCase}</ReactMarkdown> */}
+                              {/* {refSupremeCase}/ */}
                             </div>
                           ) : (
                             <div className="h-full w-full p-3 flex flex-col gap-2">
