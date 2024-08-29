@@ -46,7 +46,7 @@ export default function SessionGPT({ model, primaryColor }) {
   let containerStyles = { width: "90%" };
   const md = markdownit({
     // Enable HTML tags in source
-    html: false,
+    html: true,
 
     // Use '/' to close single tags (<br />).
     // This is only for full CommonMark compatibility.
@@ -288,9 +288,9 @@ export default function SessionGPT({ model, primaryColor }) {
 
       const response = await fetchData.json();
 
-      console.log(await formatText(response.data.references));
-
-      setRefRelevantCase(await md.render(response.data.references));
+      console.log("");
+      const responsetext = formatText(response.data.references);
+      setRefRelevantCase(await md.render(responsetext));
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -321,7 +321,8 @@ export default function SessionGPT({ model, primaryColor }) {
       const response = await fetchData.json();
 
       console.log(response.data.judgments);
-      setRefSupremeCase(await md.render(response.data.judgments));
+      const responsetext = formatText(response.data.judgments);
+      setRefSupremeCase(await md.render(responsetext));
     } catch (error) {
       console.log(error);
       toast.error(error.message);
