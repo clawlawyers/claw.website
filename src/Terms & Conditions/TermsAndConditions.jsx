@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 export default function TermsAndConditions() {
   return (
@@ -12,6 +13,17 @@ export default function TermsAndConditions() {
         position: "inherit",
       }}
     >
+      <Helmet>
+        <title>Terms and Conditions</title>
+        <meta
+          name="description"
+          content="A binding agreement outlining the legal rights and obligations between you and Claw."
+        />
+        {/* <meta
+          name="keywords"
+          content=""
+        /> */}
+      </Helmet>
       <h1>Terms & Conditions</h1>
       <p>Last updated on 20-06-2024 10:26:48</p>
       <p>

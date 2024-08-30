@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { ClearIcon } from "@mui/x-date-pickers";
 import Styles from "./AmbassadorDashboard.module.css";
+import { Helmet } from "react-helmet";
 
 export default function AmbassadorDashboard() {
   const { jwt } = useSelector((state) => state.auth.user);

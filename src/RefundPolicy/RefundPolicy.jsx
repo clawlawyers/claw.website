@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 export default function RefundPolicy() {
   return (
@@ -12,6 +13,17 @@ export default function RefundPolicy() {
         position: "inherit",
       }}
     >
+      <Helmet>
+        <title>Refund & Cancellation Policy</title>
+        <meta
+          name="description"
+          content="Learn about Claw's cancellation policy and understand the circumstances under which you may be eligible for a refund."
+        />
+        {/* <meta
+          name="keywords"
+          content=""
+        /> */}
+      </Helmet>
       <h1>Refund & Cancellation Policy</h1>
       <p>Last updated on 20-06-2024 10:28:56</p>
       <p>

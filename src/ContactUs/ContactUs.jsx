@@ -18,15 +18,15 @@ export default function ContactUs() {
       }}
     >
       <Helmet>
-        <meta charSet="utf-8" />
-        <title>Customer Support: ClawLaw</title>
+        <title>Contact us!</title>
         <meta
           name="description"
-          content="For assistance with your account, subscription, or any other inquiries,
-      please contact our customer support team at Claw.lawyers@gmail.com or call
-      us at the provided phone number during business hours."
+          content="We welcome your questions, concerns, and feedback. Reach out using the contact information below or connect with us on social media."
         />
-        <meta name="keywords" content="ClawLaw contact us, contact us" />
+        {/* <meta
+          name="keywords"
+          content=""
+        /> */}
       </Helmet>
       <h1>Contact Us</h1>
       <p>

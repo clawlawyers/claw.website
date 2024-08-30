@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../Header/Header";
 import FooterBanner from "../FooterBanner/FooterBanner";
+import { Helmet } from "react-helmet";
 
 export default function RootLayout() {
   return (
@@ -12,6 +13,19 @@ export default function RootLayout() {
         width: "100%",
       }}
     >
+      <Helmet>
+        <title>
+          ClawLaw: Empowering Businesses with AI-Driven Legal Solutions
+        </title>
+        <meta
+          name="description"
+          content="Claw is a legal tech company that is transforming the legal industry with its innovative use of AI. Our platform, powered by legalGPT, provides businesses with access to affordable and efficient legal services."
+        />
+        {/* <meta
+          name="keywords"
+          content=""
+        /> */}
+      </Helmet>
       <div
         style={{
           position: "absolute",
