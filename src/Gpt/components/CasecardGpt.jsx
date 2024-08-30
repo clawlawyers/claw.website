@@ -8,6 +8,7 @@ import { setToken } from "../../features/gpt/gptSlice";
 import Styles from "../../components/CaseCard/index.module.css";
 import { useDispatch } from "react-redux";
 import { open } from "../../features/popup/popupSlice";
+import markdownit from "markdown-it";
 
 const courtIdMapping = {
   "Supreme Court of India": "1bgi-zbCWObiTNjkegNXryni4ZJzZyCFV",
@@ -27,6 +28,42 @@ const courtIdMapping = {
 };
 
 export function CasecardGpt({ name, date, court, citations, caseId, query }) {
+  const md = markdownit({
+    // Enable HTML tags in source
+    html: true,
+
+    // Use '/' to close single tags (<br />).
+    // This is only for full CommonMark compatibility.
+    xhtmlOut: true,
+
+    // Convert '\n' in paragraphs into <br>
+    breaks: true,
+
+    // CSS language prefix for fenced blocks. Can be
+    // useful for external highlighters.
+    langPrefix: "language-",
+
+    // Autoconvert URL-like text to links
+    linkify: true,
+
+    // Enable some language-neutral replacement + quotes beautification
+    // For the full list of replacements, see https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/replacements.mjs
+    typographer: false,
+
+    // Double + single quotes replacement pairs, when typographer enabled,
+    // and smartquotes on. Could be either a String or an Array.
+    //
+    // For example, you can use '«»„“' for Russian, '„“‚‘' for German,
+    // and ['«\xA0', '\xA0»', '‹\xA0', '\xA0›'] for French (including nbsp).
+    quotes: "“”‘’",
+
+    // Highlighter function. Should return escaped HTML,
+    // or '' if the source string is not changed and should be escaped externally.
+    // If result starts with <pre... internal wrapper is skipped.
+    highlight: function (/*str, lang*/) {
+      return "";
+    },
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [summery, setsummery] = useState("");
   const [openCase, setOpenCase] = useState(false);
@@ -59,7 +96,8 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
         }
       );
       const data = await response.json();
-      setsummery(data.content);
+
+      setsummery(md.render(data.content));
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -105,8 +143,9 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
           },
         }
       );
-      const parsed = await response.json();
+      var parsed = await response.json();
       //   console.log(parsed.data.token);
+
       setContent(parsed);
       dispatch(setToken({ token: parsed.data.token }));
       //   console.log(token);
@@ -194,7 +233,10 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
               <>
                 <hr />
                 <p>Here is the summary content.</p>
-                <p style={{ color: "white" }}>{summery}</p>
+                <p
+                  style={{ color: "white" }}
+                  dangerouslySetInnerHTML={{ __html: summery }}
+                ></p>
               </>
             )}
           </>
