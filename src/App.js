@@ -304,18 +304,18 @@ function App() {
           path: "news",
           element: <TrackedNews />,
         },
-        {
-          path: "blog",
-          element: <TrackedAllBlogs />,
-        },
+        // {
+        //   path: "blog",
+        //   element: <TrackedAllBlogs />,
+        // },
         {
           path: "blog/:blogName",
           element: <Blog />,
         },
-        {
-          path: "create/blog",
-          element: <CreateBlog />,
-        },
+        // {
+        //   path: "create/blog",
+        //   element: <CreateBlog />,
+        // },
         {
           path: "privacyPolicy",
           element: <PrivacyPolicy />,

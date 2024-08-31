@@ -70,8 +70,8 @@ function Header() {
           </Link>
         </div>
         <div className={Styles.headerLinks}>
-          <div style={{ backgroundColor: "transparent" }}>
-            <button>
+          {/* <div style={{ backgroundColor: "transparent" }}> */}
+          {/* <button>
               <Link
                 to="/blog"
                 style={{
@@ -82,8 +82,8 @@ function Header() {
               >
                 Blogs
               </Link>
-            </button>
-          </div>
+            </button> */}
+          {/* </div> */}
           {/* <div style={{ backgroundColor: "transparent" }}>
             <button>
               <Link
