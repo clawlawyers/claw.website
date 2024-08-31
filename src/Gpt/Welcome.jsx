@@ -16,7 +16,7 @@ export default function Welcome({
   let containerStyles = { width: "80%" };
   return (
     <div
-      // className="my-20 md:my-0"
+      className="my-[20px] md:my-0"
       style={{
         overflow: "auto",
         backgroundColor: "transparent",
