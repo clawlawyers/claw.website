@@ -144,7 +144,7 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
         }
       );
       var parsed = await response.json();
-      //   console.log(parsed.data.token);
+      console.log(parsed);
 
       setContent(parsed);
       dispatch(setToken({ token: parsed.data.token }));
@@ -298,13 +298,27 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
                 padding: 10,
               }}
             >
-              {Object.keys(content?.data?.fetchedData || {}).map((key) => (
-                <div key={key}>
-                  <p style={{ color: "black" }}>
-                    {content?.data?.fetchedData[key]}
-                  </p>
-                </div>
-              ))}
+              {Object.keys(content?.data?.fetchedData || {}).map((key) => {
+                function unicodeToChar(unicodeStr) {
+                  return unicodeStr.replace(/\\u[\dA-Fa-f]{4}/g, (match) => {
+                    return String.fromCharCode(
+                      parseInt(match.replace("\\u", ""), 16)
+                    );
+                  });
+                }
+
+                let unicodeString = "\\u2026 \\u201D \\u201C";
+                let data = unicodeToChar(content?.data?.fetchedData[key]);
+
+                return (
+                  <div key={key}>
+                    <p
+                      style={{ color: "black" }}
+                      dangerouslySetInnerHTML={{ __html: data }}
+                    ></p>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
