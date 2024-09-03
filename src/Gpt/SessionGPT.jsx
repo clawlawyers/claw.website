@@ -509,16 +509,7 @@ export default function SessionGPT({ model, primaryColor }) {
                           })}
                       </div>
                     </div>
-                    <div
-                    
-                      style={{
-                        display: "flex",
-                        marginTop: 5,
-                        gap: "5px",
-                        padding: "10px",
-                      }}
-                    >
-                      {/* <div className="flex gap-2"> */}
+                    <div className="flex flex-col md:flex-row mt-[5px] gap-[5px] p-[10px]">
                       <Link to={`/case/search?id=${relatedCases.messageId}`}>
                         <button
                           className="px-1"

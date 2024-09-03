@@ -182,7 +182,7 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
           Number of citations- {citations}
         </p>
       </div>
-      <div className="flex gap-2">
+      <div className="flex flex-col md:flex-row gap-2">
         <button
           onClick={handleOpen}
           style={{
