@@ -449,7 +449,7 @@ export default function SessionGPT({ model, primaryColor }) {
                 relatedCases.cases.length > 0 && (
                   <div>
                     <div className="m-2 p-3 border-2 border-[#018081] rounded bg-[#303030] flex flex-col gap-3">
-                      <div className="flex flex-col md:flex-row justify-between md:items-center">
+                      <div className="flex flex-col flex-wrap md:flex-row justify-between md:items-center">
                         <p className="font-bold m-0 px-3 text-2xl text-white">
                           Reference to High Court Judgements
                         </p>
@@ -510,6 +510,7 @@ export default function SessionGPT({ model, primaryColor }) {
                       </div>
                     </div>
                     <div
+                    
                       style={{
                         display: "flex",
                         marginTop: 5,
@@ -550,7 +551,7 @@ export default function SessionGPT({ model, primaryColor }) {
                       </button>
                       <button
                         onClick={handleShowSupremeCourtJudgements}
-                        className="px-1"
+                        className="px-1 "
                         style={{
                           borderRadius: 5,
                           backgroundColor: "#008080",
