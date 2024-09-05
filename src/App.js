@@ -62,6 +62,7 @@ import Verdict from "./CourtRoom/CourtroomAi/Verdict.jsx";
 import Contact from "./CourtRoom/ContactUs/Contact.jsx";
 import { retrieveCourtroomAuth } from "./features/bookCourtRoom/LoginReducreSlice.js";
 import SessionGptNew from "./Gpt/components/SessionGptNew.jsx";
+import PlanPayment from "./Pricing/PlanPayment.js";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -327,6 +328,10 @@ function App() {
         {
           path: "pricing",
           element: <Pricing />,
+        },
+        {
+          path: "payment",
+          element: <PlanPayment />,
         },
         {
           path: "congrats-investor",

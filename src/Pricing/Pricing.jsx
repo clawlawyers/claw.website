@@ -9,16 +9,72 @@ import OneTime from "./Addone/OneTime";
 import Monthly from "./Addone/Monthly";
 import Yearly from "./Addone/Yearly";
 import HoverCard from "./Addone/HoveredCard";
+import { setPriceDetails } from "../features/payment/pricingSlice";
+
+const couponCodes = [
+  {
+    name: "EXAM50",
+    priceDropMonthly: {
+      basic: [50, 199],
+      essential: [40, 699],
+      premium: [35, 1199],
+    },
+    priceDropYearly: {
+      basic: [50, 1999],
+      essential: [40, 6999],
+      premium: [35, 11999],
+    },
+  },
+];
 
 export default function Pricing() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null); // State to track hovered card
 
+  const [activeTab, setActiveTab] = useState(1);
+  const [couponApplied, setCouponApplied] = useState("");
+  const [monthlyDiscounts, setMonthlyDiscounts] = useState(null);
+  const [yearlyDiscounts, setYearlyDiscounts] = useState(null);
+  const [couponFound, setCouponFound] = useState(false);
+
   const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.auth.user);
 
-  console.log(hoveredCard);
+  const handleApplyCoupon = () => {
+    const findCoupon = couponCodes.find(
+      (x) => x.name.toUpperCase() === couponApplied.toUpperCase()
+    );
+    if (findCoupon) {
+      setCouponFound(true);
+      setMonthlyDiscounts(findCoupon.priceDropMonthly);
+      setYearlyDiscounts(findCoupon.priceDropYearly);
+    } else {
+      alert("No Coupons found for this Code");
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setMonthlyDiscounts(null);
+    setYearlyDiscounts(null);
+    setCouponFound(false);
+    setCouponApplied("");
+  };
+
+  const handlePricingSelect = (plan, planType, sessions, totalPrice) => {
+    dispatch(
+      setPriceDetails({
+        plan,
+        planType,
+        sessions,
+        totalPrice,
+        discount: couponApplied !== "" ? true : false,
+      })
+    );
+    navigate("/payment");
+  };
+
+  // console.log(hoveredCard);
   function handleCartAdditionTrail(request, session, total, plan, type) {
     dispatch(
       setCart({
@@ -99,547 +155,443 @@ export default function Pricing() {
           </div>
         </div>
       </div>
-      <div style={{ width: "80%", margin: "auto" }}>
-        <div className={Styles.pricingContainer}>
-          {/* <div className={Styles.first}>
-            <PricingCard duration="Monthly" sliderMap={sliders} />
-          </div>
-          <div className={Styles.second}>
-            <PricingCard duration="Yearly" sliderMap={sliders} />
-          </div> */}
-          <div className={Styles.third}>
-            <h1 style={{ color: "#008080", fontWeight: 800 }}>Enterprise</h1>
-            <button
-              style={{
-                backgroundColor: "#008080",
-                color: "white",
-                padding: "12px 40px",
-                borderRadius: 10,
-                border: "none",
-                fontSize: 27,
-              }}
-            >
-              Contact us
-            </button>
-          </div>
-          <div className={Styles.third}>
-            <h1 style={{ color: "#008080", fontWeight: 800 }}>TOPUP</h1>
-            <h1 style={{ color: "#008080", fontWeight: 800 }}>25/-</h1>
-            <div className={Styles.subHeading} style={{ gap: "20px" }}>
-              <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                Items: <span style={{ color: "black" }}>Tokens</span>
-              </h4>
-              <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                Token Count: <span style={{ color: "black" }}>5</span>
-              </h4>
-              <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                Users/Sessions: <span style={{ color: "black" }}>1</span>
-              </h4>
-            </div>
-            <button
-              onClick={() =>
-                handleCartAdditionTrail(5, 1, 25, "LIFETIME", "TOPUP")
-              }
-              style={{
-                backgroundColor: "#008080",
-                color: "white",
-                padding: "12px 40px",
-                borderRadius: 10,
-                border: "none",
-                fontSize: 27,
-              }}
-            >
-              Get it Now
-            </button>
-          </div>
-          <div
+      <div className="flex flex-col justify-center items-center gap-10">
+        <div className="flex justify-center items-center gap-24">
+          <button
+            onClick={() => setActiveTab(1)}
             style={{
-              marginTop: "50px",
-              marginBottom: "50px",
-              display: "flex",
-              justifyContent: "space-between",
-              position: "relative",
-              flexWrap: "wrap",
+              backgroundColor: activeTab === 1 ? "#008080" : "transparent",
+            }}
+            className="rounded px-5 py-2 cursor-pointer"
+          >
+            Monthly
+          </button>
+          <button
+            onClick={() => setActiveTab(2)}
+            style={{
+              backgroundColor: activeTab === 2 ? "#008080" : "transparent",
+            }}
+            className="rounded px-5 py-2 cursor-pointer"
+          >
+            Yearly
+          </button>
+        </div>
+        <div className="w-full flex justify-center items-center relative">
+          <input
+            className="w-2/4 p-3 rounded text-black"
+            placeholder="Have A Coupon ?"
+            value={couponApplied}
+            onChange={(e) => setCouponApplied(e.target.value)}
+          />
+          {!couponFound ? (
+            <button
+              onClick={handleApplyCoupon}
+              className="absolute right-1/4 mx-2 bg-[#055151] rounded px-5 py-2 cursor-pointer"
+            >
+              Apply Coupon
+            </button>
+          ) : (
+            <button
+              onClick={handleRemoveCoupon}
+              className="absolute right-1/4 mx-2 bg-[#055151] rounded px-5 py-2 cursor-pointer"
+            >
+              Remove Coupon
+            </button>
+          )}
+        </div>
+        {activeTab === 1 ? (
+          <div className="flex flex-col md:flex-row gap-5">
+            {/* basic */}
+            <div className="border border-black rounded-lg bg-[#008080]">
+              <div className="h-3"></div>
+              <div className="bg-white text-black p-3 rounded-lg flex flex-col justify-center text-center">
+                {!monthlyDiscounts ? (
+                  <div className="">
+                    <h2 className="text-lg font-bold text-[#008080] pb-10">
+                      BASIC
+                    </h2>
+                  </div>
+                ) : (
+                  <div className="w-full flex justify-between items-center gap-4  pb-[3rem]">
+                    <h2 className="m-0 text-lg font-bold text-[#008080]">
+                      BASIC
+                    </h2>
+                    <p className="m-0 py-1 bg-[#055151] text-white  rounded-full">
+                      {monthlyDiscounts.basic[0]}% OFF
+                    </p>
+                  </div>
+                )}
+                <div className="px-4 pb-[7.5rem]">
+                  <h1 className="font-bold text-[#055151] pb-6">
+                    {monthlyDiscounts ? monthlyDiscounts.basic[1] : "₹ 399"}{" "}
+                    <span className="text-lg">/month</span>
+                  </h1>
+                  <div>
+                    <p className="text-black">
+                      Access to <span className="font-bold">LegalGPT</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">1 User</span>
+                    </p>
+                    <p className="text-black">
+                      Ability to Purchase{" "}
+                      <span className="font-bold">Add-on</span>
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    handlePricingSelect(
+                      "Monthly",
+                      "Basic",
+                      1,
+                      monthlyDiscounts ? monthlyDiscounts.basic[1] : 399
+                    );
+                  }}
+                  className="rounded"
+                >
+                  Get It Now
+                </button>
+              </div>
+            </div>
+            {/* essential */}
+            <div className="border border-black rounded-lg bg-[#008080]">
+              <div className="h-3"></div>
+              <div className="bg-white text-black p-3 rounded-lg flex flex-col justify-center text-center">
+                {!monthlyDiscounts ? (
+                  <div className="">
+                    <h2 className="text-lg font-bold text-[#008080]">
+                      ESSENTIAL
+                    </h2>
+                  </div>
+                ) : (
+                  <div className="w-full flex justify-between items-center gap-4 pb-[0.5rem]">
+                    <h2 className="m-0 text-lg font-bold text-[#008080]">
+                      ESSENTIAL
+                    </h2>
+                    <p className="m-0 py-1 bg-[#055151] text-white  rounded-full">
+                      {monthlyDiscounts.essential[0]}% OFF
+                    </p>
+                  </div>
+                )}
+                <div className="flex justify-center w-full">
+                  <p className="mx-4 p-1 bg-[#00808080] text-white rounded">
+                    Recommended
+                  </p>
+                </div>
+                <div className="px-4 pb-10">
+                  <h1 className="font-bold text-[#055151] pb-6">
+                    {monthlyDiscounts
+                      ? monthlyDiscounts.essential[1]
+                      : "₹ 1199"}{" "}
+                    <span className="text-lg">/month</span>
+                  </h1>
+                  <div>
+                    <p className="text-black">
+                      Access to <span className="font-bold">LegalGPT</span>
+                    </p>
+                    <p className="text-black">
+                      Access to{" "}
+                      <span className="font-bold">AI Case Search</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">AI Summarizer</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">2 Users</span>
+                    </p>
+                    <p className="text-black">
+                      Ability to Purchase{" "}
+                      <span className="font-bold">Add-on</span>
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    handlePricingSelect(
+                      "Monthly",
+                      "Essential",
+                      2,
+                      monthlyDiscounts ? monthlyDiscounts.essential[1] : 1199
+                    );
+                  }}
+                  className="rounded"
+                >
+                  Get It Now
+                </button>
+              </div>
+            </div>
+            {/* premium */}
+            <div className="border border-black rounded-lg bg-[#008080]">
+              <div className="h-3"></div>
+              <div className="bg-white text-black p-3 rounded-lg flex flex-col justify-center text-center">
+                {!monthlyDiscounts ? (
+                  <div className="">
+                    <h2 className="text-lg font-bold text-[#008080] pb-10">
+                      PREMIUM
+                    </h2>
+                  </div>
+                ) : (
+                  <div className="w-full flex justify-between items-center gap-4 pb-[3rem]">
+                    <h2 className="m-0 text-lg font-bold text-[#008080]">
+                      PREMIUM
+                    </h2>
+                    <p className="m-0 py-1 bg-[#055151] text-white  rounded-full">
+                      {monthlyDiscounts.premium[0]}% OFF
+                    </p>
+                  </div>
+                )}
+                <div className="px-4 pb-[2.9rem]">
+                  <h1 className="font-bold text-[#055151] pb-6">
+                    {monthlyDiscounts ? monthlyDiscounts.premium[1] : "₹ 1999"}{" "}
+                    <span className="text-lg">/month</span>
+                  </h1>
+                  <div>
+                    <p className="text-black">
+                      Access to <span className="font-bold">LegalGPT</span>
+                    </p>
+                    <p className="text-black">
+                      Access to{" "}
+                      <span className="font-bold">AI Case Search</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">AI Summarizer</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">4 Users</span>
+                    </p>
+                    <p className="text-black">
+                      Ability to Purchase{" "}
+                      <span className="font-bold">Add-on</span>
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    handlePricingSelect(
+                      "Monthly",
+                      "Premium",
+                      4,
+                      monthlyDiscounts ? monthlyDiscounts.premium[1] : 1999
+                    );
+                  }}
+                  className="rounded"
+                >
+                  Get It Now
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col md:flex-row gap-5">
+            {/* basic */}
+            <div className="border border-black rounded-lg bg-[#008080]">
+              <div className="h-3"></div>
+              <div className="bg-white text-black p-3 rounded-lg flex flex-col justify-center text-center">
+                {!yearlyDiscounts ? (
+                  <div className="">
+                    <h2 className="text-lg font-bold text-[#008080] pb-10">
+                      BASIC
+                    </h2>
+                  </div>
+                ) : (
+                  <div className="w-full flex justify-between items-center gap-4  pb-[3rem]">
+                    <h2 className="m-0 text-lg font-bold text-[#008080]">
+                      BASIC
+                    </h2>
+                    <p className="m-0 py-1 bg-[#055151] text-white  rounded-full">
+                      {yearlyDiscounts.basic[0]}% OFF
+                    </p>
+                  </div>
+                )}
+                <div className="px-4 pb-[7.5rem]">
+                  <h1 className="font-bold text-[#055151] pb-6">
+                    {yearlyDiscounts ? yearlyDiscounts.basic[1] : "₹ 3999"}{" "}
+                    <span className="text-lg">/year</span>
+                  </h1>
+                  <div>
+                    <p className="text-black">
+                      Access to <span className="font-bold">LegalGPT</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">1 User</span>
+                    </p>
+                    <p className="text-black">
+                      Ability to Purchase{" "}
+                      <span className="font-bold">Add-on</span>
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    handlePricingSelect(
+                      "Yearly",
+                      "Basic",
+                      1,
+                      yearlyDiscounts ? yearlyDiscounts.basic[1] : 3999
+                    );
+                  }}
+                  className="rounded"
+                >
+                  Get It Now
+                </button>
+              </div>
+            </div>
+            {/* essential */}
+            <div className="border border-black rounded-lg bg-[#008080]">
+              <div className="h-3"></div>
+              <div className="bg-white text-black p-3 rounded-lg flex flex-col justify-center text-center">
+                {!yearlyDiscounts ? (
+                  <div className="">
+                    <h2 className="text-lg font-bold text-[#008080]">
+                      ESSENTIAL
+                    </h2>
+                  </div>
+                ) : (
+                  <div className="w-full flex justify-between items-center gap-4 pb-[0.5rem]">
+                    <h2 className="m-0 text-lg font-bold text-[#008080]">
+                      ESSENTIAL
+                    </h2>
+                    <p className="m-0 py-1 bg-[#055151] text-white  rounded-full">
+                      {yearlyDiscounts.essential[0]}% OFF
+                    </p>
+                  </div>
+                )}
+                <div className="flex justify-center w-full">
+                  <p className="mx-4 p-1 bg-[#00808080] text-white rounded">
+                    Recommended
+                  </p>
+                </div>
+                <div className="px-4 pb-10">
+                  <h1 className="font-bold text-[#055151] pb-6">
+                    {yearlyDiscounts ? yearlyDiscounts.essential[1] : "₹ 11999"}{" "}
+                    <span className="text-lg">/year</span>
+                  </h1>
+                  <div>
+                    <p className="text-black">
+                      Access to <span className="font-bold">LegalGPT</span>
+                    </p>
+                    <p className="text-black">
+                      Access to{" "}
+                      <span className="font-bold">AI Case Search</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">AI Summarizer</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">2 Users</span>
+                    </p>
+                    <p className="text-black">
+                      Ability to Purchase{" "}
+                      <span className="font-bold">Add-on</span>
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    handlePricingSelect(
+                      "Yearly",
+                      "Essential",
+                      2,
+                      yearlyDiscounts ? yearlyDiscounts.essential[1] : 11999
+                    );
+                  }}
+                  className="rounded"
+                >
+                  Get It Now
+                </button>
+              </div>
+            </div>
+            {/* premium */}
+            <div className="border border-black rounded-lg bg-[#008080]">
+              <div className="h-3"></div>
+              <div className="bg-white text-black p-3 rounded-lg flex flex-col justify-center text-center">
+                {!yearlyDiscounts ? (
+                  <div className="">
+                    <h2 className="text-lg font-bold text-[#008080] pb-10">
+                      PREMIUM
+                    </h2>
+                  </div>
+                ) : (
+                  <div className="w-full flex justify-between items-center gap-4 pb-[3rem]">
+                    <h2 className="m-0 text-lg font-bold text-[#008080]">
+                      PREMIUM
+                    </h2>
+                    <p className="m-0 py-1 bg-[#055151] text-white  rounded-full">
+                      {yearlyDiscounts.premium[0]}% OFF
+                    </p>
+                  </div>
+                )}
+                <div className="px-4 pb-[2.9rem]">
+                  <h1 className="font-bold text-[#055151] pb-6">
+                    {yearlyDiscounts ? yearlyDiscounts.premium[1] : "₹ 19999"}{" "}
+                    <span className="text-lg">/year</span>
+                  </h1>
+                  <div>
+                    <p className="text-black">
+                      Access to <span className="font-bold">LegalGPT</span>
+                    </p>
+                    <p className="text-black">
+                      Access to{" "}
+                      <span className="font-bold">AI Case Search</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">AI Summarizer</span>
+                    </p>
+                    <p className="text-black">
+                      Access to <span className="font-bold">4 Users</span>
+                    </p>
+                    <p className="text-black">
+                      Ability to Purchase{" "}
+                      <span className="font-bold">Add-on</span>
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    handlePricingSelect(
+                      "Yearly",
+                      "Premium",
+                      4,
+                      yearlyDiscounts ? yearlyDiscounts.premium[1] : 19999
+                    );
+                  }}
+                  className="rounded"
+                >
+                  Get It Now
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="w-full flex justify-center">
+          <div className="w-4/5 flex flex-col bg-white rounded py-3">
+            <h3 className="text-[#008080] text-xl font-bold px-3">
+              Available Add-On
+            </h3>
+            <div className="w-[98%] flex justify-between items-center px-3 py-2 border-black border-t-2 border-b-2 m-2.5">
+              <p className="m-0 text-[#008080]">Case Search (Monthly)</p>
+              <p className="m-0 text-[#008080] font-semibold">₹ 899</p>
+              <button className="px-5 py-1 rounded">Get It Now</button>
+            </div>
+          </div>
+        </div>
+        <div className="w-4/5 flex justify-between items-center bg-white rounded p-5">
+          <h1 style={{ color: "#008080", fontWeight: 800 }}>Enterprise</h1>
+          <button
+            style={{
+              backgroundColor: "#008080",
+              color: "white",
+              padding: "12px 40px",
+              borderRadius: 10,
+              border: "none",
+              fontSize: 27,
             }}
           >
-            <div
-              className={Styles.newCar}
-              style={{ width: "28%" }}
-              onMouseEnter={() => setHoveredCard("oneTime")}
-              // onMouseLeave={() => setHoveredCard(null)}
-            >
-              <div className={`${Styles.card} ${Styles.mainCard}`}>
-                <div className={`${Styles.first} ${Styles.cardContent}`}>
-                  <h1 style={{ color: "#008080", fontWeight: 800 }}>Trial</h1>
-                  <h3
-                    style={{
-                      color: "#008080",
-                      fontWeight: 800,
-                      fontSize: "35px",
-                    }}
-                  >
-                    ₹99/-
-                  </h3>
-                  <div className={Styles.subHeading} style={{ gap: "20px" }}>
-                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Items: <span style={{ color: "black" }}>Tokens</span>
-                    </h4>
-                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Token Count: <span style={{ color: "black" }}>10</span>
-                    </h4>
-                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Users/Sessions: <span style={{ color: "black" }}>1</span>
-                    </h4>
-                  </div>
-                  <button
-                    onClick={() =>
-                      handleCartAdditionTrail(10, 1, 99, "LIFETIME", "TRAIL")
-                    }
-                    style={{
-                      backgroundColor: "#008080",
-                      color: "white",
-                      padding: "12px 40px",
-                      borderRadius: 10,
-                      border: "none",
-                      fontSize: 27,
-                    }}
-                  >
-                    Get it Now
-                  </button>
-                  <button
-                    onClick={() => setHoveredCard("oneTime")}
-                    style={{
-                      backgroundColor: "#008080",
-                      color: "white",
-                      // padding: "12px 40px",
-                      borderRadius: 10,
-                      border: "none",
-                      fontSize: 15,
-                    }}
-                  >
-                    Hover me
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className={Styles.newCar}
-              style={{ width: "28%" }}
-              onMouseEnter={() => setHoveredCard("monthly")}
-              // onMouseLeave={() => setHoveredCard(null)}
-            >
-              <div className={`${Styles.card} ${Styles.layer1}`}></div>
-              <div className={`${Styles.card} ${Styles.layer2}`}></div>
-              <div className={`${Styles.card} ${Styles.layer3}`}></div>
-              <div className={`${Styles.card} ${Styles.layer4}`}></div>
-
-              <div className={`${Styles.card} ${Styles.mainCard}`}>
-                <div className={`${Styles.first} ${Styles.cardContent}`}>
-                  <h1 style={{ color: "#008080", fontWeight: 800 }}>Monthly</h1>
-                  <h3
-                    style={{
-                      color: "#008080",
-                      fontWeight: 800,
-                      fontSize: "35px",
-                    }}
-                  >
-                    ₹249/-
-                  </h3>
-                  <div className={Styles.subHeading} style={{ gap: "20px" }}>
-                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Items: <span style={{ color: "black" }}>Tokens</span>
-                    </h4>
-                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Token Count: <span style={{ color: "black" }}>100</span>
-                    </h4>
-                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Users/Sessions: <span style={{ color: "black" }}>1</span>
-                    </h4>
-                  </div>
-                  <button
-                    onClick={() =>
-                      handleCartAddition(100, 1, 249, "MONTHLY", "PRO")
-                    }
-                    style={{
-                      backgroundColor: "#008080",
-                      color: "white",
-                      padding: "12px 40px",
-                      borderRadius: 10,
-                      border: "none",
-                      fontSize: 27,
-                    }}
-                  >
-                    Get it Now
-                  </button>
-                  <button
-                    onClick={() => setHoveredCard("monthly")}
-                    style={{
-                      backgroundColor: "#008080",
-                      color: "white",
-                      // padding: "12px 40px",
-                      borderRadius: 10,
-                      border: "none",
-                      fontSize: 15,
-                    }}
-                  >
-                    Hover me
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className={Styles.newCar}
-              style={{ width: "28%" }}
-              onMouseEnter={() => setHoveredCard("yearly")}
-              // onMouseLeave={() => setHoveredCard(null)}
-            >
-              <div className={`${Styles.card} ${Styles.layer1}`}></div>
-              <div className={`${Styles.card} ${Styles.layer2}`}></div>
-              <div className={`${Styles.card} ${Styles.layer3}`}></div>
-              <div className={`${Styles.card} ${Styles.layer4}`}></div>
-              <div className={`${Styles.card} ${Styles.layer5}`}></div>
-              <div className={`${Styles.card} ${Styles.layer6}`}></div>
-
-              <div className={`${Styles.card} ${Styles.mainCard}`}>
-                <div className={`${Styles.first} ${Styles.cardContent}`}>
-                  <h1 style={{ color: "#008080", fontWeight: 800 }}>Yearly</h1>
-                  <h3
-                    style={{
-                      color: "#008080",
-                      fontWeight: 800,
-                      fontSize: "35px",
-                    }}
-                  >
-                    ₹2499/-
-                  </h3>
-                  <div className={Styles.subHeading} style={{ gap: "20px" }}>
-                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Items: <span style={{ color: "black" }}>Tokens</span>
-                    </h4>
-                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Token Count: <span style={{ color: "black" }}>1000</span>
-                    </h4>
-                    <h4 style={{ color: "#008080", fontWeight: 800 }}>
-                      Users/Sessions: <span style={{ color: "black" }}>1</span>
-                    </h4>
-                  </div>
-                  <button
-                    onClick={() =>
-                      handleCartAddition(1000, 4, 2499, "YEARLY", "PRO")
-                    }
-                    style={{
-                      backgroundColor: "#008080",
-                      color: "white",
-                      padding: "12px 40px",
-                      borderRadius: 10,
-                      border: "none",
-                      fontSize: 27,
-                    }}
-                  >
-                    Get it Now
-                  </button>
-                  <button
-                    onClick={() => setHoveredCard("yearly")}
-                    style={{
-                      backgroundColor: "#008080",
-                      color: "white",
-                      // padding: "12px 40px",
-                      borderRadius: 10,
-                      border: "none",
-                      fontSize: 15,
-                    }}
-                  >
-                    Hover me
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          {hoveredCard === "oneTime" && (
-            <OneTime handleCartAddition={handleCartAddition} />
-          )}
-          {hoveredCard === "monthly" && (
-            <Monthly handleCartAddition={handleCartAddition} />
-          )}
-          {hoveredCard === "yearly" && (
-            <Yearly handleCartAddition={handleCartAddition} />
-          )}
-          {/* <HoverCard /> */}
-          <div className={Styles.pricingSection}>
-            <div
-              style={{
-                display: "flex",
-                gap: "50%",
-                width: "100%",
-              }}
-            >
-              <h1 style={{ fontWeight: "800" }}>Monthly Add On</h1>{" "}
-              <p className={Styles.pricingNote}>
-                *Min Purchase Required of
-                <span style={{ color: "#008080" }}> Rs499</span>
-              </p>
-            </div>
-            <table className={Styles.pricingTable}>
-              <thead>
-                <tr style={{ fontWeight: "800" }}>
-                  <th style={{ textAlign: "left" }}>Items</th>
-                  <th>Token Count</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody style={{ color: "black" }}>
-                <tr>
-                  <td style={{ textAlign: "left" }}>Case Search</td>
-                  <td>Minimum tokens - 100</td>
-                  <td style={{ color: "#008080", textAlign: "right" }}>
-                    ₹499/-
-                  </td>
-                  <td style={{ textAlign: "left" }}>
-                    <button
-                      onClick={() => handleCartAddition(100, 1, 499, "AddOn")}
-                      className={Styles.pricingButton}
-                    >
-                      Get it Now
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            Contact us
+          </button>
         </div>
       </div>
     </div>
   );
 }
-const sliders = {
-  request: {
-    marks: [
-      {
-        value: 0,
-        label: "500",
-      },
-      {
-        value: 33,
-        label: "1000",
-      },
-      {
-        value: 66,
-        label: "5000",
-      },
-      {
-        value: 100,
-        label: "Unlimited",
-      },
-    ],
-    map: { 0: 500, 33: 1000, 66: 5000, 100: 9999 },
-  },
-  session: {
-    marks: [
-      { value: 0, label: 1 },
-      { value: 33, label: 2 },
-      { value: 66, label: 3 },
-      { value: 100, label: 4 },
-    ],
-    map: { 0: 1, 33: 2, 66: 3, 100: 4 },
-  },
-};
-
-//for limited pricing offer
-//monthly
-
-// const priceMap = {
-//   500: { 1: 199, 2: 249, 3: 299, 4: 349 },
-//   1000: { 1: 349, 2: 399, 3: 449, 4: 499 },
-//   5000: { 1: 499, 2: 599, 3: 699, 4: 799 },
-//   9999: { 1: 999, 2: 1499, 3: 1999, 4: 2999 },
-// };
-
-const priceMap = {
-  500: { 1: 499, 2: 699, 3: 799, 4: 999 },
-  1000: { 1: 999, 2: 1099, 3: 1299, 4: 1399 },
-  5000: { 1: 1399, 2: 1699, 3: 1999, 4: 2299 },
-  9999: { 1: 2899, 2: 4399, 3: 5899, 4: 8899 },
-};
-
-// yearly price
-
-const YearlypriceMap = {
-  500: { 1: 5299, 2: 6699, 3: 7999, 4: 9399 },
-  1000: { 1: 9399, 2: 10699, 3: 12099, 4: 13399 },
-  5000: { 1: 13399, 2: 16099, 3: 18799, 4: 21499 },
-  9999: { 1: 26899, 2: 40399, 3: 53899, 4: 79999 },
-};
-
-const PricingCard = ({ duration, sliderMap }) => {
-  const [request, setRequest] = useState(0);
-  const [session, setSession] = useState(0);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const currentUser = useSelector((state) => state.auth.user);
-  let price =
-    priceMap[sliderMap.request.map[request]][sliderMap.session.map[session]];
-  //   if (duration === "Yearly") price = price * 9;
-  if (duration === "Yearly") {
-    price =
-      YearlypriceMap[sliderMap.request.map[request]][
-        sliderMap.session.map[session]
-      ];
-  }
-
-  function handleCartAddition() {
-    if (!currentUser) {
-      const searchParams = new URLSearchParams({
-        callbackUrl: pathname,
-      }).toString();
-      navigate(`/login?${searchParams}`);
-    } else {
-      dispatch(
-        setCart({
-          request: sliderMap.request.map[request],
-          session: sliderMap.session.map[session],
-          total: price,
-          plan: duration,
-          type: "PRO",
-        })
-      );
-      navigate("/paymentgateway");
-    }
-  }
-
-  return (
-    <div
-      style={{
-        border: "1px solid white",
-        backgroundColor: "white",
-        color: "black",
-        borderRadius: 8,
-        padding: 16,
-        display: "flex",
-        flexDirection: "column",
-        gap: 16,
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 8,
-          alignItems: "center",
-        }}
-      >
-        <h3
-          style={{ fontSize: 45, color: "#008080", fontWeight: 700, margin: 0 }}
-        >
-          {duration}
-        </h3>
-      </div>
-      <div style={{ width: "80%", margin: "auto", textAlign: "center" }}>
-        <div>
-          <h3 style={{ fontSize: 27 }}>Request</h3>
-          <Slider
-            value={request}
-            step={null}
-            style={{ color: "#008080" }}
-            marks={sliderMap.request.marks}
-            valueLabelDisplay="off"
-            onChange={(_, val) => setRequest(val)}
-          />
-        </div>
-        <div style={{ width: "80%", margin: "auto" }}>
-          <h3 style={{ fontSize: 27 }}>Users/Sessions</h3>
-          <Slider
-            value={session}
-            style={{ color: "#008080" }}
-            step={null}
-            onChange={(_, val) => setSession(val)}
-            marks={sliderMap.session.marks}
-            valueLabelDisplay="off"
-          />
-        </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          gap: 8,
-        }}
-      >
-        <h5>You're paying</h5>
-        <div
-          style={{
-            padding: "10px 50px",
-            border: "1px solid #008080",
-            borderRadius: 10,
-          }}
-        >
-          {/* <span
-            style={{
-              textDecoration: "line-through",
-              marginRight: 5,
-              fontSize: 14,
-            }}
-          >
-            <span>₹</span>
-            <span>{price * 3}</span>
-          </span> */}
-          <span style={{ borderRadius: 10, fontWeight: 600, fontSize: 18 }}>
-            <span>₹</span>
-            <span>{price}</span>
-          </span>
-        </div>
-        {/* <h5 style={{ fontWeight: 700, color: "red", margin: 0, fontSize: 12 }}>
-          Limited Time Offer!
-        </h5> */}
-      </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", paddingTop: 15 }}
-      >
-        <button
-          onClick={handleCartAddition}
-          style={{
-            padding: "16px 44px",
-            border: "none",
-            backgroundColor: "#008080",
-            borderRadius: 8,
-            color: "white",
-            fontSize: 27,
-          }}
-        >
-          Get it now
-        </button>
-      </div>
-    </div>
-  );
-};
-
-// const Timer = () => {
-//     const [days, setDays] = useState(0);
-//     const [hours, setHours] = useState(0);
-//     const [minutes, setMinutes] = useState(0);
-//     const [seconds, setSeconds] = useState(0);
-
-//     const deadline = "March, 31, 2024";
-
-//     const getTime = () => {
-//         const time = Date.parse(deadline) - Date.now();
-
-//         setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
-//         setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
-//         setMinutes(Math.floor((time / 1000 / 60) % 60));
-//         setSeconds(Math.floor((time / 1000) % 60));
-//     }
-
-//     useEffect(() => {
-//         const interval = setInterval(() => getTime(), 1000);
-//         return () => clearInterval(interval);
-//     }, [])
-
-//     return <div>
-//         {days} : {hours} : {minutes} : {seconds}
-//     </div>
-// }
