@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetPriceDetails } from "../features/payment/pricingSlice";
+import axios from "axios";
+import { NODE_API_ENDPOINT } from "../utils/utils";
 
 const PlanPayment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const [receipt, setReceipt] = useState(`receipt_${Date.now()}`);
 
@@ -36,72 +39,72 @@ const PlanPayment = () => {
     console.log(newObj);
   };
 
-  // const loadRazorpay = async () => {
-  //   setLoading(true);
-  //   const script = document.createElement("script");
-  //   script.src = "https://checkout.razorpay.com/v1/checkout.js";
-  //   script.onerror = () => {
-  //     alert("Razorpay SDK failed to load. Are you online?");
-  //   };
-  //   script.onload = async () => {
-  //     try {
-  //       const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan}`;
-  //       const result = await axios.post(
-  //         `${NODE_API_ENDPOINT}/payment/create-order`,
-  //         {
-  //           amount: paymentDetails?.totalPrice,
-  //           currency: "INR",
-  //           receipt: receipt,
-  //           plan: planeName,
-  //           billingCycle: paymentDetails?.plan,
-  //           session,
-  //           phoneNumber: currentUser?.phoneNumber,
-  //         }
-  //       );
+  const loadRazorpay = async () => {
+    setLoading(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onerror = () => {
+      alert("Razorpay SDK failed to load. Are you online?");
+    };
+    script.onload = async () => {
+      try {
+        const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
+        const result = await axios.post(
+          `${NODE_API_ENDPOINT}/payment/create-order`,
+          {
+            amount: paymentDetails?.totalPrice,
+            currency: "INR",
+            receipt: receipt,
+            plan: planeName?.toUpperCase(),
+            billingCycle: paymentDetails?.plan.toUpperCase(),
+            session: paymentDetails?.sessions,
+            phoneNumber: currentUser?.phoneNumber,
+          }
+        );
 
-  //       console.log(result);
+        console.log(result);
 
-  //       const { amount, id, currency } = result.data.razorpayOrder;
-  //       const { _id } = result.data.createdOrder;
-  //       const options = {
-  //         key: "rzp_test_UWcqHHktRV6hxM",
-  //         amount: String(amount),
+        const { amount, id, currency } = result.data.razorpayOrder;
+        const { _id } = result.data.createdOrder;
+        const options = {
+          key: "rzp_test_UWcqHHktRV6hxM",
+          amount: String(amount),
 
-  //         currency: currency,
-  //         name: "CLAW LEGALTECH PRIVATE LIMITED",
-  //         description: "Transaction",
-  //         order_id: id,
-  //         handler: async function (response) {
-  //           const data = {
-  //             razorpay_order_id: response.razorpay_order_id,
-  //             razorpay_payment_id: response.razorpay_payment_id,
-  //             razorpay_signature: response.razorpay_signature,
-  //             _id,
-  //           };
+          currency: currency,
+          name: "CLAW LEGALTECH PRIVATE LIMITED",
+          description: "Transaction",
+          order_id: id,
+          handler: async function (response) {
+            const data = {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              _id,
+            };
 
-  //           const result = await axios.post(
-  //             `${NODE_API_ENDPOINT}/payment/verifyPayment`,
-  //             data
-  //           );
-  //           alert(result.data.status);
-  //           nav("/");
-  //         },
+            const result = await axios.post(
+              `${NODE_API_ENDPOINT}/payment/verifyPayment`,
+              data
+            );
+            alert(result.data.status);
+            navigate("/");
+          },
 
-  //         theme: {
-  //           color: "#3399cc",
-  //         },
-  //       };
+          theme: {
+            color: "#3399cc",
+          },
+        };
 
-  //       const paymentObject = new window.Razorpay(options);
-  //       paymentObject.open();
-  //     } catch (error) {
-  //       alert(error.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   document.body.appendChild(script);
-  // };
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    document.body.appendChild(script);
+  };
 
   return (
     <div className="grid md:grid-cols-2">
@@ -144,7 +147,7 @@ const PlanPayment = () => {
             </div>
           </div>
         </div>
-        <button onClick={testRazor} className="w-full rounded py-2">
+        <button onClick={loadRazorpay} className="w-full rounded py-2">
           Proceed to Payment
         </button>
       </div>

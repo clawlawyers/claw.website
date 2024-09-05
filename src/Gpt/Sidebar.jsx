@@ -30,7 +30,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const plan = useSelector((state) => state.gpt.plan);
-  const token = useSelector((state) => state.gpt.token);
+  // const token = useSelector((state) => state.gpt.token);
   const { isAuthLoading } = useAuthState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -208,13 +208,13 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               {/* No Plan */}
                             </span>
                           </div>
-                          {plan.length && (
+                          {/* {plan.length && (
                             <div>
                               <span className="text-white">Token : </span>
                               {Math.floor(token?.used?.gptTokenUsed)}/
                               {token?.total?.totalGptTokens}
                             </div>
-                          )}
+                          )} */}
                           <div className="mt-3 flex">
                             <button
                               style={{
@@ -474,13 +474,13 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 {/* No Plan */}
                               </span>
                             </div>
-                            {plan.length && (
+                            {/* {plan.length && (
                               <div>
                                 <span className="text-white">Token : </span>
                                 {Math.floor(token?.used?.gptTokenUsed)}/
                                 {token?.total?.totalGptTokens}
                               </div>
-                            )}
+                            )} */}
                             <div className="mt-3 flex">
                               <button
                                 style={{

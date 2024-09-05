@@ -25,7 +25,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const plan = useSelector((state) => state.gpt.plan);
-  const token = useSelector((state) => state.gpt.token);
+  // const token = useSelector((state) => state.gpt.token);
   const { isAuthLoading } = useAuthState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -165,13 +165,13 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 : " No Plan"}
                             </span>
                           </div>
-                          {plan?.length && (
+                          {/* {plan?.length && (
                             <div>
                               Token -{" "}
                               {Math.floor(token?.used?.caseSearchTokenUsed)}/
                               {token?.total?.totalCaseSearchTokens}
                             </div>
-                          )}
+                          )} */}
                           <button
                             style={{
                               display: "flex",
