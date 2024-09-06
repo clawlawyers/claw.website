@@ -156,7 +156,7 @@ export default function Pricing() {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center gap-10">
-        <div className="flex justify-center items-center gap-24">
+        <div className=" flex  justify-center items-center gap-16">
           <button
             onClick={() => setActiveTab(1)}
             style={{
@@ -178,7 +178,7 @@ export default function Pricing() {
         </div>
         <div className="w-full flex justify-center items-center relative">
           <input
-            className="w-2/4 p-3 rounded text-black"
+            className="w-[90%] md:w-2/4 p-3 rounded text-black"
             placeholder="Have A Coupon ?"
             value={couponApplied}
             onChange={(e) => setCouponApplied(e.target.value)}
@@ -186,7 +186,7 @@ export default function Pricing() {
           {!couponFound ? (
             <button
               onClick={handleApplyCoupon}
-              className="absolute right-1/4 mx-2 bg-[#055151] rounded px-5 py-2 cursor-pointer"
+              className="absolute right-[5%] md:right-1/4 mx-2 bg-[#055151] rounded px-3 md:px-5 py-2 cursor-pointer"
             >
               Apply Coupon
             </button>
@@ -569,14 +569,26 @@ export default function Pricing() {
             <h3 className="text-[#008080] text-xl font-bold px-3">
               Available Add-On
             </h3>
-            <div className="w-[98%] flex justify-between items-center px-3 py-2 border-black border-t-2 border-b-2 m-2.5">
+            <div className="w-[98%] gap-2 flex justify-between items-center px-3 py-2 border-black border-t-2 border-b-2 md:m-2.5">
               <p className="m-0 text-[#008080]">Case Search (Monthly)</p>
               <p className="m-0 text-[#008080] font-semibold">₹ 899</p>
-              <button className="px-5 py-1 rounded">Get It Now</button>
+              <button
+                // onClick={() => {
+                //       handlePricingSelect(
+                //         "Monthly",
+                //         "Case Search",
+                //         4,
+                //         899
+                //       );
+                //     }}
+                className="px-3 md:px-5 py-1 rounded"
+              >
+                Get It Now
+              </button>
             </div>
           </div>
         </div>
-        <div className="w-4/5 flex justify-between items-center bg-white rounded p-5">
+        <div className="w-4/5 flex flex-col md:flex-row justify-between items-center bg-white rounded p-5">
           <h1 style={{ color: "#008080", fontWeight: 800 }}>Enterprise</h1>
           <button
             style={{

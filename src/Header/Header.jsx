@@ -161,7 +161,12 @@ function Header() {
           <TableRowsIcon />
         </button>
         <Drawer
-          PaperProps={{ style: { backgroundColor: "black", color: "white" } }}
+          PaperProps={{
+            style: {
+              backgroundColor: "#008080",
+              color: "white",
+            },
+          }}
           anchor="top"
           open={navOpen}
           onClose={() => setNavOpen(false)}
@@ -184,9 +189,13 @@ function Header() {
               <ClearIcon />
             </button>
           </div>
-          <List>
+          <List sx={{ padding: "10px" }}>
             {navLinks.map(({ path, label, icon: Icon }, index) => (
-              <ListItem key={path} disablePadding>
+              <ListItem
+                key={path}
+                sx={{ borderBottom: "1px solid white" }}
+                disablePadding
+              >
                 <ListItemButton
                   onClick={() => {
                     navigate(path);
