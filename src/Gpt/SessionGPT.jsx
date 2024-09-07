@@ -28,6 +28,7 @@ import Select from "@mui/material/Select";
 import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import markdownit from "markdown-it";
+import { CircularProgress } from "@mui/material";
 
 const highCourtArr = [
   "Supreme Court of India",
@@ -80,10 +81,12 @@ export default function SessionGPT({ model, primaryColor }) {
       return "";
     },
   });
-  const { prompt, status, response, error, relatedCases } = useSelector(
+  const { prompt, status, response, error, relatedCases, plan } = useSelector(
     (state) => state.gpt
   );
   const currentUser = useSelector((state) => state.auth.user);
+  // const planDetails = useSelector((state) => state.gpt?.plan[0]?.plan);
+
   const [query, setQuery] = useState("");
   const [prompts, setPrompts] = useState([]);
   const { isAuthLoading } = useAuthState();
@@ -125,7 +128,9 @@ export default function SessionGPT({ model, primaryColor }) {
 
   const greetingRegex =
     /\b(hello|namaste|hola|hey|how are you|greetings|(hi+))\b/gi;
+
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
+
   const isGreeting =
     prompts.length > 0 && greetingRegex.test(prompts[prompts.length - 1].text);
   const showUpgrade =
@@ -510,7 +515,44 @@ export default function SessionGPT({ model, primaryColor }) {
                       </div>
                     </div>
                     <div className="flex flex-col md:flex-row mt-[5px] gap-[5px] p-[10px]">
-                      <Link to={`/case/search?id=${relatedCases.messageId}`}>
+                      {plan ? (
+                        <>
+                          {!plan[0]?.plan?.AICaseSearchAccess ? (
+                            <Link
+                              to={`/case/search?id=${relatedCases.messageId}`}
+                            >
+                              <button
+                                className="px-1"
+                                style={{
+                                  borderRadius: 5,
+                                  backgroundColor: "#008080",
+                                  color: "white",
+                                  textDecoration: "none",
+                                  width: "fit-content",
+                                  border: "1px solid white",
+                                }}
+                              >
+                                Case search
+                              </button>
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={handlePopupOpen}
+                              className="px-1"
+                              style={{
+                                borderRadius: 5,
+                                backgroundColor: "#008080",
+                                color: "white",
+                                textDecoration: "none",
+                                width: "fit-content",
+                                border: "1px solid white",
+                              }}
+                            >
+                              Case search
+                            </button>
+                          )}
+                        </>
+                      ) : (
                         <button
                           className="px-1"
                           style={{
@@ -522,9 +564,9 @@ export default function SessionGPT({ model, primaryColor }) {
                             border: "1px solid white",
                           }}
                         >
-                          Case search
+                          <CircularProgress size={20} color="inherit" />
                         </button>
-                      </Link>
+                      )}
                       <button
                         onClick={handleShowRelevantAct}
                         className="px-1"

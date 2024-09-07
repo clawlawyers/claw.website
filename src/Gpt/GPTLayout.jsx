@@ -119,8 +119,8 @@ export default function GPTLayout(props) {
             <LockIcon style={{ fontSize: 80, color: props.primaryColor }} />
             <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
             <div style={{ display: "flex", gap: 5 }}>
-              <StudentReferralModal />
-              <button
+              {/* <StudentReferralModal /> */}
+              {/* <button
                 onClick={topuphandler}
                 className={Style.backdropImg}
                 style={{
@@ -142,7 +142,7 @@ export default function GPTLayout(props) {
                 >
                   Top Up 25 Rs
                 </Link>
-              </button>
+              </button> */}
               <button
                 className={Style.backdropImg}
                 style={{

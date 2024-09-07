@@ -10,6 +10,7 @@ import Monthly from "./Addone/Monthly";
 import Yearly from "./Addone/Yearly";
 import HoverCard from "./Addone/HoveredCard";
 import { setPriceDetails } from "../features/payment/pricingSlice";
+import { CircularProgress } from "@mui/material";
 
 const couponCodes = [
   {
@@ -31,6 +32,8 @@ export default function Pricing() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null); // State to track hovered card
+  const { plan } = useSelector((state) => state.gpt);
+  // console.log(planDetails);
 
   const [activeTab, setActiveTab] = useState(1);
   const [couponApplied, setCouponApplied] = useState("");
@@ -572,19 +575,26 @@ export default function Pricing() {
             <div className="w-[98%] gap-2 flex justify-between items-center px-3 py-2 border-black border-t-2 border-b-2 md:m-2.5">
               <p className="m-0 text-[#008080]">Case Search (Monthly)</p>
               <p className="m-0 text-[#008080] font-semibold">₹ 899</p>
-              <button
-                // onClick={() => {
-                //       handlePricingSelect(
-                //         "Monthly",
-                //         "Case Search",
-                //         4,
-                //         899
-                //       );
-                //     }}
-                className="px-3 md:px-5 py-1 rounded"
-              >
-                Get It Now
-              </button>
+              {plan ? (
+                <button
+                  disabled={!plan[0]?.plan?.AddOnAccess}
+                  onClick={() => {
+                    handlePricingSelect(
+                      "Monthly",
+                      "Addon",
+                      plan[0]?.plan?.session,
+                      899
+                    );
+                  }}
+                  className="px-3 md:px-5 py-1 rounded"
+                >
+                  Get It Now
+                </button>
+              ) : (
+                <button className="px-3 md:px-5 py-1 rounded">
+                  <CircularProgress size={20} color="inherit" />
+                </button>
+              )}
             </div>
           </div>
         </div>

@@ -1,6 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 
+export const retrieveActivePlanUser = createAsyncThunk(
+  "gpt/retrievePlan",
+  async () => {
+    const storedAuth = localStorage.getItem("auth");
+    if (storedAuth) {
+      const parsedUser = JSON.parse(storedAuth);
+      const props = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${parsedUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const parsedProps = await props.json();
+      console.log(parsedProps);
+      return {
+        user: parsedProps.data.plan,
+      };
+    } else return null;
+  }
+);
+
 export const generateResponse = createAsyncThunk(
   "gpt/generateResponse",
   async ({ sessionId, model }, callback) => {
@@ -95,6 +117,11 @@ export const gptSlice = createSlice({
     builder.addCase(generateResponse.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.error;
+    });
+    builder.addCase(retrieveActivePlanUser.fulfilled, (state, action) => {
+      if (action.payload && action.payload.user) {
+        state.plan = action.payload.user;
+      }
     });
   },
 });

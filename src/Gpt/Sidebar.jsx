@@ -35,7 +35,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [startnew, setStartNew] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [legalGptOpen, setLegalGptOpen] = useState(false);
 
   const style = {
     position: "absolute",
@@ -203,7 +203,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             <span className="text-white">Plan Type : </span>
                             <span style={{ textTransform: "capitalize" }}>
                               {plan.length
-                                ? plan[0]?.split("_")[0]
+                                ? plan[0]?.planName?.split("_")[0]
                                 : " No Plan"}
                               {/* No Plan */}
                             </span>
@@ -283,7 +283,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   </div>
                   <div
                     className="hover:cursor-pointer"
-                    onClick={() => setOpen(true)}
+                    onClick={() => setLegalGptOpen(true)}
                   >
                     What is {keyword}GPT
                   </div>
@@ -469,7 +469,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               <span className="text-white">Plan Type : </span>
                               <span style={{ textTransform: "capitalize" }}>
                                 {plan.length
-                                  ? plan[0]?.split("_")[0]
+                                  ? plan[0]?.planName?.split("_")[0]
                                   : " No Plan"}
                                 {/* No Plan */}
                               </span>
@@ -549,7 +549,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     </div>
 
                     <div>
-                      <button onClick={() => setOpen(true)}>
+                      <button onClick={() => setLegalGptOpen(true)}>
                         What s {keyword}GPT
                       </button>
                     </div>
@@ -643,9 +643,9 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         </div>
       )}
       <Modal
-        open={open}
+        open={legalGptOpen}
         onClose={() => {
-          setOpen(false);
+          setLegalGptOpen(false);
         }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"

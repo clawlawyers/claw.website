@@ -70,10 +70,14 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
   const [content, setContent] = useState("");
   const jwt = useSelector((state) => state.auth.user.jwt);
   const [loading, setLoading] = useState(false);
-  const { token } = useSelector((state) => state.gpt);
+  // const { token } = useSelector((state) => state.gpt);
+  const planDetails = useSelector((state) => state.gpt?.plan[0]?.plan);
+
   const dispatch = useDispatch();
-  // const handlePopupOpen = useCallback(() => dispatch(open()), []);
+
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
+
+  const handlePopupOpen = useCallback(() => dispatch(open()), []);
 
   const handleSummary = async () => {
     if (summery) {
@@ -117,19 +121,19 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
 
   async function handleOpen() {
     try {
-      console.log(token);
-      console.log(parseFloat(token?.used) + 1);
+      // console.log(token);
+      // console.log(parseFloat(token?.used) + 1);
 
-      if (
-        token?.used?.caseSearchTokenUsed >=
-          token?.total?.totalCaseSearchTokens ||
-        parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
-          token?.total?.totalCaseSearchTokens
-      ) {
-        console.log("token exipred");
-        dispatch(open());
-        return;
-      }
+      // if (
+      //   token?.used?.caseSearchTokenUsed >=
+      //     token?.total?.totalCaseSearchTokens ||
+      //   parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
+      //     token?.total?.totalCaseSearchTokens
+      // ) {
+      //   console.log("token exipred");
+      //   dispatch(open());
+      //   return;
+      // }
       setLoading(true);
       setOpenCase(true);
 
@@ -202,7 +206,9 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
           View document
         </button>
         <button
-          onClick={handleSummaryToggle}
+          onClick={
+            !planDetails?.AISummerizer ? handleSummaryToggle : handlePopupOpen
+          }
           style={{
             border: "none",
             padding: "10px 12px",

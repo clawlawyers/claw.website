@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Styles from "./Header.module.css";
 import clawLogo from "../assets/icons/clawlogo.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,6 +23,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import ClearIcon from "@mui/icons-material/Clear";
 import FeedIcon from "@mui/icons-material/Feed";
 
+import { Modal } from "@mui/material";
+import LockIcon from "@mui/icons-material/Lock";
+import { close, open } from "../features/popup/popupSlice";
+
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
   { path: "/blog", label: "Blog", icon: BookIcon },
@@ -37,9 +41,14 @@ function Header() {
   const [navOpen, setNavOpen] = useState(false);
   const currentUser = useSelector((state) => state.auth.user);
   const authStatus = useSelector((state) => state.auth.status);
+  const { plan } = useSelector((state) => state.gpt);
+  const isOpen = useSelector((state) => state.popup.open);
   const isAuthLoading = authStatus === "loading" ? true : false;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handlePopupOpen = useCallback(() => dispatch(open()), []);
+  const handlePopupClose = useCallback(() => dispatch(close()), []);
 
   const handleAuthChange = () => {
     if (currentUser) dispatch(logout());
@@ -113,18 +122,45 @@ function Header() {
             </button>
           </div>
           <div style={{ backgroundColor: "transparent" }}>
-            <button>
-              <Link
-                to="/case/search"
+            {plan ? (
+              <>
+                {!plan[0]?.plan?.planDetails?.AICaseSearchAccess ? (
+                  <button>
+                    <Link
+                      to="/case/search"
+                      style={{
+                        textDecoration: "none",
+                        color: "white",
+                        backgroundColor: "transparent",
+                      }}
+                    >
+                      Case Search
+                    </Link>
+                  </button>
+                ) : (
+                  <button
+                    onClick={handlePopupOpen}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      backgroundColor: "transparent",
+                    }}
+                  >
+                    Case Search
+                  </button>
+                )}
+              </>
+            ) : (
+              <button
                 style={{
                   textDecoration: "none",
                   color: "white",
                   backgroundColor: "transparent",
                 }}
               >
-                Case Search
-              </Link>
-            </button>
+                <CircularProgress size={20} color="inherit" />
+              </button>
+            )}
           </div>
           <div style={{ backgroundColor: "transparent" }}>
             <button>
@@ -227,6 +263,103 @@ function Header() {
           </List>
         </Drawer>
       </div>
+      <Modal open={isOpen} onClose={handlePopupClose}>
+        <div
+          style={{
+            backgroundColor: "white",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            color: "black",
+            borderRadius: 10,
+            overflowY: "scroll",
+            padding: 10,
+            transform: "translate(-50%, -50%)",
+            boxShadow: 24,
+          }}
+        >
+          <div
+            style={{
+              position: "sticky",
+              top: 0,
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <button
+              onClick={handlePopupClose}
+              style={{
+                border: "none",
+                backgroundColor: "inherit",
+                backgroundImage: "none",
+              }}
+            >
+              <ClearIcon style={{ fontSize: 30, color: "black" }} />
+            </button>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 10,
+              padding: 50,
+            }}
+          >
+            <LockIcon style={{ fontSize: 80, color: "black" }} />
+            <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
+            <div style={{ display: "flex", gap: 5 }}>
+              {/* <StudentReferralModal /> */}
+              {/* <button
+                onClick={topuphandler}
+                className={Style.backdropImg}
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  borderRadius: 15,
+                  padding: 10,
+                }}
+              >
+                <Link
+                  className={Style.linkImg}
+                  to="/paymentgateway"
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    width: "fit-content",
+                    border: "none",
+                  }}
+                >
+                  Top Up 25 Rs
+                </Link>
+              </button> */}
+              <button
+                className={Styles.backdropImg}
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  borderRadius: 15,
+                  padding: 10,
+                }}
+              >
+                <Link
+                  className={Styles.linkImg}
+                  to="/pricing"
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    width: "fit-content",
+                    border: "none",
+                  }}
+                >
+                  Buy Credits
+                </Link>
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

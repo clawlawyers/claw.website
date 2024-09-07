@@ -202,8 +202,8 @@ export default function CaseFinder({
                 <LockIcon style={{ fontSize: 80, color: primaryColor }} />
                 <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
                 <div className={Styles.modalActions}>
-                  <StudentReferralModal />
-                  <button
+                  {/* <StudentReferralModal /> */}
+                  {/* <button
                     onClick={topuphandler}
                     className="backdropImg"
                     style={{
@@ -225,7 +225,7 @@ export default function CaseFinder({
                     >
                       Top Up 25 Rs
                     </Link>
-                  </button>
+                  </button> */}
                   <button
                     className="backdropImg"
                     style={{

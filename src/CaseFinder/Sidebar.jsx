@@ -161,7 +161,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             Plan -
                             <span style={{ textTransform: "capitalize" }}>
                               {plan?.length
-                                ? plan[0].split("_")[0]
+                                ? plan[0].planName?.split("_")[0]
                                 : " No Plan"}
                             </span>
                           </div>
