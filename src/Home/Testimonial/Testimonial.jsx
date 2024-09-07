@@ -42,8 +42,16 @@ const data = [
 const TestimonialCard = () => {
   const ref = React.useRef();
   return (
-    <div className="card" style={{ background: "transparent", border: "none" }}>
-      <div style={{ position: "relative" }}>
+    <div
+      className="card"
+      style={{
+        background: "transparent",
+        border: "none",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <div style={{ position: "relative", width: "90%" }}>
         <ResponsiveContainer
           carouselRef={ref}
           render={(parentWidth, carouselRef) => {
@@ -54,12 +62,12 @@ const TestimonialCard = () => {
               <StackedCarousel
                 ref={carouselRef}
                 slideComponent={Slide}
-                slideWidth={450}
+                slideWidth={350}
                 height={400}
                 carouselWidth={parentWidth}
                 data={data}
                 maxVisibleSlide={5}
-                disableSwipe
+                // disableSwipe
                 currentVisibleSlide={currentVisibleSlide}
                 // customScales={[1, 0.85, 0.7, 0.55]}
                 // transitionTime={450}
