@@ -30,8 +30,8 @@ import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
-  { path: "/blog", label: "Blog", icon: BookIcon },
-  // { path: "/pricing", label: "Pricing", icon: AttachMoneyIcon },
+  // { path: "/blog", label: "Blog", icon: BookIcon },
+  { path: "/pricing", label: "Pricing", icon: AttachMoneyIcon },
   { path: "/leaders", label: "Leaders", icon: LeaderboardIcon },
   { path: "/case/search", label: "Case Search", icon: SearchIcon },
   { path: "/gpt/legalGPT", label: "LegalGPT", icon: GavelIcon },
@@ -101,7 +101,7 @@ function Header() {
               </Link>
             </button> */}
           {/* </div> */}
-          {/* <div style={{ backgroundColor: "transparent" }}>
+          <div style={{ backgroundColor: "transparent" }}>
             <button>
               <Link
                 to="/pricing"
@@ -114,7 +114,7 @@ function Header() {
                 Pricing
               </Link>
             </button>
-          </div> */}
+          </div>
           <div style={{ backgroundColor: "transparent" }}>
             <button>
               <Link
