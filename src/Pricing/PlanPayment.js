@@ -26,85 +26,86 @@ const PlanPayment = () => {
     dispatch(resetPriceDetails());
   };
 
-  const loadRazorpay = () => {
-    const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
-    const newObj = {
-      amount: paymentDetails?.totalPrice,
-      currency: "INR",
-      receipt: receipt,
-      plan: planeName?.toUpperCase(),
-      billingCycle: paymentDetails?.plan.toUpperCase(),
-      session: paymentDetails?.sessions,
-      phoneNumber: currentUser?.phoneNumber,
-    };
-    console.log(newObj);
-  };
-  // const loadRazorpay = async () => {
-  //   setLoading(true);
-  //   const script = document.createElement("script");
-  //   script.src = "https://checkout.razorpay.com/v1/checkout.js";
-  //   script.onerror = () => {
-  //     alert("Razorpay SDK failed to load. Are you online?");
+  // const loadRazorpay = () => {
+  //   const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
+  //   const newObj = {
+  //     amount: paymentDetails?.totalPrice,
+  //     currency: "INR",
+  //     receipt: receipt,
+  //     plan: planeName?.toUpperCase(),
+  //     billingCycle: paymentDetails?.plan.toUpperCase(),
+  //     session: paymentDetails?.sessions,
+  //     phoneNumber: currentUser?.phoneNumber,
   //   };
-  //   script.onload = async () => {
-  //     try {
-  //       const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
-  //       const result = await axios.post(
-  //         `${NODE_API_ENDPOINT}/payment/create-order`,
-  //         {
-  //           amount: paymentDetails?.totalPrice,
-  //           currency: "INR",
-  //           receipt: receipt,
-  //           plan: planeName?.toUpperCase(),
-  //           billingCycle: paymentDetails?.plan.toUpperCase(),
-  //           session: paymentDetails?.sessions,
-  //           phoneNumber: currentUser?.phoneNumber,
-  //         }
-  //       );
-
-  //       console.log(result);
-
-  //       const { amount, id, currency } = result.data.razorpayOrder;
-  //       const { _id } = result.data.createdOrder;
-  //       const options = {
-  //         key: "rzp_test_UWcqHHktRV6hxM",
-  //         amount: String(amount),
-
-  //         currency: currency,
-  //         name: "CLAW LEGALTECH PRIVATE LIMITED",
-  //         description: "Transaction",
-  //         order_id: id,
-  //         handler: async function (response) {
-  //           const data = {
-  //             razorpay_order_id: response.razorpay_order_id,
-  //             razorpay_payment_id: response.razorpay_payment_id,
-  //             razorpay_signature: response.razorpay_signature,
-  //             _id,
-  //           };
-
-  //           const result = await axios.post(
-  //             `${NODE_API_ENDPOINT}/payment/verifyPayment`,
-  //             data
-  //           );
-  //           alert(result.data.status);
-  //           setPaymentVerified(true);
-  //         },
-
-  //         theme: {
-  //           color: "#3399cc",
-  //         },
-  //       };
-
-  //       const paymentObject = new window.Razorpay(options);
-  //       paymentObject.open();
-  //     } catch (error) {
-  //       alert(error.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   document.body.appendChild(script);
+  //   console.log(newObj);
   // };
+
+  const loadRazorpay = async () => {
+    setLoading(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onerror = () => {
+      alert("Razorpay SDK failed to load. Are you online?");
+    };
+    script.onload = async () => {
+      try {
+        const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
+        const result = await axios.post(
+          `${NODE_API_ENDPOINT}/payment/create-order`,
+          {
+            amount: paymentDetails?.totalPrice,
+            currency: "INR",
+            receipt: receipt,
+            plan: planeName?.toUpperCase(),
+            billingCycle: paymentDetails?.plan.toUpperCase(),
+            session: paymentDetails?.sessions,
+            phoneNumber: currentUser?.phoneNumber,
+          }
+        );
+
+        console.log(result);
+
+        const { amount, id, currency } = result.data.razorpayOrder;
+        const { _id } = result.data.createdOrder;
+        const options = {
+          key: "rzp_test_UWcqHHktRV6hxM",
+          amount: String(amount),
+
+          currency: currency,
+          name: "CLAW LEGALTECH PRIVATE LIMITED",
+          description: "Transaction",
+          order_id: id,
+          handler: async function (response) {
+            const data = {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              _id,
+            };
+
+            const result = await axios.post(
+              `${NODE_API_ENDPOINT}/payment/verifyPayment`,
+              data
+            );
+            alert(result.data.status);
+            setPaymentVerified(true);
+          },
+
+          theme: {
+            color: "#3399cc",
+          },
+        };
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    document.body.appendChild(script);
+  };
 
   const handleHomepage = () => {
     navigate("/");
