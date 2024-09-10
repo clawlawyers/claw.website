@@ -23,19 +23,21 @@ import { open } from "../features/popup/popupSlice";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Home } from "@mui/icons-material";
 import whatLegal from "../assets/images/whatLegal.gif";
+import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 
 export default function Sidebar({ keyword, primaryColor, model }) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
   const collapsed = useSelector((state) => state.sidebar.collapsed);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
-  const plan = useSelector((state) => state.gpt.plan);
+  const { plan } = useSelector((state) => state.gpt);
   // const token = useSelector((state) => state.gpt.token);
   const { isAuthLoading } = useAuthState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [startnew, setStartNew] = useState(0);
   const [legalGptOpen, setLegalGptOpen] = useState(false);
+  const [activePlan, setActivePlan] = useState([]);
 
   const style = {
     position: "absolute",
@@ -50,6 +52,12 @@ export default function Sidebar({ keyword, primaryColor, model }) {
     height: "40%",
     width: "40%",
   };
+
+  useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan));
+    }
+  }, [plan]);
 
   function handleAccount() {
     if (!currentUser) navigate("/login");
@@ -202,8 +210,8 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                           <div>
                             <span className="text-white">Plan Type : </span>
                             <span style={{ textTransform: "capitalize" }}>
-                              {plan.length
-                                ? plan[0]?.planName?.split("_")[0]
+                              {activePlan.length
+                                ? activePlan[0]?.planName?.split("_")[0]
                                 : " No Plan"}
                               {/* No Plan */}
                             </span>
@@ -463,13 +471,13 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       {currentUser ? currentUser.phoneNumber : <>Guest</>}
                     </div> */}
                       <div style={{ fontSize: 14, color: "#777" }}>
-                        {plan ? (
+                        {activePlan ? (
                           <>
                             <div>
                               <span className="text-white">Plan Type : </span>
                               <span style={{ textTransform: "capitalize" }}>
-                                {plan.length
-                                  ? plan[0]?.planName?.split("_")[0]
+                                {activePlan.length
+                                  ? activePlan[0]?.planName?.split("_")[0]
                                   : " No Plan"}
                                 {/* No Plan */}
                               </span>
