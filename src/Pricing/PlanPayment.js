@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { resetPriceDetails } from "../features/payment/pricingSlice";
 import axios from "axios";
 import { NODE_API_ENDPOINT } from "../utils/utils";
+import { retrieveActivePlanUser } from "../features/gpt/gptSlice";
 
 const PlanPayment = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const PlanPayment = () => {
   const [paymentVerified, setPaymentVerified] = useState(false);
 
   const paymentDetails = useSelector((state) => state.price);
+  console.log(paymentDetails);
   const currentUser = useSelector((state) => state.auth.user);
   // console.log(paymentDetails);
 
@@ -81,6 +83,8 @@ const PlanPayment = () => {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
               _id,
+              isUpgrade: paymentDetails?.isUpgrade,
+              createdAt: paymentDetails?.createdAt,
             };
 
             const result = await axios.post(
@@ -89,6 +93,7 @@ const PlanPayment = () => {
             );
             alert(result.data.status);
             setPaymentVerified(true);
+            dispatch(retrieveActivePlanUser());
           },
 
           theme: {

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
@@ -7,6 +7,7 @@ import { close, open } from "../../features/popup/popupSlice";
 import { Modal } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import LockIcon from "@mui/icons-material/Lock";
+import { activePlanFeatures } from "../../utils/checkActivePlanFeatures";
 
 export default function CustomInputForm({
   onSubmit,
@@ -17,8 +18,16 @@ export default function CustomInputForm({
 }) {
   const dispatch = useDispatch();
 
+  const [activePlan, setActivePlan] = useState([]);
+
   const { plan } = useSelector((state) => state.gpt);
   const isOpen = useSelector((state) => state.popup.open);
+
+  useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan));
+    }
+  }, [plan]);
 
   const handlePopupOpen = useCallback(() => {
     dispatch(open());
@@ -29,7 +38,7 @@ export default function CustomInputForm({
 
   function onFormSubmission(e) {
     e.preventDefault();
-    if (plan[0]?.plan?.legalGptAccess) {
+    if (activePlan[0]?.plan?.legalGptAccess) {
       e.query = query;
       setQuery("");
       onSubmit(e);

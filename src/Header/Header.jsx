@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Styles from "./Header.module.css";
 import clawLogo from "../assets/icons/clawlogo.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,6 +26,7 @@ import FeedIcon from "@mui/icons-material/Feed";
 import { Modal } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { close, open } from "../features/popup/popupSlice";
+import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
@@ -39,6 +40,7 @@ const navLinks = [
 
 function Header() {
   const [navOpen, setNavOpen] = useState(false);
+  const [activePlan, setActivePlan] = useState([]);
   const currentUser = useSelector((state) => state.auth.user);
   const authStatus = useSelector((state) => state.auth.status);
   const { plan } = useSelector((state) => state.gpt);
@@ -54,6 +56,12 @@ function Header() {
     if (currentUser) dispatch(logout());
     else navigate("/login");
   };
+
+  useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan));
+    }
+  }, [plan]);
 
   return (
     <div className={Styles.headerContainer}>
@@ -122,9 +130,9 @@ function Header() {
             </button>
           </div>
           <div style={{ backgroundColor: "transparent" }}>
-            {plan ? (
+            {activePlan ? (
               <>
-                {!plan[0]?.plan?.planDetails?.AICaseSearchAccess ? (
+                {activePlan[0]?.plan?.AICaseSearchAccess ? (
                   <button>
                     <Link
                       to="/case/search"

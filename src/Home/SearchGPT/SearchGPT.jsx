@@ -17,6 +17,7 @@ import { close, open } from "../../features/popup/popupSlice";
 import { Modal } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import LockIcon from "@mui/icons-material/Lock";
+import { activePlanFeatures } from "../../utils/checkActivePlanFeatures";
 
 export default function SearchGPT() {
   const [query, setQuery] = useState("");
@@ -25,12 +26,20 @@ export default function SearchGPT() {
   const isOpen = useSelector((state) => state.popup.open);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [activePlan, setActivePlan] = useState([]);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.gpt);
 
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
   const handlePopupClose = useCallback(() => dispatch(close()), []);
+
+  useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan));
+    }
+  }, [plan]);
 
   // useEffect(() => {
   //   async function fetchGptUser() {
@@ -128,7 +137,7 @@ export default function SearchGPT() {
               <button
                 className={globalStyles.backdrop}
                 onClick={() =>
-                  !plan[0]?.plan.planDetails?.legalGptAccess
+                  activePlan[0]?.plan.legalGptAccess
                     ? onSubmitPrompt()
                     : handlePopupOpen()
                 }

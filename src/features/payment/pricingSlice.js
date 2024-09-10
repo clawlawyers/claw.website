@@ -9,6 +9,8 @@ export const pricingSlice = createSlice({
     totalPrice: null,
     // caseSearch: null,
     discount: null,
+    createdAt: null,
+    isUpgrade: null,
   },
 
   reducers: {
@@ -19,6 +21,8 @@ export const pricingSlice = createSlice({
       state.totalPrice = action.payload.totalPrice;
       //   state.caseSearch = action.payload.caseSearch;
       state.discount = action.payload.discount;
+      state.createdAt = action.payload.createdAt;
+      state.isUpgrade = action.payload.isUpgrade;
     },
     resetPriceDetails(state, action) {
       state.plan = null;
@@ -27,6 +31,8 @@ export const pricingSlice = createSlice({
       state.totalPrice = null;
       //   state.caseSearch = null;
       state.discount = null;
+      state.createdAt = null;
+      state.isUpgrade = null;
     },
   },
 });

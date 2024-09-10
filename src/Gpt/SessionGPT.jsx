@@ -29,6 +29,7 @@ import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import markdownit from "markdown-it";
 import { CircularProgress } from "@mui/material";
+import { activePlanFeatures } from "../utils/checkActivePlanFeatures.js";
 
 const highCourtArr = [
   "Supreme Court of India",
@@ -106,6 +107,8 @@ export default function SessionGPT({ model, primaryColor }) {
   const [refSupremeCase, setRefSupremeCase] = useState(null);
   const [boolFlag, setBoolFlag] = useState(false);
 
+  const [activePlan, setActivePlan] = useState([]);
+
   const handleHighCourtChange = (event) => {
     setcourtName(event.target.value);
   };
@@ -119,6 +122,12 @@ export default function SessionGPT({ model, primaryColor }) {
     await fetchRelatedCases();
     // console.log(courtName);
   };
+
+  useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan));
+    }
+  }, [plan]);
 
   useEffect(() => {
     if (boolFlag) {
@@ -515,9 +524,9 @@ export default function SessionGPT({ model, primaryColor }) {
                       </div>
                     </div>
                     <div className="flex flex-col md:flex-row mt-[5px] gap-[5px] p-[10px]">
-                      {plan ? (
+                      {activePlan ? (
                         <>
-                          {!plan[0]?.plan?.AICaseSearchAccess ? (
+                          {activePlan[0]?.plan?.AICaseSearchAccess ? (
                             <Link
                               to={`/case/search?id=${relatedCases.messageId}`}
                             >

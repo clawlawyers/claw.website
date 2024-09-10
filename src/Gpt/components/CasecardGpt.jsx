@@ -9,6 +9,7 @@ import Styles from "../../components/CaseCard/index.module.css";
 import { useDispatch } from "react-redux";
 import { open } from "../../features/popup/popupSlice";
 import markdownit from "markdown-it";
+import { activePlanFeatures } from "../../utils/checkActivePlanFeatures";
 
 const courtIdMapping = {
   "Supreme Court of India": "1bgi-zbCWObiTNjkegNXryni4ZJzZyCFV",
@@ -71,13 +72,20 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
   const jwt = useSelector((state) => state.auth.user.jwt);
   const [loading, setLoading] = useState(false);
   // const { token } = useSelector((state) => state.gpt);
-  const planDetails = useSelector((state) => state.gpt?.plan[0]?.plan);
+  const { plan } = useSelector((state) => state.gpt);
 
   const dispatch = useDispatch();
 
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
+  const [activePlan, setActivePlan] = useState([]);
 
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
+
+  useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan));
+    }
+  }, [plan]);
 
   const handleSummary = async () => {
     if (summery) {
@@ -207,7 +215,9 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
         </button>
         <button
           onClick={
-            !planDetails?.AISummerizer ? handleSummaryToggle : handlePopupOpen
+            activePlan[0]?.plan?.AISummerizer
+              ? handleSummaryToggle
+              : handlePopupOpen
           }
           style={{
             border: "none",
