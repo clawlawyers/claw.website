@@ -62,7 +62,7 @@ import Verdict from "./CourtRoom/CourtroomAi/Verdict.jsx";
 import Contact from "./CourtRoom/ContactUs/Contact.jsx";
 import { retrieveCourtroomAuth } from "./features/bookCourtRoom/LoginReducreSlice.js";
 import SessionGptNew from "./Gpt/components/SessionGptNew.jsx";
-import PlanPayment from "./Pricing/PlanPayment.js";
+import PlanPayment from "./Pricing/PlanPayment.jsx";
 import { retrieveActivePlanUser, setPlan } from "./features/gpt/gptSlice.js";
 
 function App() {

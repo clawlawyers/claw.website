@@ -753,7 +753,10 @@ export default function Pricing() {
               <p className="m-0 text-[#008080] font-semibold">₹ 899</p>
               {existingPlan ? (
                 <button
-                  disabled={!existingPlan[0]?.plan?.AddOnAccess}
+                  disabled={
+                    !existingPlan.filter((x) => x.planName === "ADDON_M")[0]
+                      ?.plan?.AddOnAccess
+                  }
                   onClick={() => {
                     handleAddonPricingSelect(
                       "Monthly",

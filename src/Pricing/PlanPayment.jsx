@@ -126,8 +126,8 @@ const PlanPayment = () => {
               <p className="m-0">Please Confirm Your Purchase Items Before</p>
               <p>Proceeding with your Payment</p>
             </div>
-            <div className="flex items-center">
-              <p className="m-0">Have a Coupon ? </p>
+            <div className="">
+              <p className="m-0 pb-3">Have a Coupon ? </p>
               <button onClick={handleDiscount} className="px-5 py-1 rounded">
                 Click Here
               </button>
