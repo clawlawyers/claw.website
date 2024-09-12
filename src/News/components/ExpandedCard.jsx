@@ -27,7 +27,7 @@ export function ExpandedCard({ newsData }) {
           //   className="expanded-image"
           // />
           <div className="expanded-placeholder">
-            <span>{newsItem?.title}</span>
+            <h5>{newsItem?.title}</h5>
           </div>
         )}
       </div>

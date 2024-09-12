@@ -343,6 +343,7 @@ function Header() {
                 </Link>
               </button> */}
               <button
+                onClick={handlePopupClose}
                 className={Styles.backdropImg}
                 style={{
                   border: "none",

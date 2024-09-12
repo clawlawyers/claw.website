@@ -144,6 +144,7 @@ export default function GPTLayout(props) {
                 </Link>
               </button> */}
               <button
+                onClick={handlePopupClose}
                 className={Style.backdropImg}
                 style={{
                   border: "none",

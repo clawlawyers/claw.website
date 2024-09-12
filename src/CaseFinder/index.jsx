@@ -227,6 +227,7 @@ export default function CaseFinder({
                     </Link>
                   </button> */}
                   <button
+                    onClick={handlePopupClose}
                     className="backdropImg"
                     style={{
                       border: "none",
