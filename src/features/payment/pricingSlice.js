@@ -7,10 +7,14 @@ export const pricingSlice = createSlice({
     planType: null,
     sessions: null,
     totalPrice: null,
-    // caseSearch: null,
-    discount: null,
+    isDiscount: null,
     createdAt: null,
-    isUpgrade: null,
+    // isUpgrade: null,
+    trialDays: null,
+    refferalCode: null,
+    couponCode: null,
+    refundAmount: null,
+    existingSubscription: null,
   },
 
   reducers: {
@@ -19,20 +23,27 @@ export const pricingSlice = createSlice({
       state.planType = action.payload.planType;
       state.sessions = action.payload.sessions;
       state.totalPrice = action.payload.totalPrice;
-      //   state.caseSearch = action.payload.caseSearch;
-      state.discount = action.payload.discount;
+      state.isDiscount = action.payload.isDiscount;
       state.createdAt = action.payload.createdAt;
-      state.isUpgrade = action.payload.isUpgrade;
+      // state.isUpgrade = action.payload.isUpgrade;
+      state.trialDays = action.payload.trialDays;
+      state.refferalCode = action.payload.refferalCode;
+      state.couponCode = action.payload.couponCode;
+      state.refundAmount = action.payload.refundAmount;
+      state.existingSubscription = action.payload.existingSubscription;
     },
     resetPriceDetails(state, action) {
       state.plan = null;
       state.planType = null;
       state.sessions = null;
       state.totalPrice = null;
-      //   state.caseSearch = null;
-      state.discount = null;
+      state.isDiscount = null;
       state.createdAt = null;
-      state.isUpgrade = null;
+      // state.isUpgrade = null;
+      state.trialDays = null;
+      state.refferalCode = null;
+      state.couponCode = null;
+      state.refundAmount = null;
     },
   },
 });

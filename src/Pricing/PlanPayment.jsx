@@ -112,7 +112,7 @@ const PlanPayment = () => {
   //   document.body.appendChild(script);
   // };
 
-  const trialDays = 7;
+  // const trialDays = 7;
 
   const loadRazorpay = async () => {
     setLoading(true);
@@ -129,14 +129,14 @@ const PlanPayment = () => {
         const result = await axios.post(
           `${NODE_API_ENDPOINT}/payment/create-subscription`,
           {
-            amount: paymentDetails?.totalPrice,
-            currency: "INR",
-            receipt: receipt,
+            // amount: paymentDetails?.totalPrice,
+            // currency: "INR",
+            // receipt: receipt,
             plan: planeName?.toUpperCase(),
             billingCycle: paymentDetails?.plan.toUpperCase(),
             session: paymentDetails?.sessions,
             phoneNumber: currentUser?.phoneNumber,
-            trialDays,
+            trialDays: paymentDetails?.trialDays,
           }
         );
 
@@ -156,16 +156,21 @@ const PlanPayment = () => {
             console.log(response);
             const createdAt = new Date(paymentDetails?.createdAt);
             const resultDate = new Date(createdAt);
-            resultDate.setDate(createdAt.getDate() + trialDays);
+            resultDate.setDate(createdAt.getDate() + paymentDetails?.trialDays);
             const data = {
               razorpay_subscription_id: response.razorpay_subscription_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
               _id,
-              isUpgrade: paymentDetails?.isUpgrade,
+              // isUpgrade: paymentDetails?.isUpgrade,
               // createdAt: paymentDetails?.createdAt,
               createdAt: resultDate,
-              trialDays,
+              // trialDays: paymentDetails?.trialDays,
+              refferalCode: paymentDetails?.refferalCode,
+              couponCode: paymentDetails?.couponCode,
+              // refundAmount: paymentDetails?.refundAmount,
+              existingSubscription: paymentDetails?.existingSubscription,
+              isDiscount: paymentDetails?.isDiscount,
             };
 
             console.log(response);

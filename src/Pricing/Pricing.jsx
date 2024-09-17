@@ -12,6 +12,8 @@ import HoverCard from "./Addone/HoveredCard";
 import { setPriceDetails } from "../features/payment/pricingSlice";
 import { CircularProgress } from "@mui/material";
 import toast from "react-hot-toast";
+import { NODE_API_ENDPOINT } from "../utils/utils";
+import axios from "axios";
 
 const couponCodes = [
   {
@@ -59,21 +61,58 @@ export default function Pricing() {
   const [monthlyDiscounts, setMonthlyDiscounts] = useState(null);
   const [yearlyDiscounts, setYearlyDiscounts] = useState(null);
   const [couponFound, setCouponFound] = useState(false);
+  const [trialDays, setTrialDays] = useState(1);
+  const [isCouponCode, setIsCouponCode] = useState(null);
+  const [isReferralCode, setIsReferralCode] = useState(null);
 
   const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.auth.user);
+  console.log(currentUser);
 
-  const handleApplyCoupon = () => {
-    const findCoupon = couponCodes.find(
-      (x) => x.name.toUpperCase() === couponApplied.toUpperCase()
-    );
-    if (findCoupon) {
+  const handleApplyCoupon = async () => {
+    // const findCoupon = couponCodes.find(
+    //   (x) => x.name.toUpperCase() === couponApplied.toUpperCase()
+    // );
+    if (couponApplied.toUpperCase() === "EXAM50") {
+      setIsCouponCode(couponApplied);
       setCouponFound(true);
-      setMonthlyDiscounts(findCoupon.priceDropMonthly);
-      setYearlyDiscounts(findCoupon.priceDropYearly);
+      setMonthlyDiscounts(couponCodes[0].priceDropMonthly);
+      setYearlyDiscounts(couponCodes[0].priceDropYearly);
     } else {
-      alert("No Coupons found for this Code");
+      try {
+        // Request the backend to create a subscription
+        const result = await axios.post(
+          `${NODE_API_ENDPOINT}/gpt/verifyReferralCode`,
+          {
+            referralCode: couponApplied,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser.jwt}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log(result);
+        if (result.data.data.message === "Referral code valid") {
+          setCouponFound(true);
+          setMonthlyDiscounts(couponCodes[0].priceDropMonthly);
+          setYearlyDiscounts(couponCodes[0].priceDropYearly);
+          setTrialDays(result.data.data.trialDays);
+          setIsReferralCode(couponApplied);
+        }
+      } catch (error) {
+        alert(error.message);
+      }
     }
+
+    // if (findCoupon) {
+    //   setCouponFound(true);
+    //   setMonthlyDiscounts(findCoupon.priceDropMonthly);
+    //   setYearlyDiscounts(findCoupon.priceDropYearly);
+    // } else {
+    //   alert("No Coupons found for this Code");
+    // }
   };
 
   const handleRemoveCoupon = () => {
@@ -97,9 +136,9 @@ export default function Pricing() {
           planType,
           sessions,
           totalPrice,
-          discount: couponApplied !== "" ? true : false,
+          isDiscount: couponApplied !== "" ? true : false,
           createdAt: new Date().toISOString(),
-          isUpgrade: "",
+          // isUpgrade: "",
         })
       );
 
@@ -138,9 +177,13 @@ export default function Pricing() {
           planType,
           sessions,
           totalPrice,
-          discount: couponApplied !== "" ? true : false,
+          isDiscount: couponApplied !== "" ? true : false,
           createdAt: new Date().toISOString(),
-          isUpgrade: "",
+          // isUpgrade: "",
+          trialDays,
+          refferalCode: isReferralCode,
+          couponCode: isCouponCode,
+          refundAmount: 0,
         })
       );
       navigate("/payment");
@@ -175,7 +218,7 @@ export default function Pricing() {
         // Final price for the upgraded plan
         const finalPrice = newPrice - remainingValue;
 
-        console.log(finalPrice);
+        // console.log(finalPrice);
 
         // console.log({
         //   finalPrice: parseInt(finalPrice),
@@ -189,8 +232,13 @@ export default function Pricing() {
             sessions,
             totalPrice: parseInt(finalPrice),
             discount: couponApplied !== "" ? true : false,
-            isUpgrade: existing.name,
+            // isUpgrade: existing.name,
             createdAt: new Date().toISOString(),
+            trialDays,
+            refferalCode: isReferralCode,
+            couponCode: isCouponCode,
+            refundAmount: parseInt(remainingValue),
+            existingSubscription: existingPlan[0]?.subscriptionId,
           })
         );
         navigate("/payment");
