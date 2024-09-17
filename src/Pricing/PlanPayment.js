@@ -42,6 +42,78 @@ const PlanPayment = () => {
   //   console.log(newObj);
   // };
 
+  // const loadRazorpay = async () => {
+  //   setLoading(true);
+  //   const script = document.createElement("script");
+  //   script.src = "https://checkout.razorpay.com/v1/checkout.js";
+  //   script.onerror = () => {
+  //     alert("Razorpay SDK failed to load. Are you online?");
+  //   };
+  //   script.onload = async () => {
+  //     try {
+  //       const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
+  //       const result = await axios.post(
+  //         `${NODE_API_ENDPOINT}/payment/create-order`,
+  //         {
+  //           amount: paymentDetails?.totalPrice,
+  //           currency: "INR",
+  //           receipt: receipt,
+  //           plan: planeName?.toUpperCase(),
+  //           billingCycle: paymentDetails?.plan.toUpperCase(),
+  //           session: paymentDetails?.sessions,
+  //           phoneNumber: currentUser?.phoneNumber,
+  //         }
+  //       );
+
+  //       console.log(result);
+
+  //       const { amount, id, currency } = result.data.razorpayOrder;
+  //       const { _id } = result.data.createdOrder;
+  //       const options = {
+  //         key: "rzp_test_UWcqHHktRV6hxM",
+  //         amount: String(amount),
+
+  //         currency: currency,
+  //         name: "CLAW LEGALTECH PRIVATE LIMITED",
+  //         description: "Transaction",
+  //         order_id: id,
+  //         handler: async function (response) {
+  //           const data = {
+  //             razorpay_order_id: response.razorpay_order_id,
+  //             razorpay_payment_id: response.razorpay_payment_id,
+  //             razorpay_signature: response.razorpay_signature,
+  //             _id,
+  //             isUpgrade: paymentDetails?.isUpgrade,
+  //             createdAt: paymentDetails?.createdAt,
+  //           };
+
+  //           const result = await axios.post(
+  //             `${NODE_API_ENDPOINT}/payment/verifyPayment`,
+  //             data
+  //           );
+  //           alert(result.data.status);
+  //           setPaymentVerified(true);
+  //           dispatch(retrieveActivePlanUser());
+  //         },
+
+  //         theme: {
+  //           color: "#3399cc",
+  //         },
+  //       };
+
+  //       const paymentObject = new window.Razorpay(options);
+  //       paymentObject.open();
+  //     } catch (error) {
+  //       alert(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   document.body.appendChild(script);
+  // };
+
+  const trialDays = 7;
+
   const loadRazorpay = async () => {
     setLoading(true);
     const script = document.createElement("script");
@@ -52,8 +124,10 @@ const PlanPayment = () => {
     script.onload = async () => {
       try {
         const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
+
+        // Request the backend to create a subscription
         const result = await axios.post(
-          `${NODE_API_ENDPOINT}/payment/create-order`,
+          `${NODE_API_ENDPOINT}/payment/create-subscription`,
           {
             amount: paymentDetails?.totalPrice,
             currency: "INR",
@@ -62,46 +136,64 @@ const PlanPayment = () => {
             billingCycle: paymentDetails?.plan.toUpperCase(),
             session: paymentDetails?.sessions,
             phoneNumber: currentUser?.phoneNumber,
+            trialDays,
           }
         );
 
         console.log(result);
 
-        const { amount, id, currency } = result.data.razorpayOrder;
+        const { id: subscription_id } = result.data.razorpaySubscription;
         const { _id } = result.data.createdOrder;
+
+        console.log(subscription_id);
+
         const options = {
           key: "rzp_test_UWcqHHktRV6hxM",
-          amount: String(amount),
-
-          currency: currency,
+          subscription_id: subscription_id, // Pass the subscription_id instead of order_id
           name: "CLAW LEGALTECH PRIVATE LIMITED",
-          description: "Transaction",
-          order_id: id,
+          description: "Subscription",
           handler: async function (response) {
+            console.log(response);
+            const createdAt = new Date(paymentDetails?.createdAt);
+            const resultDate = new Date(createdAt);
+            resultDate.setDate(createdAt.getDate() + trialDays);
             const data = {
-              razorpay_order_id: response.razorpay_order_id,
+              razorpay_subscription_id: response.razorpay_subscription_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
               _id,
               isUpgrade: paymentDetails?.isUpgrade,
-              createdAt: paymentDetails?.createdAt,
+              // createdAt: paymentDetails?.createdAt,
+              createdAt: resultDate,
+              trialDays,
             };
 
+            console.log(response);
+
+            // Verify the subscription payment with the backend
             const result = await axios.post(
-              `${NODE_API_ENDPOINT}/payment/verifyPayment`,
+              `${NODE_API_ENDPOINT}/payment/verify-subscription`,
               data
             );
             alert(result.data.status);
             setPaymentVerified(true);
             dispatch(retrieveActivePlanUser());
           },
-
+          prefill: {
+            name: currentUser?.name,
+            email: currentUser?.email,
+            contact: currentUser?.phoneNumber,
+          },
           theme: {
             color: "#3399cc",
           },
         };
 
+        console.log(options);
+
         const paymentObject = new window.Razorpay(options);
+
+        console.log(paymentObject);
         paymentObject.open();
       } catch (error) {
         alert(error.message);
