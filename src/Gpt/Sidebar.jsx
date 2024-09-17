@@ -45,11 +45,11 @@ export default function Sidebar({ keyword, primaryColor, model }) {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
+    bgcolor: "#018081",
+    border: "2px solid white",
     boxShadow: 24,
     p: 4,
-    height: "40%",
+    height: "45%",
     width: "40%",
   };
 
@@ -658,8 +658,11 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} className="overflow-scroll  gap-6 flex flex-col">
-          <div className="font-sans text-lg text-justify">
+        <Box
+          sx={style}
+          className="overflow-scroll  gap-6 flex flex-col rounded-xl"
+        >
+          <div className="font-sans text-lg text-justify text-white">
             LegalGPT leverages advanced AI technology to provide insightful
             legal assistance, automate document creation, and streamline legal
             research. It combines the power of GPT (Generative Pre-trained

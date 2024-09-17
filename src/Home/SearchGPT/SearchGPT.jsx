@@ -218,6 +218,7 @@ export default function SearchGPT() {
                 </Link>
               </button> */}
                   <button
+                    onClick={handlePopupClose}
                     className={Styles.backdropImg}
                     style={{
                       border: "none",

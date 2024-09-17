@@ -275,13 +275,20 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
             height: "90%",
             color: "black",
             borderRadius: 10,
-            overflowY: "scroll",
+            // overflowY: "scroll",
             padding: 10,
             transform: "translate(-50%, -50%)",
             boxShadow: 24,
           }}
         >
-          <div style={{ position: "sticky", top: 0, display: "flex" }}>
+          <div
+            style={{
+              position: "sticky",
+              top: 0,
+              display: "flex",
+              background: "white",
+            }}
+          >
             <div style={{ flex: 1 }} />
             <button
               onClick={handleClose}
@@ -290,53 +297,54 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
               <ClearIcon style={{ fontSize: 30, color: "black" }} />
             </button>
           </div>
+          <div className="h-[90%] overflow-auto border border-black p-3">
+            {loading ? (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CircularProgress style={{ color: "black" }} />
+              </div>
+            ) : (
+              <div
+                style={{
+                  whiteSpace: "pre-line",
+                  alignItems: "center",
+                  width: "100%",
+                  fontSize: 16,
+                  fontWeight: 500,
+                  fontFamily: "serif",
+                }}
+              >
+                {Object.keys(content?.data?.fetchedData || {}).map((key) => {
+                  function unicodeToChar(unicodeStr) {
+                    return unicodeStr.replace(/\\u[\dA-Fa-f]{4}/g, (match) => {
+                      return String.fromCharCode(
+                        parseInt(match.replace("\\u", ""), 16)
+                      );
+                    });
+                  }
 
-          {loading ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <CircularProgress style={{ color: "black" }} />
-            </div>
-          ) : (
-            <div
-              style={{
-                whiteSpace: "pre-line",
-                alignItems: "center",
-                width: "100%",
-                fontSize: 16,
-                fontWeight: 500,
-                fontFamily: "serif",
-                border: "1px solid black",
-                padding: 10,
-              }}
-            >
-              {Object.keys(content?.data?.fetchedData || {}).map((key) => {
-                function unicodeToChar(unicodeStr) {
-                  return unicodeStr.replace(/\\u[\dA-Fa-f]{4}/g, (match) => {
-                    return String.fromCharCode(
-                      parseInt(match.replace("\\u", ""), 16)
-                    );
-                  });
-                }
+                  let unicodeString = "\\u2026 \\u201D \\u201C";
+                  let data = unicodeToChar(content?.data?.fetchedData[key]);
 
-                let unicodeString = "\\u2026 \\u201D \\u201C";
-                let data = unicodeToChar(content?.data?.fetchedData[key]);
-
-                return (
-                  <div key={key}>
-                    <p
-                      style={{ color: "black" }}
-                      dangerouslySetInnerHTML={{ __html: data }}
-                    ></p>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+                  return (
+                    <div key={key}>
+                      <p
+                        style={{ color: "black" }}
+                        dangerouslySetInnerHTML={{ __html: data }}
+                      ></p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </Modal>
     </div>
