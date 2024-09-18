@@ -68,7 +68,6 @@ export default function Pricing() {
 
   const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.auth.user);
-  console.log(currentUser);
 
   const handleApplyCoupon = async () => {
     // const findCoupon = couponCodes.find(
@@ -146,13 +145,8 @@ export default function Pricing() {
           planType,
           sessions,
           totalPrice,
-          isDiscount: couponApplied !== "" ? true : false,
           createdAt: new Date().toISOString(),
-          // isUpgrade: "",
-          trialDays,
-          refferalCode: isReferralCode,
-          couponCode: isCouponCode,
-          refundAmount: 0,
+          isAddonPlan: true,
         })
       );
 
