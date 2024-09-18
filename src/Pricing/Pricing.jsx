@@ -467,7 +467,9 @@ export default function Pricing() {
                 )}
                 <div className="px-4 pb-[7.5rem]">
                   <h1 className="font-bold text-[#055151] pb-6">
-                    {monthlyDiscounts ? monthlyDiscounts.basic[1] : "₹ 399"}{" "}
+                    {monthlyDiscounts
+                      ? `₹ ${monthlyDiscounts.basic[1]}`
+                      : "₹ 399"}{" "}
                     <span className="text-lg">/month</span>
                   </h1>
                   <div>
@@ -526,7 +528,7 @@ export default function Pricing() {
                 <div className="px-4 pb-10">
                   <h1 className="font-bold text-[#055151] pb-6">
                     {monthlyDiscounts
-                      ? monthlyDiscounts.essential[1]
+                      ? `₹ ${monthlyDiscounts.essential[1]}`
                       : "₹ 1199"}{" "}
                     <span className="text-lg">/month</span>
                   </h1>
@@ -587,7 +589,9 @@ export default function Pricing() {
                 )}
                 <div className="px-4 pb-[2.9rem]">
                   <h1 className="font-bold text-[#055151] pb-6">
-                    {monthlyDiscounts ? monthlyDiscounts.premium[1] : "₹ 1999"}{" "}
+                    {monthlyDiscounts
+                      ? `₹ ${monthlyDiscounts.premium[1]}`
+                      : "₹ 1999"}{" "}
                     <span className="text-lg">/month</span>
                   </h1>
                   <div>
@@ -650,7 +654,9 @@ export default function Pricing() {
                 )}
                 <div className="px-4 pb-[7.5rem]">
                   <h1 className="font-bold text-[#055151] pb-6">
-                    {yearlyDiscounts ? yearlyDiscounts.basic[1] : "₹ 3999"}{" "}
+                    {yearlyDiscounts
+                      ? `₹ ${yearlyDiscounts.basic[1]}`
+                      : "₹ 3999"}{" "}
                     <span className="text-lg">/year</span>
                   </h1>
                   <div>
@@ -708,7 +714,9 @@ export default function Pricing() {
                 </div>
                 <div className="px-4 pb-10">
                   <h1 className="font-bold text-[#055151] pb-6">
-                    {yearlyDiscounts ? yearlyDiscounts.essential[1] : "₹ 11999"}{" "}
+                    {yearlyDiscounts
+                      ? `₹ ${yearlyDiscounts.essential[1]}`
+                      : "₹ 11999"}{" "}
                     <span className="text-lg">/year</span>
                   </h1>
                   <div>
@@ -768,7 +776,9 @@ export default function Pricing() {
                 )}
                 <div className="px-4 pb-[2.9rem]">
                   <h1 className="font-bold text-[#055151] pb-6">
-                    {yearlyDiscounts ? yearlyDiscounts.premium[1] : "₹ 19999"}{" "}
+                    {yearlyDiscounts
+                      ? `₹ ${yearlyDiscounts.premium[1]}`
+                      : "₹ 19999"}{" "}
                     <span className="text-lg">/year</span>
                   </h1>
                   <div>
