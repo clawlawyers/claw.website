@@ -64,6 +64,7 @@ export default function Pricing() {
   const [trialDays, setTrialDays] = useState(1);
   const [isCouponCode, setIsCouponCode] = useState("");
   const [isReferralCode, setIsReferralCode] = useState("");
+  const [couponLoading, setCouponLoading] = useState(false);
 
   const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.auth.user);
@@ -79,6 +80,7 @@ export default function Pricing() {
       setMonthlyDiscounts(couponCodes[0].priceDropMonthly);
       setYearlyDiscounts(couponCodes[0].priceDropYearly);
     } else {
+      setCouponLoading(true);
       try {
         // Request the backend to create a subscription
         const result = await axios.post(
@@ -95,11 +97,15 @@ export default function Pricing() {
         );
         console.log(result);
         if (result.data.data.message === "Referral code valid") {
+          setCouponLoading(false);
           setCouponFound(true);
           setMonthlyDiscounts(couponCodes[0].priceDropMonthly);
           setYearlyDiscounts(couponCodes[0].priceDropYearly);
           setTrialDays(result.data.data.trialDays);
           setIsReferralCode(couponApplied);
+        } else {
+          setCouponLoading(false);
+          alert("Referral code not valid");
         }
       } catch (error) {
         alert(error.message);
@@ -230,7 +236,7 @@ export default function Pricing() {
             plan,
             planType,
             sessions,
-            totalPrice: parseInt(finalPrice),
+            totalPrice,
             discount: couponApplied !== "" ? true : false,
             // isUpgrade: existing.name,
             createdAt: new Date().toISOString(),
@@ -411,12 +417,21 @@ export default function Pricing() {
             onChange={(e) => setCouponApplied(e.target.value)}
           />
           {!couponFound ? (
-            <button
-              onClick={handleApplyCoupon}
-              className="absolute right-[5%] md:right-1/4 mx-2 bg-[#055151] rounded px-3 md:px-5 py-2 cursor-pointer"
-            >
-              Apply Coupon
-            </button>
+            <>
+              {!couponLoading ? (
+                <button
+                  disabled={couponApplied === ""}
+                  onClick={handleApplyCoupon}
+                  className="absolute right-[5%] md:right-1/4 mx-2 bg-[#055151] rounded px-3 md:px-5 py-2 cursor-pointer"
+                >
+                  Apply Coupon
+                </button>
+              ) : (
+                <button className="absolute right-[5%] md:right-1/4 mx-2 bg-[#055151] rounded px-3 md:px-5 py-2 cursor-pointer">
+                  <CircularProgress size={15} color="inherit" />
+                </button>
+              )}
+            </>
           ) : (
             <button
               onClick={handleRemoveCoupon}
@@ -802,8 +817,8 @@ export default function Pricing() {
               {existingPlan ? (
                 <button
                   disabled={
-                    !existingPlan.filter((x) => x.planName === "ADDON_M")[0]
-                      ?.plan?.AddOnAccess
+                    !existingPlan.filter((x) => x.isActive)[0]?.plan
+                      ?.AddOnAccess
                   }
                   onClick={() => {
                     handleAddonPricingSelect(
