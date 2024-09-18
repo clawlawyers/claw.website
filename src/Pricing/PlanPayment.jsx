@@ -137,6 +137,7 @@ const PlanPayment = () => {
             session: paymentDetails?.sessions,
             phoneNumber: currentUser?.phoneNumber,
             trialDays: paymentDetails?.trialDays,
+            isDiscount: paymentDetails?.isDiscount,
           }
         );
 
