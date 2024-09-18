@@ -105,7 +105,11 @@ export default function Pricing() {
           setIsReferralCode(couponApplied);
         } else {
           setCouponLoading(false);
-          alert("Referral code not valid");
+          if (result.data.data.reason) {
+            alert(`${result.data.data.message}.${result.data.data.reason}`);
+          } else {
+            alert(`${result.data.data.message}`);
+          }
         }
       } catch (error) {
         alert(error.message);
@@ -145,6 +149,10 @@ export default function Pricing() {
           isDiscount: couponApplied !== "" ? true : false,
           createdAt: new Date().toISOString(),
           // isUpgrade: "",
+          trialDays,
+          refferalCode: isReferralCode,
+          couponCode: isCouponCode,
+          refundAmount: 0,
         })
       );
 
