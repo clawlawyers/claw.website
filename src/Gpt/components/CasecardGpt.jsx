@@ -83,7 +83,7 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
 
   useEffect(() => {
     if (plan) {
-      setActivePlan(activePlanFeatures(plan));
+      setActivePlan(activePlanFeatures(plan, "AISummerizer"));
     }
   }, [plan]);
 

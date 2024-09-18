@@ -37,7 +37,7 @@ export default function SearchGPT() {
 
   useEffect(() => {
     if (plan) {
-      setActivePlan(activePlanFeatures(plan));
+      setActivePlan(activePlanFeatures(plan, "legalGptAccess"));
     }
   }, [plan]);
 

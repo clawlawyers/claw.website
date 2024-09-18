@@ -125,7 +125,7 @@ export default function SessionGPT({ model, primaryColor }) {
 
   useEffect(() => {
     if (plan) {
-      setActivePlan(activePlanFeatures(plan));
+      setActivePlan(activePlanFeatures(plan, "AICaseSearchAccess"));
     }
   }, [plan]);
 
