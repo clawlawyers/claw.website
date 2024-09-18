@@ -62,8 +62,8 @@ export default function Pricing() {
   const [yearlyDiscounts, setYearlyDiscounts] = useState(null);
   const [couponFound, setCouponFound] = useState(false);
   const [trialDays, setTrialDays] = useState(1);
-  const [isCouponCode, setIsCouponCode] = useState(null);
-  const [isReferralCode, setIsReferralCode] = useState(null);
+  const [isCouponCode, setIsCouponCode] = useState("");
+  const [isReferralCode, setIsReferralCode] = useState("");
 
   const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.auth.user);
