@@ -1,28 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 
-export const retrieveActivePlanUser = createAsyncThunk(
-  "gpt/retrievePlan",
-  async () => {
-    const storedAuth = localStorage.getItem("auth");
-    if (storedAuth) {
-      const parsedUser = JSON.parse(storedAuth);
-      const props = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${parsedUser.jwt}`,
-          "Content-Type": "application/json",
-        },
-      });
-      const parsedProps = await props.json();
-      console.log(parsedProps);
-      return {
-        user: parsedProps.data.plan,
-      };
-    } else return null;
-  }
-);
-
 export const generateResponse = createAsyncThunk(
   "gpt/generateResponse",
   async ({ sessionId, model }, callback) => {
@@ -30,11 +8,11 @@ export const generateResponse = createAsyncThunk(
 
     const { jwt } = auth.user;
     const { prompt, token } = gpt;
-    // if (
-    //   token.used.gptTokenUsed >= token.total.totalGptTokens ||
-    //   token.used.gptTokenUsed + 1 > token.total.totalGptTokens
-    // )
-    //   throw new Error("Not enough tokens, please upgrade or try again later!");
+    if (
+      token.used.gptTokenUsed >= token.total.totalGptTokens ||
+      token.used.gptTokenUsed + 1 > token.total.totalGptTokens
+    )
+      throw new Error("Not enough tokens, please upgrade or try again later!");
     const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session/prompt`, {
       method: "POST",
       body: JSON.stringify({ sessionId, prompt, model }),
@@ -69,16 +47,16 @@ export const gptSlice = createSlice({
       messageId: null,
       cases: [],
     },
-    // token: {
-    //   used: {
-    //     gptTokenUsed: null,
-    //     caseSearchTokenUsed: null,
-    //   },
-    //   total: {
-    //     totalGptTokens: null,
-    //     totalCaseSearchTokens: null,
-    //   },
-    // },
+    token: {
+      used: {
+        gptTokenUsed: null,
+        caseSearchTokenUsed: null,
+      },
+      total: {
+        totalGptTokens: null,
+        totalCaseSearchTokens: null,
+      },
+    },
     plan: null,
     error: null,
   },
@@ -117,11 +95,6 @@ export const gptSlice = createSlice({
     builder.addCase(generateResponse.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.error;
-    });
-    builder.addCase(retrieveActivePlanUser.fulfilled, (state, action) => {
-      if (action.payload && action.payload.user) {
-        state.plan = action.payload.user;
-      }
     });
   },
 });

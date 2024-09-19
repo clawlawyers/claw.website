@@ -28,8 +28,6 @@ import Select from "@mui/material/Select";
 import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import markdownit from "markdown-it";
-import { CircularProgress } from "@mui/material";
-import { activePlanFeatures } from "../utils/checkActivePlanFeatures.js";
 
 const highCourtArr = [
   "Supreme Court of India",
@@ -82,12 +80,10 @@ export default function SessionGPT({ model, primaryColor }) {
       return "";
     },
   });
-  const { prompt, status, response, error, relatedCases, plan } = useSelector(
+  const { prompt, status, response, error, relatedCases } = useSelector(
     (state) => state.gpt
   );
   const currentUser = useSelector((state) => state.auth.user);
-  // const planDetails = useSelector((state) => state.gpt?.plan[0]?.plan);
-
   const [query, setQuery] = useState("");
   const [prompts, setPrompts] = useState([]);
   const { isAuthLoading } = useAuthState();
@@ -107,8 +103,6 @@ export default function SessionGPT({ model, primaryColor }) {
   const [refSupremeCase, setRefSupremeCase] = useState(null);
   const [boolFlag, setBoolFlag] = useState(false);
 
-  const [activePlan, setActivePlan] = useState([]);
-
   const handleHighCourtChange = (event) => {
     setcourtName(event.target.value);
   };
@@ -124,12 +118,6 @@ export default function SessionGPT({ model, primaryColor }) {
   };
 
   useEffect(() => {
-    if (plan) {
-      setActivePlan(activePlanFeatures(plan, "AICaseSearchAccess"));
-    }
-  }, [plan]);
-
-  useEffect(() => {
     if (boolFlag) {
       handleHighCourtNameChange();
     }
@@ -137,9 +125,7 @@ export default function SessionGPT({ model, primaryColor }) {
 
   const greetingRegex =
     /\b(hello|namaste|hola|hey|how are you|greetings|(hi+))\b/gi;
-
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
-
   const isGreeting =
     prompts.length > 0 && greetingRegex.test(prompts[prompts.length - 1].text);
   const showUpgrade =
@@ -463,7 +449,7 @@ export default function SessionGPT({ model, primaryColor }) {
                 relatedCases.cases.length > 0 && (
                   <div>
                     <div className="m-2 p-3 border-2 border-[#018081] rounded bg-[#303030] flex flex-col gap-3">
-                      <div className="flex flex-col flex-wrap md:flex-row justify-between md:items-center">
+                      <div className="flex flex-col md:flex-row justify-between md:items-center">
                         <p className="font-bold m-0 px-3 text-2xl text-white">
                           Reference to High Court Judgements
                         </p>
@@ -523,45 +509,16 @@ export default function SessionGPT({ model, primaryColor }) {
                           })}
                       </div>
                     </div>
-                    <div className="flex flex-col md:flex-row mt-[5px] gap-[5px] p-[10px]">
-                      {activePlan ? (
-                        <>
-                          {activePlan[0]?.plan?.AICaseSearchAccess ? (
-                            <Link
-                              to={`/case/search?id=${relatedCases.messageId}`}
-                            >
-                              <button
-                                className="px-1"
-                                style={{
-                                  borderRadius: 5,
-                                  backgroundColor: "#008080",
-                                  color: "white",
-                                  textDecoration: "none",
-                                  width: "fit-content",
-                                  border: "1px solid white",
-                                }}
-                              >
-                                Case search
-                              </button>
-                            </Link>
-                          ) : (
-                            <button
-                              onClick={handlePopupOpen}
-                              className="px-1"
-                              style={{
-                                borderRadius: 5,
-                                backgroundColor: "#008080",
-                                color: "white",
-                                textDecoration: "none",
-                                width: "fit-content",
-                                border: "1px solid white",
-                              }}
-                            >
-                              Case search
-                            </button>
-                          )}
-                        </>
-                      ) : (
+                    <div
+                      style={{
+                        display: "flex",
+                        marginTop: 5,
+                        gap: "5px",
+                        padding: "10px",
+                      }}
+                    >
+                      {/* <div className="flex gap-2"> */}
+                      <Link to={`/case/search?id=${relatedCases.messageId}`}>
                         <button
                           className="px-1"
                           style={{
@@ -573,9 +530,9 @@ export default function SessionGPT({ model, primaryColor }) {
                             border: "1px solid white",
                           }}
                         >
-                          <CircularProgress size={20} color="inherit" />
+                          Case search
                         </button>
-                      )}
+                      </Link>
                       <button
                         onClick={handleShowRelevantAct}
                         className="px-1"
@@ -593,7 +550,7 @@ export default function SessionGPT({ model, primaryColor }) {
                       </button>
                       <button
                         onClick={handleShowSupremeCourtJudgements}
-                        className="px-1 "
+                        className="px-1"
                         style={{
                           borderRadius: 5,
                           backgroundColor: "#008080",

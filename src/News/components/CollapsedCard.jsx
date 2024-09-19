@@ -23,7 +23,7 @@ export function CollapsedCard({ newsData }) {
           style={{ backgroundColor: "#444444", display: "flex" }}
           className="placeholder"
         >
-          <p>{newsData?.title}</p>
+          <span>{newsData?.title}</span>
         </div>
       )}
       <div className="card-content">
