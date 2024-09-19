@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import WelcomePointers from "./WelcomePointers";
 import hammer from "../assets/images/hammer.png";
 import headset from "../assets/images/headset.png";
 import uploadIcon from "../assets/images/upload.png";
 import CustomInputForm from "./components/CustomInputForm";
 import mindIcon from "../assets/images/mind.png";
-
+import { motion } from "framer-motion";
 import Styles from "./Welcome.module.css";
+
+const prompArr = [
+  "What is the historical context behind the creation of the Right to Information (RTI) Act, 2005? How has this law evolved over time, and what were the major milestones in its development?",
+  "Can you provide a detailed summary of the Finance Act 2021? What are the key provisions included in this act, and how do they impact tax regulations and financial reporting?",
+  "What is the process for calculating taxes for self-employed individuals? Include details on applicable tax rates, business expense deductions, and any special considerations for freelancers or sole proprietors.",
+  "What steps should I follow to file a query regarding a specific legal incident to the Police Department? Include information on necessary forms, submission methods, and expected response times.",
+  "Discuss the legal issues involved in a case of employee dismissal due to alleged misconduct in Bangalore. What are the relevant laws and regulations, and how do they address wrongful termination and employee rights?",
+];
 
 export default function Welcome({
   submitPrompt,
@@ -15,6 +23,7 @@ export default function Welcome({
   textGradient,
 }) {
   let containerStyles = { width: "97%" };
+  const [selectedPrompt, setSelectedPrompt] = useState(null);
   return (
     <div
       className="my-[20px] md:my-0"
@@ -76,49 +85,68 @@ export default function Welcome({
             The power of AI for your {keyword} service
           </div>
         </div>
-        <div className="grid md:grid-cols-4 px-3 gap-3">
-          <div className="flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]">
+        <div className="grid grid-cols-2 md:grid-cols-5 px-3 gap-3">
+          <motion.div
+            whileTap={{ scale: "0.95" }}
+            onClick={() => setSelectedPrompt(prompArr[0])}
+            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+          >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
-              A question is a sentence that seeks an answer for information
-              collection, tests, and research. Right questions produce accurate
-              responses and aids in collecting actionable quantitative and
-              qualitative data
+              Request information about specific laws or acts.
             </p>
-          </div>
-          <div className="flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]">
+          </motion.div>
+          <motion.div
+            whileTap={{ scale: "0.95" }}
+            onClick={() => setSelectedPrompt(prompArr[1])}
+            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+          >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
-              A question is a sentence that seeks an answer for information
-              collection, tests, and research. Right questions produce accurate
-              responses and aids in collecting actionable quantitative and
-              qualitative data
+              Inquire about Finance Acts, including their provisions and
+              implications.
             </p>
-          </div>
-          <div className="flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]">
+          </motion.div>
+          <motion.div
+            whileTap={{ scale: "0.95" }}
+            onClick={() => setSelectedPrompt(prompArr[2])}
+            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+          >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
-              A question is a sentence that seeks an answer for information
-              collection, tests, and research. Right questions produce accurate
-              responses and aids in collecting actionable quantitative and
-              qualitative data
+              Learn the process of calculating tax amounts, including applicable
+              rates and deductions.
             </p>
-          </div>
-          <div className="flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]">
+          </motion.div>
+          <motion.div
+            whileTap={{ scale: "0.95" }}
+            onClick={() => setSelectedPrompt(prompArr[3])}
+            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+          >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
-              A question is a sentence that seeks an answer for information
-              collection, tests, and research. Right questions produce accurate
-              responses and aids in collecting actionable quantitative and
-              qualitative data
+              Seek details on how to inquire about a specific legal incident,
+              including procedures and necessary steps.
             </p>
-          </div>
+          </motion.div>
+          <motion.div
+            whileTap={{ scale: "0.95" }}
+            onClick={() => setSelectedPrompt(prompArr[4])}
+            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+          >
+            <img className="h-8 w-8" src={mindIcon} />
+            <p className="flex-none m-0">
+              Engage in a discussion regarding legal issues and relevant laws
+              associated with the incident.
+            </p>
+          </motion.div>
         </div>
         <div className={Styles.secondaryContainer}>
           <CustomInputForm
             containerStyles={containerStyles}
             primaryColor={primaryColor}
             onSubmit={submitPrompt}
+            selectedPrompt={selectedPrompt}
           />
           <div className="grid md:grid-cols-3 px-3 md:gap-5">
             <div className="flex flex-col gap-2 items-center justify-center text-center">

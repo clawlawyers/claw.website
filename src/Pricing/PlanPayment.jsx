@@ -135,7 +135,7 @@ const PlanPayment = () => {
         console.log(subscription_id);
 
         const options = {
-          key: "rzp_live_vlDmt5SV4QPDhN",
+          key: "rzp_test_UWcqHHktRV6hxM",
           subscription_id: subscription_id, // Pass the subscription_id instead of order_id
           name: "CLAW LEGALTECH PRIVATE LIMITED",
           description: "Subscription",
@@ -228,7 +228,7 @@ const PlanPayment = () => {
         // console.log(subscription_id);
 
         const options = {
-          key: "rzp_live_vlDmt5SV4QPDhN",
+          key: "rzp_test_UWcqHHktRV6hxM",
           amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",

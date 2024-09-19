@@ -15,6 +15,7 @@ export default function CustomInputForm({
   isError = false,
   containerStyles,
   primaryColor,
+  selectedPrompt,
 }) {
   const dispatch = useDispatch();
 
@@ -47,6 +48,12 @@ export default function CustomInputForm({
       handlePopupOpen();
     }
   }
+
+  useEffect(() => {
+    if (selectedPrompt) {
+      setQuery(selectedPrompt);
+    }
+  }, [selectedPrompt]);
 
   return (
     <div className={Styles.container} style={containerStyles}>
