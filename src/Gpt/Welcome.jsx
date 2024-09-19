@@ -4,6 +4,7 @@ import hammer from "../assets/images/hammer.png";
 import headset from "../assets/images/headset.png";
 import uploadIcon from "../assets/images/upload.png";
 import CustomInputForm from "./components/CustomInputForm";
+import mindIcon from "../assets/images/mind.png";
 
 import Styles from "./Welcome.module.css";
 
@@ -13,7 +14,7 @@ export default function Welcome({
   primaryColor,
   textGradient,
 }) {
-  let containerStyles = { width: "80%" };
+  let containerStyles = { width: "97%" };
   return (
     <div
       className="my-[20px] md:my-0"
@@ -27,7 +28,14 @@ export default function Welcome({
         justifyContent: "center",
       }}
     >
-      <div style={{ backgroundColor: "transparent", width: "100%" }}>
+      <div
+        style={{
+          backgroundColor: "transparent",
+          width: "100%",
+          height: "90%",
+          // padding: "10px 0px",
+        }}
+      >
         <div
           style={{
             backgroundColor: "transparent",
@@ -35,6 +43,7 @@ export default function Welcome({
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
+            paddingBottom: "40px",
           }}
         >
           <div
@@ -65,6 +74,44 @@ export default function Welcome({
             }}
           >
             The power of AI for your {keyword} service
+          </div>
+        </div>
+        <div className="grid md:grid-cols-4 px-3 gap-3">
+          <div className="flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]">
+            <img className="h-8 w-8" src={mindIcon} />
+            <p className="flex-none m-0">
+              A question is a sentence that seeks an answer for information
+              collection, tests, and research. Right questions produce accurate
+              responses and aids in collecting actionable quantitative and
+              qualitative data
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]">
+            <img className="h-8 w-8" src={mindIcon} />
+            <p className="flex-none m-0">
+              A question is a sentence that seeks an answer for information
+              collection, tests, and research. Right questions produce accurate
+              responses and aids in collecting actionable quantitative and
+              qualitative data
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]">
+            <img className="h-8 w-8" src={mindIcon} />
+            <p className="flex-none m-0">
+              A question is a sentence that seeks an answer for information
+              collection, tests, and research. Right questions produce accurate
+              responses and aids in collecting actionable quantitative and
+              qualitative data
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]">
+            <img className="h-8 w-8" src={mindIcon} />
+            <p className="flex-none m-0">
+              A question is a sentence that seeks an answer for information
+              collection, tests, and research. Right questions produce accurate
+              responses and aids in collecting actionable quantitative and
+              qualitative data
+            </p>
           </div>
         </div>
         <div className={Styles.secondaryContainer}>
