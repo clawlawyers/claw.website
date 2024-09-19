@@ -61,7 +61,7 @@ export default function Pricing() {
   const [monthlyDiscounts, setMonthlyDiscounts] = useState(null);
   const [yearlyDiscounts, setYearlyDiscounts] = useState(null);
   const [couponFound, setCouponFound] = useState(false);
-  const [trialDays, setTrialDays] = useState(1);
+  const [trialDays, setTrialDays] = useState(0);
   const [isCouponCode, setIsCouponCode] = useState("");
   const [isReferralCode, setIsReferralCode] = useState("");
   const [couponLoading, setCouponLoading] = useState(false);
