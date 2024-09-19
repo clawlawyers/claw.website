@@ -10,6 +10,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 
 import Style from "./Sidebar.module.css";
 import { UserSessions } from "./UserSessions";
@@ -21,18 +23,41 @@ import { open } from "../features/popup/popupSlice";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Home } from "@mui/icons-material";
 import whatLegal from "../assets/images/whatLegal.gif";
+import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 
 export default function Sidebar({ keyword, primaryColor, model }) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
   const collapsed = useSelector((state) => state.sidebar.collapsed);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
-  const plan = useSelector((state) => state.gpt.plan);
-  const token = useSelector((state) => state.gpt.token);
+  const { plan } = useSelector((state) => state.gpt);
+  // const token = useSelector((state) => state.gpt.token);
   const { isAuthLoading } = useAuthState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [startnew, setStartNew] = useState(0);
+  const [legalGptOpen, setLegalGptOpen] = useState(false);
+  const [activePlan, setActivePlan] = useState([]);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "#018081",
+    border: "2px solid white",
+    boxShadow: 24,
+    p: 4,
+    height: "45%",
+    width: "40%",
+  };
+
+  useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan));
+    }
+  }, [plan]);
 
   function handleAccount() {
     if (!currentUser) navigate("/login");
@@ -185,19 +210,19 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                           <div>
                             <span className="text-white">Plan Type : </span>
                             <span style={{ textTransform: "capitalize" }}>
-                              {plan.length
-                                ? plan[0]?.split("_")[0]
+                              {activePlan.length
+                                ? activePlan[0]?.planName?.split("_")[0]
                                 : " No Plan"}
                               {/* No Plan */}
                             </span>
                           </div>
-                          {plan.length && (
+                          {/* {plan.length && (
                             <div>
                               <span className="text-white">Token : </span>
                               {Math.floor(token?.used?.gptTokenUsed)}/
                               {token?.total?.totalGptTokens}
                             </div>
-                          )}
+                          )} */}
                           <div className="mt-3 flex">
                             <button
                               style={{
@@ -264,7 +289,12 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       style={{ backgroundColor: "transparent" }}
                     /> */}
                   </div>
-                  <div>What is {keyword}GPT</div>
+                  <div
+                    className="hover:cursor-pointer"
+                    onClick={() => setLegalGptOpen(true)}
+                  >
+                    What is {keyword}GPT
+                  </div>
                 </div>
                 <button
                   style={{
@@ -441,24 +471,24 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       {currentUser ? currentUser.phoneNumber : <>Guest</>}
                     </div> */}
                       <div style={{ fontSize: 14, color: "#777" }}>
-                        {plan ? (
+                        {activePlan ? (
                           <>
                             <div>
                               <span className="text-white">Plan Type : </span>
                               <span style={{ textTransform: "capitalize" }}>
-                                {plan.length
-                                  ? plan[0]?.split("_")[0]
+                                {activePlan.length
+                                  ? activePlan[0]?.planName?.split("_")[0]
                                   : " No Plan"}
                                 {/* No Plan */}
                               </span>
                             </div>
-                            {plan.length && (
+                            {/* {plan.length && (
                               <div>
                                 <span className="text-white">Token : </span>
                                 {Math.floor(token?.used?.gptTokenUsed)}/
                                 {token?.total?.totalGptTokens}
                               </div>
-                            )}
+                            )} */}
                             <div className="mt-3 flex">
                               <button
                                 style={{
@@ -525,7 +555,12 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       style={{ backgroundColor: "transparent" }}
                     /> */}
                     </div>
-                    <div>What is {keyword}GPT</div>
+
+                    <div>
+                      <button onClick={() => setLegalGptOpen(true)}>
+                        What s {keyword}GPT
+                      </button>
+                    </div>
                   </div>
                   <button
                     style={{
@@ -615,6 +650,34 @@ export default function Sidebar({ keyword, primaryColor, model }) {
           </div>
         </div>
       )}
+      <Modal
+        open={legalGptOpen}
+        onClose={() => {
+          setLegalGptOpen(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={style}
+          className="overflow-scroll  gap-6 flex flex-col rounded-xl"
+        >
+          <div className="font-sans text-lg text-justify text-white">
+            LegalGPT leverages advanced AI technology to provide insightful
+            legal assistance, automate document creation, and streamline legal
+            research. It combines the power of GPT (Generative Pre-trained
+            Transformer) technology with legal expertise, offering lawyers and
+            law firms the ability to efficiently navigate complex legal
+            scenarios, draft legal documents, and even simulate court
+            proceedings. This tool is particularly useful for professionals
+            seeking to optimize their workflow by reducing time spent on
+            repetitive tasks and improving the accuracy of their legal research
+            and documentation. LegalGPT is part of Claw's broader suite of
+            services aimed at revolutionizing legal practice through the
+            integration of AI and automation.
+          </div>
+        </Box>
+      </Modal>
     </div>
   );
 }
