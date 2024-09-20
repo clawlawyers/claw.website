@@ -8,13 +8,13 @@ import { useState } from "react";
 import { Close } from "@mui/icons-material";
 import toast from "react-hot-toast";
 
-const suggestedQuesArr = [
-  "This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt",
-  "This is a sample question that will be generated once user drops his first question in the legalgpt",
-  "This is a sample question that will be generated once user drops his first question in the legalgpt",
-];
+// const suggestedQuesArr = [
+//   "This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt",
+//   "This is a sample question that will be generated once user drops his first question in the legalgpt",
+//   "This is a sample question that will be generated once user drops his first question in the legalgpt",
+// ];
 
-export function Prompt({ isUser, text, primaryColor }) {
+export function Prompt({ messageId, isUser, text, primaryColor }) {
   const highlighted = !isUser;
   const [likeButton, setLikeButton] = useState("");
   const [feedbackDialog, setFeedbackDialog] = useState(false);
@@ -32,6 +32,13 @@ export function Prompt({ isUser, text, primaryColor }) {
   const handleFeedbackSuccess = () => {
     setFeedbackDialog(false);
     toast.success("Thankyou for your valuable feedback !!");
+  };
+
+  const handleRegenerateResponse = () => {
+    console.log({
+      messageId,
+      text,
+    });
   };
 
   return (
@@ -82,7 +89,10 @@ export function Prompt({ isUser, text, primaryColor }) {
           <div className={Styles.promptText}>
             <p>{text}</p>
             {!isUser ? (
-              <div className="flex justify-end cursor-pointer">
+              <div
+                onClick={handleRegenerateResponse}
+                className="flex justify-end cursor-pointer"
+              >
                 <div className="flex items-center gap-2">
                   <img className="w-5 h-5" src={regenerateIcon} />
                   <p className="m-0">Regenerate</p>

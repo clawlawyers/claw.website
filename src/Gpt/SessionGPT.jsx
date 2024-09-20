@@ -96,6 +96,7 @@ export default function SessionGPT({ model, primaryColor }) {
 
   const [query, setQuery] = useState("");
   const [prompts, setPrompts] = useState([]);
+  console.log(prompts);
   const { isAuthLoading } = useAuthState();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -112,6 +113,9 @@ export default function SessionGPT({ model, primaryColor }) {
   const [showSupremeCourtCases, setSupremeCourtCases] = useState(false);
   const [refSupremeCase, setRefSupremeCase] = useState(null);
   const [boolFlag, setBoolFlag] = useState(false);
+  const [suggestedQuestionsIsLoading, setSuggestedQuestionsIsLoading] =
+    useState(false);
+  const [aiSuggestedQuestions, setAiSuggestedQuestions] = useState([]);
 
   const [activePlan, setActivePlan] = useState([]);
 
@@ -351,6 +355,45 @@ export default function SessionGPT({ model, primaryColor }) {
     // setSupremeCourtCases(false);
   };
 
+  useEffect(() => {
+    setAiSuggestedQuestions([]);
+    if (prompts.length > 0 && prompts.length % 2 === 0) {
+      getSuggestedQuestion();
+    }
+  }, [prompts]);
+
+  const getSuggestedQuestion = async () => {
+    try {
+      if (currentUser) {
+        setSuggestedQuestionsIsLoading(true);
+        const res = await fetch(
+          `${NODE_API_ENDPOINT}/gpt/suggested-questions`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${currentUser.jwt}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ context: prompts[prompts.length - 1].text }),
+          }
+        );
+        if (!res.ok) {
+          throw new Error("Failed to fetch suggested questions");
+        }
+
+        const data = await res.json();
+        console.log(data);
+        setAiSuggestedQuestions(data.data.questions);
+        setSuggestedQuestionsIsLoading(false);
+        return data.question;
+      }
+    } catch (error) {
+      console.log(error);
+      setSuggestedQuestionsIsLoading(false);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className={Style.formContainer}>
       <div className="flex justify-start items-start pl-[35px] pb-3 gap-3">
@@ -369,12 +412,13 @@ export default function SessionGPT({ model, primaryColor }) {
               borderRadius: "10px",
             }}
           >
-            {prompts.map(({ text, isUser }, idx) => (
+            {prompts.map(({ text, isUser, id }, idx) => (
               <Prompt
                 primaryColor={primaryColor}
                 key={idx}
                 text={text}
                 isUser={isUser}
+                messageId={id}
               />
             ))}
 
@@ -395,19 +439,30 @@ export default function SessionGPT({ model, primaryColor }) {
               />
             )}
             {!isLoading && (
-              <div className="px-2">
-                {suggestedQuesArr.map((x, index) => (
-                  <p
-                    className="border-2 border-gray-400 rounded-full py-2 px-4"
-                    key={index}
-                  >
-                    {x}
-                  </p>
-                ))}
-              </div>
+              <>
+                {aiSuggestedQuestions.length > 0 ? (
+                  <div className="px-2">
+                    {aiSuggestedQuestions.map((x, index) => (
+                      <p
+                        className="border-2 border-gray-400 rounded py-2 px-4"
+                        key={index}
+                      >
+                        {x}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="h-full w-full p-3 flex flex-col gap-2">
+                    <div className="w-full h-8 bg-slate-600 animate-pulse  rounded"></div>
+                    <div className="w-full h-8 bg-slate-600 animate-pulse  rounded"></div>
+                    <div className="w-full h-8 bg-slate-600 animate-pulse  rounded"></div>
+                  </div>
+                )}
+              </>
             )}
             <div className="p-3">
               {!isLoading &&
+                !suggestedQuestionsIsLoading &&
                 !isGreeting &&
                 (showUpgrade ? (
                   <button
