@@ -44,6 +44,12 @@ const highCourtArr = [
   "Rajasthan High Court",
 ];
 
+const suggestedQuesArr = [
+  "This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt",
+  "This is a sample question that will be generated once user drops his first question in the legalgpt",
+  "This is a sample question that will be generated once user drops his first question in the legalgpt",
+];
+
 export default function SessionGPT({ model, primaryColor }) {
   let containerStyles = { width: "90%" };
   const md = markdownit({
@@ -388,6 +394,18 @@ export default function SessionGPT({ model, primaryColor }) {
                 isUser={false}
               />
             )}
+            {!isLoading && (
+              <div className="px-2">
+                {suggestedQuesArr.map((x, index) => (
+                  <p
+                    className="border-2 border-gray-400 rounded-full py-2 px-4"
+                    key={index}
+                  >
+                    {x}
+                  </p>
+                ))}
+              </div>
+            )}
             <div className="p-3">
               {!isLoading &&
                 !isGreeting &&
@@ -407,7 +425,7 @@ export default function SessionGPT({ model, primaryColor }) {
                     Upgrade
                   </button>
                 ) : (
-                  <div className="flex gap-3">
+                  <div className="flex flex-col gap-2">
                     <button
                       style={{
                         borderRadius: 5,
@@ -424,34 +442,6 @@ export default function SessionGPT({ model, primaryColor }) {
                     >
                       Load cases
                     </button>
-                    {/* <button
-                      onClick={handleShowRelevantAct}
-                      style={{
-                        borderRadius: 5,
-                        backgroundColor: "#008080",
-                        color: "white",
-                        textDecoration: "none",
-                        padding: 10,
-                        width: "fit-content",
-                        border: "1px solid white",
-                      }}
-                    >
-                      Ref. To Relavant Act
-                    </button>
-                    <button
-                      onClick={handleShowSupremeCourtJudgements}
-                      style={{
-                        borderRadius: 5,
-                        backgroundColor: "#008080",
-                        color: "white",
-                        textDecoration: "none",
-                        padding: 10,
-                        width: "fit-content",
-                        border: "1px solid white",
-                      }}
-                    >
-                      Ref. to Supreme Court Judgement
-                    </button> */}
                   </div>
                 ))}
             </div>

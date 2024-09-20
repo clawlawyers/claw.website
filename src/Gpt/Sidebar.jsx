@@ -38,6 +38,8 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   const [startnew, setStartNew] = useState(0);
   const [legalGptOpen, setLegalGptOpen] = useState(false);
   const [activePlan, setActivePlan] = useState([]);
+  const [cancelSubscriptionDialog, setCancelSubscriptionDialog] =
+    useState(false);
 
   const style = {
     position: "absolute",
@@ -50,6 +52,23 @@ export default function Sidebar({ keyword, primaryColor, model }) {
     boxShadow: 24,
     p: 4,
     height: "45%",
+    width: "40%",
+  };
+
+  const subscriptionStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "#C7C7C7",
+    border: "2px solid white",
+    boxShadow: 24,
+    p: 4,
+    height: "35%",
     width: "40%",
   };
 
@@ -223,8 +242,9 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               {token?.total?.totalGptTokens}
                             </div>
                           )} */}
-                          <div className="mt-3 flex">
+                          <div className="mt-3 flex justify-between">
                             <button
+                              className="font-semibold text-xs justify-center items-center"
                               style={{
                                 display: "flex",
                                 color: "white",
@@ -238,7 +258,9 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             >
                               Upgrade
                             </button>
-                            {/* <button
+                            <button
+                              onClick={() => setCancelSubscriptionDialog(true)}
+                              className="font-semibold text-xs justify-center items-center"
                               style={{
                                 display: "flex",
                                 color: "#00969A",
@@ -249,8 +271,8 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 background: "white",
                               }}
                             >
-                              Log Out
-                            </button> */}
+                              End Subscription
+                            </button>
                           </div>
                         </>
                       ) : (
@@ -489,8 +511,9 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 {token?.total?.totalGptTokens}
                               </div>
                             )} */}
-                            <div className="mt-3 flex">
+                            <div className="mt-3 flex justify-between">
                               <button
+                                className="font-semibold text-xs  justify-center items-center"
                                 style={{
                                   display: "flex",
                                   color: "white",
@@ -504,19 +527,20 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               >
                                 Upgrade
                               </button>
-                              {/* <button
-                              style={{
-                                display: "flex",
-                                color: "#00969A",
-                                border: "none",
-                                padding: "6px 20px",
-                                marginTop: 5,
-                                borderRadius: 5,
-                                background: "white",
-                              }}
-                            >
-                              Log Out
-                            </button> */}
+                              <button
+                                className="font-semibold text-xs justify-center items-center"
+                                style={{
+                                  display: "flex",
+                                  color: "#00969A",
+                                  border: "none",
+                                  padding: "6px 20px",
+                                  marginTop: 5,
+                                  borderRadius: 5,
+                                  background: "white",
+                                }}
+                              >
+                                End Subscription
+                              </button>
                             </div>
                           </>
                         ) : (
@@ -675,6 +699,38 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             and documentation. LegalGPT is part of Claw's broader suite of
             services aimed at revolutionizing legal practice through the
             integration of AI and automation.
+          </div>
+        </Box>
+      </Modal>
+      <Modal
+        open={cancelSubscriptionDialog}
+        onClose={() => {
+          setCancelSubscriptionDialog(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={subscriptionStyle}
+          className="overflow-scroll  gap-6 flex flex-col rounded-xl"
+        >
+          <div className="font-sans text-center">
+            <h3 className="text-4xl text-[#018081] font-bold">
+              Cancel Subscription
+            </h3>
+            <p className="text-black">
+              Are you sure you want to cancel your subscription?
+            </p>
+          </div>
+          <div className="flex justify-center gap-3">
+            <button
+              onClick={() => setCancelSubscriptionDialog(false)}
+              className="px-5 rounded bg-transparent text-[#018081]"
+              style={{ border: "2px solid #018081" }}
+            >
+              No
+            </button>
+            <button className="px-5 rounded">Yes</button>
           </div>
         </Box>
       </Modal>

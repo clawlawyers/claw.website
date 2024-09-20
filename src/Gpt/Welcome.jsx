@@ -89,7 +89,7 @@ export default function Welcome({
           <motion.div
             whileTap={{ scale: "0.95" }}
             onClick={() => setSelectedPrompt(prompArr[0])}
-            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+            className="cursor-pointer flex flex-col gap-2 items-center  border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
@@ -99,7 +99,7 @@ export default function Welcome({
           <motion.div
             whileTap={{ scale: "0.95" }}
             onClick={() => setSelectedPrompt(prompArr[1])}
-            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+            className="cursor-pointer flex flex-col gap-2 items-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
@@ -110,7 +110,7 @@ export default function Welcome({
           <motion.div
             whileTap={{ scale: "0.95" }}
             onClick={() => setSelectedPrompt(prompArr[2])}
-            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+            className="cursor-pointer flex flex-col gap-2 items-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
@@ -121,7 +121,7 @@ export default function Welcome({
           <motion.div
             whileTap={{ scale: "0.95" }}
             onClick={() => setSelectedPrompt(prompArr[3])}
-            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+            className="cursor-pointer flex flex-col gap-2 items-center  border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
@@ -132,7 +132,7 @@ export default function Welcome({
           <motion.div
             whileTap={{ scale: "0.95" }}
             onClick={() => setSelectedPrompt(prompArr[4])}
-            className="cursor-pointer flex flex-col gap-2 items-center justify-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+            className="cursor-pointer flex flex-col gap-2 items-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
@@ -149,7 +149,7 @@ export default function Welcome({
             selectedPrompt={selectedPrompt}
           />
           <div className="grid md:grid-cols-3 px-3 md:gap-5">
-            <div className="flex flex-col gap-2 items-center justify-center text-center">
+            <div className="flex flex-col gap-2 items-center text-center">
               <img src={hammer} />
               <h3>Legal Perspectives</h3>
               <p>
@@ -157,7 +157,7 @@ export default function Welcome({
                 concerning Indian law.
               </p>
             </div>
-            <div className="flex flex-col gap-2 items-center justify-center text-center">
+            <div className="flex flex-col gap-2 items-center text-center">
               <img src={headset} />
               <h3>Tailored Support</h3>
               <p>
@@ -166,7 +166,7 @@ export default function Welcome({
                 encrypted framework.
               </p>
             </div>
-            <div className="flex flex-col gap-2 items-center justify-center text-center">
+            <div className="flex flex-col gap-2 items-center text-center">
               <img src={uploadIcon} />
               <h3>Case Retrieval</h3>
               <p>
