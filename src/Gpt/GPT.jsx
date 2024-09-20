@@ -8,6 +8,7 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import { useAuthState } from "../hooks/useAuthState";
 import { gptUserCreated } from "../features/auth/authSlice";
 import { generateResponse, setGpt } from "../features/gpt/gptSlice";
+import toast from "react-hot-toast";
 
 function GPT({
   keyword,
@@ -22,6 +23,34 @@ function GPT({
   const { isAuthLoading } = useAuthState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const getSuggestedQuestion = async () => {
+    try {
+      if (currentUser) {
+        setIsLoading(true);
+        const res = await fetch(
+          `${NODE_API_ENDPOINT}/gpt/suggested-questions`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${currentUser.jwt}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ context: "uhiekd" }),
+          }
+        );
+        if (!res.ok) {
+          throw new Error("Failed to fetch suggested questions");
+        }
+
+        const data = await res.json();
+        return data.question;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
 
   useEffect(() => {
     if (!isAuthLoading && !currentUser) {
