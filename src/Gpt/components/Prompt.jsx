@@ -8,6 +8,8 @@ import { useState } from "react";
 import { Close } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { Modal } from "@mui/material";
+import { useSelector } from "react-redux";
+import { NODE_API_ENDPOINT } from "../../utils/utils";
 
 export function Prompt({
   messageId,
@@ -17,6 +19,8 @@ export function Prompt({
   messageIndex,
   promptsArr,
 }) {
+  const currentUser = useSelector((state) => state.auth.user);
+
   const highlighted = !isUser;
   const [likeButton, setLikeButton] = useState("");
   const [feedbackDialog, setFeedbackDialog] = useState(false);
@@ -45,13 +49,36 @@ export function Prompt({
     toast.success("Thankyou for your valuable feedback !!");
   };
 
-  const handleRegenerateResponse = () => {
+  const handleRegenerateResponse = async () => {
     // console.log(promptsArr);
     const reqQuery = promptsArr[messageIndex - 1];
     console.log({
       messageId,
       text: reqQuery.text,
     });
+
+    try {
+      // setSuggestedQuestionsIsLoading(true);
+      const res = await fetch(`${NODE_API_ENDPOINT}/gpt/regenerate-response`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${currentUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: reqQuery, sessionId: messageId }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to fetch suggested questions");
+      }
+
+      const data = await res.json();
+      console.log(data);
+      // setSuggestedQuestionsIsLoading(false);
+      // return data.question;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   return (
