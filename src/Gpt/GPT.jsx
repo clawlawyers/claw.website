@@ -8,7 +8,6 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import { useAuthState } from "../hooks/useAuthState";
 import { gptUserCreated } from "../features/auth/authSlice";
 import { generateResponse, setGpt } from "../features/gpt/gptSlice";
-import toast from "react-hot-toast";
 
 function GPT({
   keyword,
