@@ -118,6 +118,7 @@ export default function SessionGPT({ model, primaryColor }) {
   const [aiSuggestedQuestions, setAiSuggestedQuestions] = useState([]);
 
   const [activePlan, setActivePlan] = useState([]);
+  const [selectedAiSuggestion, setSelectedAiSuggestion] = useState(null);
 
   const handleHighCourtChange = (event) => {
     setcourtName(event.target.value);
@@ -419,6 +420,8 @@ export default function SessionGPT({ model, primaryColor }) {
                 text={text}
                 isUser={isUser}
                 messageId={id}
+                messageIndex={idx}
+                promptsArr={prompts}
               />
             ))}
 
@@ -444,7 +447,8 @@ export default function SessionGPT({ model, primaryColor }) {
                   <div className="px-2">
                     {aiSuggestedQuestions.map((x, index) => (
                       <p
-                        className="border-2 border-gray-400 rounded py-2 px-4"
+                        onClick={() => setSelectedAiSuggestion(x)}
+                        className="border-2 border-gray-400 rounded py-2 px-4 cursor-pointer"
                         key={index}
                       >
                         {x}
@@ -794,6 +798,7 @@ export default function SessionGPT({ model, primaryColor }) {
         isError={isError}
         isLoading={isLoading}
         onSubmit={submitPrompt}
+        selectedPrompt={selectedAiSuggestion}
       />
     </div>
   );

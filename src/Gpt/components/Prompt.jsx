@@ -7,18 +7,21 @@ import regenerateIcon from "../../assets/images/regenerate.png";
 import { useState } from "react";
 import { Close } from "@mui/icons-material";
 import toast from "react-hot-toast";
+import { Modal } from "@mui/material";
 
-// const suggestedQuesArr = [
-//   "This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt",
-//   "This is a sample question that will be generated once user drops his first question in the legalgpt",
-//   "This is a sample question that will be generated once user drops his first question in the legalgpt",
-// ];
-
-export function Prompt({ messageId, isUser, text, primaryColor }) {
+export function Prompt({
+  messageId,
+  isUser,
+  text,
+  primaryColor,
+  messageIndex,
+  promptsArr,
+}) {
   const highlighted = !isUser;
   const [likeButton, setLikeButton] = useState("");
   const [feedbackDialog, setFeedbackDialog] = useState(false);
-  const [feedbackType, setFeedbackType] = useState("");
+  const [feedbackType, setFeedbackType] = useState("response");
+  const [feedbackMessage, setFeedbackMessage] = useState("");
 
   const handleFeedback = (type) => {
     if (type === "like") {
@@ -29,15 +32,25 @@ export function Prompt({ messageId, isUser, text, primaryColor }) {
     setFeedbackDialog(true);
   };
 
-  const handleFeedbackSuccess = () => {
+  const handleFeedbackSubmit = () => {
+    const reqObj = {
+      messageId,
+      impression: likeButton === "like" ? "Positive" : "Negative",
+      feedbackType,
+      feedbackMessage,
+    };
+    console.log(reqObj);
     setFeedbackDialog(false);
+    setFeedbackMessage("");
     toast.success("Thankyou for your valuable feedback !!");
   };
 
   const handleRegenerateResponse = () => {
+    // console.log(promptsArr);
+    const reqQuery = promptsArr[messageIndex - 1];
     console.log({
       messageId,
-      text,
+      text: reqQuery.text,
     });
   };
 
@@ -102,89 +115,75 @@ export function Prompt({ messageId, isUser, text, primaryColor }) {
           </div>
         </div>
       </div>
-      {/* {!isUser && (
-        <div className="px-2">
-          {suggestedQuesArr.map((x, index) => (
-            <p
-              className="border-2 border-gray-400 rounded-full py-2 px-4"
-              key={index}
-            >
-              {x}
+      <Modal
+        open={feedbackDialog}
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        // onClose={() => {
+        //   setFeedbackDialog(false);
+        // }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className="bg-[#C7C7C7] w-4/6 rounded p-3 flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            <p className="m-0 text-[#018081] text-2xl font-bold">
+              Feedback for LegalGPT
             </p>
-          ))}
-        </div>
-      )} */}
-      {feedbackDialog && (
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            left: "0",
-            right: "0",
-            top: "0",
-            backgroundColor: "rgba(0, 0, 0, 0.1)",
-            backdropFilter: "blur(3px)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: "20",
-          }}
-        >
-          <div className="bg-[#C7C7C7] w-4/6 rounded p-3 flex flex-col gap-2">
-            <div className="flex justify-between items-center">
-              <p className="m-0 text-[#018081] text-2xl font-bold">
-                Feedback for LegalGPT
-              </p>
-              <Close
-                onClick={() => setFeedbackDialog(false)}
-                sx={{ color: "#018081", cursor: "pointer" }}
-              />
-            </div>
-            <div className="flex gap-3">
-              <div className="flex gap-1">
-                <input
-                  type="radio"
-                  value="response"
-                  checked={feedbackType === "response"}
-                  onChange={(e) => setFeedbackType(e.target.value)}
-                  className=""
-                />
-                <p className="m-0 text-black">Response Generated</p>
-              </div>
-              <div className="flex gap-1">
-                <input
-                  type="radio"
-                  value="reference"
-                  checked={feedbackType === "reference"}
-                  onChange={(e) => setFeedbackType(e.target.value)}
-                  className=""
-                />
-                <p className="m-0 text-black">References</p>
-              </div>
-              <div className="flex gap-1">
-                <input
-                  type="radio"
-                  value="judgement"
-                  checked={feedbackType === "judgement"}
-                  onChange={(e) => setFeedbackType(e.target.value)}
-                  className=""
-                />
-                <p className="m-0 text-black">Judgement</p>
-              </div>
-            </div>
-            <textarea
-              className="text-xs w-full rounded p-2 min-h-20 max-h-40 text-black"
-              placeholder="Please provide your valuable feedback for the segment you choose above"
+            <Close
+              onClick={() => {
+                setFeedbackDialog(false);
+                setFeedbackMessage("");
+                setLikeButton("");
+              }}
+              sx={{ color: "#018081", cursor: "pointer" }}
             />
-            <div className="flex justify-end">
-              <button onClick={handleFeedbackSuccess} className="rounded">
-                Submit Feedback
-              </button>
+          </div>
+          <div className="flex gap-3">
+            <div className="flex gap-1">
+              <input
+                type="radio"
+                value="response"
+                checked={feedbackType === "response"}
+                onChange={(e) => setFeedbackType(e.target.value)}
+                className=""
+              />
+              <p className="m-0 text-black">Response Generated</p>
+            </div>
+            <div className="flex gap-1">
+              <input
+                type="radio"
+                value="reference"
+                checked={feedbackType === "reference"}
+                onChange={(e) => setFeedbackType(e.target.value)}
+                className=""
+              />
+              <p className="m-0 text-black">References</p>
+            </div>
+            <div className="flex gap-1">
+              <input
+                type="radio"
+                value="judgement"
+                checked={feedbackType === "judgement"}
+                onChange={(e) => setFeedbackType(e.target.value)}
+                className=""
+              />
+              <p className="m-0 text-black">Judgement</p>
             </div>
           </div>
+          <textarea
+            required
+            className="text-xs w-full rounded p-2 h-40 text-black"
+            placeholder="Please provide your valuable feedback for the segment you choose above"
+            value={feedbackMessage}
+            onChange={(e) => setFeedbackMessage(e.target.value)}
+          />
+          <div className="flex justify-end">
+            <button onClick={handleFeedbackSubmit} className="rounded">
+              Submit Feedback
+            </button>
+          </div>
         </div>
-      )}
+      </Modal>
     </>
   );
 }
