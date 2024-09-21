@@ -28,6 +28,8 @@ import Select from "@mui/material/Select";
 import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import markdownit from "markdown-it";
+import { CircularProgress } from "@mui/material";
+import { activePlanFeatures } from "../utils/checkActivePlanFeatures.js";
 
 const highCourtArr = [
   "Supreme Court of India",
@@ -40,6 +42,12 @@ const highCourtArr = [
   "Gujarat High Court",
   "Delhi District Court",
   "Rajasthan High Court",
+];
+
+const suggestedQuesArr = [
+  "This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt This is a sample question that will be generated once user drops his first question in the legalgpt",
+  "This is a sample question that will be generated once user drops his first question in the legalgpt",
+  "This is a sample question that will be generated once user drops his first question in the legalgpt",
 ];
 
 export default function SessionGPT({ model, primaryColor }) {
@@ -80,12 +88,15 @@ export default function SessionGPT({ model, primaryColor }) {
       return "";
     },
   });
-  const { prompt, status, response, error, relatedCases } = useSelector(
+  const { prompt, status, response, error, relatedCases, plan } = useSelector(
     (state) => state.gpt
   );
   const currentUser = useSelector((state) => state.auth.user);
+  // const planDetails = useSelector((state) => state.gpt?.plan[0]?.plan);
+
   const [query, setQuery] = useState("");
   const [prompts, setPrompts] = useState([]);
+  console.log(prompts);
   const { isAuthLoading } = useAuthState();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -102,6 +113,12 @@ export default function SessionGPT({ model, primaryColor }) {
   const [showSupremeCourtCases, setSupremeCourtCases] = useState(false);
   const [refSupremeCase, setRefSupremeCase] = useState(null);
   const [boolFlag, setBoolFlag] = useState(false);
+  const [suggestedQuestionsIsLoading, setSuggestedQuestionsIsLoading] =
+    useState(false);
+  const [aiSuggestedQuestions, setAiSuggestedQuestions] = useState([]);
+
+  const [activePlan, setActivePlan] = useState([]);
+  const [selectedAiSuggestion, setSelectedAiSuggestion] = useState(null);
 
   const handleHighCourtChange = (event) => {
     setcourtName(event.target.value);
@@ -118,6 +135,12 @@ export default function SessionGPT({ model, primaryColor }) {
   };
 
   useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan, "AICaseSearchAccess"));
+    }
+  }, [plan]);
+
+  useEffect(() => {
     if (boolFlag) {
       handleHighCourtNameChange();
     }
@@ -125,7 +148,9 @@ export default function SessionGPT({ model, primaryColor }) {
 
   const greetingRegex =
     /\b(hello|namaste|hola|hey|how are you|greetings|(hi+))\b/gi;
+
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
+
   const isGreeting =
     prompts.length > 0 && greetingRegex.test(prompts[prompts.length - 1].text);
   const showUpgrade =
@@ -331,6 +356,45 @@ export default function SessionGPT({ model, primaryColor }) {
     // setSupremeCourtCases(false);
   };
 
+  useEffect(() => {
+    setAiSuggestedQuestions([]);
+    if (prompts.length > 0 && prompts.length % 2 === 0) {
+      getSuggestedQuestion();
+    }
+  }, [prompts]);
+
+  const getSuggestedQuestion = async () => {
+    try {
+      if (currentUser) {
+        setSuggestedQuestionsIsLoading(true);
+        const res = await fetch(
+          `${NODE_API_ENDPOINT}/gpt/suggested-questions`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${currentUser.jwt}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ context: prompts[prompts.length - 1].text }),
+          }
+        );
+        if (!res.ok) {
+          throw new Error("Failed to fetch suggested questions");
+        }
+
+        const data = await res.json();
+        console.log(data);
+        setAiSuggestedQuestions(data.data.questions);
+        setSuggestedQuestionsIsLoading(false);
+        return data.question;
+      }
+    } catch (error) {
+      console.log(error);
+      setSuggestedQuestionsIsLoading(false);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className={Style.formContainer}>
       <div className="flex justify-start items-start pl-[35px] pb-3 gap-3">
@@ -349,12 +413,15 @@ export default function SessionGPT({ model, primaryColor }) {
               borderRadius: "10px",
             }}
           >
-            {prompts.map(({ text, isUser }, idx) => (
+            {prompts.map(({ text, isUser, id }, idx) => (
               <Prompt
                 primaryColor={primaryColor}
                 key={idx}
                 text={text}
                 isUser={isUser}
+                messageId={id}
+                messageIndex={idx}
+                promptsArr={prompts}
               />
             ))}
 
@@ -374,8 +441,32 @@ export default function SessionGPT({ model, primaryColor }) {
                 isUser={false}
               />
             )}
+            {!isLoading && (
+              <>
+                {aiSuggestedQuestions.length > 0 ? (
+                  <div className="px-2">
+                    {aiSuggestedQuestions.map((x, index) => (
+                      <p
+                        onClick={() => setSelectedAiSuggestion(x)}
+                        className="border-2 border-gray-400 rounded py-2 px-4 cursor-pointer"
+                        key={index}
+                      >
+                        {x}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="h-full w-full p-3 flex flex-col gap-2">
+                    <div className="w-full h-8 bg-slate-600 animate-pulse  rounded"></div>
+                    <div className="w-full h-8 bg-slate-600 animate-pulse  rounded"></div>
+                    <div className="w-full h-8 bg-slate-600 animate-pulse  rounded"></div>
+                  </div>
+                )}
+              </>
+            )}
             <div className="p-3">
               {!isLoading &&
+                !suggestedQuestionsIsLoading &&
                 !isGreeting &&
                 (showUpgrade ? (
                   <button
@@ -393,7 +484,7 @@ export default function SessionGPT({ model, primaryColor }) {
                     Upgrade
                   </button>
                 ) : (
-                  <div className="flex gap-3">
+                  <div className="flex flex-col gap-2">
                     <button
                       style={{
                         borderRadius: 5,
@@ -410,34 +501,6 @@ export default function SessionGPT({ model, primaryColor }) {
                     >
                       Load cases
                     </button>
-                    {/* <button
-                      onClick={handleShowRelevantAct}
-                      style={{
-                        borderRadius: 5,
-                        backgroundColor: "#008080",
-                        color: "white",
-                        textDecoration: "none",
-                        padding: 10,
-                        width: "fit-content",
-                        border: "1px solid white",
-                      }}
-                    >
-                      Ref. To Relavant Act
-                    </button>
-                    <button
-                      onClick={handleShowSupremeCourtJudgements}
-                      style={{
-                        borderRadius: 5,
-                        backgroundColor: "#008080",
-                        color: "white",
-                        textDecoration: "none",
-                        padding: 10,
-                        width: "fit-content",
-                        border: "1px solid white",
-                      }}
-                    >
-                      Ref. to Supreme Court Judgement
-                    </button> */}
                   </div>
                 ))}
             </div>
@@ -449,7 +512,7 @@ export default function SessionGPT({ model, primaryColor }) {
                 relatedCases.cases.length > 0 && (
                   <div>
                     <div className="m-2 p-3 border-2 border-[#018081] rounded bg-[#303030] flex flex-col gap-3">
-                      <div className="flex flex-col md:flex-row justify-between md:items-center">
+                      <div className="flex flex-col flex-wrap md:flex-row justify-between md:items-center">
                         <p className="font-bold m-0 px-3 text-2xl text-white">
                           Reference to High Court Judgements
                         </p>
@@ -509,16 +572,45 @@ export default function SessionGPT({ model, primaryColor }) {
                           })}
                       </div>
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        marginTop: 5,
-                        gap: "5px",
-                        padding: "10px",
-                      }}
-                    >
-                      {/* <div className="flex gap-2"> */}
-                      <Link to={`/case/search?id=${relatedCases.messageId}`}>
+                    <div className="flex flex-col md:flex-row mt-[5px] gap-[5px] p-[10px]">
+                      {activePlan ? (
+                        <>
+                          {activePlan[0]?.plan?.AICaseSearchAccess ? (
+                            <Link
+                              to={`/case/search?id=${relatedCases.messageId}`}
+                            >
+                              <button
+                                className="px-1"
+                                style={{
+                                  borderRadius: 5,
+                                  backgroundColor: "#008080",
+                                  color: "white",
+                                  textDecoration: "none",
+                                  width: "fit-content",
+                                  border: "1px solid white",
+                                }}
+                              >
+                                Case search
+                              </button>
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={handlePopupOpen}
+                              className="px-1"
+                              style={{
+                                borderRadius: 5,
+                                backgroundColor: "#008080",
+                                color: "white",
+                                textDecoration: "none",
+                                width: "fit-content",
+                                border: "1px solid white",
+                              }}
+                            >
+                              Case search
+                            </button>
+                          )}
+                        </>
+                      ) : (
                         <button
                           className="px-1"
                           style={{
@@ -530,9 +622,9 @@ export default function SessionGPT({ model, primaryColor }) {
                             border: "1px solid white",
                           }}
                         >
-                          Case search
+                          <CircularProgress size={20} color="inherit" />
                         </button>
-                      </Link>
+                      )}
                       <button
                         onClick={handleShowRelevantAct}
                         className="px-1"
@@ -550,7 +642,7 @@ export default function SessionGPT({ model, primaryColor }) {
                       </button>
                       <button
                         onClick={handleShowSupremeCourtJudgements}
-                        className="px-1"
+                        className="px-1 "
                         style={{
                           borderRadius: 5,
                           backgroundColor: "#008080",
@@ -706,6 +798,7 @@ export default function SessionGPT({ model, primaryColor }) {
         isError={isError}
         isLoading={isLoading}
         onSubmit={submitPrompt}
+        selectedPrompt={selectedAiSuggestion}
       />
     </div>
   );
