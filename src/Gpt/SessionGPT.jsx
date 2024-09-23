@@ -152,10 +152,11 @@ export default function SessionGPT({ model, primaryColor }) {
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
 
   const isGreeting =
-    prompts.length > 0 && greetingRegex.test(prompts[prompts.length - 1].text);
+    prompts?.length > 0 &&
+    greetingRegex.test(prompts[prompts?.length - 1].text);
   const showUpgrade =
-    prompts.length > 0 &&
-    prompts[prompts.length - 1].id !== relatedCases.messageId &&
+    prompts?.length > 0 &&
+    prompts[prompts?.length - 1].id !== relatedCases.messageId &&
     isError;
 
   useEffect(() => {
@@ -358,7 +359,7 @@ export default function SessionGPT({ model, primaryColor }) {
 
   useEffect(() => {
     setAiSuggestedQuestions([]);
-    if (prompts.length > 0 && prompts.length % 2 === 0) {
+    if (prompts?.length > 0 && prompts?.length % 2 === 0) {
       getSuggestedQuestion();
     }
   }, [prompts]);
@@ -413,7 +414,7 @@ export default function SessionGPT({ model, primaryColor }) {
               borderRadius: "10px",
             }}
           >
-            {prompts.map(({ text, isUser, id }, idx) => (
+            {prompts?.map(({ text, isUser, id }, idx) => (
               <Prompt
                 primaryColor={primaryColor}
                 key={idx}
@@ -422,6 +423,8 @@ export default function SessionGPT({ model, primaryColor }) {
                 messageId={id}
                 messageIndex={idx}
                 promptsArr={prompts}
+                sessionId={sessionId}
+                setPrompts={setPrompts}
               />
             ))}
 
@@ -443,7 +446,7 @@ export default function SessionGPT({ model, primaryColor }) {
             )}
             {!isLoading && (
               <>
-                {aiSuggestedQuestions.length > 0 ? (
+                {aiSuggestedQuestions?.length > 0 ? (
                   <div className="px-2">
                     {aiSuggestedQuestions.map((x, index) => (
                       <p

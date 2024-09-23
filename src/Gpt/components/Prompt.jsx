@@ -4,10 +4,10 @@ import AssistantIcon from "@mui/icons-material/Assistant";
 import PersonIcon from "@mui/icons-material/Person";
 import personIcon from "../../assets/images/Vector.png";
 import regenerateIcon from "../../assets/images/regenerate.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Close } from "@mui/icons-material";
 import toast from "react-hot-toast";
-import { Modal } from "@mui/material";
+import { CircularProgress, Modal } from "@mui/material";
 import { useSelector } from "react-redux";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 
@@ -18,14 +18,18 @@ export function Prompt({
   primaryColor,
   messageIndex,
   promptsArr,
+  sessionId,
+  setPrompts,
 }) {
   const currentUser = useSelector((state) => state.auth.user);
 
   const highlighted = !isUser;
+  const [promptText, setPromptText] = useState("");
   const [likeButton, setLikeButton] = useState("");
   const [feedbackDialog, setFeedbackDialog] = useState(false);
   const [feedbackType, setFeedbackType] = useState("response");
   const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFeedback = (type) => {
     if (type === "like") {
@@ -36,36 +40,60 @@ export function Prompt({
     setFeedbackDialog(true);
   };
 
-  const handleFeedbackSubmit = () => {
+  const handleFeedbackSubmit = async () => {
     const reqObj = {
       messageId,
       impression: likeButton === "like" ? "Positive" : "Negative",
       feedbackType,
       feedbackMessage,
     };
-    console.log(reqObj);
-    setFeedbackDialog(false);
-    setFeedbackMessage("");
-    toast.success("Thankyou for your valuable feedback !!");
+    try {
+      // setIsLoading(true);
+      const res = await fetch(`${NODE_API_ENDPOINT}/gpt/feedback`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${currentUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messageId,
+          impression: likeButton === "like" ? "Positive" : "Negative",
+          feedbackType,
+          feedbackMessage,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      const data = await res.json();
+      console.log(data);
+      setFeedbackDialog(false);
+      setFeedbackMessage("");
+      toast.success("Thankyou for your valuable feedback !!");
+      // return data.question;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+
+      setFeedbackDialog(false);
+      setFeedbackMessage("");
+    }
   };
 
   const handleRegenerateResponse = async () => {
     // console.log(promptsArr);
     const reqQuery = promptsArr[messageIndex - 1];
-    console.log({
-      messageId,
-      text: reqQuery.text,
-    });
 
     try {
-      // setSuggestedQuestionsIsLoading(true);
+      setIsLoading(true);
       const res = await fetch(`${NODE_API_ENDPOINT}/gpt/regenerate-response`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${currentUser.jwt}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: reqQuery, sessionId: messageId }),
+        body: JSON.stringify({ prompt: reqQuery.text, sessionId: sessionId }),
       });
       if (!res.ok) {
         throw new Error("Failed to fetch suggested questions");
@@ -73,13 +101,26 @@ export function Prompt({
 
       const data = await res.json();
       console.log(data);
-      // setSuggestedQuestionsIsLoading(false);
+      const newObj = {
+        id: data.data.gptResponse.messageId,
+        text: data.data.gptResponse.message,
+        isUser: false,
+      };
+      promptsArr[promptsArr.length - 1] = newObj;
+      setPrompts(promptsArr);
+      setPromptText(data.data.gptResponse.message);
+      setIsLoading(false);
       // return data.question;
     } catch (error) {
       console.log(error);
       toast.error(error.message);
+      setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    setPromptText(text);
+  }, [text]);
 
   return (
     <>
@@ -127,17 +168,30 @@ export function Prompt({
             {isUser ? <img className="w-7 h-[27px]" src={personIcon} /> : ""}
           </div>
           <div className={Styles.promptText}>
-            <p>{text}</p>
-            {!isUser ? (
-              <div
-                onClick={handleRegenerateResponse}
-                className="flex justify-end cursor-pointer"
-              >
-                <div className="flex items-center gap-2">
-                  <img className="w-5 h-5" src={regenerateIcon} />
-                  <p className="m-0">Regenerate</p>
-                </div>
-              </div>
+            <p>{promptText}</p>
+            {!isUser && promptsArr.length - 1 === messageIndex ? (
+              <>
+                {isLoading ? (
+                  <div className="flex justify-end cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <CircularProgress size={15} color="inherit" />
+                      <p className="m-0 text-[#018081]">
+                        Regenerating Response...
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    onClick={handleRegenerateResponse}
+                    className="flex justify-end cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2">
+                      <img className="w-5 h-5" src={regenerateIcon} />
+                      <p className="m-0">Regenerate</p>
+                    </div>
+                  </div>
+                )}
+              </>
             ) : null}
           </div>
         </div>
