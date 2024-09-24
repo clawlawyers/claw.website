@@ -193,7 +193,7 @@ export default function SessionGPT({ model, primaryColor }) {
 
   useEffect(() => {
     if (promptsRef.current) {
-      promptsRef.current.scrollTop = 0;
+      promptsRef.current.scrollTop = promptsRef.current.scrollHeight / 2;
     }
   }, [prompts]);
 
@@ -403,7 +403,7 @@ export default function SessionGPT({ model, primaryColor }) {
         <h3 className="m-0 text-[#018081] font-bold">LegalGPT</h3>
         <p className="m-0 text-xs pt-[3px]">by Claw</p>
       </div>
-      <div ref={promptsRef} className={Style.prompts}>
+      <div className={Style.prompts}>
         {/* <div className={Style.clawBackdrop}>
           <img alt="claw icon" src={clawImg} />
         </div> */}
@@ -417,6 +417,7 @@ export default function SessionGPT({ model, primaryColor }) {
           >
             {prompts?.map(({ text, isUser, id }, idx) => (
               <Prompt
+                ref={promptsRef}
                 primaryColor={primaryColor}
                 key={idx}
                 text={text}

@@ -168,7 +168,16 @@ export function Prompt({
             {isUser ? <img className="w-7 h-[27px]" src={personIcon} /> : ""}
           </div>
           <div className={Styles.promptText}>
-            <p>{promptText}</p>
+            {!isLoading ? (
+              <p>{promptText}</p>
+            ) : (
+              <div className="h-full w-full p-3 flex flex-col gap-2">
+                <div className="w-full h-3 bg-slate-600 animate-pulse  rounded-full"></div>
+                <div className="w-full h-3 bg-slate-600 animate-pulse  rounded-full"></div>
+                <div className="w-[60%] h-3 bg-slate-600 animate-pulse  rounded-full"></div>
+                <div className="w-[40%] h-3 bg-slate-600 animate-pulse  rounded-full"></div>
+              </div>
+            )}
             {!isUser && promptsArr.length - 1 === messageIndex ? (
               <>
                 {isLoading ? (
