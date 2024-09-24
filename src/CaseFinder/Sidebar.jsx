@@ -18,16 +18,20 @@ import HeaderStyles from "../Header/Header.module.css";
 import { collapse, expand, toggle } from "../features/sidebar/sidebarSlice";
 import { open } from "../features/popup/popupSlice";
 import { Home } from "@mui/icons-material";
+import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 
 export default function Sidebar({ keyword, primaryColor, model }) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
   const collapsed = useSelector((state) => state.sidebar.collapsed);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
-  const plan = useSelector((state) => state.gpt.plan);
-  const token = useSelector((state) => state.gpt.token);
+  const { plan } = useSelector((state) => state.gpt);
+  // const token = useSelector((state) => state.gpt.token);
   const { isAuthLoading } = useAuthState();
   const [loading, setLoading] = useState(false);
+
+  const [activePlan, setActivePlan] = useState([]);
+
   const navigate = useNavigate();
 
   function handleAccount() {
@@ -40,6 +44,12 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   // const closetoggle = () => {
   //   dispatch(toggle());
   // };
+
+  useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan));
+    }
+  }, [plan]);
 
   useEffect(() => {
     if (isPhoneMode) dispatch(collapse());
@@ -155,23 +165,23 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       {currentUser ? currentUser.phoneNumber : <>Guest</>}
                     </div>
                     <div style={{ fontSize: 14, color: "#777" }}>
-                      {plan ? (
+                      {activePlan ? (
                         <>
                           <div>
                             Plan -
                             <span style={{ textTransform: "capitalize" }}>
-                              {plan?.length
-                                ? plan[0].split("_")[0]
+                              {activePlan?.length
+                                ? activePlan[0].planName?.split("_")[0]
                                 : " No Plan"}
                             </span>
                           </div>
-                          {plan?.length && (
+                          {/* {plan?.length && (
                             <div>
                               Token -{" "}
                               {Math.floor(token?.used?.caseSearchTokenUsed)}/
                               {token?.total?.totalCaseSearchTokens}
                             </div>
-                          )}
+                          )} */}
                           <button
                             style={{
                               display: "flex",

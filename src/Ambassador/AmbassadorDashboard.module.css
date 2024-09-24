@@ -34,3 +34,11 @@
     width: 300px;
   }
 }
+
+.refreshButton {
+  background: none !important;
+}
+
+.updateButton {
+  background: #008080 !important;
+}

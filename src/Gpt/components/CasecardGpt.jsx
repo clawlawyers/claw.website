@@ -9,6 +9,7 @@ import Styles from "../../components/CaseCard/index.module.css";
 import { useDispatch } from "react-redux";
 import { open } from "../../features/popup/popupSlice";
 import markdownit from "markdown-it";
+import { activePlanFeatures } from "../../utils/checkActivePlanFeatures";
 
 const courtIdMapping = {
   "Supreme Court of India": "1bgi-zbCWObiTNjkegNXryni4ZJzZyCFV",
@@ -70,10 +71,21 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
   const [content, setContent] = useState("");
   const jwt = useSelector((state) => state.auth.user.jwt);
   const [loading, setLoading] = useState(false);
-  const { token } = useSelector((state) => state.gpt);
+  // const { token } = useSelector((state) => state.gpt);
+  const { plan } = useSelector((state) => state.gpt);
+
   const dispatch = useDispatch();
-  // const handlePopupOpen = useCallback(() => dispatch(open()), []);
+
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
+  const [activePlan, setActivePlan] = useState([]);
+
+  const handlePopupOpen = useCallback(() => dispatch(open()), []);
+
+  useEffect(() => {
+    if (plan) {
+      setActivePlan(activePlanFeatures(plan, "AISummerizer"));
+    }
+  }, [plan]);
 
   const handleSummary = async () => {
     if (summery) {
@@ -117,19 +129,19 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
 
   async function handleOpen() {
     try {
-      console.log(token);
-      console.log(parseFloat(token?.used) + 1);
+      // console.log(token);
+      // console.log(parseFloat(token?.used) + 1);
 
-      if (
-        token?.used?.caseSearchTokenUsed >=
-          token?.total?.totalCaseSearchTokens ||
-        parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
-          token?.total?.totalCaseSearchTokens
-      ) {
-        console.log("token exipred");
-        dispatch(open());
-        return;
-      }
+      // if (
+      //   token?.used?.caseSearchTokenUsed >=
+      //     token?.total?.totalCaseSearchTokens ||
+      //   parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
+      //     token?.total?.totalCaseSearchTokens
+      // ) {
+      //   console.log("token exipred");
+      //   dispatch(open());
+      //   return;
+      // }
       setLoading(true);
       setOpenCase(true);
 
@@ -144,7 +156,7 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
         }
       );
       var parsed = await response.json();
-      //   console.log(parsed.data.token);
+      console.log(parsed);
 
       setContent(parsed);
       dispatch(setToken({ token: parsed.data.token }));
@@ -182,7 +194,7 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
           Number of citations- {citations}
         </p>
       </div>
-      <div className="flex gap-2">
+      <div className="flex flex-col md:flex-row gap-2">
         <button
           onClick={handleOpen}
           style={{
@@ -202,7 +214,11 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
           View document
         </button>
         <button
-          onClick={handleSummaryToggle}
+          onClick={
+            activePlan[0]?.plan?.AISummerizer
+              ? handleSummaryToggle
+              : handlePopupOpen
+          }
           style={{
             border: "none",
             padding: "10px 12px",
@@ -259,13 +275,20 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
             height: "90%",
             color: "black",
             borderRadius: 10,
-            overflowY: "scroll",
+            // overflowY: "scroll",
             padding: 10,
             transform: "translate(-50%, -50%)",
             boxShadow: 24,
           }}
         >
-          <div style={{ position: "sticky", top: 0, display: "flex" }}>
+          <div
+            style={{
+              position: "sticky",
+              top: 0,
+              display: "flex",
+              background: "white",
+            }}
+          >
             <div style={{ flex: 1 }} />
             <button
               onClick={handleClose}
@@ -274,39 +297,54 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
               <ClearIcon style={{ fontSize: 30, color: "black" }} />
             </button>
           </div>
+          <div className="h-[90%] overflow-auto border border-black p-3">
+            {loading ? (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CircularProgress style={{ color: "black" }} />
+              </div>
+            ) : (
+              <div
+                style={{
+                  whiteSpace: "pre-line",
+                  alignItems: "center",
+                  width: "100%",
+                  fontSize: 16,
+                  fontWeight: 500,
+                  fontFamily: "serif",
+                }}
+              >
+                {Object.keys(content?.data?.fetchedData || {}).map((key) => {
+                  function unicodeToChar(unicodeStr) {
+                    return unicodeStr.replace(/\\u[\dA-Fa-f]{4}/g, (match) => {
+                      return String.fromCharCode(
+                        parseInt(match.replace("\\u", ""), 16)
+                      );
+                    });
+                  }
 
-          {loading ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <CircularProgress style={{ color: "black" }} />
-            </div>
-          ) : (
-            <div
-              style={{
-                whiteSpace: "pre-line",
-                alignItems: "center",
-                width: "100%",
-                fontSize: 16,
-                fontWeight: 500,
-                fontFamily: "serif",
-                border: "1px solid black",
-                padding: 10,
-              }}
-            >
-              {Object.keys(content?.data?.fetchedData || {}).map((key) => (
-                <div key={key}>
-                  <p style={{ color: "black" }}>
-                    {content?.data?.fetchedData[key]}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
+                  let unicodeString = "\\u2026 \\u201D \\u201C";
+                  let data = unicodeToChar(content?.data?.fetchedData[key]);
+
+                  return (
+                    <div key={key}>
+                      <p
+                        style={{ color: "black" }}
+                        dangerouslySetInnerHTML={{ __html: data }}
+                      ></p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </Modal>
     </div>
