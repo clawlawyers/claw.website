@@ -10,8 +10,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 
 import Style from "./Sidebar.module.css";
 import { UserSessions } from "./UserSessions";
@@ -23,60 +21,18 @@ import { open } from "../features/popup/popupSlice";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Home } from "@mui/icons-material";
 import whatLegal from "../assets/images/whatLegal.gif";
-import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 
 export default function Sidebar({ keyword, primaryColor, model }) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
   const collapsed = useSelector((state) => state.sidebar.collapsed);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
-  const { plan } = useSelector((state) => state.gpt);
-  // const token = useSelector((state) => state.gpt.token);
+  const plan = useSelector((state) => state.gpt.plan);
+  const token = useSelector((state) => state.gpt.token);
   const { isAuthLoading } = useAuthState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [startnew, setStartNew] = useState(0);
-  const [legalGptOpen, setLegalGptOpen] = useState(false);
-  const [activePlan, setActivePlan] = useState([]);
-  const [cancelSubscriptionDialog, setCancelSubscriptionDialog] =
-    useState(false);
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "#018081",
-    border: "2px solid white",
-    boxShadow: 24,
-    p: 4,
-    height: "45%",
-    width: "40%",
-  };
-
-  const subscriptionStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "#C7C7C7",
-    border: "2px solid white",
-    boxShadow: 24,
-    p: 4,
-    height: "35%",
-    width: "40%",
-  };
-
-  useEffect(() => {
-    if (plan) {
-      setActivePlan(activePlanFeatures(plan));
-    }
-  }, [plan]);
 
   function handleAccount() {
     if (!currentUser) navigate("/login");
@@ -229,22 +185,21 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                           <div>
                             <span className="text-white">Plan Type : </span>
                             <span style={{ textTransform: "capitalize" }}>
-                              {activePlan.length
-                                ? activePlan[0]?.planName?.split("_")[0]
+                              {plan.length
+                                ? plan[0]?.split("_")[0]
                                 : " No Plan"}
                               {/* No Plan */}
                             </span>
                           </div>
-                          {/* {plan.length && (
+                          {plan.length && (
                             <div>
                               <span className="text-white">Token : </span>
                               {Math.floor(token?.used?.gptTokenUsed)}/
                               {token?.total?.totalGptTokens}
                             </div>
-                          )} */}
-                          <div className="mt-3 flex justify-between">
+                          )}
+                          <div className="mt-3 flex">
                             <button
-                              className="font-semibold text-xs justify-center items-center"
                               style={{
                                 display: "flex",
                                 color: "white",
@@ -258,9 +213,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             >
                               Upgrade
                             </button>
-                            <button
-                              onClick={() => setCancelSubscriptionDialog(true)}
-                              className="font-semibold text-xs justify-center items-center"
+                            {/* <button
                               style={{
                                 display: "flex",
                                 color: "#00969A",
@@ -271,8 +224,8 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 background: "white",
                               }}
                             >
-                              End Subscription
-                            </button>
+                              Log Out
+                            </button> */}
                           </div>
                         </>
                       ) : (
@@ -311,12 +264,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       style={{ backgroundColor: "transparent" }}
                     /> */}
                   </div>
-                  <div
-                    className="hover:cursor-pointer"
-                    onClick={() => setLegalGptOpen(true)}
-                  >
-                    What is {keyword}GPT
-                  </div>
+                  <div>What is {keyword}GPT</div>
                 </div>
                 <button
                   style={{
@@ -493,27 +441,26 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       {currentUser ? currentUser.phoneNumber : <>Guest</>}
                     </div> */}
                       <div style={{ fontSize: 14, color: "#777" }}>
-                        {activePlan ? (
+                        {plan ? (
                           <>
                             <div>
                               <span className="text-white">Plan Type : </span>
                               <span style={{ textTransform: "capitalize" }}>
-                                {activePlan.length
-                                  ? activePlan[0]?.planName?.split("_")[0]
+                                {plan.length
+                                  ? plan[0]?.split("_")[0]
                                   : " No Plan"}
                                 {/* No Plan */}
                               </span>
                             </div>
-                            {/* {plan.length && (
+                            {plan.length && (
                               <div>
                                 <span className="text-white">Token : </span>
                                 {Math.floor(token?.used?.gptTokenUsed)}/
                                 {token?.total?.totalGptTokens}
                               </div>
-                            )} */}
-                            <div className="mt-3 flex justify-between">
+                            )}
+                            <div className="mt-3 flex">
                               <button
-                                className="font-semibold text-xs  justify-center items-center"
                                 style={{
                                   display: "flex",
                                   color: "white",
@@ -527,20 +474,19 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               >
                                 Upgrade
                               </button>
-                              <button
-                                className="font-semibold text-xs justify-center items-center"
-                                style={{
-                                  display: "flex",
-                                  color: "#00969A",
-                                  border: "none",
-                                  padding: "6px 20px",
-                                  marginTop: 5,
-                                  borderRadius: 5,
-                                  background: "white",
-                                }}
-                              >
-                                End Subscription
-                              </button>
+                              {/* <button
+                              style={{
+                                display: "flex",
+                                color: "#00969A",
+                                border: "none",
+                                padding: "6px 20px",
+                                marginTop: 5,
+                                borderRadius: 5,
+                                background: "white",
+                              }}
+                            >
+                              Log Out
+                            </button> */}
                             </div>
                           </>
                         ) : (
@@ -579,12 +525,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       style={{ backgroundColor: "transparent" }}
                     /> */}
                     </div>
-
-                    <div>
-                      <button onClick={() => setLegalGptOpen(true)}>
-                        What s {keyword}GPT
-                      </button>
-                    </div>
+                    <div>What is {keyword}GPT</div>
                   </div>
                   <button
                     style={{
@@ -674,66 +615,6 @@ export default function Sidebar({ keyword, primaryColor, model }) {
           </div>
         </div>
       )}
-      <Modal
-        open={legalGptOpen}
-        onClose={() => {
-          setLegalGptOpen(false);
-        }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={style}
-          className="overflow-scroll  gap-6 flex flex-col rounded-xl"
-        >
-          <div className="font-sans text-lg text-justify text-white">
-            LegalGPT leverages advanced AI technology to provide insightful
-            legal assistance, automate document creation, and streamline legal
-            research. It combines the power of GPT (Generative Pre-trained
-            Transformer) technology with legal expertise, offering lawyers and
-            law firms the ability to efficiently navigate complex legal
-            scenarios, draft legal documents, and even simulate court
-            proceedings. This tool is particularly useful for professionals
-            seeking to optimize their workflow by reducing time spent on
-            repetitive tasks and improving the accuracy of their legal research
-            and documentation. LegalGPT is part of Claw's broader suite of
-            services aimed at revolutionizing legal practice through the
-            integration of AI and automation.
-          </div>
-        </Box>
-      </Modal>
-      <Modal
-        open={cancelSubscriptionDialog}
-        onClose={() => {
-          setCancelSubscriptionDialog(false);
-        }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={subscriptionStyle}
-          className="overflow-scroll  gap-6 flex flex-col rounded-xl"
-        >
-          <div className="font-sans text-center">
-            <h3 className="text-4xl text-[#018081] font-bold">
-              Cancel Subscription
-            </h3>
-            <p className="text-black">
-              Are you sure you want to cancel your subscription?
-            </p>
-          </div>
-          <div className="flex justify-center gap-3">
-            <button
-              onClick={() => setCancelSubscriptionDialog(false)}
-              className="px-5 rounded bg-transparent text-[#018081]"
-              style={{ border: "2px solid #018081" }}
-            >
-              No
-            </button>
-            <button className="px-5 rounded">Yes</button>
-          </div>
-        </Box>
-      </Modal>
     </div>
   );
 }

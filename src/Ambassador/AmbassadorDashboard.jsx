@@ -11,9 +11,6 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import { ClearIcon } from "@mui/x-date-pickers";
 import Styles from "./AmbassadorDashboard.module.css";
 import { Helmet } from "react-helmet";
-import trophyIcon from "../assets/images/trophyCup.png";
-import rankingIcon from "../assets/images/Ranking.png";
-import leaderIcon from "../assets/images/leaderIcon.png";
 
 export default function AmbassadorDashboard() {
   const { jwt } = useSelector((state) => state.auth.user);
@@ -138,17 +135,14 @@ export default function AmbassadorDashboard() {
         }}
       >
         <div>
-          <h3 className="text-[#00CACA]" style={{ fontWeight: 600 }}>
-            Claw Leader's Dashboard
-          </h3>
+          <h3 style={{ fontWeight: 600 }}>Dashboard</h3>
         </div>
         <button
-          className={Styles.refreshButton}
           disabled={loading}
           style={{
             color: "white",
-            borderRadius: 10,
-            border: "2px solid #00FFFF",
+            borderRadius: 50,
+            border: "none",
             padding: "10px 18px",
             fontSize: 18,
             fontWeight: 600,
@@ -158,213 +152,135 @@ export default function AmbassadorDashboard() {
           }}
           onClick={fetchAmbassadorDetails}
         >
-          {/* <RefreshIcon /> */}
-          Refresh Dashboard
+          <RefreshIcon />
+          Refresh
         </button>
       </div>
-      <div className="grid md:grid-cols-2 gap-3">
-        {/* left container */}
-        <div className="flex flex-col gap-3">
-          <div
-            style={{
-              background: "linear-gradient(90deg,#C8FFFF,#388888)",
-              color: "black",
-              borderRadius: 23,
-              padding: "20px 40px",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ display: "flex", flex: 1 }}>
-              {loading ? (
-                <div className="w-full flex items-center justify-center">
-                  <CircularProgress style={{ color: "#008080" }} />
-                </div>
-              ) : (
-                <div className="flex flex-col w-full">
-                  <div>
-                    <h1 className="text-3xl font-bold">Leader Details</h1>
-                  </div>
-                  <div style={{ fontSize: 18, fontWeight: 600 }}>
-                    <div>
-                      <span className="text-[#388888]">Name</span> :{" "}
-                      {details?.client?.firstName +
-                        " " +
-                        details?.client?.lastName}
-                    </div>
-                    <div>
-                      <span className="text-[#388888]">Referral Code</span> :{" "}
-                      {details?.referralCode &&
-                        details?.referralCode?.referralCode}
-                    </div>
-                    <div>
-                      <span className="text-[#388888]">College Name</span> :{" "}
-                      {details.client?.collegeName}
-                    </div>
-                  </div>
-                  <div className="flex w-full" style={{ marginTop: 20 }}>
-                    <button
-                      onClick={handleOpen}
-                      className={Styles.updateButton}
-                      style={{
-                        width: "100%",
-                        color: "white",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      Update Bank Details
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-          <div
-            style={{
-              backgroundColor: "#CCFFFF",
-              borderRadius: 23,
-              padding: 30,
-            }}
-          >
-            <div>
-              <h1 className="text-3xl font-bold text-black">Your Stats</h1>
-            </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2,1fr)",
-                gap: 24,
-                marginTop: 20,
-              }}
-            >
-              <div className="flex flex-col bg-[#004848] items-center justify-center p-3 rounded-lg">
-                <p className="text-[#00FFFF] text-xl">Students Enrolled</p>
-                <p className="text-6xl font-semibold text-white">
-                  {details.redeemCount !== null ? details.redeemCount : "-"}
-                </p>
-              </div>
-              <div className="flex flex-col bg-[#004848] items-center justify-center p-3 rounded-lg">
-                <p className="text-[#00FFFF] text-xl">All India Rank</p>
-                <p className="text-6xl font-semibold text-white">{"-"}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* right container */}
+      <div className={Styles.grid}>
         <div
           style={{
-            backgroundColor: "#004848",
+            backgroundColor: "white",
+            color: "black",
             borderRadius: 23,
-            padding: 30,
+            padding: "20px 40px",
             display: "flex",
             flexDirection: "column",
           }}
         >
-          <div className="flex justify-center gap-3 border-b-2 pb-3">
-            <img src={trophyIcon} />
-            <p className="text-2xl contents text-white">LeaderBoard</p>
-            <img src={trophyIcon} />
+          <div style={{ display: "flex", flex: 1 }}>
+            {loading ? (
+              <CircularProgress style={{ color: "#008080" }} />
+            ) : (
+              <div style={{ fontSize: 18, fontWeight: 600 }}>
+                <div>
+                  Name:{" "}
+                  {details.client?.firstName + " " + details.client?.lastName}
+                </div>
+                <div>
+                  Referral Code:{" "}
+                  {
+                    details?.referralCode && details?.referralCode?.referralCode
+                    //    (
+                    //     details?.referralCode?.referralCode
+                    //   ) : (
+                    //     <button
+                    //       onClick={generateReferralCode}
+                    //       style={{
+                    //         backgroundColor: "#008080",
+                    //         color: "white",
+                    //         border: "none",
+                    //         borderRadius: 5,
+                    //       }}
+                    //     >
+                    //       Generate
+                    //     </button>
+                    //   )
+                  }
+                </div>
+                <div>College Name: {details.client?.collegeName}</div>
+                <div>.....</div>
+              </div>
+            )}
           </div>
-          <div className="flex-1 h-full">
-            <div className="flex flex-col items-center justify-center h-full">
-              <img className="w-24 h-28" src={rankingIcon} />
-              <p className="contents text-[#00FFFF] text-2xl">
-                Ranking will be updated soon!
-              </p>
-            </div>
+          <div style={{ marginTop: 20 }}>
+            <button
+              onClick={handleOpen}
+              style={{
+                borderRadius: 15,
+                backgroundColor: "#008080",
+                color: "white",
+                border: "none",
+                width: "100%",
+                padding: "18px 0px",
+                fontSize: 18,
+                fontWeight: 500,
+              }}
+            >
+              Update Bank Details
+            </button>
           </div>
         </div>
-      </div>
-      <div
-        className="rounded-2xl p-3"
-        style={{
-          marginTop: "20px",
-          background: "linear-gradient(90deg,#018578,#00AC70)",
-        }}
-      >
-        <div className="flex flex-col items-center justify-center">
-          <h1 className="font-bold text-5xl">Announcements</h1>
-          <p className="text-xl text-black font-semibold">
-            Check important notifications here
-          </p>
-        </div>
-        <div className="grid md:grid-cols-2 gap-3">
-          <div className="flex items-center justify-center w-full">
-            <img className="w-96 h-96" src={leaderIcon} />
+        <div
+          style={{
+            backgroundColor: "#008080",
+            borderRadius: 23,
+            padding: "18px 12px",
+          }}
+        >
+          <div>
+            <h5>Upcoming events</h5>
           </div>
-          <div className="h-[70vh] overflow-auto flex flex-col gap-2">
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img alt="calendar" src={comingsoon} />
+            <div>Coming soon..</div>
+          </div>
+        </div>
+        <div
+          style={{ backgroundColor: "black", borderRadius: 23, padding: 30 }}
+        >
+          <div>
+            <h5>Understand</h5>
+          </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2,1fr)",
+              gap: 24,
+              marginTop: 20,
+            }}
+          >
+            <Capsule
+              value={details.redeemCount !== null ? details.redeemCount : "-"}
+              loading={loading}
+              label="Student enrolled"
+            />
+            <Capsule value={null} loading={loading} label="All india rank" />
+            <Capsule value={null} loading={loading} label="Zonal rank" />
+          </div>
+        </div>
+        <div
+          style={{ backgroundColor: "black", borderRadius: 23, padding: 30 }}
+        >
+          <div>
+            <h5>Awards won</h5>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img alt="trophy" src={trophy} />
+            Participate to win prizes
           </div>
         </div>
       </div>

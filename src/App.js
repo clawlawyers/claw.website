@@ -8,7 +8,7 @@ import CreateBlog from "./CreateBlog/CreateBlog";
 import Pricing from "./Pricing/Pricing";
 import Login from "./Login/Login";
 import RootLayout from "./RootLayout/RootLayout";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import store from "./store";
 import Payment from "./Payment/Payment";
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
@@ -62,41 +62,17 @@ import Verdict from "./CourtRoom/CourtroomAi/Verdict.jsx";
 import Contact from "./CourtRoom/ContactUs/Contact.jsx";
 import { retrieveCourtroomAuth } from "./features/bookCourtRoom/LoginReducreSlice.js";
 import SessionGptNew from "./Gpt/components/SessionGptNew.jsx";
-import PlanPayment from "./Pricing/PlanPayment.jsx";
-import { retrieveActivePlanUser, setPlan } from "./features/gpt/gptSlice.js";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
   const [init, setInit] = useState(false);
   const currentUser = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
 
   const currentUserRef = useRef(currentUser);
 
   useEffect(() => {
     currentUserRef.current = currentUser;
   }, [currentUser]);
-
-  // useEffect(() => {
-  //   async function fetchGptUser() {
-  //     try {
-  //       const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
-  //         method: "GET",
-  //         headers: {
-  //           Authorization: `Bearer ${currentUser.jwt}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-  //       const parsed = await res.json();
-
-  //       dispatch(setPlan({ plan: parsed.data.plan }));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-
-  //   if (currentUser) fetchGptUser();
-  // }, [currentUser]);
 
   const updateEngagementTime = useCallback(async (engagementData) => {
     try {
@@ -135,9 +111,8 @@ function App() {
 
   // this should be run only once per application lifetime
   useEffect(() => {
-    store.dispatch(retrieveActivePlanUser());
     store.dispatch(retrieveAuth());
-    // store.dispatch(retrieveCourtroomAuth());
+    store.dispatch(retrieveCourtroomAuth());
   }, []);
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -329,18 +304,18 @@ function App() {
           path: "news",
           element: <TrackedNews />,
         },
-        // {
-        //   path: "blog",
-        //   element: <TrackedAllBlogs />,
-        // },
+        {
+          path: "blog",
+          element: <TrackedAllBlogs />,
+        },
         {
           path: "blog/:blogName",
           element: <Blog />,
         },
-        // {
-        //   path: "create/blog",
-        //   element: <CreateBlog />,
-        // },
+        {
+          path: "create/blog",
+          element: <CreateBlog />,
+        },
         {
           path: "privacyPolicy",
           element: <PrivacyPolicy />,
@@ -352,10 +327,6 @@ function App() {
         {
           path: "pricing",
           element: <Pricing />,
-        },
-        {
-          path: "payment",
-          element: <PlanPayment />,
         },
         {
           path: "congrats-investor",
