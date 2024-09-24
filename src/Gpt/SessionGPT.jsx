@@ -183,6 +183,7 @@ export default function SessionGPT({ model, primaryColor }) {
       setPrompts([{ text: prompt, isUser: true }]);
     }
   }, []);
+
   const formatText = (text) => {
     return text
       .replace(/\\n\\n/g, "<br/><br/>") // Ensure two \n result in a new paragraph
@@ -460,9 +461,9 @@ export default function SessionGPT({ model, primaryColor }) {
                   </div>
                 ) : (
                   <div className="h-full w-full p-3 flex flex-col gap-2">
-                    <div className="w-full h-8 bg-slate-600 animate-pulse  rounded"></div>
-                    <div className="w-full h-8 bg-slate-600 animate-pulse  rounded"></div>
-                    <div className="w-full h-8 bg-slate-600 animate-pulse  rounded"></div>
+                    <div>Generating AI Suggestions....</div>
+                    <div className="w-full h-7 bg-slate-600 animate-pulse  rounded"></div>
+                    <div className="w-full h-7 bg-slate-600 animate-pulse  rounded"></div>
                   </div>
                 )}
               </>

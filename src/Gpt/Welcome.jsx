@@ -7,12 +7,16 @@ import CustomInputForm from "./components/CustomInputForm";
 import mindIcon from "../assets/images/mind.png";
 import { motion } from "framer-motion";
 import Styles from "./Welcome.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { NODE_API_ENDPOINT } from "../utils/utils";
+import { generateResponse, setGpt } from "../features/gpt/gptSlice";
+import { useNavigate } from "react-router-dom";
 
 const prompArr = [
   "What is the historical context behind the creation of the Right to Information (RTI) Act, 2005? How has this law evolved over time, and what were the major milestones in its development?",
-  "Can you provide a detailed summary of the Finance Act 2021? What are the key provisions included in this act, and how do they impact tax regulations and financial reporting?",
+  // "Can you provide a detailed summary of the Finance Act 2021? What are the key provisions included in this act, and how do they impact tax regulations and financial reporting?",
   "What is the process for calculating taxes for self-employed individuals? Include details on applicable tax rates, business expense deductions, and any special considerations for freelancers or sole proprietors.",
-  "What steps should I follow to file a query regarding a specific legal incident to the Police Department? Include information on necessary forms, submission methods, and expected response times.",
+  // "What steps should I follow to file a query regarding a specific legal incident to the Police Department? Include information on necessary forms, submission methods, and expected response times.",
   "Discuss the legal issues involved in a case of employee dismissal due to alleged misconduct in Bangalore. What are the relevant laws and regulations, and how do they address wrongful termination and employee rights?",
 ];
 
@@ -24,6 +28,39 @@ export default function Welcome({
 }) {
   let containerStyles = { width: "97%" };
   const [selectedPrompt, setSelectedPrompt] = useState(null);
+
+  const currentUser = useSelector((state) => state.auth.user);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  async function onPromptSelect(selectedPrompt) {
+    if (!selectedPrompt) return;
+    // setIsLoading(true);
+
+    if (currentUser) {
+      const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${currentUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: selectedPrompt, model: "legalGPT" }),
+      });
+      const { data } = await res.json();
+      dispatch(setGpt({ prompt: selectedPrompt }));
+      dispatch(generateResponse({ sessionId: data.id, model: "legalGPT" }));
+
+      navigate(`session/${data.id}`);
+    } else {
+      const searchParams = new URLSearchParams({
+        callbackUrl: "/gpt/legalGPT",
+      }).toString();
+      dispatch(setGpt({ prompt: selectedPrompt }));
+      navigate(`/login?${searchParams}`);
+    }
+  }
+
   return (
     <div
       className="my-[20px] md:my-0"
@@ -85,20 +122,20 @@ export default function Welcome({
             The power of AI for your {keyword} service
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-5 px-3 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 px-3 gap-4">
           <motion.div
             whileTap={{ scale: "0.95" }}
-            onClick={() => setSelectedPrompt(prompArr[0])}
-            className="cursor-pointer flex flex-col gap-2 items-center  border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+            onClick={() => onPromptSelect(prompArr[0])}
+            className="cursor-pointer flex flex-col gap-2 items-center p-3 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
               Request information about specific laws or acts.
             </p>
           </motion.div>
-          <motion.div
+          {/* <motion.div
             whileTap={{ scale: "0.95" }}
-            onClick={() => setSelectedPrompt(prompArr[1])}
+            onClick={() => onPromptSelect(prompArr[1])}
             className="cursor-pointer flex flex-col gap-2 items-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
@@ -106,11 +143,11 @@ export default function Welcome({
               Inquire about Finance Acts, including their provisions and
               implications.
             </p>
-          </motion.div>
+          </motion.div> */}
           <motion.div
             whileTap={{ scale: "0.95" }}
-            onClick={() => setSelectedPrompt(prompArr[2])}
-            className="cursor-pointer flex flex-col gap-2 items-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+            onClick={() => onPromptSelect(prompArr[2])}
+            className="cursor-pointer flex flex-col gap-2 items-center p-2 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
@@ -118,9 +155,9 @@ export default function Welcome({
               rates and deductions.
             </p>
           </motion.div>
-          <motion.div
+          {/* <motion.div
             whileTap={{ scale: "0.95" }}
-            onClick={() => setSelectedPrompt(prompArr[3])}
+            onClick={() => onPromptSelect(prompArr[3])}
             className="cursor-pointer flex flex-col gap-2 items-center  border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
@@ -128,11 +165,11 @@ export default function Welcome({
               Seek details on how to inquire about a specific legal incident,
               including procedures and necessary steps.
             </p>
-          </motion.div>
+          </motion.div> */}
           <motion.div
             whileTap={{ scale: "0.95" }}
-            onClick={() => setSelectedPrompt(prompArr[4])}
-            className="cursor-pointer flex flex-col gap-2 items-center border border-white p-2 rounded tracking-wide text-xs bg-[#303030]"
+            onClick={() => onPromptSelect(prompArr[4])}
+            className="cursor-pointer flex flex-col gap-2 items-center p-2 rounded tracking-wide text-xs bg-[#303030]"
           >
             <img className="h-8 w-8" src={mindIcon} />
             <p className="flex-none m-0">
@@ -146,7 +183,6 @@ export default function Welcome({
             containerStyles={containerStyles}
             primaryColor={primaryColor}
             onSubmit={submitPrompt}
-            selectedPrompt={selectedPrompt}
           />
           <div className="grid md:grid-cols-3 px-3 md:gap-5">
             <div className="flex flex-col gap-2 items-center text-center">
