@@ -186,36 +186,30 @@ export default function Welcome({
           />
           <div className="grid md:grid-cols-3 px-3 md:gap-5">
             <div className="flex flex-col gap-2 items-center text-center">
-              <img src={hammer} />
-              <h3>Legal Perspectives</h3>
-              <p>
+              <img className="h-9 w-9" src={hammer} />
+              <h3 className="text-xl">Legal Perspectives</h3>
+              <p className="text-xs">
                 Acquire invaluable legal perspectives on any scenario or query
                 concerning Indian law.
               </p>
             </div>
             <div className="flex flex-col gap-2 items-center text-center">
-              <img src={headset} />
-              <h3>Tailored Support</h3>
-              <p>
+              <img className="h-9 w-9" src={headset} />
+              <h3 className="text-xl">Tailored Support</h3>
+              <p className="text-xs">
                 Obtain legal insights tailored to your specific circumstances by
                 securely providing personal details within an end-to-end
                 encrypted framework.
               </p>
             </div>
-            <div className="flex flex-col gap-2 items-center text-center">
-              <img src={uploadIcon} />
-              <h3>Case Retrieval</h3>
-              <p>
+            <div className="flex flex-col gap-1 items-center text-center">
+              <img className="h-9 w-9" src={uploadIcon} />
+              <h3 className="text-xl">Case Retrieval</h3>
+              <p className="text-xs">
                 Access highly contextual and relevant cases with just a single
                 click.
               </p>
             </div>
-            {/* <WelcomePointers
-              style={{ gridColumn: "3/4" }}
-              icon={uploadIcon}
-              heading={"Case Retrieval"}
-              subHeading={`Access highly contextual and relevant cases with just a single click.`}
-            /> */}
           </div>
         </div>
       </div>

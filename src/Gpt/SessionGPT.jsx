@@ -193,7 +193,7 @@ export default function SessionGPT({ model, primaryColor }) {
 
   useEffect(() => {
     if (promptsRef.current) {
-      promptsRef.current.scrollTop = promptsRef.current.scrollHeight;
+      promptsRef.current.scrollTop = 0;
     }
   }, [prompts]);
 
@@ -447,18 +447,22 @@ export default function SessionGPT({ model, primaryColor }) {
             )}
             {!isLoading && (
               <>
-                {aiSuggestedQuestions?.length > 0 ? (
-                  <div className="px-2">
-                    {aiSuggestedQuestions.map((x, index) => (
-                      <p
-                        onClick={() => setSelectedAiSuggestion(x)}
-                        className="border-2 border-gray-400 rounded py-2 px-4 cursor-pointer"
-                        key={index}
-                      >
-                        {x}
-                      </p>
-                    ))}
-                  </div>
+                {!suggestedQuestionsIsLoading ? (
+                  <>
+                    {aiSuggestedQuestions.length > 0 ? (
+                      <div className="px-2">
+                        {aiSuggestedQuestions.map((x, index) => (
+                          <p
+                            onClick={() => setSelectedAiSuggestion(x)}
+                            className="border-2 border-gray-400 rounded py-2 px-4 cursor-pointer"
+                            key={index}
+                          >
+                            {x}
+                          </p>
+                        ))}
+                      </div>
+                    ) : null}
+                  </>
                 ) : (
                   <div className="h-full w-full p-3 flex flex-col gap-2">
                     <div>Generating AI Suggestions....</div>

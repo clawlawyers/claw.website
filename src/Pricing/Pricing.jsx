@@ -49,12 +49,21 @@ const planNamesquence = [
   { name: "PREMIUM_Y", price: 19999, index: 5 },
 ];
 
+const offerPlanNameSequence = [
+  { name: "BASIC_M", price: 199, index: 0 },
+  { name: "BASIC_Y", price: 1999, index: 1 },
+  { name: "ESSENTIAL_M", price: 699, index: 2 },
+  { name: "ESSENTIAL_Y", price: 6999, index: 3 },
+  { name: "PREMIUM_M", price: 1199, index: 4 },
+  { name: "PREMIUM_Y", price: 11999, index: 5 },
+];
+
 export default function Pricing() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null); // State to track hovered card
   const { plan: existingPlan } = useSelector((state) => state.gpt);
-  // console.log(planDetails);
+  // console.log(existingPlan);
 
   const [activeTab, setActiveTab] = useState(1);
   const [couponApplied, setCouponApplied] = useState("");
@@ -63,7 +72,7 @@ export default function Pricing() {
   const [couponFound, setCouponFound] = useState(false);
   const [trialDays, setTrialDays] = useState(0);
   const [isCouponCode, setIsCouponCode] = useState("");
-  const [isReferralCode, setIsReferralCode] = useState("");
+  const [isReferralCode, setIsReferralCode] = useState(null);
   const [couponLoading, setCouponLoading] = useState(false);
 
   const { pathname } = useLocation();
@@ -147,6 +156,10 @@ export default function Pricing() {
           totalPrice,
           createdAt: new Date().toISOString(),
           isAddonPlan: true,
+
+          refferalCode: isReferralCode,
+          couponCode: isCouponCode,
+          existingSubscription: "",
         })
       );
 
@@ -154,7 +167,12 @@ export default function Pricing() {
     }
   };
 
-  const handlePricingSelect = (plan, planType, sessions, totalPrice) => {
+  const handlePricingSelectSubscription = (
+    plan,
+    planType,
+    sessions,
+    totalPrice
+  ) => {
     const planName = `${planType.toUpperCase()}_${plan[0]}`;
 
     let existing;
@@ -212,7 +230,7 @@ export default function Pricing() {
 
         console.log(daysUsed);
 
-        const durationInDays = duration === "monthly" ? 30 : 360;
+        const durationInDays = duration === "monthly" ? 30 : 365;
 
         console.log(durationInDays);
 
@@ -226,7 +244,7 @@ export default function Pricing() {
         // Final price for the upgraded plan
         const finalPrice = newPrice - remainingValue;
 
-        // console.log(finalPrice);
+        console.log(finalPrice);
 
         // console.log({
         //   finalPrice: parseInt(finalPrice),
@@ -309,45 +327,177 @@ export default function Pricing() {
     // navigate("/payment");
   };
 
-  // console.log(hoveredCard);
-  function handleCartAdditionTrail(request, session, total, plan, type) {
-    dispatch(
-      setCart({
-        request,
-        session,
-        total,
-        plan,
-        type,
-      })
-    );
-    navigate("/paymentgateway");
-  }
+  const handlePricingSelect = (plan, planType, sessions, totalPrice) => {
+    const planName = `${planType.toUpperCase()}_${plan[0]}`;
 
-  function handleCartAddition(noOfRequests, noOfSessions, price, duration) {
-    if (!currentUser) {
-      const searchParams = new URLSearchParams({
-        callbackUrl: pathname,
-      }).toString();
-      navigate(`/login?${searchParams}`);
-    } else {
-      let type;
-      if (duration === "AddOn") {
-        type = "PROC";
+    let existing;
+    let existingDummyPlan;
+    let newOne;
+    if (existingPlan.length > 0 && couponApplied === "") {
+      if (existingPlan[0].planName === "ADDON_M" && existingPlan.length > 1) {
+        existing = planNamesquence.find(
+          (p) => p.name === existingPlan[1]?.plan?.name
+        );
+        existingDummyPlan = existingPlan[1];
       } else {
-        type = "PRO";
+        existing = planNamesquence.find(
+          (p) => p.name === existingPlan[0]?.plan?.name
+        );
+        existingDummyPlan = existingPlan[0];
       }
+      newOne = planNamesquence.find((p) => p.name === planName);
+    } else {
+      if (existingPlan[0].planName === "ADDON_M" && existingPlan.length > 1) {
+        existing = offerPlanNameSequence.find(
+          (p) => p.name === existingPlan[1]?.plan?.name
+        );
+        existingDummyPlan = existingPlan[1];
+      } else {
+        existing = offerPlanNameSequence.find(
+          (p) => p.name === existingPlan[0]?.plan?.name
+        );
+        existingDummyPlan = existingPlan[0];
+      }
+      newOne = planNamesquence.find((p) => p.name === planName);
+    }
+
+    //  existing = planNamesquence.find(
+    //     (p) => p.name === existingPlan[0]?.plan?.name
+    //   );
+    // const newOne = planNamesquence.find((p) => p.name === planName);
+
+    // console.log(existing);
+    // console.log(newOne);
+
+    if (!existing) {
       dispatch(
-        setCart({
-          request: noOfRequests,
-          session: noOfSessions,
-          total: price,
-          plan: duration === "AddOn" ? "LIFETIME" : duration,
-          type: type,
+        setPriceDetails({
+          plan,
+          planType,
+          sessions,
+          totalPrice,
+          isDiscount: couponApplied !== "" ? true : false,
+          createdAt: new Date().toISOString(),
+          // isUpgrade: "",
+          trialDays,
+          refferalCode: isReferralCode,
+          couponCode: isCouponCode,
+          refundAmount: 0,
         })
       );
-      navigate("/paymentgateway");
+      navigate("/payment");
+    } else {
+      if (newOne.index > existing.index) {
+        console.log("new plan will added");
+        // const existingPrice = planNamesquence[existing.index].price;
+        const existingPrice = existing.price;
+        const newPrice = newOne.price;
+        const duration = existingDummyPlan?.plan?.duration;
+        const planCreateData = new Date(existingDummyPlan?.createdAt);
+        const now = new Date();
+        const daysUsed = Math.floor(
+          (now - planCreateData) / (1000 * 60 * 60 * 24)
+        ); // Days used
+
+        console.log(planCreateData, now);
+
+        console.log(daysUsed);
+
+        const durationInDays = duration === "monthly" ? 30 : 365;
+
+        console.log(durationInDays);
+
+        const remainingDays = durationInDays - daysUsed;
+
+        console.log(remainingDays);
+
+        // Calculate the prorated remaining value of the current plan
+        const remainingValue = (remainingDays / durationInDays) * existingPrice;
+
+        // Final price for the upgraded plan
+        const finalPrice = newPrice - remainingValue;
+
+        // console.log(finalPrice);
+
+        // console.log({
+        //   finalPrice: parseInt(finalPrice),
+        //   isUpgrade: existingPlan[0]?.plan?.name,
+        // });
+
+        dispatch(
+          setPriceDetails({
+            plan,
+            planType,
+            sessions,
+            totalPrice,
+            discount: couponApplied !== "" ? true : false,
+            // isUpgrade: existing.name,
+            createdAt: new Date().toISOString(),
+            refferalCode: isReferralCode,
+            couponCode: isCouponCode,
+            refundAmount: Math.ceil(finalPrice),
+            existingSubscription: existingDummyPlan?.subscriptionId,
+          })
+        );
+        navigate("/payment");
+      } else {
+        // let createdAt;
+        // if (
+        //   existingPlan[existingPlan.length - 1].planName === "ADDON_M" &&
+        //   existingPlan.length > 1
+        // ) {
+        //   createdAt = new Date(
+        //     existingPlan[existingPlan.length - 2]?.createdAt
+        //   );
+        // } else {
+        //   createdAt = new Date(
+        //     existingPlan[existingPlan.length - 1]?.createdAt
+        //   );
+        // }
+        // const duration = existingPlan[existingPlan.length - 1]?.plan?.duration;
+        // const expiryDate =
+        //   duration === "monthly"
+        //     ? new Date(
+        //         new Date(createdAt).getTime() + 30 * 24 * 60 * 60 * 1000
+        //       ).toISOString()
+        //     : new Date(
+        //         new Date(createdAt).setFullYear(
+        //           new Date(createdAt).getFullYear() + 1
+        //         )
+        //       ).toISOString();
+
+        // console.log({
+        //   finalPrice: newOne.price,
+        //   isUpgrade: "",
+        //   createdAt: expiryDate,
+        // });
+        // dispatch(
+        //   setPriceDetails({
+        //     plan,
+        //     planType,
+        //     sessions,
+        //     totalPrice: newOne.price,
+        //     discount: couponApplied !== "" ? true : false,
+        //     isUpgrade: "",
+        //     createdAt: expiryDate,
+        //   })
+        // );
+        // navigate("/payment");
+        toast.error("Please Subscribe To a Higher Plan than your Active Plan");
+      }
     }
-  }
+
+    // dispatch(
+    //   setPriceDetails({
+    //     plan,
+    //     planType,
+    //     sessions,
+    //     totalPrice,
+    //     discount: couponApplied !== "" ? true : false,
+    //   })
+    // );
+    // navigate("/payment");
+  };
 
   return (
     <div

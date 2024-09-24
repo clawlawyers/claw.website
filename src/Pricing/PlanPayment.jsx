@@ -27,8 +27,6 @@ const PlanPayment = () => {
     navigate("/pricing");
     dispatch(resetPriceDetails());
   };
-
-  // const loadRazorpay = async () => {
   //   setLoading(true);
   //   const script = document.createElement("script");
   //   script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -56,7 +54,7 @@ const PlanPayment = () => {
   //       const { amount, id, currency } = result.data.razorpayOrder;
   //       const { _id } = result.data.createdOrder;
   //       const options = {
-  //         key: "rzp_live_vlDmt5SV4QPDhN",
+  //         key: "rzp_test_UWcqHHktRV6hxM",
   //         amount: String(amount),
 
   //         currency: currency,
@@ -100,7 +98,7 @@ const PlanPayment = () => {
 
   // const trialDays = 7;
 
-  const loadRazorpay = async () => {
+  const loadRazorpaySubscription = async () => {
     setLoading(true);
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -135,7 +133,7 @@ const PlanPayment = () => {
         console.log(subscription_id);
 
         const options = {
-          key: "rzp_live_vlDmt5SV4QPDhN",
+          key: "rzp_test_UWcqHHktRV6hxM",
           subscription_id: subscription_id, // Pass the subscription_id instead of order_id
           name: "CLAW LEGALTECH PRIVATE LIMITED",
           description: "Subscription",
@@ -165,6 +163,104 @@ const PlanPayment = () => {
             // Verify the subscription payment with the backend
             const result = await axios.post(
               `${NODE_API_ENDPOINT}/payment/verify-subscription`,
+              data
+            );
+            alert(result.data.status);
+            setPaymentVerified(true);
+            dispatch(retrieveActivePlanUser());
+          },
+          prefill: {
+            name: currentUser?.name,
+            email: currentUser?.email,
+            contact: currentUser?.phoneNumber,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+
+        console.log(options);
+
+        const paymentObject = new window.Razorpay(options);
+
+        console.log(paymentObject);
+        paymentObject.open();
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    document.body.appendChild(script);
+  };
+
+  const loadRazorpay = async () => {
+    setLoading(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onerror = () => {
+      alert("Razorpay SDK failed to load. Are you online?");
+    };
+    script.onload = async () => {
+      try {
+        const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
+
+        const result = await axios.post(
+          `${NODE_API_ENDPOINT}/payment/create-order`,
+          {
+            amount: paymentDetails?.refundAmount
+              ? paymentDetails?.refundAmount
+              : paymentDetails?.totalPrice,
+            currency: "INR",
+            receipt: receipt,
+            plan: planeName?.toUpperCase(),
+            billingCycle: paymentDetails?.plan.toUpperCase(),
+            session: paymentDetails?.sessions,
+            phoneNumber: currentUser?.phoneNumber,
+          }
+        );
+
+        console.log(result);
+
+        const { amount, id, currency } = result.data.razorpayOrder;
+        const { _id } = result.data.createdOrder;
+
+        const options = {
+          key: "rzp_test_UWcqHHktRV6hxM",
+          amount: String(amount),
+          currency: currency,
+          name: "CLAW LEGALTECH PRIVATE LIMITED",
+          description: "Transaction",
+          order_id: id,
+          handler: async function (response) {
+            console.log(response);
+            const createdAt = new Date(paymentDetails?.createdAt);
+            const resultDate = new Date(createdAt);
+            const data = {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              _id,
+              createdAt: resultDate,
+              expiresAt:
+                paymentDetails.plan === "Monthly"
+                  ? new Date(
+                      new Date(createdAt).getTime() + 30 * 24 * 60 * 60 * 1000
+                    ).toISOString()
+                  : new Date(
+                      new Date(createdAt).setFullYear(
+                        new Date(createdAt).getFullYear() + 1
+                      )
+                    ).toISOString(),
+              refferalCode: paymentDetails?.refferalCode,
+              couponCode: paymentDetails?.couponCode,
+              existingSubscription: paymentDetails?.existingSubscription,
+            };
+
+            console.log(response);
+
+            const result = await axios.post(
+              `${NODE_API_ENDPOINT}/payment/verifyPayment`,
               data
             );
             alert(result.data.status);
@@ -228,7 +324,7 @@ const PlanPayment = () => {
         // console.log(subscription_id);
 
         const options = {
-          key: "rzp_live_vlDmt5SV4QPDhN",
+          key: "rzp_test_UWcqHHktRV6hxM",
           amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
@@ -247,6 +343,9 @@ const PlanPayment = () => {
               expiresAt: new Date(
                 new Date(createdAt).getTime() + 30 * 24 * 60 * 60 * 1000
               ).toISOString(),
+              refferalCode: paymentDetails?.refferalCode,
+              couponCode: paymentDetails?.couponCode,
+              existingSubscription: paymentDetails?.existingSubscription,
             };
 
             console.log(response);
@@ -313,23 +412,46 @@ const PlanPayment = () => {
               </button>
             </div>
             <div className="w-full bg-[#055151] p-3 rounded">
-              <div className="w-full flex justify-between items-center pb-10">
-                <div>
-                  <p className="m-0 text-lg text-white">
-                    {paymentDetails?.planType} Package
-                  </p>
-                  <p className="text-white">({paymentDetails?.plan})</p>
+              <div className="w-full flex flex-col items-center pb-10">
+                <div className="w-full flex justify-between">
+                  <div>
+                    <p className="m-0 text-lg text-white">
+                      {paymentDetails?.planType} Package
+                    </p>
+                    <p className="text-white">({paymentDetails?.plan})</p>
+                  </div>
+                  <div className="flex justify-end">
+                    <p className="text-white">₹ {paymentDetails?.totalPrice}</p>
+                  </div>
                 </div>
-                <div className="flex justify-end">
-                  <p className="text-white">₹ {paymentDetails?.totalPrice}</p>
-                </div>
+                {paymentDetails?.refundAmount ? (
+                  <div className="w-full flex justify-between">
+                    <div>
+                      <p className="m-0 text-lg text-white">
+                        Refundable Amount
+                      </p>
+                    </div>
+                    <div className="flex justify-end">
+                      <p className="text-white">
+                        ₹{" "}
+                        {paymentDetails?.totalPrice -
+                          paymentDetails?.refundAmount}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
               <hr />
               <div className="flex justify-between items-center">
                 <p className="m-0 text-white text-lg">Total Payable</p>
                 <div className="flex justify-end">
                   <p className="m-0 text-white">
-                    ₹ {paymentDetails?.totalPrice}
+                    ₹{" "}
+                    {paymentDetails?.refundAmount
+                      ? paymentDetails?.refundAmount
+                      : paymentDetails?.totalPrice}
                   </p>
                 </div>
               </div>
