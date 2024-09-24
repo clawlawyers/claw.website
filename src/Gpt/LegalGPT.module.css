@@ -12,6 +12,8 @@
 }
 .backdropImg {
   background-image: url("../assets/images/button-gradient.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .formContainer {

@@ -684,7 +684,19 @@ export default function SessionGPT({ model, primaryColor }) {
                     </div>
                     <div>
                       {showRelevantCase ? (
-                        <div className="m-2 p-3 border-2 border-white rounded bg-[#018081] flex flex-col gap-3">
+                        <div
+                          className={Style.backdropImg}
+                          style={{
+                            margin: "8px",
+                            padding: "12px",
+                            border: "2px solid white",
+                            borderRadius: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "12px",
+                          }}
+                          // className="m-2 p-3 border-2 border-white rounded bg-[#018081] flex flex-col gap-3"
+                        >
                           <div className="flex justify-between items-center">
                             <p className="font-bold m-0 px-3 text-2xl text-white">
                               Reference to Relevant Cases
@@ -714,7 +726,18 @@ export default function SessionGPT({ model, primaryColor }) {
                       )}
 
                       {showSupremeCourtCases ? (
-                        <div className="m-2 p-3 border-2 border-white rounded bg-[#018081] flex flex-col gap-3">
+                        <div
+                          className={Style.backdropImg}
+                          style={{
+                            margin: "8px",
+                            padding: "12px",
+                            border: "2px solid white",
+                            borderRadius: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "12px",
+                          }}
+                        >
                           <div className="flex justify-between items-center">
                             <p className="font-bold m-0 px-3 text-2xl text-white">
                               Reference to Supreme Court Judgements
