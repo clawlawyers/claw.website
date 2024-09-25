@@ -531,7 +531,7 @@ export default function Pricing() {
                 planType,
                 sessions,
                 totalPrice,
-                discount: couponApplied !== "" ? true : false,
+                isDiscount: couponApplied !== "" ? true : false,
                 createdAt: new Date().toISOString(),
                 refferalCode: isReferralCode,
                 couponCode: isCouponCode,
