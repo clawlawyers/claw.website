@@ -431,9 +431,7 @@ const PlanPayment = () => {
                 {paymentDetails?.refundAmount ? (
                   <div className="w-full flex justify-between">
                     <div>
-                      <p className="m-0 text-lg text-white">
-                        Refundable Amount
-                      </p>
+                      <p className="m-0 text-lg text-white">Discount</p>
                     </div>
                     <div className="flex justify-end">
                       <p className="text-white">
@@ -485,23 +483,44 @@ const PlanPayment = () => {
           </div>
           <div className="w-full flex flex-col px-5 md:px-0 md:pr-24 gap-3">
             <div className="w-full bg-[#00802F] p-3 rounded">
-              <div className="w-full flex justify-between items-center pb-10">
-                <div>
-                  <p className="m-0 text-lg text-white">
-                    {paymentDetails?.planType} Package
-                  </p>
-                  <p className="text-white">({paymentDetails?.plan})</p>
+              <div className="w-full flex flex-col items-center pb-10">
+                <div className="w-full flex justify-between">
+                  <div>
+                    <p className="m-0 text-lg text-white">
+                      {paymentDetails?.planType} Package
+                    </p>
+                    <p className="text-white">({paymentDetails?.plan})</p>
+                  </div>
+                  <div className="flex justify-end">
+                    <p className="text-white">₹ {paymentDetails?.totalPrice}</p>
+                  </div>
                 </div>
-                <div className="flex justify-end">
-                  <p className="text-white">₹ {paymentDetails?.totalPrice}</p>
-                </div>
+                {paymentDetails?.refundAmount ? (
+                  <div className="w-full flex justify-between">
+                    <div>
+                      <p className="m-0 text-lg text-white">Discount</p>
+                    </div>
+                    <div className="flex justify-end">
+                      <p className="text-white">
+                        ₹{" "}
+                        {paymentDetails?.totalPrice -
+                          paymentDetails?.refundAmount}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
               <hr />
               <div className="flex justify-between items-center">
                 <p className="m-0 text-white text-lg">Total Payable</p>
                 <div className="flex justify-end">
                   <p className="m-0 text-white">
-                    ₹ {paymentDetails?.totalPrice}
+                    ₹{" "}
+                    {paymentDetails?.refundAmount
+                      ? paymentDetails?.refundAmount
+                      : paymentDetails?.totalPrice}
                   </p>
                 </div>
               </div>
