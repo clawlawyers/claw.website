@@ -204,6 +204,20 @@ const PlanPayment = () => {
     script.onload = async () => {
       try {
         const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
+        let expiryTotalDays;
+        if (paymentDetails?.plan === "Monthly") {
+          if (paymentDetails?.isDiscount) {
+            expiryTotalDays = 37;
+          } else {
+            expiryTotalDays = 30;
+          }
+        } else {
+          if (paymentDetails?.isDiscount) {
+            expiryTotalDays = 372;
+          } else {
+            expiryTotalDays = 365;
+          }
+        }
 
         const result = await axios.post(
           `${NODE_API_ENDPOINT}/payment/create-order`,
@@ -245,12 +259,12 @@ const PlanPayment = () => {
               expiresAt:
                 paymentDetails.plan === "Monthly"
                   ? new Date(
-                      new Date(createdAt).getTime() + 30 * 24 * 60 * 60 * 1000
+                      new Date(createdAt).getTime() +
+                        expiryTotalDays * 24 * 60 * 60 * 1000
                     ).toISOString()
                   : new Date(
-                      new Date(createdAt).setFullYear(
-                        new Date(createdAt).getFullYear() + 1
-                      )
+                      new Date(createdAt).getTime() +
+                        expiryTotalDays * 24 * 60 * 60 * 1000
                     ).toISOString(),
               refferalCode: paymentDetails?.refferalCode,
               couponCode: paymentDetails?.couponCode,
