@@ -12,9 +12,9 @@ export const pricingSlice = createSlice({
     // isUpgrade: null,
     trialDays: null,
     refferalCode: null,
-    couponCode: null,
+    couponCode: "",
     refundAmount: null,
-    existingSubscription: null,
+    existingSubscription: "",
     isAddonPlan: null,
   },
 
@@ -44,8 +44,9 @@ export const pricingSlice = createSlice({
       // state.isUpgrade = null;
       state.trialDays = null;
       state.refferalCode = null;
-      state.couponCode = null;
+      state.couponCode = "";
       state.refundAmount = null;
+      state.existingSubscription = "";
       state.isAddonPlan = null;
     },
   },

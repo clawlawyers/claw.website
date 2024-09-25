@@ -1,29 +1,24 @@
-const { SitemapStream, streamToPromise } = require('sitemap');
-const { createWriteStream } = require('fs');
-const path = require('path');
+const { SitemapStream, streamToPromise } = require("sitemap");
+const { createWriteStream } = require("fs");
+const path = require("path");
 
 // Define your static routes
 const staticRoutes = [
-  '/',
-  '/news',
-  '/blog',
-  '/create/blog',
-  '/privacyPolicy',
-  '/terms-of-service',
-  '/pricing',
-  '/login',
-  '/leaders',
-  '/leaders/apply',
-  '/leaders/dashboard',
-  '/admin',
-  '/admin/leaders/add',
-  '/paymentgateway',
-  '/case/search',
-  '/contact-us',
-  '/refund-and-cancellation-policy',
-  '/shipping-and-delivery-policy',
-  '/gpt/legalGPT',
-  '/gpt/finGPT'
+  "/",
+  "/news",
+  "/blog",
+  "/create/blog",
+  "/privacyPolicy",
+  "/terms-of-service",
+  "/terms-and-conditions",
+  "/login",
+  "/leaders",
+  "/leaders/apply",
+  "/case/search",
+  "/contact-us",
+  "/refund-and-cancellation-policy",
+  "/shipping-and-delivery",
+  "/gpt/legalGPT",
 ];
 
 // // Function to fetch dynamic routes (optional)
@@ -37,14 +32,20 @@ const staticRoutes = [
 
 (async () => {
   // Create a stream to write to
-  const sitemapStream = new SitemapStream({ hostname: 'https://www.clawlaw.in' });
+  const sitemapStream = new SitemapStream({
+    hostname: "https://www.clawlaw.in",
+  });
 
   // Pipe the stream to a file
-  const writeStream = createWriteStream(path.resolve(__dirname, 'public', 'sitemap.xml'));
+  const writeStream = createWriteStream(
+    path.resolve(__dirname, "public", "sitemap.xml")
+  );
   sitemapStream.pipe(writeStream);
 
   // Add static routes
-  staticRoutes.forEach(route => sitemapStream.write({ url: route, changefreq: 'daily', priority: 0.7 }));
+  staticRoutes.forEach((route) =>
+    sitemapStream.write({ url: route, changefreq: "daily", priority: 0.7 })
+  );
 
   // Add dynamic routes
   // const dynamicRoutes = await fetchDynamicRoutes();
@@ -55,5 +56,5 @@ const staticRoutes = [
 
   // Convert the stream to a promise and resolve it
   await streamToPromise(sitemapStream);
-  console.log('Sitemap generated successfully.');
+  console.log("Sitemap generated successfully.");
 })();

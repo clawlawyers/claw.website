@@ -216,7 +216,7 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
             height: "90%",
             color: "black",
             borderRadius: 10,
-            overflowY: "scroll",
+            // overflowY: "scroll",
             padding: 10,
             transform: "translate(-50%, -50%)",
             boxShadow: 24,
@@ -231,39 +231,40 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
               <ClearIcon style={{ fontSize: 30, color: "black" }} />
             </button>
           </div>
-
-          {loading ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <CircularProgress style={{ color: "black" }} />
-            </div>
-          ) : (
-            <div
-              style={{
-                whiteSpace: "pre-line",
-                alignItems: "center",
-                width: "100%",
-                fontSize: 16,
-                fontWeight: 500,
-                fontFamily: "serif",
-                border: "1px solid black",
-                padding: 10,
-              }}
-            >
-              {Object.keys(content?.data?.fetchedData || {}).map((key) => (
-                <div key={key}>
-                  <p style={{ color: "black" }}>
-                    {content?.data?.fetchedData[key]}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="h-[90%] overflow-auto border border-black p-3">
+            {loading ? (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CircularProgress style={{ color: "black" }} />
+              </div>
+            ) : (
+              <div
+                style={{
+                  whiteSpace: "pre-line",
+                  alignItems: "center",
+                  width: "100%",
+                  fontSize: 16,
+                  fontWeight: 500,
+                  fontFamily: "serif",
+                }}
+              >
+                {Object.keys(content?.data?.fetchedData || {}).map((key) => (
+                  <div key={key}>
+                    <p style={{ color: "black" }}>
+                      {content?.data?.fetchedData[key]}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </Modal>
     </div>

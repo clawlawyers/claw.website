@@ -12,7 +12,7 @@ const Couponcode = () => {
 
   useEffect(() => {
     fetchCoupons();
-  }, [coupons]);
+  }, []);
 
   const fetchCoupons = async () => {
     try {
