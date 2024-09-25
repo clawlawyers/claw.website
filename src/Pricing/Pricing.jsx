@@ -118,9 +118,11 @@ export default function Pricing() {
           } else {
             alert(`${result.data.data.message}`);
           }
+          setCouponApplied("");
         }
       } catch (error) {
         alert(error.message);
+        setCouponApplied("");
       }
     }
 
@@ -327,44 +329,40 @@ export default function Pricing() {
     // navigate("/payment");
   };
 
-  const handlePricingSelect = (plan, planType, sessions, totalPrice) => {
+  const handlePricingSelectOld = (plan, planType, sessions, totalPrice) => {
     const planName = `${planType.toUpperCase()}_${plan[0]}`;
 
     let existing;
-    let existingDummyPlan;
-    let newOne;
     if (existingPlan.length > 0 && couponApplied === "") {
       if (existingPlan[0].planName === "ADDON_M" && existingPlan.length > 1) {
         existing = planNamesquence.find(
           (p) => p.name === existingPlan[1]?.plan?.name
         );
-        existingDummyPlan = existingPlan[1];
       } else {
         existing = planNamesquence.find(
           (p) => p.name === existingPlan[0]?.plan?.name
         );
-        existingDummyPlan = existingPlan[0];
       }
-      newOne = planNamesquence.find((p) => p.name === planName);
-    } else {
-      if (existingPlan[0].planName === "ADDON_M" && existingPlan.length > 1) {
-        existing = offerPlanNameSequence.find(
-          (p) => p.name === existingPlan[1]?.plan?.name
-        );
-        existingDummyPlan = existingPlan[1];
-      } else {
-        existing = offerPlanNameSequence.find(
-          (p) => p.name === existingPlan[0]?.plan?.name
-        );
-        existingDummyPlan = existingPlan[0];
-      }
-      newOne = planNamesquence.find((p) => p.name === planName);
     }
+    // else {
+    //   if (existingPlan[0].planName === "ADDON_M" && existingPlan.length > 1) {
+    //     existing = offerPlanNameSequence.find(
+    //       (p) => p.name === existingPlan[1]?.plan?.name
+    //     );
+    //     existingDummyPlan = existingPlan[1];
+    //   } else {
+    //     existing = offerPlanNameSequence.find(
+    //       (p) => p.name === existingPlan[0]?.plan?.name
+    //     );
+    //     existingDummyPlan = existingPlan[0];
+    //   }
+    //   newOne = planNamesquence.find((p) => p.name === planName);
+    // }
 
     //  existing = planNamesquence.find(
     //     (p) => p.name === existingPlan[0]?.plan?.name
     //   );
-    // const newOne = planNamesquence.find((p) => p.name === planName);
+    const newOne = planNamesquence.find((p) => p.name === planName);
 
     // console.log(existing);
     // console.log(newOne);
@@ -392,8 +390,8 @@ export default function Pricing() {
         // const existingPrice = planNamesquence[existing.index].price;
         const existingPrice = existing.price;
         const newPrice = newOne.price;
-        const duration = existingDummyPlan?.plan?.duration;
-        const planCreateData = new Date(existingDummyPlan?.createdAt);
+        const duration = existingPlan[0]?.plan?.duration;
+        const planCreateData = new Date(existingPlan[0]?.createdAt);
         const now = new Date();
         const daysUsed = Math.floor(
           (now - planCreateData) / (1000 * 60 * 60 * 24)
@@ -436,7 +434,7 @@ export default function Pricing() {
             refferalCode: isReferralCode,
             couponCode: isCouponCode,
             refundAmount: Math.ceil(finalPrice),
-            existingSubscription: existingDummyPlan?.subscriptionId,
+            existingSubscription: existingPlan[0]?.subscriptionId,
           })
         );
         navigate("/payment");
@@ -497,6 +495,90 @@ export default function Pricing() {
     //   })
     // );
     // navigate("/payment");
+  };
+
+  const handlePricingSelect = (plan, planType, sessions, totalPrice) => {
+    const planName = `${planType.toUpperCase()}_${plan[0]}`;
+    //check if plan exists
+    if (existingPlan.length > 0) {
+      const checkActivePlan = existingPlan.find(
+        (x) => x.planName !== "ADDON_M" && x.isActive
+      );
+      if (checkActivePlan) {
+        //check current price is less than previous plan price
+        const newPlanPrice = totalPrice;
+        const previousPlanPaidPrice = checkActivePlan.Paidprice;
+        if (newPlanPrice > previousPlanPaidPrice) {
+          const duration = checkActivePlan?.plan?.duration;
+          const planCreateData = new Date(checkActivePlan?.createdAt);
+          const now = new Date();
+          const daysUsed = Math.floor(
+            (now - planCreateData) / (1000 * 60 * 60 * 24)
+          ); // Days used
+
+          const durationInDays = duration === "monthly" ? 30 : 365;
+
+          const remainingDays = durationInDays - daysUsed;
+
+          const remainingValue =
+            (remainingDays / durationInDays) * previousPlanPaidPrice;
+
+          const finalPrice = newPlanPrice - remainingValue;
+
+          dispatch(
+            setPriceDetails({
+              plan,
+              planType,
+              sessions,
+              totalPrice,
+              discount: couponApplied !== "" ? true : false,
+              createdAt: new Date().toISOString(),
+              refferalCode: isReferralCode,
+              couponCode: isCouponCode,
+              refundAmount: Math.ceil(finalPrice),
+              existingSubscription: checkActivePlan?.subscriptionId,
+            })
+          );
+          navigate("/payment");
+        } else {
+          toast.error(
+            "Please Subscribe To a Higher Plan than your Active Plan"
+          );
+        }
+      } else {
+        dispatch(
+          setPriceDetails({
+            plan,
+            planType,
+            sessions,
+            totalPrice,
+            isDiscount: couponApplied !== "" ? true : false,
+            createdAt: new Date().toISOString(),
+            refferalCode: isReferralCode,
+            couponCode: isCouponCode,
+            refundAmount: 0,
+            existingSubscription: "",
+          })
+        );
+        navigate("/payment");
+      }
+    } else {
+      dispatch(
+        setPriceDetails({
+          plan,
+          planType,
+          sessions,
+          totalPrice,
+          isDiscount: couponApplied !== "" ? true : false,
+          createdAt: new Date().toISOString(),
+          refferalCode: isReferralCode,
+          couponCode: isCouponCode,
+          refundAmount: 0,
+          existingSubscription: "",
+        })
+      );
+      navigate("/payment");
+    }
   };
 
   return (

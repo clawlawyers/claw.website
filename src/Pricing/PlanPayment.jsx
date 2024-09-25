@@ -255,6 +255,9 @@ const PlanPayment = () => {
               refferalCode: paymentDetails?.refferalCode,
               couponCode: paymentDetails?.couponCode,
               existingSubscription: paymentDetails?.existingSubscription,
+              amount: paymentDetails?.refundAmount
+                ? paymentDetails?.refundAmount
+                : paymentDetails?.totalPrice,
             };
 
             console.log(response);
@@ -346,6 +349,7 @@ const PlanPayment = () => {
               refferalCode: paymentDetails?.refferalCode,
               couponCode: paymentDetails?.couponCode,
               existingSubscription: paymentDetails?.existingSubscription,
+              amount: paymentDetails?.totalPrice,
             };
 
             console.log(response);
