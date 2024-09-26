@@ -498,70 +498,81 @@ export default function Pricing() {
     const planName = `${planType.toUpperCase()}_${plan[0]}`;
     //check if plan exists
     if (existingPlan.length > 0) {
-      const checkActivePlan = existingPlan.find(
-        (x) => x.planName !== "ADDON_M" && x.isActive
+      const checkAmbassadorPlan = existingPlan.find(
+        (x) => x.planName === "FREE_M"
       );
-      if (checkActivePlan) {
-        //check current price is less than previous plan price
-        if (checkActivePlan.planName === planName) {
-          toast.error("This Plan is already active.Please select another plan");
-        } else {
-          const newPlanPrice = totalPrice;
-          const previousPlanPaidPrice = checkActivePlan.Paidprice;
-          if (newPlanPrice > previousPlanPaidPrice) {
-            const duration = checkActivePlan?.plan?.duration;
-            const planCreateData = new Date(checkActivePlan?.createdAt);
-            const now = new Date();
-            const daysUsed = Math.floor(
-              (now - planCreateData) / (1000 * 60 * 60 * 24)
-            ); // Days used
-
-            const durationInDays = duration === "monthly" ? 30 : 365;
-
-            const remainingDays = durationInDays - daysUsed;
-
-            const remainingValue =
-              (remainingDays / durationInDays) * previousPlanPaidPrice;
-
-            const finalPrice = newPlanPrice - remainingValue;
-
-            dispatch(
-              setPriceDetails({
-                plan,
-                planType,
-                sessions,
-                totalPrice,
-                isDiscount: couponApplied !== "" ? true : false,
-                createdAt: new Date().toISOString(),
-                refferalCode: isReferralCode,
-                couponCode: isCouponCode,
-                refundAmount: Math.ceil(finalPrice),
-                existingSubscription: checkActivePlan?.subscriptionId,
-              })
-            );
-            navigate("/payment");
-          } else {
-            toast.error(
-              "Please Subscribe To a Higher Plan than your Active Plan"
-            );
-          }
-        }
-      } else {
-        dispatch(
-          setPriceDetails({
-            plan,
-            planType,
-            sessions,
-            totalPrice,
-            isDiscount: couponApplied !== "" ? true : false,
-            createdAt: new Date().toISOString(),
-            refferalCode: isReferralCode,
-            couponCode: isCouponCode,
-            refundAmount: 0,
-            existingSubscription: "",
-          })
+      if (checkAmbassadorPlan) {
+        toast(
+          "Your Ambassador Plan is active.Can't buy any other plans currently!"
         );
-        navigate("/payment");
+      } else {
+        const checkActivePlan = existingPlan.find(
+          (x) => x.planName !== "ADDON_M" && x.isActive
+        );
+        if (checkActivePlan) {
+          //check current price is less than previous plan price
+          if (checkActivePlan.planName === planName) {
+            toast.error(
+              "This Plan is already active.Please select another plan"
+            );
+          } else {
+            const newPlanPrice = totalPrice;
+            const previousPlanPaidPrice = checkActivePlan.Paidprice;
+            if (newPlanPrice > previousPlanPaidPrice) {
+              const duration = checkActivePlan?.plan?.duration;
+              const planCreateData = new Date(checkActivePlan?.createdAt);
+              const now = new Date();
+              const daysUsed = Math.floor(
+                (now - planCreateData) / (1000 * 60 * 60 * 24)
+              ); // Days used
+
+              const durationInDays = duration === "monthly" ? 30 : 365;
+
+              const remainingDays = durationInDays - daysUsed;
+
+              const remainingValue =
+                (remainingDays / durationInDays) * previousPlanPaidPrice;
+
+              const finalPrice = newPlanPrice - remainingValue;
+
+              dispatch(
+                setPriceDetails({
+                  plan,
+                  planType,
+                  sessions,
+                  totalPrice,
+                  isDiscount: couponApplied !== "" ? true : false,
+                  createdAt: new Date().toISOString(),
+                  refferalCode: isReferralCode,
+                  couponCode: isCouponCode,
+                  refundAmount: Math.ceil(finalPrice),
+                  existingSubscription: checkActivePlan?.subscriptionId,
+                })
+              );
+              navigate("/payment");
+            } else {
+              toast.error(
+                "Please Subscribe To a Higher Plan than your Active Plan"
+              );
+            }
+          }
+        } else {
+          dispatch(
+            setPriceDetails({
+              plan,
+              planType,
+              sessions,
+              totalPrice,
+              isDiscount: couponApplied !== "" ? true : false,
+              createdAt: new Date().toISOString(),
+              refferalCode: isReferralCode,
+              couponCode: isCouponCode,
+              refundAmount: 0,
+              existingSubscription: "",
+            })
+          );
+          navigate("/payment");
+        }
       }
     } else {
       dispatch(
