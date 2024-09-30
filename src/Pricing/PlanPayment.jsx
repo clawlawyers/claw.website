@@ -428,8 +428,8 @@ const PlanPayment = () => {
       const response = await axios.post(
         `${NODE_API_ENDPOINT}/payment/createPaymentLink`,
         {
-          amount: paymentDetails?.totalPrice,
-          price: paymentDetails?.refundAmount,
+          price: paymentDetails?.totalPrice,
+          amount: paymentDetails?.refundAmount,
           currency: "INR",
           mobile: currentUser?.phoneNumber,
           description: "Free Trial for 7 days",
