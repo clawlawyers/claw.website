@@ -77,7 +77,7 @@ function FooterBanner() {
                   Have a question
                 </p>
                 <p style={{ margin: 0, color: "#008080", fontWeight: 600 }}>
-                  +91 9950866260
+                  +91 9316164924
                 </p>
               </div>
             </div>
