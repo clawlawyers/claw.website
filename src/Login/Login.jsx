@@ -264,6 +264,7 @@ export default function Login() {
                   OTP
                 </label>
                 <input
+                  required
                   pattern="[0-9]{6}"
                   style={{
                     background: "#32353c",
@@ -289,6 +290,7 @@ export default function Login() {
                   padding: "10px 45px",
                   fontSize: 15,
                   fontWeight: 600,
+                  borderRadius: "10px",
                 }}
                 type="submit"
               >
@@ -325,6 +327,7 @@ export default function Login() {
                     </option>
                   </select>
                   <input
+                    required
                     pattern="[0-9]{10}"
                     style={{
                       background: "#32353c",
@@ -351,6 +354,7 @@ export default function Login() {
                   padding: "10px 45px",
                   fontSize: 15,
                   fontWeight: 600,
+                  borderRadius: "10px",
                 }}
                 type="submit"
               >
