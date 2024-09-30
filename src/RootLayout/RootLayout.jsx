@@ -10,6 +10,10 @@ export default function RootLayout() {
       style={{
         position: "relative",
         backgroundColor: "#13161f",
+        background: `radial-gradient(circle at 50% 0%, #018585, transparent 15%),
+        
+        radial-gradient(circle at 100% 90%, #018585, transparent 15%)
+        `,
         width: "100%",
       }}
     >
@@ -26,7 +30,7 @@ export default function RootLayout() {
           content=""
         /> */}
       </Helmet>
-      <div
+      {/* <div
         style={{
           position: "absolute",
           marginLeft: "calc(50vw - 400px)",
@@ -38,11 +42,11 @@ export default function RootLayout() {
           top: "-500px",
           borderRadius: 500,
         }}
-      />
+      /> */}
       <Header />
       <Outlet />
       <div style={{ position: "relative" }}>
-        <div
+        {/* <div
           style={{
             position: "fixed",
             height: 428,
@@ -54,8 +58,8 @@ export default function RootLayout() {
             boxShadow: "0 0 100px 100px rgba(0, 128, 128, 0.15)",
             borderRadius: 428,
           }}
-        />
-        <div
+        /> */}
+        {/* <div
           style={{
             position: "absolute",
             height: 428,
@@ -67,7 +71,7 @@ export default function RootLayout() {
             boxShadow: "0 0 100px 100px rgba(0, 128, 128, 0.15)",
             borderRadius: 428,
           }}
-        />
+        /> */}
         <FooterBanner />
       </div>
     </div>

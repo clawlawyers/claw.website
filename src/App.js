@@ -50,16 +50,16 @@ import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
 import AddAmbassadorForm from "./Admin/AddAmbassador/index.jsx";
 import Demovideo from "./DemoVideo/Demovideo.jsx";
 import AllAdmins from "./Admin/AllAdmins/AllAdmins.jsx";
-import CourtRoom from "./CourtRoom/CourtRoom.jsx";
-import LoginToCourtRoom from "./CourtRoom/Login/LoginToCourtRoom.jsx";
-import BookNow from "./CourtRoom/BookNow/BookNow.jsx";
+// import CourtRoom from "./CourtRoom/CourtRoom.jsx";
+// import LoginToCourtRoom from "./CourtRoom/Login/LoginToCourtRoom.jsx";
+// import BookNow from "./CourtRoom/BookNow/BookNow.jsx";
 
-import CourtroomAiHome from "./CourtRoom/CourtroomAi/CourtroomAiHome.jsx";
-import CourtRoomAiLayout from "./CourtRoom/CourtroomAi/CourtRoomAiLayout.jsx";
-import CourtroomArgument from "./CourtRoom/CourtroomAi/CourtroomArgument.jsx";
-import UploadDoc from "./CourtRoom/CourtroomAi/UploadDoc.jsx";
-import Verdict from "./CourtRoom/CourtroomAi/Verdict.jsx";
-import Contact from "./CourtRoom/ContactUs/Contact.jsx";
+// import CourtroomAiHome from "./CourtRoom/CourtroomAi/CourtroomAiHome.jsx";
+// import CourtRoomAiLayout from "./CourtRoom/CourtroomAi/CourtRoomAiLayout.jsx";
+// import CourtroomArgument from "./CourtRoom/CourtroomAi/CourtroomArgument.jsx";
+// import UploadDoc from "./CourtRoom/CourtroomAi/UploadDoc.jsx";
+// import Verdict from "./CourtRoom/CourtroomAi/Verdict.jsx";
+// import Contact from "./CourtRoom/ContactUs/Contact.jsx";
 import { retrieveCourtroomAuth } from "./features/bookCourtRoom/LoginReducreSlice.js";
 import SessionGptNew from "./Gpt/components/SessionGptNew.jsx";
 import PlanPayment from "./Pricing/PlanPayment.jsx";
@@ -303,28 +303,28 @@ function App() {
           path: "quiz",
           element: <TrackedQuizMain />,
         },
-        {
-          path: "court-room",
-          element: <CourtRoomLayout />,
-          children: [
-            {
-              path: "",
-              element: <CourtRoom />,
-            },
-            {
-              path: "login",
-              element: <LoginToCourtRoom />,
-            },
-            {
-              path: "book-now",
-              element: <BookNow />,
-            },
-            {
-              path: "contact",
-              element: <Contact />,
-            },
-          ],
-        },
+        // {
+        //   path: "court-room",
+        //   element: <CourtRoomLayout />,
+        //   children: [
+        //     {
+        //       path: "",
+        //       element: <CourtRoom />,
+        //     },
+        //     {
+        //       path: "login",
+        //       element: <LoginToCourtRoom />,
+        //     },
+        //     {
+        //       path: "book-now",
+        //       element: <BookNow />,
+        //     },
+        //     {
+        //       path: "contact",
+        //       element: <Contact />,
+        //     },
+        //   ],
+        // },
         {
           path: "news",
           element: <TrackedNews />,
@@ -419,28 +419,28 @@ function App() {
         { path: "shipping-and-delivery", element: <ShippingPolicy /> },
       ],
     },
-    {
-      path: "courtroom-ai",
-      element: <CourtRoomAiLayout />,
-      children: [
-        {
-          path: "",
-          element: <CourtroomAiHome />,
-        },
-        {
-          path: "/courtroom-ai/arguments",
-          element: <CourtroomArgument />,
-        },
-        {
-          path: "/courtroom-ai/upload",
-          element: <UploadDoc />,
-        },
-        {
-          path: "/courtroom-ai/verdict",
-          element: <Verdict />,
-        },
-      ],
-    },
+    // {
+    //   path: "courtroom-ai",
+    //   element: <CourtRoomAiLayout />,
+    //   children: [
+    //     {
+    //       path: "",
+    //       element: <CourtroomAiHome />,
+    //     },
+    //     {
+    //       path: "/courtroom-ai/arguments",
+    //       element: <CourtroomArgument />,
+    //     },
+    //     {
+    //       path: "/courtroom-ai/upload",
+    //       element: <UploadDoc />,
+    //     },
+    //     {
+    //       path: "/courtroom-ai/verdict",
+    //       element: <Verdict />,
+    //     },
+    //   ],
+    // },
     {
       path: "/gpt",
       element: <AuthWall />,
