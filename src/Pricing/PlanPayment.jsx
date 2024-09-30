@@ -432,7 +432,7 @@ const PlanPayment = () => {
           amount: paymentDetails?.refundAmount,
           currency: "INR",
           mobile: currentUser?.phoneNumber,
-          description: "Free Trial for 7 days",
+          description: `Free Trial for ${paymentDetails?.trialDays} days`,
           trialDays: paymentDetails?.trialDays,
           // userId: currentUser?.uid,
           planName: planeName.toUpperCase(),
