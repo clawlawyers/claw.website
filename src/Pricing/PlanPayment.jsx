@@ -429,7 +429,9 @@ const PlanPayment = () => {
         `${NODE_API_ENDPOINT}/payment/createPaymentLink`,
         {
           price: paymentDetails?.totalPrice,
-          amount: paymentDetails?.refundAmount,
+          amount: paymentDetails?.refundAmount
+            ? paymentDetails?.refundAmount
+            : paymentDetails?.totalPrice,
           currency: "INR",
           mobile: currentUser?.phoneNumber,
           description: `Free Trial for ${paymentDetails?.trialDays} days`,
