@@ -46,7 +46,7 @@ export default function RootLayout() {
       <Header />
       <Outlet />
       <div style={{ position: "relative" }}>
-        {/* <div
+        <div
           style={{
             position: "fixed",
             height: 428,
@@ -58,7 +58,7 @@ export default function RootLayout() {
             boxShadow: "0 0 100px 100px rgba(0, 128, 128, 0.15)",
             borderRadius: 428,
           }}
-        /> */}
+        />
         {/* <div
           style={{
             position: "absolute",

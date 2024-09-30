@@ -71,6 +71,7 @@ export default function Pricing() {
   const [yearlyDiscounts, setYearlyDiscounts] = useState(null);
   const [couponFound, setCouponFound] = useState(false);
   const [trialDays, setTrialDays] = useState(0);
+  console.log(trialDays);
   const [isCouponCode, setIsCouponCode] = useState("");
   const [isReferralCode, setIsReferralCode] = useState(null);
   const [couponLoading, setCouponLoading] = useState(false);
@@ -154,7 +155,7 @@ export default function Pricing() {
           sessions,
           totalPrice,
           createdAt: new Date().toISOString(),
-          isAddonPlan: true,
+          paymentProceedType: "addon",
 
           refferalCode: isReferralCode,
           couponCode: isCouponCode,
@@ -547,6 +548,8 @@ export default function Pricing() {
                   couponCode: isCouponCode,
                   refundAmount: Math.ceil(finalPrice),
                   existingSubscription: checkActivePlan?.subscriptionId,
+                  paymentProceedType: isReferralCode ? "referral" : "regular",
+                  trialDays,
                 })
               );
               navigate("/payment");
@@ -569,6 +572,8 @@ export default function Pricing() {
               couponCode: isCouponCode,
               refundAmount: 0,
               existingSubscription: "",
+              paymentProceedType: isReferralCode ? "referral" : "regular",
+              trialDays,
             })
           );
           navigate("/payment");
@@ -587,6 +592,8 @@ export default function Pricing() {
           couponCode: isCouponCode,
           refundAmount: 0,
           existingSubscription: "",
+          paymentProceedType: isReferralCode ? "referral" : "regular",
+          trialDays,
         })
       );
       navigate("/payment");
