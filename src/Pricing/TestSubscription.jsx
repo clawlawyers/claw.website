@@ -17,7 +17,7 @@ const paymentDetails = {
   refferalCode: null,
   couponCode: "",
   refundAmount: 1087,
-  existingSubscription: "plink_P3Nmr7q5G5swSe",
+  existingSubscription: "",
   paymentProceedType: "regular",
 };
 
