@@ -147,6 +147,102 @@ const TestSubscription = () => {
     document.body.appendChild(script);
   };
 
+  const loadRazorpaySubscription = async () => {
+    setLoading(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onerror = () => {
+      alert("Razorpay SDK failed to load. Are you online?");
+    };
+    script.onload = async () => {
+      try {
+        const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
+
+        // Request the backend to create a subscription
+        const result = await axios.post(
+          `${NODE_API_ENDPOINT}/payment/create-subscription`,
+          {
+            // amount: paymentDetails?.totalPrice,
+            // currency: "INR",
+            // receipt: receipt,
+            plan: planeName?.toUpperCase(),
+            billingCycle: paymentDetails?.plan.toUpperCase(),
+            session: paymentDetails?.sessions,
+            phoneNumber: currentUser?.phoneNumber,
+            trialDays: paymentDetails?.trialDays,
+            isDiscount: paymentDetails?.isDiscount,
+          }
+        );
+
+        console.log(result);
+
+        const { id: subscription_id } = result.data.razorpaySubscription;
+        const { _id } = result.data.createdOrder;
+
+        console.log(subscription_id);
+
+        const options = {
+          key: "rzp_test_UWcqHHktRV6hxM",
+          subscription_id: subscription_id, // Pass the subscription_id instead of order_id
+          name: "CLAW LEGALTECH PRIVATE LIMITED",
+          description: "Subscription",
+          handler: async function (response) {
+            console.log(response);
+            const createdAt = new Date(paymentDetails?.createdAt);
+            const resultDate = new Date(createdAt);
+            resultDate.setDate(createdAt.getDate() + paymentDetails?.trialDays);
+            const data = {
+              razorpay_subscription_id: response.razorpay_subscription_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              _id,
+              // isUpgrade: paymentDetails?.isUpgrade,
+              // createdAt: paymentDetails?.createdAt,
+              createdAt: resultDate,
+              // trialDays: paymentDetails?.trialDays,
+              refferalCode: paymentDetails?.refferalCode,
+              couponCode: paymentDetails?.couponCode,
+              // refundAmount: paymentDetails?.refundAmount,
+              existingSubscription: paymentDetails?.existingSubscription,
+              isDiscount: paymentDetails?.isDiscount,
+            };
+
+            console.log(response);
+
+            // Verify the subscription payment with the backend
+            const result = await axios.post(
+              `${NODE_API_ENDPOINT}/payment/verify-subscription`,
+              data
+            );
+            alert(result.data.status);
+            setPaymentVerified(true);
+            dispatch(retrieveActivePlanUser());
+          },
+          prefill: {
+            name: currentUser?.name,
+            email: currentUser?.email,
+            contact: currentUser?.phoneNumber,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+
+        console.log(options);
+
+        const paymentObject = new window.Razorpay(options);
+
+        console.log(paymentObject);
+        paymentObject.open();
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    document.body.appendChild(script);
+  };
+
   const handleHomepage = () => {
     navigate("/");
   };
@@ -213,7 +309,10 @@ const TestSubscription = () => {
                 </div>
               </div>
             </div>
-            <button onClick={loadRazorpay} className="w-full rounded py-2">
+            <button
+              onClick={loadRazorpaySubscription}
+              className="w-full rounded py-2"
+            >
               Proceed to Payment
             </button>
           </div>
