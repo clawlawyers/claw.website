@@ -273,6 +273,7 @@ const PlanPayment = () => {
               //   ? paymentDetails?.refundAmount
               //   : paymentDetails?.totalPrice,
               amount: paymentDetails?.totalPrice,
+              trialDays: paymentDetails?.trialDays,
             };
 
             console.log(response);
@@ -403,6 +404,73 @@ const PlanPayment = () => {
     document.body.appendChild(script);
   };
 
+  const loadFreeTrial = async () => {
+    const planeName = `${paymentDetails?.planType}_${paymentDetails?.plan[0]}`;
+    const createdAt = new Date(paymentDetails?.createdAt);
+    const resultDate = new Date(createdAt);
+
+    let expiryTotalDays;
+    if (paymentDetails?.plan === "Monthly") {
+      if (paymentDetails?.isDiscount) {
+        expiryTotalDays = 37;
+      } else {
+        expiryTotalDays = 30;
+      }
+    } else {
+      if (paymentDetails?.isDiscount) {
+        expiryTotalDays = 372;
+      } else {
+        expiryTotalDays = 365;
+      }
+    }
+
+    try {
+      const response = await axios.post(
+        `${NODE_API_ENDPOINT}/payment/createPaymentLink`,
+        {
+          price: paymentDetails?.totalPrice,
+          amount: paymentDetails?.refundAmount
+            ? paymentDetails?.refundAmount
+            : paymentDetails?.totalPrice,
+          currency: "INR",
+          mobile: currentUser?.phoneNumber,
+          description: `Free Trial for ${paymentDetails?.trialDays} days`,
+          trialDays: paymentDetails?.trialDays,
+          // userId: currentUser?.uid,
+          planName: planeName.toUpperCase(),
+          refferalCode: paymentDetails?.refferalCode,
+          couponCode: paymentDetails?.couponCode,
+          existingSubscription: paymentDetails?.existingSubscription,
+          expiresAt:
+            paymentDetails.plan === "Monthly"
+              ? new Date(
+                  new Date(createdAt).getTime() +
+                    expiryTotalDays * 24 * 60 * 60 * 1000
+                ).toISOString()
+              : new Date(
+                  new Date(createdAt).getTime() +
+                    expiryTotalDays * 24 * 60 * 60 * 1000
+                ).toISOString(),
+          createdAt: resultDate,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser?.jwt}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response);
+      alert(
+        `Your Trial for ${paymentDetails?.trialDays} days has been activated! \n You can use this link to complete your payment : \n ${response?.paymentLink}`
+      );
+      setPaymentVerified(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleHomepage = () => {
     navigate("/");
   };
@@ -475,7 +543,11 @@ const PlanPayment = () => {
             </div>
             <button
               onClick={
-                !paymentDetails.isAddonPlan ? loadRazorpay : loadRazorpayAddon
+                paymentDetails.paymentProceedType === "regular"
+                  ? loadRazorpay
+                  : paymentDetails.paymentProceedType === "addon"
+                  ? loadRazorpayAddon
+                  : loadFreeTrial
               }
               className="w-full rounded py-2"
             >

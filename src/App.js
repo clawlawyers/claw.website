@@ -64,6 +64,7 @@ import { retrieveCourtroomAuth } from "./features/bookCourtRoom/LoginReducreSlic
 import SessionGptNew from "./Gpt/components/SessionGptNew.jsx";
 import PlanPayment from "./Pricing/PlanPayment.jsx";
 import { retrieveActivePlanUser, setPlan } from "./features/gpt/gptSlice.js";
+import TestSubscription from "./Pricing/TestSubscription.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -302,6 +303,10 @@ function App() {
         {
           path: "quiz",
           element: <TrackedQuizMain />,
+        },
+        {
+          path: "dummy",
+          element: <TestSubscription />,
         },
         // {
         //   path: "court-room",

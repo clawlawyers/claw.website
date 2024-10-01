@@ -15,7 +15,7 @@ export const pricingSlice = createSlice({
     couponCode: "",
     refundAmount: null,
     existingSubscription: "",
-    isAddonPlan: null,
+    paymentProceedType: null,
   },
 
   reducers: {
@@ -32,7 +32,7 @@ export const pricingSlice = createSlice({
       state.couponCode = action.payload.couponCode;
       state.refundAmount = action.payload.refundAmount;
       state.existingSubscription = action.payload.existingSubscription;
-      state.isAddonPlan = action.payload.isAddonPlan;
+      state.paymentProceedType = action.payload.paymentProceedType;
     },
     resetPriceDetails(state, action) {
       state.plan = null;
@@ -47,7 +47,7 @@ export const pricingSlice = createSlice({
       state.couponCode = "";
       state.refundAmount = null;
       state.existingSubscription = "";
-      state.isAddonPlan = null;
+      state.paymentProceedType = null;
     },
   },
 });
