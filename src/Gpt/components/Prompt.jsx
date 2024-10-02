@@ -207,7 +207,12 @@ export function Prompt({
       </div>
       <Modal
         open={feedbackDialog}
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          maxHeight: "100vh",
+        }}
         // onClose={() => {
         //   setFeedbackDialog(false);
         // }}
@@ -262,7 +267,7 @@ export function Prompt({
           </div>
           <textarea
             required
-            className="text-xs w-full rounded p-2 h-40 text-black"
+            className="text-xs w-full rounded p-2 min-h-40 max-h-60 text-black"
             placeholder="Please provide your valuable feedback for the segment you choose above"
             value={feedbackMessage}
             onChange={(e) => setFeedbackMessage(e.target.value)}
