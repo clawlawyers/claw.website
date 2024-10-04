@@ -24,6 +24,8 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import { Home } from "@mui/icons-material";
 import whatLegal from "../assets/images/whatLegal.gif";
 import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
+import { retrieveActivePlanUser } from "../features/gpt/gptSlice";
+import toast from "react-hot-toast";
 
 export default function Sidebar({ keyword, primaryColor, model }) {
   const isPhoneMode = useMediaQuery({ query: "(max-width:768px)" });
@@ -40,6 +42,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   const [activePlan, setActivePlan] = useState([]);
   const [cancelSubscriptionDialog, setCancelSubscriptionDialog] =
     useState(false);
+  const [cancelSubLoading, setCancelSubLoading] = useState(false);
 
   const style = {
     position: "absolute",
@@ -109,6 +112,32 @@ export default function Sidebar({ keyword, primaryColor, model }) {
     if (isPhoneMode) dispatch(collapse());
     else dispatch(expand());
   }, [isPhoneMode]);
+
+  const handleCancelSubscription = async (planName) => {
+    setCancelSubLoading(true);
+    try {
+      setLoading(true);
+      await fetch(`${NODE_API_ENDPOINT}/gpt/cancelSubscription`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${currentUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ planName }),
+      });
+      retrieveActivePlanUser();
+      setCancelSubLoading(false);
+      toast.success("Subscription Cancelled!");
+      setCancelSubscriptionDialog(false);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      setCancelSubLoading(false);
+      toast.error("Error in Cancelling Subscription");
+      setCancelSubscriptionDialog(false);
+    }
+  };
+
   return (
     <div className={Style.sidebarContainer}>
       {collapsed && !isPhoneMode && (
@@ -704,9 +733,9 @@ export default function Sidebar({ keyword, primaryColor, model }) {
       </Modal>
       <Modal
         open={cancelSubscriptionDialog}
-        onClose={() => {
-          setCancelSubscriptionDialog(false);
-        }}
+        // onClose={() => {
+        //   setCancelSubscriptionDialog(false);
+        // }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -730,7 +759,16 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             >
               No
             </button>
-            <button className="px-5 rounded">Yes</button>
+            <button
+              onClick={() => handleCancelSubscription(activePlan[0]?.planName)}
+              className="px-5 rounded"
+            >
+              {cancelSubLoading ? (
+                <CircularProgress size={15} color="inherit" />
+              ) : (
+                "Yes"
+              )}
+            </button>
           </div>
         </Box>
       </Modal>

@@ -4,7 +4,12 @@
 .container {
   padding: 12px 12px 12px 321px;
   height: 100%;
-  background: linear-gradient(45deg, #018081, black);
+  /* background: linear-gradient(45deg, #018081, black); */
+
+  /* background-image: url("../assets/images/LegalGptBg.gif"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  position: relative;
 }
 
 .backdrop button {
@@ -30,6 +35,11 @@
   height: 100%;
   width: 100%;
   background-color: #222222;
+  opacity: 0.8;
+  /* background: transparent; */
+  /* background-image: url("../assets/images/LegalGptBg.gif"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: contain; */
   color: white;
   border-radius: 16px;
   overflow: hidden;
