@@ -56,7 +56,7 @@ function GPT({
         width: "100%",
       }}
     >
-      <div
+      {/* <div
         style={{
           position: "absolute",
           height: 894,
@@ -67,7 +67,7 @@ function GPT({
           boxShadow: `0 0 100px 100px ${backgroundGradient[1]}`,
           borderRadius: 500,
         }}
-      />
+      /> */}
       {isLoading ? (
         <div
           style={{
