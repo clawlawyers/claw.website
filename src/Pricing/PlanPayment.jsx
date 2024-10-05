@@ -5,6 +5,7 @@ import { resetPriceDetails } from "../features/payment/pricingSlice";
 import axios from "axios";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { retrieveActivePlanUser } from "../features/gpt/gptSlice";
+import { CircularProgress } from "@mui/material";
 
 const PlanPayment = () => {
   const navigate = useNavigate();
@@ -199,6 +200,7 @@ const PlanPayment = () => {
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.onerror = () => {
+      setLoading(false);
       alert("Razorpay SDK failed to load. Are you online?");
     };
     script.onload = async () => {
@@ -283,6 +285,7 @@ const PlanPayment = () => {
               data
             );
             alert(result.data.status);
+            setLoading(false);
             setPaymentVerified(true);
             dispatch(retrieveActivePlanUser());
           },
@@ -303,6 +306,7 @@ const PlanPayment = () => {
         console.log(paymentObject);
         paymentObject.open();
       } catch (error) {
+        setLoading(false);
         alert(error.message);
       } finally {
         setLoading(false);
@@ -551,7 +555,11 @@ const PlanPayment = () => {
               }
               className="w-full rounded py-2"
             >
-              Proceed to Payment
+              {loading ? (
+                <CircularProgress size={15} color="inherit" />
+              ) : (
+                "Proceed to Payment"
+              )}
             </button>
           </div>
         </>

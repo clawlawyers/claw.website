@@ -125,7 +125,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         },
         body: JSON.stringify({ planName }),
       });
-      retrieveActivePlanUser();
+      dispatch(retrieveActivePlanUser());
       setCancelSubLoading(false);
       toast.success("Subscription Cancelled!");
       setCancelSubscriptionDialog(false);
