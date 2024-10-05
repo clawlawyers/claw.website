@@ -15,6 +15,7 @@ import Style from "./LegalGPT.module.css";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { setPlan, setToken } from "../features/gpt/gptSlice";
 import { close, open } from "../features/popup/popupSlice";
+import aiIcon from "../assets/images/LegalGptBg.gif";
 
 export default function GPTLayout(props) {
   const location = useLocation();
@@ -174,7 +175,12 @@ export default function GPTLayout(props) {
         className={Style.container}
         style={!isPhoneMode && collapsed ? { paddingLeft: "12px" } : null}
       >
-        <div className={Style.gptContainer}>{<Outlet />}</div>
+        {/* <div className="absolute w-full h-full">
+          <img className="w-full h-full rounded" src={aiIcon} />
+        </div> */}
+        <div className={Style.gptContainer}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );
