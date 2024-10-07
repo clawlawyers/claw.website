@@ -6,6 +6,7 @@ import axios from "axios";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { retrieveActivePlanUser } from "../features/gpt/gptSlice";
 import { CircularProgress } from "@mui/material";
+import paymentIcon from "../assets/images/paymentConfirm.gif";
 
 const PlanPayment = () => {
   const navigate = useNavigate();
@@ -480,9 +481,9 @@ const PlanPayment = () => {
   };
 
   return (
-    <div className="grid md:grid-cols-2 gap-3 md:gap-0">
+    <div className="m-auto w-[85%]">
       {!paymentVerified ? (
-        <>
+        <div className="grid md:grid-cols-2 gap-3 md:gap-0">
           <div className="px-5 md:px-24 ">
             <div className="pb-5">
               <h1 className="font-bold">Payment Confirmation</h1>
@@ -562,66 +563,24 @@ const PlanPayment = () => {
               )}
             </button>
           </div>
-        </>
+        </div>
       ) : (
-        <>
-          <div className="px-5 md:px-24">
-            <div className="pb-5">
-              <h1 className="font-bold">Payment Successful</h1>
-              <p className="m-0">Your Payment is Successful</p>
-            </div>
-            <div className="flex items-center">
-              <button onClick={handleHomepage} className="px-5 py-1 rounded">
-                Continue to CLAW Home
-              </button>
-            </div>
+        <div className="grid md:grid-cols-2 p-5">
+          <img className="w-auto h-auto rounded-none" src={paymentIcon} />
+          <div className="flex flex-col py-1">
+            <h1 className="text-[#00FFFF] font-bold">
+              Thank You for your Purchase!
+            </h1>
+            <p className="text-sm">
+              We appreciate your trust in us. Your transaction has been
+              successfully completed, and a confirmation email with your order
+              details is on its way.
+            </p>
+            <button onClick={() => navigate("/")} className="rounded">
+              Continue to CLAW Home
+            </button>
           </div>
-          <div className="w-full flex flex-col px-5 md:px-0 md:pr-24 gap-3">
-            <div className="w-full bg-[#00802F] p-3 rounded">
-              <div className="w-full flex flex-col items-center pb-10">
-                <div className="w-full flex justify-between">
-                  <div>
-                    <p className="m-0 text-lg text-white">
-                      {paymentDetails?.planType} Package
-                    </p>
-                    <p className="text-white">({paymentDetails?.plan})</p>
-                  </div>
-                  <div className="flex justify-end">
-                    <p className="text-white">₹ {paymentDetails?.totalPrice}</p>
-                  </div>
-                </div>
-                {paymentDetails?.refundAmount ? (
-                  <div className="w-full flex justify-between">
-                    <div>
-                      <p className="m-0 text-lg text-white">Discount</p>
-                    </div>
-                    <div className="flex justify-end">
-                      <p className="text-white">
-                        ₹{" "}
-                        {paymentDetails?.totalPrice -
-                          paymentDetails?.refundAmount}
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-              <hr />
-              <div className="flex justify-between items-center">
-                <p className="m-0 text-white text-lg">Total Payable</p>
-                <div className="flex justify-end">
-                  <p className="m-0 text-white">
-                    ₹{" "}
-                    {paymentDetails?.refundAmount
-                      ? paymentDetails?.refundAmount
-                      : paymentDetails?.totalPrice}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
+        </div>
       )}
     </div>
   );

@@ -7,9 +7,10 @@ import regenerateIcon from "../../assets/images/regenerate.png";
 import { useEffect, useState } from "react";
 import { Close } from "@mui/icons-material";
 import toast from "react-hot-toast";
-import { CircularProgress, Modal } from "@mui/material";
+import { CircularProgress, Modal, Popover } from "@mui/material";
 import { useSelector } from "react-redux";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
+import AudioPlayer from "./AudioPlay1";
 
 export function Prompt({
   messageId,
@@ -30,6 +31,11 @@ export function Prompt({
   const [feedbackType, setFeedbackType] = useState("response");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(false);
+
+  const handleAudioPlayerClick = () => {
+    setAnchorEl(true);
+  };
 
   const handleFeedback = (type) => {
     if (type === "like") {
@@ -179,28 +185,51 @@ export function Prompt({
               </div>
             )}
             {!isUser && promptsArr.length - 1 === messageIndex ? (
-              <>
-                {isLoading ? (
-                  <div className="flex justify-end cursor-pointer">
-                    <div className="flex items-center gap-2">
-                      <CircularProgress size={15} color="inherit" />
-                      <p className="m-0 text-[#018081]">
-                        Regenerating Response...
-                      </p>
+              <div className="flex justify-end items-center gap-3">
+                <div>
+                  {isLoading ? (
+                    <div className="flex justify-end cursor-pointer">
+                      <div className="flex items-center gap-2">
+                        <CircularProgress size={15} color="inherit" />
+                        <p className="m-0 text-[#018081]">
+                          Regenerating Response...
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div
-                    onClick={handleRegenerateResponse}
-                    className="flex justify-end cursor-pointer"
-                  >
-                    <div className="flex items-center gap-2">
-                      <img className="w-5 h-5" src={regenerateIcon} />
-                      <p className="m-0">Regenerate</p>
+                  ) : (
+                    <div
+                      onClick={handleRegenerateResponse}
+                      className="flex justify-end cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2">
+                        <img className="w-5 h-5" src={regenerateIcon} />
+                        <p className="m-0">Regenerate</p>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </>
+                  )}
+                </div>
+                <div>
+                  {!anchorEl ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      className="cursor-pointer"
+                      onClick={handleAudioPlayerClick}
+                      fill="white"
+                    >
+                      <path d="M19 7.358v15.642l-8-5v-.785l8-9.857zm3-6.094l-1.548-1.264-3.446 4.247-6.006 3.753v3.646l-2 2.464v-6.11h-4v10h.843l-3.843 4.736 1.548 1.264 18.452-22.736z" />
+                    </svg>
+                  ) : (
+                    <AudioPlayer
+                      token={currentUser.jwt}
+                      text={promptText}
+                      setAnchorEl={setAnchorEl}
+                    />
+                  )}
+                </div>
+              </div>
             ) : null}
           </div>
         </div>

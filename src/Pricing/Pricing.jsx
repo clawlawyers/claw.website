@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 import Styles from "./Pricing.module.css";
 import { setCart } from "../features/cart/cartSlice";
@@ -1105,18 +1105,20 @@ export default function Pricing() {
         </div>
         <div className="w-4/5 flex flex-col md:flex-row justify-between items-center bg-white rounded p-5">
           <h1 style={{ color: "#008080", fontWeight: 800 }}>Enterprise</h1>
-          <button
-            style={{
-              backgroundColor: "#008080",
-              color: "white",
-              padding: "12px 40px",
-              borderRadius: 10,
-              border: "none",
-              fontSize: 27,
-            }}
-          >
-            Contact us
-          </button>
+          <Link to={"/contact-us"}>
+            <button
+              style={{
+                backgroundColor: "#008080",
+                color: "white",
+                padding: "12px 40px",
+                borderRadius: 10,
+                border: "none",
+                fontSize: 27,
+              }}
+            >
+              Contact us
+            </button>
+          </Link>
         </div>
       </div>
     </div>

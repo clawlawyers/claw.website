@@ -11,8 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { generateResponse, setGpt } from "../features/gpt/gptSlice";
 import { useNavigate } from "react-router-dom";
-import { Popover } from "@mui/material";
-import AudioPlayer from "./components/AudioPlay1";
 
 const prompArr = [
   "What is the historical context behind the creation of the Right to Information (RTI) Act, 2005? How has this law evolved over time, and what were the major milestones in its development?",
@@ -29,38 +27,6 @@ export default function Welcome({
   textGradient,
 }) {
   let containerStyles = { width: "97%" };
-  const [selectedPrompt, setSelectedPrompt] = useState(null);
-  const [audioOpen, setAudioOpen] = useState(false);
-  const [anchorEl1, setAnchorEl1] = useState(null);
-  const [anchorEl2, setAnchorEl2] = useState(null);
-  const [anchorEl3, setAnchorEl3] = useState(null);
-
-  const handleClick1 = (event) => {
-    setAnchorEl1(event.currentTarget);
-  };
-  const handleClose1 = () => {
-    setAnchorEl1(null);
-  };
-  const open1 = Boolean(anchorEl1);
-  const id1 = open1 ? "simple-popover" : undefined;
-
-  const handleClick2 = (event) => {
-    setAnchorEl2(event.currentTarget);
-  };
-  const handleClose2 = () => {
-    setAnchorEl2(null);
-  };
-  const open2 = Boolean(anchorEl2);
-  const id2 = open2 ? "simple-popover" : undefined;
-
-  const handleClick3 = (event) => {
-    setAnchorEl3(event.currentTarget);
-  };
-  const handleClose3 = () => {
-    setAnchorEl3(null);
-  };
-  const open3 = Boolean(anchorEl3);
-  const id3 = open3 ? "simple-popover" : undefined;
 
   const currentUser = useSelector((state) => state.auth.user);
 
@@ -169,36 +135,6 @@ export default function Welcome({
                   Request information about specific laws or acts.
                 </p>
               </div>
-              <div className="w-full pt-2 flex justify-end">
-                <svg
-                  onClick={(e) => {
-                    handleClick1(e);
-                    setAudioOpen(true);
-                  }}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="20"
-                  fill="white"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M6 7l8-5v20l-8-5v-10zm-6 10h4v-10h-4v10zm20.264-13.264l-1.497 1.497c1.847 1.783 2.983 4.157 2.983 6.767 0 2.61-1.135 4.984-2.983 6.766l1.498 1.498c2.305-2.153 3.735-5.055 3.735-8.264s-1.43-6.11-3.736-8.264zm-.489 8.264c0-2.084-.915-3.967-2.384-5.391l-1.503 1.503c1.011 1.049 1.637 2.401 1.637 3.888 0 1.488-.623 2.841-1.634 3.891l1.503 1.503c1.468-1.424 2.381-3.309 2.381-5.394z" />
-                </svg>
-                <Popover
-                  id={id1}
-                  open={open1}
-                  anchorEl={anchorEl1}
-                  onClose={handleClose1}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                >
-                  <AudioPlayer
-                    token={currentUser.jwt}
-                    text="Request information about specific laws or acts."
-                  />
-                </Popover>
-              </div>
             </motion.div>
             <motion.div
               whileTap={{ scale: "0.95" }}
@@ -214,36 +150,6 @@ export default function Welcome({
                   applicable rates and deductions.
                 </p>
               </div>
-              <div className="w-full pt-2 flex justify-end">
-                <svg
-                  onClick={(e) => {
-                    handleClick2(e);
-                    setAudioOpen(true);
-                  }}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="20"
-                  fill="white"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M6 7l8-5v20l-8-5v-10zm-6 10h4v-10h-4v10zm20.264-13.264l-1.497 1.497c1.847 1.783 2.983 4.157 2.983 6.767 0 2.61-1.135 4.984-2.983 6.766l1.498 1.498c2.305-2.153 3.735-5.055 3.735-8.264s-1.43-6.11-3.736-8.264zm-.489 8.264c0-2.084-.915-3.967-2.384-5.391l-1.503 1.503c1.011 1.049 1.637 2.401 1.637 3.888 0 1.488-.623 2.841-1.634 3.891l1.503 1.503c1.468-1.424 2.381-3.309 2.381-5.394z" />
-                </svg>
-                <Popover
-                  id={id2}
-                  open={open2}
-                  anchorEl={anchorEl2}
-                  onClose={handleClose2}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                >
-                  <AudioPlayer
-                    text="Learn the process of calculating tax amounts, including
-                  applicable rates and deductions."
-                  />
-                </Popover>
-              </div>
             </motion.div>
             <motion.div
               whileTap={{ scale: "0.95" }}
@@ -258,36 +164,6 @@ export default function Welcome({
                   Engage in a discussion regarding legal issues and relevant
                   laws associated with the incident.
                 </p>
-              </div>
-              <div className="w-full pt-2 flex justify-end">
-                <svg
-                  onClick={(e) => {
-                    handleClick3(e);
-                    setAudioOpen(true);
-                  }}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="20"
-                  fill="white"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M6 7l8-5v20l-8-5v-10zm-6 10h4v-10h-4v10zm20.264-13.264l-1.497 1.497c1.847 1.783 2.983 4.157 2.983 6.767 0 2.61-1.135 4.984-2.983 6.766l1.498 1.498c2.305-2.153 3.735-5.055 3.735-8.264s-1.43-6.11-3.736-8.264zm-.489 8.264c0-2.084-.915-3.967-2.384-5.391l-1.503 1.503c1.011 1.049 1.637 2.401 1.637 3.888 0 1.488-.623 2.841-1.634 3.891l1.503 1.503c1.468-1.424 2.381-3.309 2.381-5.394z" />
-                </svg>
-                <Popover
-                  id={id3}
-                  open={open3}
-                  anchorEl={anchorEl3}
-                  onClose={handleClose3}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                >
-                  <AudioPlayer
-                    text="Engage in a discussion regarding legal issues and relevant
-                  laws associated with the incident."
-                  />
-                </Popover>
               </div>
             </motion.div>
           </div>

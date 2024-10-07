@@ -1,19 +1,89 @@
-import React from "react";
+import React, { useState } from "react";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Helmet } from "react-helmet";
+import contactIcon from "../assets/images/contactIcon.gif";
+import { useNavigate } from "react-router-dom";
+import { NODE_API_ENDPOINT } from "../utils/utils";
+import toast from "react-hot-toast";
+import { CircularProgress } from "@mui/material";
 
 export default function ContactUs() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [business, setBusiness] = useState("");
+  const [query, setQuery] = useState("");
+  const [contactMode, setContactMode] = useState("email");
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    // Prepare the data to send
+    const data = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber: phone,
+      preferredContactMode: contactMode,
+      businessName: business,
+      query,
+      from: "legalgpt",
+    };
+
+    try {
+      // Make the API request
+      const response = await fetch(
+        `${NODE_API_ENDPOINT}/courtroom/add/ContactUsQuery`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (response.ok) {
+        // Handle successful response
+        const result = await response.json();
+        toast.success("Your message has been sent successfully!");
+        // Reset the form
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPhone("");
+        setBusiness("");
+        setQuery("");
+        setContactMode("");
+        setLoading(false);
+      } else {
+        // Handle server errors
+        const result = await response.json();
+        toast.error(result.message || "Failed to send the message.");
+        setLoading(false);
+      }
+    } catch (error) {
+      // Handle network or other errors
+      toast.error("An error occurred while sending your message.");
+      setLoading(false);
+    }
+  };
+
   return (
     <div
+      className="bg-[#7a7a7a1a] rounded-lg"
       style={{
         width: "80%",
         margin: "auto",
         zIndex: 2,
-        backgroundColor: "#13161f",
-        padding: 20,
+        // padding: 20,
         position: "inherit",
       }}
     >
@@ -28,112 +98,145 @@ export default function ContactUs() {
           content=""
         /> */}
       </Helmet>
-      <h1>Contact Us</h1>
-      <p>
-        Thank you for choosing ClawLaw.in. We are committed to providing
-        exceptional service and assistance to our users. Please feel free to
-        reach out to us with any questions, concerns, or feedback you may have.
-        Our dedicated team is here to help.
-      </p>
-      <p>
-        Contact Information:
-        <p>Email: Claw.lawyers@gmail.com</p>
-        <p>Phone: +91 9950866260</p>
-      </p>
-      <p>
-        Business Hours: Monday - Friday: 9:00 AM to 6:00 PM (IST) Saturday: 9:00
-        AM to 1:00 PM (IST) Sunday: Closed
-      </p>
-      Connect With Us: Follow us on social media to stay updated on news,
-      promotions, and more:
-      <div>
-        <a
-          href="https://www.linkedin.com/company/claw-lawyers/"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-            marginTop: 10,
-            textDecoration: "none",
-          }}
-        >
-          <LinkedInIcon />
-          Linkedin
-        </a>
+      <div className="grid md:grid-cols-2 px-4 py-2">
+        <div className="p-8">
+          <div className="flex flex-col">
+            <h1 className="text-[#00FDFF]">Contact Us</h1>
+            <p className="text-white">
+              Need to Connect with us? Feel free to drop a text here and we will
+              get back to you in no time.
+            </p>
+          </div>
+          <div className="w-full h-full">
+            <img className="w-auto h-auto rounded-none" src={contactIcon} />
+          </div>
+        </div>
+        <div>
+          <form
+            onSubmit={handleSubmit}
+            className="py-8 grid grid-cols-2 gap-3 "
+          >
+            <div className="flex flex-col col-span-2 md:col-span-1 gap-1">
+              <label className="text-xs">First Name</label>
+              <input
+                required
+                className="bg-[#D9D9D9] text-sm p-3 border border-black rounded text-black"
+                placeholder="Enter your first name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-1 col-span-2 md:col-span-1">
+              <label className="text-xs">Last Name</label>
+              <input
+                required
+                className="bg-[#D9D9D9] text-sm p-3 border border-black rounded text-black"
+                placeholder="Enter your last name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-1 col-span-2 md:col-span-1">
+              <label className="text-xs">Email</label>
+              <input
+                required
+                className="bg-[#D9D9D9] text-sm p-3 border border-black rounded text-black"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-1 col-span-2 md:col-span-1">
+              <label className="text-xs">Mobile No.</label>
+              <input
+                required
+                className="bg-[#D9D9D9] text-sm p-3 border border-black rounded text-black"
+                placeholder="Enter your mobile number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-1 col-span-2">
+              <label className="text-xs">Business Name</label>
+              <input
+                required
+                className="bg-[#D9D9D9] text-sm p-3 border border-black rounded text-black"
+                placeholder="Your Business"
+                value={business}
+                onChange={(e) => setBusiness(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-1 col-span-2">
+              <label className="text-xs">Message</label>
+              <textarea
+                required
+                className="bg-[#D9D9D9] text-sm p-3 border border-black rounded text-black min-h-56 max-h-56"
+                placeholder="Enter your message"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
+            <div
+              className="grid col-span-2 justify-center items-center mb-2 gap-2"
+              style={{ wordSpacing: "2px" }}
+            >
+              <h2 className="text-lg m-0 text-white leading-none">
+                Preferred Contact Mode :{" "}
+              </h2>
+              <div className="flex justify-center gap-3">
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="radio"
+                    value="email"
+                    checked={contactMode === "email"}
+                    onChange={(e) => setContactMode(e.target.value)}
+                    className=""
+                  />
+                  <h1 className="m-0 text-sm text-white">via E-Mail</h1>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="radio"
+                    value="call"
+                    checked={contactMode === "call"}
+                    onChange={(e) => setContactMode(e.target.value)}
+                    className=""
+                  />
+                  <h1 className="m-0 text-sm text-white">via Call</h1>
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="rounded-full col-span-2"
+              style={{ background: "linear-gradient(90deg,#001B1B,#00FDFF)" }}
+            >
+              {loading ? (
+                <CircularProgress color="inherit" size={20} />
+              ) : (
+                "Send Message"
+              )}
+            </button>
+          </form>
+        </div>
       </div>
-      <div>
-        <a
-          href="https://www.instagram.com/claw_lawyers/"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-            marginTop: 10,
-            textDecoration: "none",
-          }}
+      <div
+        className="w-full p-3 flex justify-between items-center"
+        style={{ background: "linear-gradient(90deg,#6DFEFF,#001B1B)" }}
+      >
+        <button
+          onClick={() => navigate(-1)}
+          className="px-5 py-1 rounded-lg"
+          style={{ background: "linear-gradient(90deg,#001B1B,#018081)" }}
         >
-          <InstagramIcon />
-          Instagram
-        </a>
+          Go Back
+        </button>
+        <div className="flex gap-2">
+          <InstagramIcon className="cursor-pointer" />
+          <FacebookIcon className="cursor-pointer" />
+          <LinkedInIcon className="cursor-pointer" />
+        </div>
       </div>
-      <div>
-        <a
-          href="http://www.twitter.com/claw_lawyers"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-            marginTop: 10,
-            textDecoration: "none",
-          }}
-        >
-          <XIcon />X {"(Formely Twitter)"}
-        </a>
-      </div>
-      <div>
-        <a
-          href="https://www.facebook.com/profile.php?id=61557181644675"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-            marginTop: 10,
-            textDecoration: "none",
-          }}
-        >
-          <FacebookIcon />
-          Facebook
-        </a>
-      </div>
-      <h2>Customer Support:</h2>
-      For assistance with your account, subscription, or any other inquiries,
-      please contact our customer support team at Claw.lawyers@gmail.com or call
-      us at the provided phone number during business hours.
-      <p>
-        Feedback: We value your feedback and use it to improve our services. If
-        you have any suggestions or comments, please email us at
-        Claw.lawyers@gmail.com. Your input is highly appreciated.
-      </p>
-      <p>
-        Partnerships and Collaborations: Interested in partnering with
-        ClawLaw.in? Please reach out to us via email at Claw.lawyers@gmail.com
-        with details about your proposal or collaboration opportunity.
-      </p>
-      <p>
-        Career Opportunities: Join our team! For inquiries regarding career
-        opportunities or job openings, please visit our Careers page on the
-        website or email us at Claw.lawyers@gmail.com.
-      </p>
-      <p>We look forward to hearing from you!</p>
-      Sincerely, Clawlaw Team
     </div>
   );
 }

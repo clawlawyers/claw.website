@@ -23,7 +23,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ClearIcon from "@mui/icons-material/Clear";
 import FeedIcon from "@mui/icons-material/Feed";
 
-import { Modal } from "@mui/material";
+import { Modal, Popover } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { close, open } from "../features/popup/popupSlice";
 import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
@@ -52,9 +52,27 @@ function Header() {
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
   const handlePopupClose = useCallback(() => dispatch(close()), []);
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
   const handleAuthChange = () => {
-    if (currentUser) dispatch(logout());
-    else navigate("/login");
+    // if (currentUser) dispatch(logout());
+    // else
+    navigate("/login");
+  };
+
+  const handleLogout = () => {
+    setAnchorEl(null);
+    dispatch(logout());
   };
 
   useEffect(() => {
@@ -189,13 +207,55 @@ function Header() {
           <Link className={Styles.headerButton} to="/gpt/legalGPT">
             LegalGPT
           </Link>
-
-          <button className={Styles.headerButton} onClick={handleAuthChange}>
-            {isAuthLoading && (
-              <CircularProgress size={16} style={{ color: "white" }} />
-            )}
-            {!isAuthLoading && (currentUser ? <>Logout</> : <>Login</>)}
-          </button>
+          {!currentUser ? (
+            <button className={Styles.headerButton} onClick={handleAuthChange}>
+              {isAuthLoading && (
+                <CircularProgress size={16} style={{ color: "white" }} />
+              )}
+              {/* {!isAuthLoading && (currentUser ? <>My Account</> : <>Login</>)} */}
+              Login
+            </button>
+          ) : (
+            <>
+              <button
+                className={Styles.headerButton2}
+                onClick={currentUser ? handleClick : null}
+              >
+                {/* {!isAuthLoading && (currentUser ? <>My Account</> : <>Login</>)} */}
+                My Account
+              </button>
+              {anchorEl && (
+                <Popover
+                  sx={{ marginTop: "5px", opacity: "0.7" }}
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                >
+                  <div
+                    className="p-3 w-full bg-black z-20 border-2 border-[#00C37B] rounded"
+                    style={{
+                      background: "linear-gradient(135deg,#003723E5,#1D2330E5)",
+                    }}
+                  >
+                    <p className="text-white border-b border-white p-1 cursor-pointer">
+                      All Purchases
+                    </p>
+                    <p
+                      onClick={handleLogout}
+                      className="text-white border-b border-white p-1 cursor-pointer"
+                    >
+                      Logout
+                    </p>
+                  </div>
+                </Popover>
+              )}
+            </>
+          )}
         </div>
         <button
           className={Styles.mobileNav}
