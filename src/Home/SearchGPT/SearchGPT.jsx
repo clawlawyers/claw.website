@@ -41,6 +41,8 @@ export default function SearchGPT() {
     }
   }, [plan]);
 
+  console.log(activePlan);
+
   // useEffect(() => {
   //   async function fetchGptUser() {
   //     try {

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import loginIcon from "../assets/images/loginIcon.gif";
-import { auth } from "../utils/firebase";
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import {
+  auth,
+  PhoneAuthProvider,
+  RecaptchaVerifier,
+  signInWithCredential,
+  signInWithPhoneNumber,
+} from "../utils/firebase";
 import clawLogo from "../assets/icons/clawlogo.png";
 import Styles from "./Login.module.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,6 +28,9 @@ import toast from "react-hot-toast";
 const Login1 = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [verificationId, setVerificationId] = useState("");
+  const [isFirst, setIsfirst] = useState(true);
+
   let area;
 
   const [otp, setOtp] = useState("");
@@ -85,11 +93,44 @@ const Login1 = () => {
   const handleSend = (e) => {
     e.preventDefault();
     setOtpLoading(true);
-    generateRecaptcha();
-    let appVerifier = window.recaptchaVerifier;
-    signInWithPhoneNumber(auth, countryCode + phoneNumber, appVerifier)
+
+    console.log(window.recaptchaVerifier);
+
+    if (isFirst) {
+      console.log("recaptchaVerifier");
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          console.log(response);
+        },
+        auth,
+      });
+      setIsfirst(false);
+    } else if (!window.recaptchaVerifier) {
+      console.log("recaptchaVerifier");
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          console.log(response);
+        },
+        auth,
+      });
+    }
+
+    console.log(window.recaptchaVerifier);
+    console.log("i am here");
+    console.log(auth);
+    console.log(phoneNumber);
+
+    signInWithPhoneNumber(
+      auth,
+      countryCode + phoneNumber,
+      window.recaptchaVerifier
+    )
       .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
+        setVerificationId(confirmationResult?.verificationId);
         toast.success("OTP sent successfully !");
         setHasFilled(true);
         setOtpLoading(false);
@@ -138,16 +179,16 @@ const Login1 = () => {
 
     try {
       if (otp.length === 6) {
-        const confirmationResult = window.confirmationResult;
-        const result = await confirmationResult.confirm(otp);
-        const { uid, phoneNumber } = result.user;
+        const credential = PhoneAuthProvider.credential(verificationId, otp);
+        await signInWithCredential(auth, credential);
+
         const response = await fetch(`${NODE_API_ENDPOINT}/client/verify`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            phoneNumber: phoneNumber.slice(3),
+            phoneNumber: phoneNumber,
             verified: true,
           }),
         });
@@ -208,7 +249,6 @@ const Login1 = () => {
         }
         dispatch(
           login({
-            uid,
             phoneNumber,
             jwt: data.jwt,
             expiresAt: data.expiresAt,
@@ -245,6 +285,36 @@ const Login1 = () => {
   const handleRetryClick = (e) => {
     e.preventDefault();
     setIsDisabled(true);
+
+    if (!window.recaptchaVerifier) {
+      console.log("recaptchaVerifier");
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          console.log(response);
+        },
+        auth,
+      });
+    }
+
+    signInWithPhoneNumber(
+      auth,
+      countryCode + phoneNumber,
+      window.recaptchaVerifier
+    )
+      .then((confirmationResult) => {
+        setVerificationId(confirmationResult.verificationId);
+        toast.success("OTP sent successfully !");
+        setHasFilled(true);
+        setOtpLoading(false);
+        setIsDisabled(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Error during OTP request");
+        setOtpLoading(false);
+      });
 
     //  API call here
   };
