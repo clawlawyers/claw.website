@@ -28,7 +28,26 @@ const courtIdMapping = {
   "Gujarat High Court": "1NyOxx5lBZ-rFy3wtwdOlepTog668HUwJ",
 };
 
+const newCourtIdMapping = {
+  "Supreme Court of India": "1xe5a_r6_5bm9QO3_znBo9Y5ly7xpNOdl",
+  "Chattisgarh High Court": "1e7GbahAfohsiF7w1_nCKWc7gr69ctOKO",
+  "Sikkim High Court": "1BPtm3lqfX-PCErzoNByDwH0xlHpBKHtG",
+  "Uttarakhand High Court": "1Cfd6hntom_pLJMv4_GHKec0oZAe2DIGu",
+  "Calcutta High Court": "13kZvkMfQUqqE4TJHk1zT0R9EJ4vsm7Y_",
+  "Kerela High Court": "18IEun-9TPt0tywiGmuKheHWmdkJ6N7PC",
+  "Karnataka High Court": "1b3C4lv_sASf7Et4wS2me_dSp1T08NN-e",
+  "Jammu and Kashmir High Court": "1xroQ7bjQPDiTpPWfAi5YDbMeM1MPlNOH",
+  "Jharkhand High Court": "1iQOmzXhtTPa2G7C-pGwcVorkrUFBATTh",
+  "Delhi High Court": "1uLtctLYbGYy26A3KbUs8Wh2SwMq6WbpF",
+  "Delhi District Court": "1NCDpBZGjKIGEYaq-7JPX2rTNDwi48YBv",
+  "Madhya Pradesh High Court": "1qFppmDox-fKOcPFW4FGedfCsIsOWUF8i",
+  "Allahabad High Court": "1e_EdyqEQkCEW3pXFEo9eFweVGYoiwQRW",
+  "Gujarat High Court": "1GWbg3GnvbseAGRfCvQt6ImhXgsg4ZfXl",
+  "Rajasthan High Court": "18VP7y7NKx8jwSq87T2iSUEh4KnDyImOX",
+};
+
 export function CasecardGpt({ name, date, court, citations, caseId, query }) {
+  console.log(date);
   const md = markdownit({
     // Enable HTML tags in source
     html: true,
@@ -102,7 +121,10 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            folderId: courtIdMapping[court],
+            folderId:
+              new Date(date) < new Date("16-July-2024")
+                ? courtIdMapping[court]
+                : newCourtIdMapping[court],
             caseId,
           }),
         }
@@ -145,8 +167,13 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
       setLoading(true);
       setOpenCase(true);
 
+      const mapping =
+        new Date(date) < new Date("16-July-2024")
+          ? courtIdMapping[court]
+          : newCourtIdMapping[court];
+
       const response = await fetch(
-        `${NODE_API_ENDPOINT}/gpt/case/${courtIdMapping[court]}/${caseId}`,
+        `${NODE_API_ENDPOINT}/gpt/case/${mapping}/${caseId}`,
         {
           method: "GET",
           headers: {
