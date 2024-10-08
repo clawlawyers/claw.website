@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import loginIcon from "../assets/images/loginIcon.gif";
 import { auth } from "../utils/firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import clawLogo from "../assets/icons/clawlogo.png";
@@ -19,7 +20,11 @@ import {
 } from "../features/gpt/gptSlice";
 import toast from "react-hot-toast";
 
-export default function Login() {
+const Login1 = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  let area;
+
   const [otp, setOtp] = useState("");
   const [hasFilled, setHasFilled] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -27,22 +32,20 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [otpLoading, setOtpLoading] = useState(false);
   const [error, setError] = useState(null);
-  const currentUser = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  let area;
   const [location, setLocation] = useState({ latitude: null, longitude: null });
-  console.log(location);
   const [areaName, setAreaName] = useState(null);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [countdown, setCountdown] = useState(30);
 
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.user);
   const { prompt } = useSelector((state) => state.gpt);
 
   useEffect(() => {
     const callbackfunction = async () => {
       if (currentUser) {
         console.log(prompt);
-        if (searchParams.get("callbackUrl")) {
+        if (prompt && searchParams.get("callbackUrl")) {
           if (searchParams.get("callbackUrl") == "/gpt/legalGPT") {
             const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
               method: "POST",
@@ -90,6 +93,7 @@ export default function Login() {
         toast.success("OTP sent successfully !");
         setHasFilled(true);
         setOtpLoading(false);
+        setIsDisabled(true);
       })
       .catch((error) => {
         console.log(error);
@@ -220,152 +224,53 @@ export default function Login() {
       setIsLoading(false);
     }
   };
-  return (
-    <div style={{ width: "100%" }}>
-      <Helmet>
-        <title>Login</title>
-        <meta
-          name="description"
-          content="Join us to access comprehensive legal resources, expert insights, and efficient case management tools."
-        />
-        {/* <meta
-          name="keywords"
-          content=""
-        /> */}
-      </Helmet>
-      <div
-        style={{
-          backgroundColor: "#13161f",
-          position: "relative",
-          borderRadius: 30,
-          padding: 30,
-          zIndex: 2,
-          width: "80%",
-          margin: "auto",
-          display: "flex",
-          gap: 10,
-        }}
-      >
-        <div style={{ flex: 1 }}>
-          <h1 className={Styles.loginHeader}>Welcome back!</h1>
-          <div>
-            {error ? (
-              <div
-                style={{
-                  display: "flex",
-                  fontSize: 13,
-                  paddingBottom: 5,
-                  color: "red",
-                  alignItems: "center",
-                }}
-              >
-                <ErrorIcon style={{ fontSize: 13 }} />
-                {error}
-              </div>
-            ) : null}
-          </div>
-          {hasFilled && (
-            <form style={{ width: "50%" }} onSubmit={verifyOtp}>
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <label
-                  style={{ color: "#008080", fontWeight: 600, fontSize: 14 }}
-                >
-                  OTP
-                </label>
-                <input
-                  required
-                  pattern="[0-9]{6}"
-                  style={{
-                    background: "#32353c",
-                    color: "white",
-                    padding: 10,
-                    fontSize: 15,
-                    borderRadius: 2,
-                    outline: "none",
-                    border: "none",
-                  }}
-                  type="text"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                />
-              </div>
-              <button
-                disabled={isLoading}
-                style={{
-                  backgroundColor: "#008080",
-                  color: "white",
-                  border: "none",
-                  marginTop: 45,
-                  padding: "10px 45px",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  borderRadius: "10px",
-                }}
-                type="submit"
-              >
-                {isLoading ? (
-                  <CircularProgress size={15} style={{ color: "white" }} />
-                ) : (
-                  <>Verify otp</>
-                )}
-              </button>
-            </form>
-          )}
 
-          {!hasFilled && (
-            <form style={{}} onSubmit={handleSend}>
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <label
-                  style={{ color: "#008080", fontWeight: 600, fontSize: 14 }}
-                >
-                  PHONE NUMBER
-                </label>
-                <div style={{ display: "flex" }}>
-                  <select
-                    value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value)}
-                    style={{
-                      backgroundColor: "inherit",
-                      border: "none",
-                      color: "white",
-                      outline: "none",
-                    }}
-                  >
-                    <option style={{ color: "black" }} value={"+91"}>
-                      +91
-                    </option>
-                  </select>
-                  <input
-                    required
-                    pattern="[0-9]{10}"
-                    style={{
-                      background: "#32353c",
-                      color: "white",
-                      padding: 10,
-                      fontSize: 15,
-                      borderRadius: 2,
-                      outline: "none",
-                      border: "none",
-                    }}
-                    type="text"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                </div>
-              </div>
+  useEffect(() => {
+    let intervalId;
+    if (isDisabled && countdown > 0) {
+      intervalId = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    }
+
+    if (countdown === 0) {
+      clearInterval(intervalId);
+      setIsDisabled(false);
+      setCountdown(30); // Reset countdown
+    }
+
+    return () => clearInterval(intervalId); // Cleanup on unmount
+  }, [isDisabled, countdown]);
+
+  const handleRetryClick = (e) => {
+    e.preventDefault();
+    setIsDisabled(true);
+
+    //  API call here
+  };
+
+  return (
+    <div className="w-[80%] m-auto">
+      <div className="flex justify-center pb-10">
+        <h1 className="text-5xl font-bold">Welcome Back</h1>
+      </div>
+      <div className="bg-white bg-opacity-10 p-3 grid md:grid-cols-2 rounded-lg border">
+        <img className="w-auto h-auto rounded-none" src={loginIcon} />
+        {!hasFilled ? (
+          <form onSubmit={handleSend} className="flex flex-col gap-3 py-5">
+            <p className="m-0 flex-none">Phone Number</p>
+            <input
+              required
+              className="px-2 py-3 rounded text-black"
+              placeholder="Enter Your Phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <div className="flex justify-end">
               <button
-                disabled={isLoading}
-                style={{
-                  backgroundColor: "#008080",
-                  color: "white",
-                  border: "none",
-                  marginTop: 45,
-                  padding: "10px 45px",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  borderRadius: "10px",
-                }}
                 type="submit"
+                className="rounded px-5"
+                style={{ background: "linear-gradient(90deg,#1D2330,#00C37B)" }}
               >
                 {otpLoading ? (
                   <CircularProgress size={15} color="inherit" />
@@ -373,18 +278,44 @@ export default function Login() {
                   "Send OTP"
                 )}
               </button>
-            </form>
-          )}
-        </div>
-        <div className={Styles.iconContainer}>
-          <img
-            alt="Claw Logo"
-            style={{ width: "60%", height: "100%" }}
-            src={clawLogo}
-          />
-        </div>
+            </div>
+          </form>
+        ) : (
+          <form onSubmit={verifyOtp} className="flex flex-col gap-3 py-5">
+            <p className="m-0 flex-none">OTP</p>
+            <input
+              required
+              className="px-2 py-3 rounded text-black"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+            />
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={handleRetryClick}
+                disabled={isDisabled}
+                className="bg-transparent border rounded px-5"
+              >
+                {isDisabled ? `Wait ${countdown} seconds...` : "Retry"}
+              </button>
+              <button
+                type="submit"
+                className="rounded px-5"
+                style={{ background: "linear-gradient(90deg,#1D2330,#00C37B)" }}
+              >
+                {isLoading ? (
+                  <CircularProgress size={15} color="inherit" />
+                ) : (
+                  "Verify OTP"
+                )}
+              </button>
+            </div>
+          </form>
+        )}
       </div>
       <div id="recaptcha" />
     </div>
   );
-}
+};
+
+export default Login1;

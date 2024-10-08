@@ -242,9 +242,15 @@ function Header() {
                       background: "linear-gradient(135deg,#003723E5,#1D2330E5)",
                     }}
                   >
-                    <p className="text-white border-b border-white p-1 cursor-pointer">
-                      All Purchases
-                    </p>
+                    <Link
+                      onClick={() => setAnchorEl(null)}
+                      style={{ textDecoration: "none" }}
+                      to={"/purchases"}
+                    >
+                      <p className="text-white border-b border-white p-1 cursor-pointer">
+                        All Purchases
+                      </p>
+                    </Link>
                     <p
                       onClick={handleLogout}
                       className="text-white border-b border-white p-1 cursor-pointer"

@@ -23,6 +23,7 @@ export default function AmbassadorDashboard() {
   const [accountNumber, setAccountNumber] = useState();
   const [accountName, setAccountName] = useState();
   const [ifscCode, setIfscCode] = useState();
+
   const fetchAmbassadorDetails = useCallback(
     async (controller) => {
       try {
@@ -38,9 +39,11 @@ export default function AmbassadorDashboard() {
         const parsed = await response.json();
         setDetails(parsed.data);
         toast.success("Fetched Details");
+        setLoading(false);
       } catch (error) {
         console.log(error);
-        toast.error("Something went wrong");
+        // toast.error("Something went wrong");
+        setLoading(false);
       } finally {
         setLoading(false);
       }
@@ -188,9 +191,10 @@ export default function AmbassadorDashboard() {
                   <div style={{ fontSize: 18, fontWeight: 600 }}>
                     <div>
                       <span className="text-[#388888]">Name</span> :{" "}
-                      {details?.client?.firstName +
-                        " " +
-                        details?.client?.lastName}
+                      {details?.client &&
+                        details?.client?.firstName +
+                          " " +
+                          details?.client?.lastName}
                     </div>
                     <div>
                       <span className="text-[#388888]">Referral Code</span> :{" "}
@@ -294,76 +298,8 @@ export default function AmbassadorDashboard() {
           </div>
           <div className="h-[70vh] overflow-auto flex flex-col gap-2">
             <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
-            </div>
-            <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcement Heading</h5>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
-              </p>
+              <h5>Announcements</h5>
+              <p>Coming Soon !!</p>
             </div>
           </div>
         </div>
@@ -383,7 +319,7 @@ export default function AmbassadorDashboard() {
             color: "black",
             borderRadius: 10,
             overflowY: "scroll",
-            padding: 10,
+            padding: 40,
             transform: "translate(-50%, -50%)",
             boxShadow: 24,
           }}
@@ -392,8 +328,8 @@ export default function AmbassadorDashboard() {
             <div
               style={{
                 flex: 1,
-                textAlign: "center",
-                fontSize: 42,
+                // textAlign: "center",
+                fontSize: 32,
                 fontWeight: 600,
               }}
             >
@@ -402,7 +338,7 @@ export default function AmbassadorDashboard() {
             <button
               disabled={loading}
               onClick={() => setOpen(false)}
-              style={{ border: "none", background: "none" }}
+              style={{ border: "none", background: "none", color: "black" }}
             >
               <ClearIcon style={{ fontSize: 30 }} />
             </button>
@@ -416,14 +352,21 @@ export default function AmbassadorDashboard() {
               }}
             >
               {" "}
-              <CircularProgress style={{ color: "white" }} />
+              <CircularProgress size={20} style={{ color: "white" }} />
             </div>
           ) : (
-            <form style={{ display: "flex", flexDirection: "column", gap: 35 }}>
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: 10 }}
-              >
-                <label style={{ fontSize: 22, fontWeight: 600 }}>
+            <form
+              className="w-full"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 15,
+                justifyContent: "center",
+                padding: "25px 0px",
+              }}
+            >
+              <div className="flex flex-col justify-center gap-[5px] w-full">
+                <label style={{ fontSize: 15, fontWeight: 600 }}>
                   Account Name:
                 </label>
                 <input
@@ -431,18 +374,16 @@ export default function AmbassadorDashboard() {
                   value={accountName}
                   onChange={(e) => setAccountName(e.target.value)}
                   style={{
-                    width: "80%",
-                    borderRadius: 20,
+                    width: "100%",
+                    borderRadius: 10,
                     padding: 8,
                     outline: "none",
                     border: "1px solid #008080",
                   }}
                 />
               </div>
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: 10 }}
-              >
-                <label style={{ fontSize: 22, fontWeight: 600 }}>
+              <div className="flex flex-col justify-center gap-[5px] w-full">
+                <label style={{ fontSize: 15, fontWeight: 600 }}>
                   Account Number:
                 </label>
                 <input
@@ -450,18 +391,16 @@ export default function AmbassadorDashboard() {
                   onChange={(e) => setAccountNumber(e.target.value)}
                   type="number"
                   style={{
-                    width: "80%",
-                    borderRadius: 20,
+                    width: "100%",
+                    borderRadius: 10,
                     padding: 8,
                     outline: "none",
                     border: "1px solid #008080",
                   }}
                 />
               </div>
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: 10 }}
-              >
-                <label style={{ fontSize: 22, fontWeight: 600 }}>
+              <div className="flex flex-col justify-center gap-[5px] w-full">
+                <label style={{ fontSize: 15, fontWeight: 600 }}>
                   IFSC Code:
                 </label>
                 <input
@@ -469,8 +408,8 @@ export default function AmbassadorDashboard() {
                   onChange={(e) => setIfscCode(e.target.value)}
                   type="text"
                   style={{
-                    width: "80%",
-                    borderRadius: 20,
+                    width: "100%",
+                    borderRadius: 10,
                     padding: 8,
                     outline: "none",
                     border: "1px solid #008080",
@@ -480,23 +419,23 @@ export default function AmbassadorDashboard() {
             </form>
           )}
           <div
-            style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
+            style={{ display: "flex", justifyContent: "end", marginTop: 10 }}
           >
             <button
               disabled={loading}
               onClick={handleClose}
               style={{
                 border: "none",
-                padding: "14px 55px",
+                padding: "5px 55px",
                 backgroundColor: "#008080",
-                borderRadius: 30,
+                borderRadius: 10,
                 color: "white",
-                fontSize: 28,
+                fontSize: 20,
                 fontWeight: 600,
               }}
             >
               {loading ? (
-                <CircularProgress style={{ color: "white" }} />
+                <CircularProgress size={20} style={{ color: "white" }} />
               ) : (
                 "Save"
               )}

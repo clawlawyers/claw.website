@@ -65,6 +65,8 @@ import SessionGptNew from "./Gpt/components/SessionGptNew.jsx";
 import PlanPayment from "./Pricing/PlanPayment.jsx";
 import { retrieveActivePlanUser, setPlan } from "./features/gpt/gptSlice.js";
 import TestSubscription from "./Pricing/TestSubscription.jsx";
+import UserPurchases from "./Purchases/UserPurchases.jsx";
+import Login1 from "./Login/Login1.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -363,13 +365,21 @@ function App() {
           element: <PlanPayment />,
         },
         {
+          path: "purchases",
+          element: <UserPurchases />,
+        },
+        {
           path: "congrats-investor",
           element: <Demovideo />,
         },
         {
           path: "login",
-          element: <Login />,
+          element: <Login1 />,
         },
+        // {
+        //   path: "login1",
+        //   element: <Login1 />,
+        // },
         {
           path: "leaders",
           element: <Ambassador />,
