@@ -360,7 +360,7 @@ const Login1 = () => {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
             />
-            <div className="flex justify-end gap-3">
+            <div className="flex flex-col md:flex-row justify-end gap-3">
               <button
                 onClick={handleRetryClick}
                 disabled={isDisabled}

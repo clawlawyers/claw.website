@@ -105,6 +105,9 @@
   .headerButton {
     display: none;
   }
+  .headerButton2 {
+    display: none;
+  }
   .headerContent {
     width: 90%;
     padding: 15px;

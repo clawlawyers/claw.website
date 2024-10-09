@@ -22,6 +22,7 @@ import GavelIcon from "@mui/icons-material/Gavel";
 import PersonIcon from "@mui/icons-material/Person";
 import ClearIcon from "@mui/icons-material/Clear";
 import FeedIcon from "@mui/icons-material/Feed";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { Modal, Popover } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
@@ -33,9 +34,9 @@ const navLinks = [
   // { path: "/blog", label: "Blog", icon: BookIcon },
   { path: "/pricing", label: "Pricing", icon: AttachMoneyIcon },
   { path: "/leaders", label: "Leaders", icon: LeaderboardIcon },
-  { path: "/case/search", label: "Case Search", icon: SearchIcon },
-  { path: "/gpt/legalGPT", label: "LegalGPT", icon: GavelIcon },
+  // { path: "/case/search", label: "Case Search", icon: SearchIcon },
   { path: "/news", label: "News", icon: FeedIcon },
+  { path: "/gpt/legalGPT", label: "LegalGPT", icon: GavelIcon },
 ];
 
 function Header() {
@@ -61,8 +62,8 @@ function Header() {
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const openDialog = Boolean(anchorEl);
+  const id = openDialog ? "simple-popover" : undefined;
 
   const handleAuthChange = () => {
     // if (currentUser) dispatch(logout());
@@ -73,6 +74,7 @@ function Header() {
   const handleLogout = () => {
     setAnchorEl(null);
     dispatch(logout());
+    navigate("/");
   };
 
   useEffect(() => {
@@ -228,7 +230,7 @@ function Header() {
                 <Popover
                   sx={{ marginTop: "5px", opacity: "0.7" }}
                   id={id}
-                  open={open}
+                  open={openDialog}
                   anchorEl={anchorEl}
                   onClose={handleClose}
                   anchorOrigin={{
@@ -319,10 +321,49 @@ function Header() {
                 </ListItemButton>
               </ListItem>
             ))}
+            <ListItem
+              key={"caseSearch"}
+              sx={{ borderBottom: "1px solid white" }}
+              disablePadding
+            >
+              <ListItemButton
+                onClick={() => {
+                  activePlan[0]?.plan?.AICaseSearchAccess
+                    ? navigate("/case/search")
+                    : handlePopupOpen();
+                  setNavOpen(false);
+                }}
+              >
+                <ListItemIcon>
+                  <SearchIcon style={{ color: "white" }} />
+                </ListItemIcon>
+                <ListItemText primary={"Case Search"} />
+              </ListItemButton>
+            </ListItem>
+            {currentUser ? (
+              <ListItem
+                key={"purchase"}
+                sx={{ borderBottom: "1px solid white" }}
+                disablePadding
+              >
+                <ListItemButton
+                  onClick={() => {
+                    navigate("/purchases");
+                    setNavOpen(false);
+                  }}
+                >
+                  <ListItemIcon>
+                    <ShoppingCartIcon style={{ color: "white" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={"All Purchases"} />
+                </ListItemButton>
+              </ListItem>
+            ) : null}
             <ListItem key={"auth"} disablePadding>
               <ListItemButton
                 onClick={() => {
-                  handleAuthChange();
+                  currentUser ? handleLogout() : handleAuthChange();
+                  // handleAuthChange();
                   setNavOpen(false);
                 }}
               >

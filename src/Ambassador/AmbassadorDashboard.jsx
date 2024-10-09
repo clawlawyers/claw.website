@@ -287,7 +287,7 @@ export default function AmbassadorDashboard() {
         }}
       >
         <div className="flex flex-col items-center justify-center">
-          <h1 className="font-bold text-5xl">Announcements</h1>
+          <h1 className="font-bold text-4xl md:text-5xl">Announcements</h1>
           <p className="text-xl text-black font-semibold">
             Check important notifications here
           </p>
@@ -298,7 +298,7 @@ export default function AmbassadorDashboard() {
           </div>
           <div className="h-[70vh] overflow-auto flex flex-col gap-2">
             <div className="flex flex-col bg-[#004848] border border-white rounded p-2">
-              <h5>Announcements</h5>
+              <h5 className="">Announcements</h5>
               <p>Coming Soon !!</p>
             </div>
           </div>

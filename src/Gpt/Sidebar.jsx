@@ -66,13 +66,13 @@ export default function Sidebar({ keyword, primaryColor, model }) {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    // width: 400,
     bgcolor: "#C7C7C7",
     border: "2px solid white",
     boxShadow: 24,
     p: 4,
-    height: "35%",
-    width: "40%",
+    // height: "35%",
+    width: "fit",
   };
 
   useEffect(() => {
@@ -557,6 +557,9 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 Upgrade
                               </button>
                               <button
+                                onClick={() =>
+                                  setCancelSubscriptionDialog(true)
+                                }
                                 className="font-semibold text-xs justify-center items-center"
                                 style={{
                                   display: "flex",
@@ -739,10 +742,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box
-          sx={subscriptionStyle}
-          className="overflow-scroll  gap-6 flex flex-col rounded-xl"
-        >
+        <Box sx={subscriptionStyle} className="gap-6 flex flex-col rounded-xl">
           <div className="font-sans text-center">
             <h3 className="text-4xl text-[#018081] font-bold">
               Cancel Subscription

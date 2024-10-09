@@ -262,7 +262,7 @@ export function Prompt({
               sx={{ color: "#018081", cursor: "pointer" }}
             />
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col md:flex-row gap-3">
             <div className="flex gap-1">
               <input
                 type="radio"
