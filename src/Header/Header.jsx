@@ -136,6 +136,30 @@ function Header() {
             </button>
           </div>
           <div style={{ backgroundColor: "transparent" }}>
+          {activePlan  ? (
+            <button>
+              <Link
+                to="/adira"
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  backgroundColor: "transparent",
+                }}
+              >
+                Adira 
+              </Link>
+            </button>): <button
+                    onClick={handlePopupOpen}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      backgroundColor: "transparent",
+                    }}
+                  >
+                    Adira
+                  </button>}
+          </div>
+          <div style={{ backgroundColor: "transparent" }}>
             <button>
               <Link
                 to="/leaders"

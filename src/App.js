@@ -50,6 +50,7 @@ import SalesmanList from "./Admin/Salesman/SalesmanList.jsx";
 import AddAmbassadorForm from "./Admin/AddAmbassador/index.jsx";
 import Demovideo from "./DemoVideo/Demovideo.jsx";
 import AllAdmins from "./Admin/AllAdmins/AllAdmins.jsx";
+import AdiraAi from "./AdiraAi/AdiraAi.jsx";
 // import CourtRoom from "./CourtRoom/CourtRoom.jsx";
 // import LoginToCourtRoom from "./CourtRoom/Login/LoginToCourtRoom.jsx";
 // import BookNow from "./CourtRoom/BookNow/BookNow.jsx";
@@ -535,6 +536,10 @@ function App() {
           ],
         },
       ],
+    },
+    {
+      path: "/adira",
+      element: <AdiraAi />,
     },
     {
       path: "*",

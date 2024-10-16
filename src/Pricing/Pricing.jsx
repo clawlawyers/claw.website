@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { Box, Button, Modal, Typography } from "@mui/material";
+
 
 import Styles from "./Pricing.module.css";
 import { setCart } from "../features/cart/cartSlice";
@@ -75,14 +77,32 @@ export default function Pricing() {
   const [isCouponCode, setIsCouponCode] = useState("");
   const [isReferralCode, setIsReferralCode] = useState(null);
   const [couponLoading, setCouponLoading] = useState(false);
+  const [isOpen, setisOpen] = useState(false);
 
   const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.auth.user);
+
+  const handleClose = () => {
+    setisOpen(false);
+  };
+  const handleLogin = () => {
+    // Assuming you have a route set up for login
+    const searchParams = new URLSearchParams({
+      callbackUrl: pathname,
+    }).toString();
+    navigate(`/login?${searchParams}`);
+    // navigate(`/login?callbackUrl=${pathname}`);
+  };
+
 
   const handleApplyCoupon = async () => {
     // const findCoupon = couponCodes.find(
     //   (x) => x.name.toUpperCase() === couponApplied.toUpperCase()
     // );
+    if(!currentUser){
+      setisOpen(true)
+      return
+    }
     if (couponApplied.toUpperCase() === "EXAM50") {
       setIsCouponCode(couponApplied);
       setCouponFound(true);
@@ -1121,6 +1141,51 @@ export default function Pricing() {
           </Link>
         </div>
       </div>
+      <Modal
+          open={isOpen}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 400,
+              bgcolor: "background.paper",
+              border: "2px solid #000",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Login Required
+            </Typography>
+            <Typography
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              style={{ color: "black" }}
+            >
+              You must be logged in to access coupoun code.
+            </Typography>
+            <Button
+              onClick={handleLogin}
+              variant="contained"
+              color="primary"
+              sx={{ mt: 2 }}
+              style={{
+                border: "none",
+                backgroundColor: "rgb(0, 128, 128)",
+                borderRadius: 15,
+                padding: 10,
+              }}
+            >
+              Go to Login
+            </Button>
+          </Box>
+        </Modal>
     </div>
   );
 }
