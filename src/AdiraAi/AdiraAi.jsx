@@ -1,11 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { ADIRA_ENDPOINT } from '../utils/utils';
+import { useNavigate } from 'react-router-dom';
 
 const AdiraAi = () => {
+  const navigate = useNavigate();
+
+  const currentUser = useSelector((state) => state.auth.user);
   const auth = useSelector((state) => state.auth); // Assuming `auth` is an object
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
+  }
+  if(!currentUser){
+    console.log("jo")
+    navigate("/login")
   }
  // Run this effect whenever auth changes
  const setAuthData = async() => {
