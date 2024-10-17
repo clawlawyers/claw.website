@@ -33,10 +33,10 @@ function Home({ featuresRef, engineReady, particleOptions }) {
         <Features ref={featuresRef} />
         <br />
         <br />
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-col justify-center items-center gap-1">
             <h1 className="font-bold text-5xl md:text-[70px]">Testimonials</h1>
-            <p className="text-lg md:text-2xl font-semibold text-[#777]">
+            <p className="text-sm md:text-2xl font-semibold text-[#777]">
               Get to know what the professionals got to say
             </p>
           </div>
