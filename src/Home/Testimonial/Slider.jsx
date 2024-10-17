@@ -19,7 +19,7 @@ export const Slide = React.memo(function (StackedCarouselSlideProps) {
         />
       </div>
       <div
-        className=" p-2 w-full flex flex-col rounded border-2 border-white"
+        className="p-2 h-72 w-full flex flex-col rounded border-2 border-white"
         style={{
           background: "linear-gradient(90deg, #1f2329, #171e26 40%)",
         }}
@@ -49,9 +49,9 @@ export const Slide = React.memo(function (StackedCarouselSlideProps) {
             borderTop: "2px solid white",
           }}
         />
-        <div className="w-full flex justify-center items-center">
+        <div className="w-full h-full  flex justify-center items-center">
           {/* <img src={testImg} /> */}
-          <div className="p-5 italic font-semibold text-white">
+          <div className="px-3 italic font-semibold text-white">
             <p>" {data[dataIndex].description} "</p>
           </div>
         </div>
