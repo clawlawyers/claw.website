@@ -28,7 +28,7 @@ import { Modal, Popover } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { close, open } from "../features/popup/popupSlice";
 import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
@@ -136,7 +136,7 @@ function Header() {
               </Link>
             </button>
           </div>
-          
+
           <div style={{ backgroundColor: "transparent" }}>
             <button>
               <Link
@@ -151,7 +151,7 @@ function Header() {
               </Link>
             </button>
           </div>
-         
+
           <div style={{ backgroundColor: "transparent" }}>
             <button>
               <Link
@@ -166,43 +166,41 @@ function Header() {
               </Link>
             </button>
           </div>
-        
-       
         </div>
-        
+
         <div className={Styles.headerGPT}>
-        <div  >
-          {activePlan ? (
-            <button className={Styles.headerButton}>
-              <Link 
-                to="/adira"
-                // className={Styles.headerButton}
-                style={{
-                  textDecoration: "none",  
-                  color: "white",
-                  // backgroundColor: "transparent",
-                }}
-              >
-                Adira 
-              </Link>
-            </button>): <button  className={Styles.headerButton}
-                    onClick={handlePopupOpen}
-                
-                  >
-                    Adira
-                  </button>}
+          <div>
+            {activePlan ? (
+              <button className={Styles.headerButton}>
+                <Link
+                  to="/adira"
+                  // className={Styles.headerButton}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    // backgroundColor: "transparent",
+                  }}
+                >
+                  Adira
+                </Link>
+              </button>
+            ) : (
+              <button className={Styles.headerButton} onClick={handlePopupOpen}>
+                Adira
+              </button>
+            )}
           </div>
-          <div >
+          <div>
             {activePlan ? (
               <>
                 {activePlan[0]?.plan?.AICaseSearchAccess ? (
-                  <button  className={Styles.headerButton}>
+                  <button className={Styles.headerButton}>
                     <Link
                       to="/case/search"
                       style={{
                         textDecoration: "none",
                         color: "white",
-                      //   backgroundColor: "transparent",
+                        //   backgroundColor: "transparent",
                       }}
                       // className={Styles.headerButton}
                     >
@@ -231,17 +229,23 @@ function Header() {
             )}
           </div>
           <button className={Styles.headerButton}>
-
-            <Link  style={{
-              textDecoration: "none",
-              color: "white",
-              //   backgroundColor: "transparent",
-            }}  to="/gpt/legalGPT">
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "white",
+                //   backgroundColor: "transparent",
+              }}
+              to="/gpt/legalGPT"
+            >
               LegalGPT
             </Link>
-                        </button>
+          </button>
           {!currentUser ? (
-            <button class="flex flex-1 items-center justify-center  text-white font-medium text-lg rounded-lg p-2.5 border-none " onClick={handleAuthChange}>
+            <button
+              className={Styles.headerButton}
+              class="flex flex-1 items-center justify-center  text-white font-medium text-lg rounded-lg p-2.5 border-none "
+              onClick={handleAuthChange}
+            >
               {isAuthLoading && (
                 <CircularProgress size={16} style={{ color: "white" }} />
               )}
@@ -255,7 +259,7 @@ function Header() {
                 onClick={currentUser ? handleClick : null}
               >
                 {/* {!isAuthLoading && (currentUser ? <>My Account</> : <>Login</>)} */}
-               <AccountCircleIcon></AccountCircleIcon>
+                <AccountCircleIcon></AccountCircleIcon>
               </button>
               {anchorEl && (
                 <Popover

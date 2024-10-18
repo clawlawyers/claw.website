@@ -7,7 +7,14 @@ function Banner() {
     <div className={Style.bannerContainer}>
       <h1 className={Style.banner}>
         <div>Unlock Legal Assistance</div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <div style={{ flex: 1 }} />
           {/* <div className={Style.typed}>with LegalGPT</div> */}
           <TypeAnimation
@@ -26,8 +33,12 @@ function Banner() {
             wrapper="span"
             speed={1}
             style={{
-              color: "rgb(0, 200, 128)",
-              //   background: "linear-gradient(rgb(0, 128, 128), rgb(0, 200, 128))",
+              // color: "rgb(0, 200, 128)",
+              background: "linear-gradient(rgb(0, 128, 128), rgb(0, 200, 128))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              color: "transparent",
               fontSize: "5rem",
               fontWeight: "700",
               display: "inline-block",

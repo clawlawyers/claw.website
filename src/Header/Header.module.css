@@ -17,7 +17,7 @@
   border-radius: 20px;
   background-color: rgba(14, 16, 29, 0.6);
   color: white;
-} 
+}
 
 .headerLogo {
   font-weight: 600;
@@ -30,8 +30,9 @@
 
 .headerLinks {
   display: flex;
-  font-weight: 300;
-  font-size: 16px;
+  gap: 40px;
+  font-weight: 500;
+  font-size: 20px;
   background-color: transparent;
 }
 .headerLinks button {
@@ -44,7 +45,6 @@
   border-radius: 5px;
   transition: transform 0.5s;
   background-image: none;
-  
 }
 
 .headerLinks button:hover {
