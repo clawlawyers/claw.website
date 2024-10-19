@@ -243,7 +243,7 @@ function Header() {
           {!currentUser ? (
             <button
               className={Styles.headerButton}
-              class="flex flex-1 items-center justify-center  text-white font-medium text-lg rounded-lg p-2.5 border-none "
+              // class="flex flex-1 items-center justify-center  text-white font-medium text-lg rounded-lg p-2.5 border-none "
               onClick={handleAuthChange}
             >
               {isAuthLoading && (

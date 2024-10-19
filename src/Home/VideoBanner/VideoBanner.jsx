@@ -25,7 +25,9 @@ const VideoBanner = () => {
 
   const panelVideoSrc = useMemo(() => {
     const findVideo = videoArr.find((x) => x.panel === expanded);
-    return findVideo.src;
+    if (findVideo) {
+      return findVideo.src;
+    }
   }, [expanded]);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -52,21 +54,26 @@ const VideoBanner = () => {
       </div>
       <div className="relative  p-3">
         <div className="grid md:grid-cols-[40%_60%] gap-3 items-center rounded-lg p-3">
-          <div className="w-full absolute inset-0  rounded-none h-full opacity-50">
-            <img className="w-full rounded-none h-full" src={bg} />
+          <div className="w-full absolute inset-0  rounded-lg h-full bg-black opacity-40">
+            {/* <img className="w-full rounded-none h-full" src={bg} /> */}
           </div>
           <div className="">
             <Accordion
               sx={{
-                background:
-                  expanded === "panel1"
-                    ? "linear-gradient(90deg,#00C37B,#005F62)"
-                    : "transparent",
+                background: "transparent",
               }}
               expanded={expanded === "panel1"}
               onChange={handleChange("panel1")}
             >
               <AccordionSummary
+                sx={{
+                  border: "1px solid rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                  background:
+                    expanded === "panel1"
+                      ? "linear-gradient(90deg,#00C37B,#005F62)"
+                      : "transparent",
+                }}
                 //   expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
@@ -90,16 +97,20 @@ const VideoBanner = () => {
             </Accordion>
             <Accordion
               sx={{
-                background:
-                  expanded === "panel2"
-                    ? "linear-gradient(90deg,#00C37B,#005F62)"
-                    : "transparent",
+                background: "transparent",
               }}
               expanded={expanded === "panel2"}
               onChange={handleChange("panel2")}
             >
               <AccordionSummary
-                //   expandIcon={<ExpandMoreIcon />}
+                sx={{
+                  border: "1px solid rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                  background:
+                    expanded === "panel2"
+                      ? "linear-gradient(90deg,#00C37B,#005F62)"
+                      : "transparent",
+                }}
                 aria-controls="panel2bh-content"
                 id="panel2bh-header"
               >
@@ -122,15 +133,20 @@ const VideoBanner = () => {
             </Accordion>
             <Accordion
               sx={{
-                background:
-                  expanded === "panel3"
-                    ? "linear-gradient(90deg,#00C37B,#005F62)"
-                    : "transparent",
+                background: "transparent",
               }}
               expanded={expanded === "panel3"}
               onChange={handleChange("panel3")}
             >
               <AccordionSummary
+                sx={{
+                  border: "1px solid rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                  background:
+                    expanded === "panel3"
+                      ? "linear-gradient(90deg,#00C37B,#005F62)"
+                      : "transparent",
+                }}
                 aria-controls="panel3bh-content"
                 id="panel3bh-header"
               >
@@ -153,15 +169,20 @@ const VideoBanner = () => {
             </Accordion>
             <Accordion
               sx={{
-                background:
-                  expanded === "panel4"
-                    ? "linear-gradient(90deg,#00C37B,#005F62)"
-                    : "transparent",
+                background: "transparent",
               }}
               expanded={expanded === "panel4"}
               onChange={handleChange("panel4")}
             >
               <AccordionSummary
+                sx={{
+                  border: "1px solid rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                  background:
+                    expanded === "panel4"
+                      ? "linear-gradient(90deg,#00C37B,#005F62)"
+                      : "transparent",
+                }}
                 aria-controls="panel4bh-content"
                 id="panel4bh-header"
               >
@@ -184,15 +205,20 @@ const VideoBanner = () => {
             </Accordion>
             <Accordion
               sx={{
-                background:
-                  expanded === "panel5"
-                    ? "linear-gradient(90deg,#00C37B,#005F62)"
-                    : "transparent",
+                background: "transparent",
               }}
               expanded={expanded === "panel5"}
               onChange={handleChange("panel5")}
             >
               <AccordionSummary
+                sx={{
+                  border: "1px solid rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                  background:
+                    expanded === "panel5"
+                      ? "linear-gradient(90deg,#00C37B,#005F62)"
+                      : "transparent",
+                }}
                 aria-controls="panel5bh-content"
                 id="panel5bh-header"
               >
@@ -215,15 +241,20 @@ const VideoBanner = () => {
             </Accordion>
             <Accordion
               sx={{
-                background:
-                  expanded === "panel6"
-                    ? "linear-gradient(90deg,#00C37B,#005F62)"
-                    : "transparent",
+                background: "transparent",
               }}
               expanded={expanded === "panel6"}
               onChange={handleChange("panel6")}
             >
               <AccordionSummary
+                sx={{
+                  border: "1px solid rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                  background:
+                    expanded === "panel6"
+                      ? "linear-gradient(90deg,#00C37B,#005F62)"
+                      : "transparent",
+                }}
                 aria-controls="panel6bh-content"
                 id="panel6bh-header"
               >
