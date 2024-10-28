@@ -20,7 +20,7 @@ const AdiraAi = () => {
  // Run this effect whenever auth changes
  const setAuthData = async(currentUser) => {
  
-  
+  sleep(400)
     // Example auth data you want to send to the child iframe
     const authData = {
       token: "auth",
@@ -41,14 +41,19 @@ const AdiraAi = () => {
 
   };
   setAuthData(currentUser);
-
-
-  useEffect(() => {
-    // Optionally, call setAuthData when needed
-    
+  const handleLoad= (currentUser)=>{
     console.log(currentUser)
     setAuthData(currentUser);
-  }, []);
+
+  }
+
+
+  // useEffect(() => {
+  //   // Optionally, call setAuthData when needed
+    
+  //   console.log(currentUser)
+  //   setAuthData(currentUser);
+  // }, []);
   return (
     <div className='h-[100vh]'>
          {/* <button className='hidden' onClick={setAuthData}>Set Auth Data in Iframe</button> */}
@@ -56,6 +61,7 @@ const AdiraAi = () => {
         id="iframe-id" // Set the ID for the iframe
         className='h-full w-full' 
         src={ADIRA_ENDPOINT }
+        onLoad={()=>handleLoad(currentUser)}
       ></iframe>
     </div>
   );
