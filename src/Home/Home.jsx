@@ -6,6 +6,7 @@ import Features from "./Features/Features";
 import Blogs from "./Blogs/Blogs";
 import Particles from "@tsparticles/react";
 import TestimonialCard from "./Testimonial/Testimonial";
+import VideoBanner from "./VideoBanner/VideoBanner";
 
 function Home({ featuresRef, engineReady, particleOptions }) {
   return (
@@ -13,6 +14,7 @@ function Home({ featuresRef, engineReady, particleOptions }) {
       {engineReady && <Particles id="tsparticles" options={particleOptions} />}
       <Banner />
       <SearchGPT />
+      <VideoBanner />
       <div
         className="relative bg-transparent flex flex-col gap-10"
         style={{ position: "relative", backgroundColor: "transparent" }}
@@ -33,10 +35,10 @@ function Home({ featuresRef, engineReady, particleOptions }) {
         <Features ref={featuresRef} />
         <br />
         <br />
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-col justify-center items-center gap-1">
             <h1 className="font-bold text-5xl md:text-[70px]">Testimonials</h1>
-            <p className="text-lg md:text-2xl font-semibold text-[#777]">
+            <p className="text-sm md:text-2xl font-semibold text-[#777]">
               Get to know what the professionals got to say
             </p>
           </div>

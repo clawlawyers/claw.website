@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { useSelector } from "react-redux";
+import { Box } from "@mui/material";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -23,7 +24,7 @@ const rows = [
 
 const UserPurchases = () => {
   const currentUser = useSelector((state) => state.auth.user);
-
+  console.log(currentUser);
   const [loading, setLoading] = React.useState(false);
   const [tableData, setTableData] = React.useState([]);
   const [filteredTableData, setFilteredTableData] = React.useState([]);
@@ -31,7 +32,7 @@ const UserPurchases = () => {
 
   React.useEffect(() => {
     getPurchases();
-  }, []);
+  }, [currentUser]);
 
   const getPurchases = async () => {
     setLoading(true);
@@ -87,71 +88,78 @@ const UserPurchases = () => {
           <div className="w-full h-16 animate-pulse bg-slate-800"></div>
         </>
       ) : (
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead sx={{ background: "#afafaf" }}>
-            <TableRow>
-              <TableCell sx={{ color: "white" }}>Plan Name</TableCell>
-              <TableCell sx={{ color: "white" }} align="">
-                Start Date
-              </TableCell>
-              <TableCell sx={{ color: "white" }} align="">
-                End Date
-              </TableCell>
-              {/* <TableCell sx={{ color: "white" }} align="">
-              Price
-            </TableCell> */}
-              <TableCell sx={{ color: "white" }} align="">
-                Coupon
-              </TableCell>
-              <TableCell sx={{ color: "white" }} align="">
-                Payment
-              </TableCell>
-              <TableCell sx={{ color: "white" }} align="">
-                Receipt
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <br />
-          {filteredTableData.length > 0 ? (
-            <TableBody
-              sx={{ background: "linear-gradient(90deg,#BDFFE7,#62FFC5)" }}
+        <Box sx={{ borderRadius: "8px", overflow: "hidden", boxShadow: 1 }}>
+          <Table aria-label="simple table">
+            <TableHead
+              sx={{
+                background: "#afafaf",
+                borderRadius: "10px",
+                overflow: "hidden",
+              }}
             >
-              {filteredTableData.map((row, index) => (
-                <TableRow
-                  key={index}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.planName}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {new Date(row.createdAt).toDateString()}
-                  </TableCell>
-                  <TableCell align="">
-                    {new Date(row.expiresAt).toDateString()}
-                  </TableCell>
-                  <TableCell align="">
-                    {row.referralCodeId ? row.referralCodeId : row.isCouponCode}
-                  </TableCell>
-                  <TableCell align="">{row.Paidprice}</TableCell>
-                  <TableCell align="center">
-                    <svg
-                      className="cursor-pointer"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
-                    </svg>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          ) : (
-            "No Data Found"
-          )}
-        </Table>
+              <TableRow sx={{}}>
+                <TableCell sx={{ color: "white" }}>Plan Name</TableCell>
+                <TableCell sx={{ color: "white" }} align="">
+                  Start Date
+                </TableCell>
+                <TableCell sx={{ color: "white" }} align="">
+                  End Date
+                </TableCell>
+                <TableCell sx={{ color: "white" }} align="">
+                  Coupon
+                </TableCell>
+                <TableCell sx={{ color: "white" }} align="">
+                  Payment
+                </TableCell>
+                <TableCell sx={{ color: "white" }} align="">
+                  Receipt
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <br />
+            {filteredTableData.length > 0 ? (
+              <TableBody
+                sx={{ background: "linear-gradient(90deg,#BDFFE7,#62FFC5)" }}
+              >
+                {filteredTableData.map((row, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.planName}
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                      {new Date(row.createdAt).toDateString()}
+                    </TableCell>
+                    <TableCell align="">
+                      {new Date(row.expiresAt).toDateString()}
+                    </TableCell>
+                    <TableCell align="">
+                      {row.referralCodeId
+                        ? row.referralCodeId
+                        : row.isCouponCode}
+                    </TableCell>
+                    <TableCell align="">{row.Paidprice}</TableCell>
+                    <TableCell align="center">
+                      <svg
+                        className="cursor-pointer"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
+                      </svg>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            ) : (
+              "No Data Found"
+            )}
+          </Table>
+        </Box>
       )}
     </div>
   );

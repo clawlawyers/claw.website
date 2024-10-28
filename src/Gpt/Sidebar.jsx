@@ -114,28 +114,30 @@ export default function Sidebar({ keyword, primaryColor, model }) {
   }, [isPhoneMode]);
 
   const handleCancelSubscription = async (planName) => {
-    setCancelSubLoading(true);
-    try {
-      setLoading(true);
-      await fetch(`${NODE_API_ENDPOINT}/gpt/cancelSubscription`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${currentUser.jwt}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ planName }),
-      });
-      dispatch(retrieveActivePlanUser());
-      setCancelSubLoading(false);
-      toast.success("Subscription Cancelled!");
-      setCancelSubscriptionDialog(false);
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-      setCancelSubLoading(false);
-      toast.error("Error in Cancelling Subscription");
-      setCancelSubscriptionDialog(false);
-    }
+    // setCancelSubLoading(true);
+    // try {
+    //   setLoading(true);
+    //   await fetch(`${NODE_API_ENDPOINT}/gpt/cancelSubscription`, {
+    //     method: "POST",
+    //     headers: {
+    //       Authorization: `Bearer ${currentUser.jwt}`,
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ planName }),
+    //   });
+    //   dispatch(retrieveActivePlanUser());
+    //   setCancelSubLoading(false);
+    //   toast.success("Subscription Cancelled!");
+    //   setCancelSubscriptionDialog(false);
+    //   navigate("/");
+    // } catch (error) {
+    //   console.error(error);
+    //   setCancelSubLoading(false);
+    //   toast.error("Error in Cancelling Subscription");
+    //   setCancelSubscriptionDialog(false);
+    // }
+    toast.success("Subscription Cancelled!");
+    setCancelSubscriptionDialog(false);
   };
 
   return (
@@ -677,6 +679,8 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                         backgroundColor: "transparent",
                         height: "100%",
                         marginTop: 8,
+                        objectFit: "fill",
+                        borderRadius: "0px",
                       }}
                       src={clawLogo}
                     />

@@ -51,7 +51,7 @@ const TestimonialCard = () => {
         alignItems: "center",
       }}
     >
-      <div style={{ position: "relative", width: "90%" }}>
+      <div style={{ position: "relative", width: "100%" }}>
         <ResponsiveContainer
           carouselRef={ref}
           render={(parentWidth, carouselRef) => {
