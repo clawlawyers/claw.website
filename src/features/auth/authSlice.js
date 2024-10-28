@@ -26,6 +26,7 @@ export const userSlice = createSlice({
     user: null,
     props: null,
     status: "idle",
+    autologout:false,
     error: null,
   },
   reducers: {
@@ -33,12 +34,14 @@ export const userSlice = createSlice({
       const { ambassador, ...user } = action.payload;
       state.user = user;
       state.props = { ambassador };
+      state.autologout = false;
       localStorage.setItem("auth", JSON.stringify(user));
       return;
     },
     logout(state) {
       state.user = null;
       state.props = null;
+      
       localStorage.removeItem("auth");
       return;
     },
@@ -47,6 +50,9 @@ export const userSlice = createSlice({
       localStorage.setItem("auth", JSON.stringify(state));
       return;
     },
+    setAutoLogout(state){
+      state.autologout = true;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(retrieveAuth.pending, (state) => {
@@ -65,6 +71,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout, gptUserCreated } = userSlice.actions;
+export const { login, logout, gptUserCreated , setAutoLogout } = userSlice.actions;
 
 export default userSlice.reducer;

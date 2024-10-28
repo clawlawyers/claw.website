@@ -18,6 +18,8 @@ import { Modal } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import LockIcon from "@mui/icons-material/Lock";
 import { activePlanFeatures } from "../../utils/checkActivePlanFeatures";
+import fetchWrapper from "../../utils/fetchWrapper";
+import { CoPresentOutlined } from "@mui/icons-material";
 
 export default function SearchGPT() {
   const [query, setQuery] = useState("");
@@ -70,6 +72,11 @@ export default function SearchGPT() {
     setIsLoading(true);
 
     if (currentUser) {
+      // const response = await fetchWrapper.post(`${NODE_API_ENDPOINT}/gpt/session`, {
+      //   body: JSON.stringify({ prompt: query, model: "legalGPT" }),
+      // })
+      
+      
       const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
         method: "POST",
         headers: {
@@ -79,6 +86,7 @@ export default function SearchGPT() {
         body: JSON.stringify({ prompt: query, model: "legalGPT" }),
       });
       const { data } = await res.json();
+      // const data = response.data
       dispatch(setGpt({ prompt: query }));
       dispatch(generateResponse({ sessionId: data.id, model: "legalGPT" }));
 

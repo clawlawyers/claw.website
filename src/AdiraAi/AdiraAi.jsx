@@ -7,39 +7,47 @@ const AdiraAi = () => {
   const navigate = useNavigate();
 
   const currentUser = useSelector((state) => state.auth.user);
+  console.log(currentUser)
+  var user = currentUser
   const auth = useSelector((state) => state.auth); // Assuming `auth` is an object
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
-  if(!currentUser){
-    console.log("jo")
-    navigate("/login")
-  }
+  // if(!currentUser){
+  //   console.log("jo")
+  //   navigate("/login")
+  // }
  // Run this effect whenever auth changes
- const setAuthData = async() => {
-  await sleep(4000)
+ const setAuthData = async(currentUser) => {
+ 
+  
     // Example auth data you want to send to the child iframe
     const authData = {
       token: "auth",
-      user: JSON.stringify(auth)
+      user: JSON.stringify(currentUser)
     };
 
     const iframeEl = document.getElementById("iframe-id");
     if (iframeEl) {
+      console.log(currentUser)
       // Send the auth data to the iframe
       await iframeEl.contentWindow.postMessage(
         { msg: 'set-localstorage', data: authData },
         ADIRA_ENDPOINT // Target origin of the iframe
       );
 
-      console.log("hi")
+      // console.log("hi")
     } 
+
   };
+  setAuthData(currentUser);
+
 
   useEffect(() => {
     // Optionally, call setAuthData when needed
     
-    setAuthData();
+    console.log(currentUser)
+    setAuthData(currentUser);
   }, []);
   return (
     <div className='h-[100vh]'>

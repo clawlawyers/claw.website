@@ -14,3 +14,6 @@ export const ADIRA_ENDPOINT =
     ? // ? "https://claw-app-dev.onrender.com/api/v1"
    " https://adira.clawlaw.in/"
     : "http://localhost:5000/";
+
+
+

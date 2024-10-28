@@ -14,6 +14,7 @@ import TableRowsIcon from "@mui/icons-material/TableRows";
 import Drawer from "@mui/material/Drawer";
 
 import HomeIcon from "@mui/icons-material/Home";
+import FilePresentIcon from '@mui/icons-material/FilePresent';
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SearchIcon from "@mui/icons-material/Search";
 import BookIcon from "@mui/icons-material/Book";
@@ -172,7 +173,7 @@ function Header() {
         
         <div className={Styles.headerGPT}>
         <div  >
-          {activePlan ? (
+          {plan?.length>0 ? (
             <button className={Styles.headerButton}>
               <Link 
                 to="/adira"
@@ -369,6 +370,26 @@ function Header() {
                   <SearchIcon style={{ color: "white" }} />
                 </ListItemIcon>
                 <ListItemText primary={"Case Search"} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              key={"adira"}
+              sx={{ borderBottom: "1px solid white" }}
+              disablePadding
+            >
+              <ListItemButton
+                onClick={() => {
+                  activePlan[0]?.plan?.AICaseSearchAccess
+                    ? navigate("/case/search")
+                    : handlePopupOpen();
+                  setNavOpen(false);
+                }}
+              >
+                <ListItemIcon>
+                 
+                  <FilePresentIcon style={{ color: "white" }}></FilePresentIcon>
+                </ListItemIcon>
+                <ListItemText primary={"Adira"} />
               </ListItemButton>
             </ListItem>
             {currentUser ? (

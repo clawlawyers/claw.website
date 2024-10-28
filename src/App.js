@@ -68,18 +68,27 @@ import { retrieveActivePlanUser, setPlan } from "./features/gpt/gptSlice.js";
 import TestSubscription from "./Pricing/TestSubscription.jsx";
 import UserPurchases from "./Purchases/UserPurchases.jsx";
 import Login1 from "./Login/Login1.jsx";
+import { WindowRounded } from "@mui/icons-material";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
   const [init, setInit] = useState(false);
   const currentUser = useSelector((state) => state.auth.user);
+  const autologout = useSelector((state) => state.auth.autologout);
+  const gpt = useSelector((state) => state.gpt);
   const dispatch = useDispatch();
 
   const currentUserRef = useRef(currentUser);
 
   useEffect(() => {
     currentUserRef.current = currentUser;
+    if(currentUser==null && autologout){
+
+      window.alert("You have been Logged out ")
+    }
   }, [currentUser]);
+ 
+
 
   // useEffect(() => {
   //   async function fetchGptUser() {
