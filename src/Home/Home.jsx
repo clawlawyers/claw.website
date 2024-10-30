@@ -6,7 +6,7 @@ import Features from "./Features/Features";
 import Blogs from "./Blogs/Blogs";
 import Particles from "@tsparticles/react";
 import TestimonialCard from "./Testimonial/Testimonial";
-import VideoBanner from "./VideoBanner/VideoBanner";
+import VideoBannerHome from "./VideoBanner/Home";
 
 function Home({ featuresRef, engineReady, particleOptions }) {
   return (
@@ -14,7 +14,7 @@ function Home({ featuresRef, engineReady, particleOptions }) {
       {engineReady && <Particles id="tsparticles" options={particleOptions} />}
       <Banner />
       <SearchGPT />
-      <VideoBanner />
+      <VideoBannerHome />
       <div
         className="relative bg-transparent flex flex-col gap-10"
         style={{ position: "relative", backgroundColor: "transparent" }}
