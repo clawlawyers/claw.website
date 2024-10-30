@@ -142,6 +142,10 @@ const Login1 = () => {
           setOtpLoading(false);
           setIsDisabled(true);
     }
+    else{
+      toast.error("Error during OTP request");
+      //     setOtpLoading(false);
+    }
     
 
     console.log(window.recaptchaVerifier);
