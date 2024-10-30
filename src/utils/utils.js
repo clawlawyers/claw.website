@@ -15,5 +15,11 @@ export const ADIRA_ENDPOINT =
    "https://adira.clawlaw.in"
     : "http://localhost:5000";
 
+export const OTP_ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? // ? "https://claw-app-dev.onrender.com/api/v1"
+   "https://claw-app.onrender.com"
+    : "http://localhost:7000";
+
 
 

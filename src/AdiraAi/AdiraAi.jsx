@@ -48,12 +48,12 @@ const AdiraAi = () => {
   }
 
 
-  // useEffect(() => {
-  //   // Optionally, call setAuthData when needed
+  useEffect(() => {
+    // Optionally, call setAuthData when needed
     
-  //   console.log(currentUser)
-  //   setAuthData(currentUser);
-  // }, []);
+    console.log(currentUser)
+    setAuthData(currentUser);
+  }, []);
   return (
     <div className='h-[100vh]'>
          {/* <button className='hidden' onClick={setAuthData}>Set Auth Data in Iframe</button> */}

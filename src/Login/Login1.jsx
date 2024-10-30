@@ -14,7 +14,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { login } from "../features/auth/authSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
-import { NODE_API_ENDPOINT } from "../utils/utils";
+import { NODE_API_ENDPOINT, OTP_ENDPOINT } from "../utils/utils";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import {
@@ -24,12 +24,15 @@ import {
   setToken,
 } from "../features/gpt/gptSlice";
 import toast from "react-hot-toast";
+import { AutoFixHighOutlined } from "@mui/icons-material";
+
 
 const Login1 = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [verificationId, setVerificationId] = useState("");
   const [isFirst, setIsfirst] = useState(true);
+  const [otpToken, setOtpToken] = useState("");
 
   let area;
 
@@ -90,57 +93,79 @@ const Login1 = () => {
     });
   };
 
-  const handleSend = (e) => {
+  const handleSend = async (e) => {
     e.preventDefault();
     setOtpLoading(true);
 
     console.log(window.recaptchaVerifier);
 
     if (isFirst) {
-      console.log("recaptchaVerifier");
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
-        size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          console.log(response);
-        },
-        auth,
-      });
-      setIsfirst(false);
-    } else if (!window.recaptchaVerifier) {
-      console.log("recaptchaVerifier");
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
-        size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          console.log(response);
-        },
-        auth,
-      });
+    //   console.log("recaptchaVerifier");
+    //   window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
+    //     size: "invisible",
+    //     callback: (response) => {
+    //       // reCAPTCHA solved, allow signInWithPhoneNumber.
+    //       console.log(response);
+    //     },
+    //     auth,
+    //   });
+    //   setIsfirst(false);
+    // } else if (!window.recaptchaVerifier) {
+    //   console.log("recaptchaVerifier");
+    //   window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
+    //     size: "invisible",
+    //     callback: (response) => {
+    //       // reCAPTCHA solved, allow signInWithPhoneNumber.
+    //       console.log(response);
+    //     },
+    //     auth,
+    //   });
     }
+
+    const response =await  fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
+      method:'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify({
+        phone:phoneNumber
+      })
+
+    })
+    if(response.status ==200){
+      const data= await response.json()
+      console.log(data.authtoken);
+      setOtpToken(data.authtoken)
+      // setVerificationId(confirmationResult?.verificationId);
+          toast.success("OTP sent successfully !");
+          setHasFilled(true);
+          setOtpLoading(false);
+          setIsDisabled(true);
+    }
+    
 
     console.log(window.recaptchaVerifier);
     console.log("i am here");
     console.log(auth);
     console.log(phoneNumber);
 
-    signInWithPhoneNumber(
-      auth,
-      countryCode + phoneNumber,
-      window.recaptchaVerifier
-    )
-      .then((confirmationResult) => {
-        setVerificationId(confirmationResult?.verificationId);
-        toast.success("OTP sent successfully !");
-        setHasFilled(true);
-        setOtpLoading(false);
-        setIsDisabled(true);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Error during OTP request");
-        setOtpLoading(false);
-      });
+    // signInWithPhoneNumber(
+    //   auth,
+    //   countryCode + phoneNumber,
+    //   window.recaptchaVerifier
+    // )
+    //   .then((confirmationResult) => {
+    //     setVerificationId(confirmationResult?.verificationId);
+    //     toast.success("OTP sent successfully !");
+    //     setHasFilled(true);
+    //     setOtpLoading(false);
+    //     setIsDisabled(true);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     toast.error("Error during OTP request");
+    //     setOtpLoading(false);
+    //   });
   };
 
   function extractState(addressComponents) {
@@ -179,13 +204,35 @@ const Login1 = () => {
 
     try {
       if (otp.length === 6) {
-        const credential = PhoneAuthProvider.credential(verificationId, otp);
-        await signInWithCredential(auth, credential);
-
-        const response = await fetch(`${NODE_API_ENDPOINT}/client/verify`, {
+        // const credential = PhoneAuthProvider.credential(verificationId, otp);
+        // await signInWithCredential(auth, credential);
+        var response = await fetch(`${OTP_ENDPOINT}/verifyotpmobile`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "auth-token":otpToken
+          },
+          body: JSON.stringify({
+            phone: phoneNumber,
+           otp:otp
+          }),
+        });
+        console.log(response)
+        if(response.status !=200){
+          setError(error.message || "Invalid Otp!");
+          setIsLoading(false);
+          toast.error("invaid otp")
+          return 
+        }
+        var data =await  response.json()
+        console.log(data)
+      
+        
+         response = await fetch(`${NODE_API_ENDPOINT}/client/verify`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token":data.authtoken
           },
           body: JSON.stringify({
             phoneNumber: phoneNumber,
@@ -193,7 +240,7 @@ const Login1 = () => {
           }),
         });
         console.log(response);
-        const { data } = await response.json();
+        var { data } = await response.json();
         console.log(data);
         const userMongoId = data.mongoId;
 
@@ -258,6 +305,7 @@ const Login1 = () => {
           })
         );
       } else throw new Error("Otp length should be of 6");
+       
     } catch (error) {
       setError(error.message || "Invalid Otp!");
     } finally {
