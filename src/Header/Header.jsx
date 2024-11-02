@@ -179,7 +179,7 @@ function Header() {
 
         <div className={Styles.headerGPT}>
         <div  >
-          {plan?.length>0 ? (
+          {plan.plan?.length>0 ? (
             <button className={Styles.headerButton}>
               <button 
               onClick={openAdiraAi}
