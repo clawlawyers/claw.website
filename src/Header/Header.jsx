@@ -83,7 +83,7 @@ function Header() {
     var encodedStringBtoA =  btoa(JSON.stringify(currentUser))
     console.log(currentUser)
     console.log(encodedStringBtoA)
-    window.open(`http://localhost:5000/?user=${encodedStringBtoA}`);
+    window.open(`http://adira.clawlaw.in/?user=${encodedStringBtoA}`);
 
   }
 
