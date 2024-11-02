@@ -14,7 +14,7 @@ import TableRowsIcon from "@mui/icons-material/TableRows";
 import Drawer from "@mui/material/Drawer";
 
 import HomeIcon from "@mui/icons-material/Home";
-import FilePresentIcon from '@mui/icons-material/FilePresent';
+import FilePresentIcon from "@mui/icons-material/FilePresent";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SearchIcon from "@mui/icons-material/Search";
 import BookIcon from "@mui/icons-material/Book";
@@ -64,6 +64,9 @@ function Header() {
     setAnchorEl(null);
   };
 
+  // console.log(plan);
+  // console.log(plan?.length);
+
   const openDialog = Boolean(anchorEl);
   const id = openDialog ? "simple-popover" : undefined;
 
@@ -79,13 +82,12 @@ function Header() {
     navigate("/");
   };
 
-  const openAdiraAi= ()=>{
-    var encodedStringBtoA =  btoa(JSON.stringify(currentUser))
-    console.log(currentUser)
-    console.log(encodedStringBtoA)
+  const openAdiraAi = () => {
+    var encodedStringBtoA = btoa(JSON.stringify(currentUser));
+    console.log(currentUser);
+    console.log(encodedStringBtoA);
     window.open(`http://adira.clawlaw.in/?user=${encodedStringBtoA}`);
-
-  }
+  };
 
   useEffect(() => {
     if (plan) {
@@ -178,26 +180,26 @@ function Header() {
         </div>
 
         <div className={Styles.headerGPT}>
-        <div  >
-          {plan?.plan?.length>0 ? (
-            <button className={Styles.headerButton}>
-              <button 
-              onClick={openAdiraAi}
-                className={Styles.headerButton}
-                style={{
-                  textDecoration: "none",  
-                  color: "white",
-                  // backgroundColor: "transparent",
-                }}
-              >
-                Adira 
+          <div>
+            {plan?.length > 0 ? (
+              <button className={Styles.headerButton}>
+                <button
+                  onClick={openAdiraAi}
+                  className={Styles.headerButton}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    // backgroundColor: "transparent",
+                  }}
+                >
+                  Adira
+                </button>
               </button>
-            </button>): <button  className={Styles.headerButton}
-                    onClick={handlePopupOpen}
-                
-                  >
-                    Adira
-                  </button>}
+            ) : (
+              <button className={Styles.headerButton} onClick={handlePopupOpen}>
+                Adira
+              </button>
+            )}
           </div>
           <div>
             {activePlan ? (
@@ -398,7 +400,6 @@ function Header() {
                 }}
               >
                 <ListItemIcon>
-                 
                   <FilePresentIcon style={{ color: "white" }}></FilePresentIcon>
                 </ListItemIcon>
                 <ListItemText primary={"Adira"} />
