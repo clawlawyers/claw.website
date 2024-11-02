@@ -79,6 +79,14 @@ function Header() {
     navigate("/");
   };
 
+  const openAdiraAi= ()=>{
+    var encodedStringBtoA =  btoa(JSON.stringify(currentUser))
+    console.log(currentUser)
+    console.log(encodedStringBtoA)
+    window.open(`http://localhost:5000/?user=${encodedStringBtoA}`);
+
+  }
+
   useEffect(() => {
     if (plan) {
       setActivePlan(activePlanFeatures(plan, "AICaseSearchAccess"));
@@ -173,9 +181,9 @@ function Header() {
         <div  >
           {plan?.length>0 ? (
             <button className={Styles.headerButton}>
-              <Link 
-                to="/adira"
-                // className={Styles.headerButton}
+              <button 
+              onClick={openAdiraAi}
+                className={Styles.headerButton}
                 style={{
                   textDecoration: "none",  
                   color: "white",
@@ -183,7 +191,7 @@ function Header() {
                 }}
               >
                 Adira 
-              </Link>
+              </button>
             </button>): <button  className={Styles.headerButton}
                     onClick={handlePopupOpen}
                 
