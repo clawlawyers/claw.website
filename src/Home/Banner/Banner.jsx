@@ -37,6 +37,8 @@ function Banner() {
               fontWeight: "700",
               display: "inline-block",
             }}
+            cursor={false}
+            className="type"
             repeat={Infinity}
           />
           <div style={{ flex: 1 }} />

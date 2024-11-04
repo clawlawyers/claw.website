@@ -82,13 +82,10 @@ function App() {
 
   useEffect(() => {
     currentUserRef.current = currentUser;
-    if(currentUser==null && autologout){
-
-      window.alert("You have been Logged out ")
+    if (currentUser == null && autologout) {
+      window.alert("You have been Logged out ");
     }
   }, [currentUser]);
- 
-
 
   // useEffect(() => {
   //   async function fetchGptUser() {
@@ -354,10 +351,10 @@ function App() {
           path: "blog/:blogName",
           element: <Blog />,
         },
-        // {
-        //   path: "create/blog",
-        //   element: <CreateBlog />,
-        // },
+        {
+          path: "create/blog",
+          element: <CreateBlog />,
+        },
         {
           path: "privacyPolicy",
           element: <PrivacyPolicy />,

@@ -64,6 +64,9 @@ function Header() {
     setAnchorEl(null);
   };
 
+  // console.log(plan);
+  // console.log(plan?.length);
+
   const openDialog = Boolean(anchorEl);
   const id = openDialog ? "simple-popover" : undefined;
 
@@ -77,6 +80,13 @@ function Header() {
     setAnchorEl(null);
     dispatch(logout());
     navigate("/");
+  };
+
+  const openAdiraAi = () => {
+    var encodedStringBtoA = btoa(JSON.stringify(currentUser));
+    console.log(currentUser);
+    console.log(encodedStringBtoA);
+    window.open(`http://adira.clawlaw.in/?user=${encodedStringBtoA}`);
   };
 
   useEffect(() => {
@@ -173,9 +183,9 @@ function Header() {
           <div>
             {plan?.length > 0 ? (
               <button className={Styles.headerButton}>
-                <Link
-                  to="/adira"
-                  // className={Styles.headerButton}
+                <button
+                  onClick={openAdiraAi}
+                  className={Styles.headerButton}
                   style={{
                     textDecoration: "none",
                     color: "white",
@@ -183,7 +193,7 @@ function Header() {
                   }}
                 >
                   Adira
-                </Link>
+                </button>
               </button>
             ) : (
               <button className={Styles.headerButton} onClick={handlePopupOpen}>
