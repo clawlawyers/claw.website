@@ -14,7 +14,7 @@ import TableRowsIcon from "@mui/icons-material/TableRows";
 import Drawer from "@mui/material/Drawer";
 
 import HomeIcon from "@mui/icons-material/Home";
-import FilePresentIcon from '@mui/icons-material/FilePresent';
+import FilePresentIcon from "@mui/icons-material/FilePresent";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SearchIcon from "@mui/icons-material/Search";
 import BookIcon from "@mui/icons-material/Book";
@@ -170,26 +170,26 @@ function Header() {
         </div>
 
         <div className={Styles.headerGPT}>
-        <div  >
-          {plan?.length>0 ? (
-            <button className={Styles.headerButton}>
-              <Link 
-                to="/adira"
-                // className={Styles.headerButton}
-                style={{
-                  textDecoration: "none",  
-                  color: "white",
-                  // backgroundColor: "transparent",
-                }}
-              >
-                Adira 
-              </Link>
-            </button>): <button  className={Styles.headerButton}
-                    onClick={handlePopupOpen}
-                
-                  >
-                    Adira
-                  </button>}
+          <div>
+            {plan?.length > 0 ? (
+              <button className={Styles.headerButton}>
+                <Link
+                  to="/adira"
+                  // className={Styles.headerButton}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    // backgroundColor: "transparent",
+                  }}
+                >
+                  Adira
+                </Link>
+              </button>
+            ) : (
+              <button className={Styles.headerButton} onClick={handlePopupOpen}>
+                Adira
+              </button>
+            )}
           </div>
           <div>
             {activePlan ? (
@@ -390,7 +390,6 @@ function Header() {
                 }}
               >
                 <ListItemIcon>
-                 
                   <FilePresentIcon style={{ color: "white" }}></FilePresentIcon>
                 </ListItemIcon>
                 <ListItemText primary={"Adira"} />
@@ -505,29 +504,31 @@ function Header() {
                   Top Up 25 Rs
                 </Link>
               </button> */}
-              <button
-                onClick={handlePopupClose}
-                className={Styles.backdropImg}
-                style={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  borderRadius: 15,
-                  padding: 10,
-                }}
-              >
-                <Link
-                  className={Styles.linkImg}
-                  to="/pricing"
+              <Link to="/pricing" style={{ textDecoration: "none" }}>
+                <button
+                  onClick={handlePopupClose}
+                  className={Styles.backdropImg}
                   style={{
-                    color: "white",
-                    textDecoration: "none",
-                    width: "fit-content",
                     border: "none",
+                    backgroundColor: "transparent",
+                    borderRadius: 15,
+                    padding: 10,
                   }}
                 >
-                  Buy Credits
-                </Link>
-              </button>
+                  <p
+                    className={Styles.linkImg}
+                    style={{
+                      color: "white",
+                      textDecoration: "none",
+                      width: "fit-content",
+                      border: "none",
+                      margin: 0,
+                    }}
+                  >
+                    Buy Credits
+                  </p>
+                </button>
+              </Link>
             </div>
           </div>
         </div>

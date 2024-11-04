@@ -75,8 +75,7 @@ export default function SearchGPT() {
       // const response = await fetchWrapper.post(`${NODE_API_ENDPOINT}/gpt/session`, {
       //   body: JSON.stringify({ prompt: query, model: "legalGPT" }),
       // })
-      
-      
+
       const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
         method: "POST",
         headers: {
@@ -227,29 +226,31 @@ export default function SearchGPT() {
                   Top Up 25 Rs
                 </Link>
               </button> */}
-                  <button
-                    onClick={handlePopupClose}
-                    className={Styles.backdropImg}
-                    style={{
-                      border: "none",
-                      backgroundColor: "transparent",
-                      borderRadius: 15,
-                      padding: 10,
-                    }}
-                  >
-                    <Link
-                      className={Styles.linkImg}
-                      to="/pricing"
+                  <Link style={{ textDecoration: "none" }} to="/pricing">
+                    <button
+                      onClick={handlePopupClose}
+                      className={Styles.backdropImg}
                       style={{
-                        color: "white",
-                        textDecoration: "none",
-                        width: "fit-content",
                         border: "none",
+                        backgroundColor: "transparent",
+                        borderRadius: 15,
+                        padding: 10,
                       }}
                     >
-                      Buy Credits
-                    </Link>
-                  </button>
+                      <p
+                        className={Styles.linkImg}
+                        style={{
+                          color: "white",
+                          textDecoration: "none",
+                          width: "fit-content",
+                          border: "none",
+                          margin: 0,
+                        }}
+                      >
+                        Buy Credits
+                      </p>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -144,29 +144,31 @@ export default function GPTLayout(props) {
                   Top Up 25 Rs
                 </Link>
               </button> */}
-              <button
-                onClick={handlePopupClose}
-                className={Style.backdropImg}
-                style={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  borderRadius: 15,
-                  padding: 10,
-                }}
-              >
-                <Link
-                  className={Style.linkImg}
-                  to="/pricing"
+              <Link to="/pricing" style={{ textDecoration: "none" }}>
+                <button
+                  onClick={handlePopupClose}
+                  className={Style.backdropImg}
                   style={{
-                    color: "white",
-                    textDecoration: "none",
-                    width: "fit-content",
                     border: "none",
+                    backgroundColor: "transparent",
+                    borderRadius: 15,
+                    padding: 10,
                   }}
                 >
-                  Buy Credits
-                </Link>
-              </button>
+                  <p
+                    className={Style.linkImg}
+                    style={{
+                      color: "white",
+                      textDecoration: "none",
+                      width: "fit-content",
+                      border: "none",
+                      margin: 0,
+                    }}
+                  >
+                    Buy Credits
+                  </p>
+                </button>
+              </Link>
             </div>
           </div>
         </div>

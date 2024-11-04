@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import bg from "../../assets/guide/bg.gif";
 import firstCase from "../../assets/guide/11.mp4";
 import dateRange from "../../assets/guide/12.mp4";
+import { CircularProgress } from "@mui/material";
 
 const videoArr = [
   { panel: "panel1", src: `${firstCase}` },
@@ -14,11 +15,22 @@ const videoArr = [
 
 const CaseSearchBanner = () => {
   const [expanded, setExpanded] = React.useState("panel1");
+  const [currentVid, setCurrentVid] = useState(null);
 
-  const panelVideoSrc = useMemo(() => {
+  // const panelVideoSrc = useMemo(() => {
+  //   const findVideo = videoArr.find((x) => x.panel === expanded);
+  //   if (findVideo) {
+  //     return findVideo.src;
+  //   }
+  // }, [expanded]);
+
+  useEffect(() => {
+    setCurrentVid(null);
     const findVideo = videoArr.find((x) => x.panel === expanded);
     if (findVideo) {
-      return findVideo.src;
+      setCurrentVid(findVideo.src);
+    } else {
+      setCurrentVid(null);
     }
   }, [expanded]);
 
@@ -111,16 +123,22 @@ const CaseSearchBanner = () => {
               </AccordionDetails>
             </Accordion>
           </div>
-          <div className="flex justify-center items-center p-1 rounded-lg h-fit bg-black z-20">
-            <video
-              className="rounded-lg"
-              src={panelVideoSrc}
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
-          </div>
+          {currentVid ? (
+            <div className="flex justify-center items-center p-1 rounded-lg h-fit bg-black z-20">
+              <video
+                className="rounded-lg"
+                src={currentVid}
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            </div>
+          ) : (
+            <div className="h-60 flex justify-center items-center bg-black z-20 rounded-lg">
+              <CircularProgress size={30} color="inherit" />
+            </div>
+          )}
         </div>
       </div>
     </div>

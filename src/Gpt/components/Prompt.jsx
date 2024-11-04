@@ -33,6 +33,9 @@ export function Prompt({
   const [isLoading, setIsLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
 
+  const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
+
   const handleAudioPlayerClick = () => {
     setAnchorEl(true);
   };
@@ -127,6 +130,42 @@ export function Prompt({
   useEffect(() => {
     setPromptText(text);
   }, [text]);
+
+  useEffect(() => {
+    const newSocket = new WebSocket(
+      "ws://20.198.24.104:8000/api/v1/gpt/generate"
+    );
+
+    newSocket.onopen = () => {
+      console.log("WebSocket connection established");
+    };
+
+    newSocket.onmessage = (event) => {
+      const newMessage = JSON.parse(event.data);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    };
+
+    newSocket.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+
+    newSocket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    setSocket(newSocket);
+
+    // Cleanup function to close the socket when the component unmounts
+    return () => {
+      newSocket.close();
+    };
+  }, []);
+
+  const sendMessage = (message) => {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify(message));
+    }
+  };
 
   return (
     <>

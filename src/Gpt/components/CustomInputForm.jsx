@@ -4,10 +4,21 @@ import { Link, useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import Styles from "./CustomInputForm.module.css";
 import { close, open } from "../../features/popup/popupSlice";
-import { Modal } from "@mui/material";
+import { MenuItem, Modal, TextField } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import LockIcon from "@mui/icons-material/Lock";
 import { activePlanFeatures } from "../../utils/checkActivePlanFeatures";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { Close } from "@mui/icons-material";
+import "./CustomInput.css";
+import UploadIcon from "../../assets/icons/Upload.png";
+import axios from "axios";
+import { NODE_API_ENDPOINT } from "../../utils/utils";
 
 export default function CustomInputForm({
   onSubmit,
@@ -18,11 +29,35 @@ export default function CustomInputForm({
   selectedPrompt,
 }) {
   const dispatch = useDispatch();
-
-  const [activePlan, setActivePlan] = useState([]);
-
+  const currentUser = useSelector((state) => state.auth.user);
   const { plan } = useSelector((state) => state.gpt);
   const isOpen = useSelector((state) => state.popup.open);
+
+  const [activePlan, setActivePlan] = useState([]);
+  const [query, setQuery] = useState("");
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [fileDialog, setFileDialog] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+
+  const handleChange = (event) => {
+    setSelectedLanguage(event.target.value);
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    setSelectedLanguage("");
+    setUploadedFiles([]);
+    setFileDialog(false);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   useEffect(() => {
     if (plan) {
@@ -34,8 +69,6 @@ export default function CustomInputForm({
     dispatch(open());
   }, []);
   const handlePopupClose = useCallback(() => dispatch(close()), []);
-
-  const [query, setQuery] = useState("");
 
   function onFormSubmission(e) {
     e.preventDefault();
@@ -54,6 +87,42 @@ export default function CustomInputForm({
       setQuery(selectedPrompt);
     }
   }, [selectedPrompt]);
+
+  const handleFileUpload = (e) => {
+    const files = Array.from(e.target.files);
+    setUploadedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
+  useEffect(() => {
+    if (uploadedFiles.length > 0) {
+      handleFileSubmit();
+    }
+  }, [uploadedFiles]);
+
+  const handleFileSubmit = async () => {
+    const formData = new FormData();
+    uploadedFiles.forEach((file, index) => {
+      formData.append(`file${index === 0 ? "" : index}`, file);
+    });
+    formData.append("language", selectedLanguage);
+    try {
+      const response = await axios.post(
+        `${NODE_API_ENDPOINT}/gpt/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${currentUser.jwt}`,
+          },
+        }
+      );
+
+      const data = response.data;
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className={Styles.container} style={containerStyles}>
@@ -84,6 +153,124 @@ export default function CustomInputForm({
           onChange={(e) => setQuery(e.target.value)}
           value={query}
         />
+
+        <button
+          aria-describedby={id}
+          variant="contained"
+          onClick={handleClick}
+          disabled={isLoading || isError}
+          style={{
+            border: "none",
+            backgroundColor: primaryColor,
+            borderRadius: 10,
+            // padding: 10,
+            cursor: "pointer",
+            marginRight: "5px",
+          }}
+        >
+          <FileUploadIcon
+            // fontSize="large"
+            style={{ color: "white", backgroundColor: "transparent" }}
+          />
+        </button>
+        <Popover
+          className="w-full"
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+        >
+          {!fileDialog ? (
+            <div className="p-3 bg-[#C2FFFF] w-full border-4 border-[#018081]">
+              <div className="flex w-full justify-between items-center gap-28">
+                <p className="m-0 text-[#018081] text-lg font-semibold">
+                  Select Document Language
+                </p>
+                <Close
+                  sx={{ color: "#018081" }}
+                  className="cursor-pointer"
+                  onClick={handleClose}
+                />
+              </div>
+              <div>
+                <TextField
+                  label="Choose a Language"
+                  select
+                  fullWidth
+                  margin="normal"
+                  size="small"
+                  value={selectedLanguage}
+                  onChange={handleChange}
+                >
+                  {["English", "Hindi", "Marathi", "Gujarati"].map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </div>
+              <div className="w-full flex justify-end">
+                <button
+                  disabled={selectedLanguage === ""}
+                  onClick={() => setFileDialog(true)}
+                  className="rounded-lg"
+                  style={{
+                    background: "linear-gradient(90deg,#018081,#001B1B)",
+                  }}
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="p-3 bg-[#C2FFFF] w-full border-4 border-[#018081]">
+              <div className="flex w-full justify-between items-center gap-28 pb-2">
+                <p className="m-0 text-[#018081] text-lg font-semibold">
+                  Upload Document
+                </p>
+                <Close
+                  sx={{ color: "#018081" }}
+                  className="cursor-pointer"
+                  onClick={handleClose}
+                />
+              </div>
+              <div className="file-upload-container">
+                <input
+                  type="file"
+                  id="file-upload"
+                  className="file-input"
+                  multiple
+                  accept=".docx, .pdf,.txt"
+                  onChange={handleFileUpload}
+                />
+                <label htmlFor="file-upload" className="file-upload-label">
+                  <div className="flex w-full justify-center pb-2">
+                    <img className="rounded-none" src={UploadIcon} />
+                  </div>
+                  <span className="text-[#018081]">
+                    Click Here to Choose a File to Upload
+                  </span>
+                </label>
+              </div>
+              {/* <div className="w-full flex justify-end pt-2">
+                <button
+                  disabled={selectedLanguage === ""}
+                  onClick={handleFileSubmit}
+                  className="rounded-lg"
+                  style={{
+                    background: "linear-gradient(90deg,#018081,#001B1B)",
+                  }}
+                >
+                  Continue
+                </button>
+              </div> */}
+            </div>
+          )}
+        </Popover>
         <button
           disabled={isLoading || isError || query === ""}
           type="submit"

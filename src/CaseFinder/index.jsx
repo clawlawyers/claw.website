@@ -226,29 +226,31 @@ export default function CaseFinder({
                       Top Up 25 Rs
                     </Link>
                   </button> */}
-                  <button
-                    onClick={handlePopupClose}
-                    className="backdropImg"
-                    style={{
-                      border: "none",
-                      backgroundColor: "rgb(0, 128, 128)",
-                      borderRadius: 15,
-                      padding: 10,
-                    }}
-                  >
-                    <Link
-                      className="linkImg"
-                      to="/pricing"
+                  <Link to="/pricing" style={{ textDecoration: "none" }}>
+                    <button
+                      onClick={handlePopupClose}
+                      className="backdropImg"
                       style={{
-                        color: "white",
-                        textDecoration: "none",
-                        width: "fit-content",
                         border: "none",
+                        backgroundColor: "rgb(0, 128, 128)",
+                        borderRadius: 15,
+                        padding: 10,
                       }}
                     >
-                      Buy Credits
-                    </Link>
-                  </button>
+                      <p
+                        className="linkImg"
+                        style={{
+                          color: "white",
+                          textDecoration: "none",
+                          width: "fit-content",
+                          border: "none",
+                          margin: 0,
+                        }}
+                      >
+                        Buy Credits
+                      </p>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
