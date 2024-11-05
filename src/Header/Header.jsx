@@ -182,20 +182,19 @@ function Header() {
         <div className={Styles.headerGPT}>
           <div>
             {plan?.length > 0 ? (
-              <button className={Styles.headerButton}>
-                <button
-                  onClick={openAdiraAi}
-                  className={Styles.headerButton}
-                  style={{
-                    textDecoration: "none",
-                    color: "white",
-                    // backgroundColor: "transparent",
-                  }}
-                >
-                  Adira
-                </button>
+              <button
+                onClick={openAdiraAi}
+                className={Styles.headerButton}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  // backgroundColor: "transparent",
+                }}
+              >
+                Adira
               </button>
             ) : (
+              // </button>
               <button className={Styles.headerButton} onClick={handlePopupOpen}>
                 Adira
               </button>

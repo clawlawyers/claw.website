@@ -24,6 +24,7 @@ const videoArr = [
 const LegalGptBanner = () => {
   const [expanded, setExpanded] = React.useState("panel1");
   const [currentVid, setCurrentVid] = useState(null);
+  console.log(currentVid);
 
   // const panelVideoSrc = useMemo(() => {
   //   const findVideo = videoArr.find((x) => x.panel === expanded);
@@ -33,20 +34,25 @@ const LegalGptBanner = () => {
   // }, [expanded]);
 
   useEffect(() => {
-    setCurrentVid(null);
-    const findVideo = videoArr.find((x) => x.panel === expanded);
-    if (findVideo) {
-      setCurrentVid(findVideo.src);
-    } else {
-      setCurrentVid(null);
-    }
+    // setCurrentVid(null);
+    const timer = setTimeout(() => {
+      const findVideo = videoArr.find((x) => x.panel === expanded);
+      if (findVideo) {
+        setCurrentVid(findVideo.src);
+      } else {
+        setCurrentVid(null);
+      }
+    }, 2000);
+
+    return () => clearInterval(timer);
   }, [expanded]);
 
   const handleChange = (panel) => (event, isExpanded) => {
+    setCurrentVid(null);
     setExpanded(isExpanded ? panel : false);
   };
   return (
-    <div className="">
+    <div className="w-full">
       <div className="flex w-full items-center gap-3 pb-3">
         <h1 className="text-2xl font-bold m-0">LegalGPT</h1>
         <div className="flex-1 w-full bg-[#00C37B] h-[2px]"></div>
@@ -276,9 +282,9 @@ const LegalGptBanner = () => {
             </Accordion>
           </div>
           {currentVid ? (
-            <div className="flex justify-center items-center p-1 rounded-lg h-fit bg-black z-20">
+            <div className="flex justify-center items-center p-1 rounded-lg z-20">
               <video
-                className="rounded-lg"
+                className="rounded-lg h-80"
                 src={currentVid}
                 autoPlay
                 loop
@@ -287,7 +293,7 @@ const LegalGptBanner = () => {
               />
             </div>
           ) : (
-            <div className="h-60 flex justify-center items-center bg-black z-20 rounded-lg">
+            <div className="h-80 flex justify-center items-center bg-black z-20 rounded-lg">
               <CircularProgress size={30} color="inherit" />
             </div>
           )}
