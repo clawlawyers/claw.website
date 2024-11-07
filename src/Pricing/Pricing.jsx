@@ -518,7 +518,7 @@ export default function Pricing() {
   const handlePricingSelect = (plan, planType, sessions, totalPrice) => {
     const planName = `${planType.toUpperCase()}_${plan[0]}`;
     //check if plan exists
-    if (existingPlan.length > 0) {
+    if (existingPlan?.length > 0) {
       const checkAmbassadorPlan = existingPlan.find(
         (x) => x.planName === "FREE_M"
       );
@@ -754,6 +754,10 @@ export default function Pricing() {
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
                     </p>
+                    <p className="text-black">
+                      Free Access to {" "}
+                      <span className="font-bold">Adira Beta</span>
+                    </p>
                   </div>
                 </div>
                 <button
@@ -821,6 +825,10 @@ export default function Pricing() {
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
                     </p>
+                    <p className="text-black">
+                      Free Access to {" "}
+                      <span className="font-bold">Adira Beta</span>
+                    </p>
                   </div>
                 </div>
                 <button
@@ -882,6 +890,10 @@ export default function Pricing() {
                     <p className="text-black">
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
+                    </p>
+                    <p className="text-black">
+                      Free Access to {" "}
+                      <span className="font-bold">Adira Beta</span>
                     </p>
                   </div>
                 </div>

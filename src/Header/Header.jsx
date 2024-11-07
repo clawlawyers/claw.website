@@ -221,6 +221,7 @@ function Header() {
                   <button
                     onClick={handlePopupOpen}
                     className={Styles.headerButton}
+                    
                   >
                     Case Search
                   </button>

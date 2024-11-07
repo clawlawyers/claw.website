@@ -208,8 +208,8 @@ const Login1 = () => {
 
     try {
       if (otp.length === 6) {
-        const credential = PhoneAuthProvider.credential(verificationId, otp);
-        await signInWithCredential(auth, credential);
+        // const credential = PhoneAuthProvider.credential(verificationId, otp);
+        // await signInWithCredential(auth, credential);
         // var response = await fetch(`${OTP_ENDPOINT}/verifyotpmobile`, {
         //   method: "POST",
         //   headers: {

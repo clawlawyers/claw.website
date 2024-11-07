@@ -72,18 +72,20 @@ export default function SearchGPT() {
     setIsLoading(true);
 
     if (currentUser) {
-      // const response = await fetchWrapper.post(`${NODE_API_ENDPOINT}/gpt/session`, {
-      //   body: JSON.stringify({ prompt: query, model: "legalGPT" }),
-      // })
-
-      const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${currentUser.jwt}`,
-          "Content-Type": "application/json",
-        },
+      const res = await fetchWrapper.post(`${NODE_API_ENDPOINT}/gpt/session`, {
         body: JSON.stringify({ prompt: query, model: "legalGPT" }),
-      });
+      })
+     
+      console.log(res)
+
+    //   const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
+    //     method: "POST",
+    //     headers: {
+    //       Authorization: `Bearer ${currentUser.jwt}`,
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ prompt: query, model: "legalGPT" }),
+    //   });
       const { data } = await res.json();
       // const data = response.data
       dispatch(setGpt({ prompt: query }));
@@ -146,7 +148,8 @@ export default function SearchGPT() {
               <button
                 className={globalStyles.backdrop}
                 onClick={() =>
-                  activePlan[0]?.plan.legalGptAccess
+                  // activePlan[0]?.plan.legalGptAccess
+                  true
                     ? onSubmitPrompt()
                     : handlePopupOpen()
                 }

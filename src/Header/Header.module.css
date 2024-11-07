@@ -90,6 +90,9 @@
 .headerGPT > button:hover {
   transform: scale(1.1);
 }
+.headerButton:hover {
+  transform: scale(1.1) ;
+}
 
 .mobileNav {
   display: none;

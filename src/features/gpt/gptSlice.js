@@ -35,6 +35,7 @@ export const generateResponse = createAsyncThunk(
     //   token.used.gptTokenUsed + 1 > token.total.totalGptTokens
     // )
     //   throw new Error("Not enough tokens, please upgrade or try again later!");
+    // const res = await fetchWrapper.post(`${NODE_API_ENDPOINT}/gpt/session/prompt`,{ body: JSON.stringify({ sessionId, prompt, model }),})
     const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session/prompt`, {
       method: "POST",
       body: JSON.stringify({ sessionId, prompt, model }),

@@ -30,6 +30,7 @@ import ReactMarkdown from "react-markdown";
 import markdownit from "markdown-it";
 import { CircularProgress } from "@mui/material";
 import { activePlanFeatures } from "../utils/checkActivePlanFeatures.js";
+import fetchWrapper from "../utils/fetchWrapper.js";
 
 const highCourtArr = [
   "Supreme Court of India",
@@ -50,7 +51,7 @@ const suggestedQuesArr = [
   "This is a sample question that will be generated once user drops his first question in the legalgpt",
 ];
 
-export default function SessionGPT({ model, primaryColor }) {
+export default function   SessionGPT({ model, primaryColor }) {
   let containerStyles = { width: "90%" };
   const md = markdownit({
     // Enable HTML tags in source
@@ -333,17 +334,21 @@ export default function SessionGPT({ model, primaryColor }) {
     setSupremeCourtCases(true);
     //api call
     try {
-      const fetchData = await fetch(
-        `${NODE_API_ENDPOINT}/gpt/session/judgement`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${currentUser.jwt}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ sessionId }),
-        }
-      );
+      // const fetchData = await fetch(
+      //   `${NODE_API_ENDPOINT}/gpt/session/judgement`,
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       Authorization: `Bearer ${currentUser.jwt}`,
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ sessionId }),
+      //   }
+      // );
+
+      const fetchData = await fetchWrapper.post( `${NODE_API_ENDPOINT}/gpt/session/judgement`,{
+        body: JSON.stringify({ sessionId }),
+      })
 
       const response = await fetchData.json();
 
