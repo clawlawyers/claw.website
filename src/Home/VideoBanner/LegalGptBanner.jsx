@@ -24,7 +24,7 @@ const videoArr = [
 const LegalGptBanner = () => {
   const [expanded, setExpanded] = React.useState("panel1");
   const [currentVid, setCurrentVid] = useState(null);
-  console.log(currentVid);
+  // console.log(currentVid);
 
   // const panelVideoSrc = useMemo(() => {
   //   const findVideo = videoArr.find((x) => x.panel === expanded);

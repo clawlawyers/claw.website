@@ -43,7 +43,7 @@ export default function SearchGPT() {
     }
   }, [plan]);
 
-  console.log(activePlan);
+  // console.log(activePlan);
 
   // useEffect(() => {
   //   async function fetchGptUser() {

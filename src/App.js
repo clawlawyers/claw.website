@@ -69,16 +69,53 @@ import TestSubscription from "./Pricing/TestSubscription.jsx";
 import UserPurchases from "./Purchases/UserPurchases.jsx";
 import Login1 from "./Login/Login1.jsx";
 import { WindowRounded } from "@mui/icons-material";
+import WebSocketComponent from "./Gpt/WebSocket/WebSocket.jsx";
+import Prompts from "./Gpt/WebSocket/Prompts.jsx";
+import SocketLayout from "./Gpt/WebSocket/SocketLayout.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
-  const [init, setInit] = useState(false);
+
   const currentUser = useSelector((state) => state.auth.user);
   const autologout = useSelector((state) => state.auth.autologout);
   const gpt = useSelector((state) => state.gpt);
+
+  const [init, setInit] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
+
   const dispatch = useDispatch();
 
   const currentUserRef = useRef(currentUser);
+
+  // useEffect(() => {
+  //   const newSocket = new WebSocket(
+  //     "ws://20.198.24.104:8000/api/v1/gpt/generate"
+  //   );
+
+  //   newSocket.onopen = () => {
+  //     console.log("WebSocket connection established");
+  //   };
+
+  //   newSocket.onmessage = (event) => {
+  //     const newMessage = JSON.parse(event.data);
+  //     setMessages((prevMessages) => [...prevMessages, newMessage]);
+  //   };
+
+  //   newSocket.onclose = () => {
+  //     console.log("WebSocket connection closed");
+  //   };
+
+  //   newSocket.onerror = (error) => {
+  //     console.error("WebSocket error:", error);
+  //   };
+
+  //   setSocket(newSocket);
+
+  //   return () => {
+  //     newSocket.close();
+  //   };
+  // }, []);
 
   useEffect(() => {
     currentUserRef.current = currentUser;
@@ -317,28 +354,6 @@ function App() {
           path: "dummy",
           element: <TestSubscription />,
         },
-        // {
-        //   path: "court-room",
-        //   element: <CourtRoomLayout />,
-        //   children: [
-        //     {
-        //       path: "",
-        //       element: <CourtRoom />,
-        //     },
-        //     {
-        //       path: "login",
-        //       element: <LoginToCourtRoom />,
-        //     },
-        //     {
-        //       path: "book-now",
-        //       element: <BookNow />,
-        //     },
-        //     {
-        //       path: "contact",
-        //       element: <Contact />,
-        //     },
-        //   ],
-        // },
         {
           path: "news",
           element: <TrackedNews />,
@@ -383,10 +398,6 @@ function App() {
           path: "login",
           element: <Login1 />,
         },
-        // {
-        //   path: "login1",
-        //   element: <Login1 />,
-        // },
         {
           path: "leaders",
           element: <Ambassador />,
@@ -441,28 +452,6 @@ function App() {
         { path: "shipping-and-delivery", element: <ShippingPolicy /> },
       ],
     },
-    // {
-    //   path: "courtroom-ai",
-    //   element: <CourtRoomAiLayout />,
-    //   children: [
-    //     {
-    //       path: "",
-    //       element: <CourtroomAiHome />,
-    //     },
-    //     {
-    //       path: "/courtroom-ai/arguments",
-    //       element: <CourtroomArgument />,
-    //     },
-    //     {
-    //       path: "/courtroom-ai/upload",
-    //       element: <UploadDoc />,
-    //     },
-    //     {
-    //       path: "/courtroom-ai/verdict",
-    //       element: <Verdict />,
-    //     },
-    //   ],
-    // },
     {
       path: "/gpt",
       element: <AuthWall />,
@@ -543,6 +532,20 @@ function App() {
         },
       ],
     },
+    {
+      path: "socket",
+      element: <SocketLayout />,
+      children: [
+        { path: "", element: <WebSocketComponent /> },
+
+        { path: "v1/:sessionId", element: <Prompts /> },
+      ],
+    },
+    // {
+    //   path: "",
+    //   element: <WebSocketComponent />,
+    //   // children: [{ path: "v1/:sessionId", element: <Prompts /> }],
+    // },
     {
       path: "/adira",
       element: <AdiraAi />,
