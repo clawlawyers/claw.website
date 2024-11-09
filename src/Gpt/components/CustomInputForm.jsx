@@ -77,8 +77,8 @@ export default function CustomInputForm({
     setFileDialog(false);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const open1 = Boolean(anchorEl);
+  const id = open1 ? "simple-popover" : undefined;
 
   useEffect(() => {
     if (plan) {
@@ -195,7 +195,7 @@ export default function CustomInputForm({
         <Popover
           className="w-full"
           id={id}
-          open={open}
+          open={open1}
           anchorEl={anchorEl}
           onClose={handleClose}
           anchorOrigin={{

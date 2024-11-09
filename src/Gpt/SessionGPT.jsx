@@ -483,20 +483,21 @@ export default function   SessionGPT({ model, primaryColor }) {
                 !suggestedQuestionsIsLoading &&
                 !isGreeting &&
                 (showUpgrade ? (
-                  <button
-                    style={{
-                      borderRadius: 15,
-                      backgroundColor: "#008080",
-                      color: "white",
-                      textDecoration: "none",
-                      padding: 10,
-                      width: "fit-content",
-                      border: "none",
-                    }}
-                    onClick={handlePopupOpen}
-                  >
-                    Upgrade
-                  </button>
+                  <></>
+                  // <button
+                  //   style={{
+                  //     borderRadius: 15,
+                  //     backgroundColor: "#008080",
+                  //     color: "white",
+                  //     textDecoration: "none",
+                  //     padding: 10,
+                  //     width: "fit-content",
+                  //     border: "none",
+                  //   }}
+                  //   onClick={handlePopupOpen}
+                  // >
+                  //   Upgrade
+                  // </button>
                 ) : (
                   <div className="flex flex-col gap-2">
                     <button

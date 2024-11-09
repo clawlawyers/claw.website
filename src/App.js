@@ -382,10 +382,10 @@ function App() {
           path: "terms-of-service",
           element: <TermsOfService />,
         },
-        {
-          path: "pricing",
-          element: <Pricing />,
-        },
+        // {
+        //   path: "pricing",
+        //   element: <Pricing />,
+        // },
         {
           path: "payment",
           element: <PlanPayment />,

@@ -182,7 +182,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               {token?.total?.totalCaseSearchTokens}
                             </div>
                           )} */}
-                          <button
+                          {/* <button
                             style={{
                               display: "flex",
                               color: "white",
@@ -196,7 +196,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             onClick={() => dispatch(open())}
                           >
                             Upgrade
-                          </button>
+                          </button> */}
                         </>
                       ) : (
                         <CircularProgress

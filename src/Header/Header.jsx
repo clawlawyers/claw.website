@@ -135,7 +135,7 @@ function Header() {
             </button> */}
           {/* </div> */}
           <div style={{ backgroundColor: "transparent" }}>
-            <button>
+            {/* <button>
               <Link
                 to="/pricing"
                 style={{
@@ -146,7 +146,7 @@ function Header() {
               >
                 Pricing
               </Link>
-            </button>
+            </button> */}
           </div>
 
           <div style={{ backgroundColor: "transparent" }}>
