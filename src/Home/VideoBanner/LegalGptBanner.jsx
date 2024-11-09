@@ -297,6 +297,7 @@ const LegalGptBanner = () => {
                 autoPlay
                 loop
                 muted
+                controls
                 playsInline
               />
             </div>

@@ -131,6 +131,7 @@ const CaseSearchBanner = () => {
                 autoPlay
                 loop
                 muted
+                controls
                 playsInline
               />
             </div>
