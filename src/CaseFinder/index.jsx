@@ -26,6 +26,7 @@ import { close, open } from "../features/popup/popupSlice";
 import bgimage from "../assets/images/button-gradient.png";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import fetchWrapper from "../utils/fetchWrapper";
 
 export default function CaseFinder({
   keyword = "Legal",
@@ -51,13 +52,14 @@ export default function CaseFinder({
   useEffect(() => {
     async function fetchGptUser() {
       try {
-        const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${currentUser.jwt}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const res =await fetchWrapper.get(`${NODE_API_ENDPOINT}/gpt/user`)
+        // const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
+        //   method: "GET",
+        //   headers: {
+        //     Authorization: `Bearer ${currentUser.jwt}`,
+        //     "Content-Type": "application/json",
+        //   },
+        // });
         const parsed = await res.json();
 
         dispatch(setPlan({ plan: parsed.data.plan }));

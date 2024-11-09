@@ -1,6 +1,6 @@
 import "./App.css";
 import Home from "./Home/Home";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider, useNavigate } from "react-router-dom";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 import Blog from "./Blog/Blog";
 import AllBlogs from "./AllBlogs/AllBlogs";
@@ -70,6 +70,7 @@ import UserPurchases from "./Purchases/UserPurchases.jsx";
 import Login1 from "./Login/Login1.jsx";
 import { WindowRounded } from "@mui/icons-material";
 
+
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
   const [init, setInit] = useState(false);
@@ -78,13 +79,16 @@ function App() {
   const gpt = useSelector((state) => state.gpt);
   const dispatch = useDispatch();
 
+
   const currentUserRef = useRef(currentUser);
 
   useEffect(() => {
     currentUserRef.current = currentUser;
     if (currentUser == null && autologout) {
       window.alert("You have been Logged out ");
+      window.location.replace("/login")
     }
+   
   }, [currentUser]);
 
   // useEffect(() => {

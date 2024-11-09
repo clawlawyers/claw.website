@@ -756,7 +756,7 @@ export default function Pricing() {
                     </p>
                     <p className="text-black">
                       Free Access to {" "}
-                      <span className="font-bold">Adira Beta</span>
+                      <span className="font-bold">Adira AI {"(Beta)"}</span>
                     </p>
                   </div>
                 </div>
@@ -827,7 +827,7 @@ export default function Pricing() {
                     </p>
                     <p className="text-black">
                       Free Access to {" "}
-                      <span className="font-bold">Adira Beta</span>
+                      <span className="font-bold">Adira AI {"(Beta)"}</span>
                     </p>
                   </div>
                 </div>
@@ -893,7 +893,7 @@ export default function Pricing() {
                     </p>
                     <p className="text-black">
                       Free Access to {" "}
-                      <span className="font-bold">Adira Beta</span>
+                      <span className="font-bold">Adira AI {"(Beta)"}</span>
                     </p>
                   </div>
                 </div>
@@ -952,6 +952,10 @@ export default function Pricing() {
                     <p className="text-black">
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
+                    </p>
+                    <p className="text-black">
+                      Free Access to {" "}
+                      <span className="font-bold">Adira AI {"(Beta)"}</span>
                     </p>
                   </div>
                 </div>
@@ -1020,6 +1024,10 @@ export default function Pricing() {
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
                     </p>
+                    <p className="text-black">
+                      Free Access to {" "}
+                      <span className="font-bold">Adira AI {"(Beta)"}</span>
+                    </p>
                   </div>
                 </div>
                 <button
@@ -1081,6 +1089,10 @@ export default function Pricing() {
                     <p className="text-black">
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
+                    </p>
+                    <p className="text-black">
+                      Free Access to {" "}
+                      <span className="font-bold">Adira AI {"(Beta)"}</span>
                     </p>
                   </div>
                 </div>

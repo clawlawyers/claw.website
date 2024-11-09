@@ -44,6 +44,9 @@ export const generateResponse = createAsyncThunk(
         "Content-Type": "application/json",
       },
     });
+    if(res.status==401){
+      return 401
+    }
     return await res.json();
 
     // else {
@@ -109,17 +112,20 @@ export const gptSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(generateResponse.pending, (state) => {
       state.status = "pending";
+      
     });
     builder.addCase(generateResponse.fulfilled, (state, action) => {
       state.response = action.payload.data;
       state.token = action.payload.data?.token;
       state.status = "succeeded";
+      
     });
     builder.addCase(generateResponse.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.error;
     });
     builder.addCase(retrieveActivePlanUser.fulfilled, (state, action) => {
+     
       if (action.payload && action.payload.user) {
         state.plan = action.payload.user;
       }

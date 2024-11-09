@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { RiUserStarLine } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import fetchWrapper from '../../../utils/fetchWrapper';
 
 export default function ChartBox({ collectionName }) {
   const iconMap = {
@@ -29,7 +30,8 @@ export default function ChartBox({ collectionName }) {
       }
 
       try {
-          const response = await fetch(`${NODE_API_ENDPOINT}/admin/${endpoint}`);
+        //   const response = await fetch(`${NODE_API_ENDPOINT}/admin/${endpoint}`);
+          const response = await fetchWrapper.get(`${NODE_API_ENDPOINT}/admin/${endpoint}`);
           const data = await response.json();
           
           // Filtering logic for users and visitors

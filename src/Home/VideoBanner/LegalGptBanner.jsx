@@ -12,13 +12,21 @@ import specificSC from "../../assets/guide/5.mp4";
 import references from "../../assets/guide/6.mp4";
 import { CircularProgress } from "@mui/material";
 
+// const videoArr = [
+//   { panel: "panel1", src: `${getStartedVid}` },
+//   { panel: "panel2", src: `${genAi}` },
+//   { panel: "panel3", src: `${relevantHC}` },
+//   { panel: "panel4", src: `${specificHC}` },
+//   { panel: "panel5", src: `${specificSC}` },
+//   { panel: "panel6", src: `${references}` },
+// ];
 const videoArr = [
-  { panel: "panel1", src: `${getStartedVid}` },
-  { panel: "panel2", src: `${genAi}` },
-  { panel: "panel3", src: `${relevantHC}` },
-  { panel: "panel4", src: `${specificHC}` },
-  { panel: "panel5", src: `${specificSC}` },
-  { panel: "panel6", src: `${references}` },
+  { panel: "panel1", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/cncwcytiraola9fmpeym.mp4` },
+  { panel: "panel2", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/jzjldnltlcua5pfqnnzf.mp4  ` },
+  { panel: "panel3", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/bixixvcvvjdu85i7lkr5.mp4` },
+  { panel: "panel4", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/hhursgp0kbpvh6p9bccr.mp4` },
+  { panel: "panel5", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/rnu0dueaormfr3lgyleo.mp4` },
+  { panel: "panel6", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/ccbjqddkmceifxiwndsn.mp4` },
 ];
 
 const LegalGptBanner = () => {

@@ -1,5 +1,6 @@
-import store from '../store'; // Import your Redux store
 import {logout, setAutoLogout} from "../features/auth/authSlice"
+import store from '../store'; // Import your Redux store
+
 
 const fetchWrapper = {
     get: request('GET'),
@@ -48,6 +49,7 @@ function authHeader() {
     if (!response.ok) {
         if (response.status === 401) {
             // Dispatch logout action to Redux
+          
             store.dispatch(logout());
             store.dispatch(setAutoLogout())
             console.log("asdddddddddddddddddd")

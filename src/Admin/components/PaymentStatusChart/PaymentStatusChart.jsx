@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { NODE_API_ENDPOINT } from '../../../utils/utils';
 import 'chart.js/auto';
+import fetchWrapper from '../../../utils/fetchWrapper';
 
 const PaymentDistributionStackedBarChart = () => {
   const [chartData, setChartData] = useState({
@@ -10,7 +11,8 @@ const PaymentDistributionStackedBarChart = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const response = await fetch(`${NODE_API_ENDPOINT}/admin/orders`);
+      // const response = await fetch(`${NODE_API_ENDPOINT}/admin/orders`);
+      const response = await fetchWrapper.get(`${NODE_API_ENDPOINT}/admin/orders`);
       const orders = await response.json();
       processChartData(orders);
     };
