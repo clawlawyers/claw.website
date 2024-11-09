@@ -7,10 +7,32 @@ import regenerateIcon from "../../assets/images/regenerate.png";
 import { useEffect, useState } from "react";
 import { Close } from "@mui/icons-material";
 import toast from "react-hot-toast";
-import { CircularProgress, Modal, Popover } from "@mui/material";
+import { CircularProgress, Divider, Modal, Popover } from "@mui/material";
 import { useSelector } from "react-redux";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 import AudioPlayer from "./AudioPlay1";
+import translateIcon from "../../assets/icons/translate.png";
+
+const languageArr = [
+  // "English",
+  "Hindi",
+  "Bengali",
+  "Punjabi",
+  "Gujarati",
+  "Marathi",
+  "Tamil",
+  "Telugu",
+  "Kannada",
+  "Malayalam",
+  "Odia",
+  "Urdu",
+  "Assamese",
+  "Maithili",
+  "Dogri",
+  "Nepali",
+  "Sindhi",
+  "Sanskrit",
+];
 
 export function Prompt({
   messageId,
@@ -31,10 +53,10 @@ export function Prompt({
   const [feedbackType, setFeedbackType] = useState("response");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [translatingLoading, setTranslationLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
 
-  const [messages, setMessages] = useState([]);
-  const [socket, setSocket] = useState(null);
+  const [anchorElTranslate, setAnchorElTranslate] = useState(false);
 
   const handleAudioPlayerClick = () => {
     setAnchorEl(true);
@@ -127,45 +149,60 @@ export function Prompt({
     }
   };
 
+  const handleTranslatePrompt = async (language) => {
+    setAnchorElTranslate(null);
+    const reqQuery = promptsArr[promptsArr.length - 1];
+    console.log(reqQuery);
+
+    try {
+      setTranslationLoading(true);
+      const res = await fetch(`${NODE_API_ENDPOINT}/gpt/translate`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${currentUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          context: reqQuery.text,
+          language: language.toLowerCase(),
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to translate!");
+      }
+
+      const data = await res.json();
+      console.log(data);
+      const newObj = {
+        id: reqQuery.id,
+        text: data.data.translatedText.response,
+        isUser: false,
+      };
+      promptsArr[promptsArr.length - 1] = newObj;
+      setPrompts(promptsArr);
+      setPromptText(data.data.translatedText.response);
+      setTranslationLoading(false);
+    } catch (error) {
+      console.log(error);
+      // toast.error(error.message);
+      setTranslationLoading(false);
+    }
+  };
+
   useEffect(() => {
     setPromptText(text);
   }, [text]);
 
-  useEffect(() => {
-    const newSocket = new WebSocket(
-      "ws://20.198.24.104:8000/api/v1/gpt/generate"
-    );
-
-    newSocket.onopen = () => {
-      console.log("WebSocket connection established");
-    };
-
-    newSocket.onmessage = (event) => {
-      const newMessage = JSON.parse(event.data);
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    };
-
-    newSocket.onclose = () => {
-      console.log("WebSocket connection closed");
-    };
-
-    newSocket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
-    setSocket(newSocket);
-
-    // Cleanup function to close the socket when the component unmounts
-    return () => {
-      newSocket.close();
-    };
-  }, []);
-
-  const sendMessage = (message) => {
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify(message));
-    }
+  const handleTranslateClick = (event) => {
+    setAnchorElTranslate(event.currentTarget);
   };
+
+  const handleTranslateClose = () => {
+    setAnchorElTranslate(null);
+  };
+
+  const translateOpen = Boolean(anchorElTranslate);
+  const translateId = translateOpen ? "simple-popover" : undefined;
 
   return (
     <>
@@ -213,7 +250,7 @@ export function Prompt({
             {isUser ? <img className="w-7 h-[27px]" src={personIcon} /> : ""}
           </div>
           <div className={Styles.promptText}>
-            {!isLoading ? (
+            {!isLoading || !translatingLoading ? (
               <p>{promptText}</p>
             ) : (
               <div className="h-full w-full p-3 flex flex-col gap-2">
@@ -247,6 +284,48 @@ export function Prompt({
                     </div>
                   )}
                 </div>
+                {translatingLoading ? (
+                  <div className="flex justify-end cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <CircularProgress size={15} color="inherit" />
+                      <p className="m-0 text-[#018081]">Translating...</p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div
+                      className="flex gap-2 items-center cursor-pointer"
+                      onClick={handleTranslateClick}
+                    >
+                      <img
+                        className="w-4 h-4 rounded-none"
+                        src={translateIcon}
+                      />
+                      <p className="m-0">Translate</p>
+                    </div>
+                    <Popover
+                      className="w-full h-2/3"
+                      id={translateId}
+                      open={translateOpen}
+                      anchorEl={anchorElTranslate}
+                      onClose={handleTranslateClose}
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "left",
+                      }}
+                    >
+                      {languageArr.map((x, index) => (
+                        <p
+                          onClick={() => handleTranslatePrompt(x)}
+                          key={index}
+                          className="m-0 text-[#018081] py-1 px-4 cursor-pointer border-b border-[#018081]"
+                        >
+                          {x}
+                        </p>
+                      ))}
+                    </Popover>
+                  </>
+                )}
                 <div>
                   {!anchorEl ? (
                     <svg

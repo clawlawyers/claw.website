@@ -97,7 +97,7 @@ export default function   SessionGPT({ model, primaryColor }) {
 
   const [query, setQuery] = useState("");
   const [prompts, setPrompts] = useState([]);
-  console.log(prompts);
+  // console.log(prompts);
   const { isAuthLoading } = useAuthState();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);

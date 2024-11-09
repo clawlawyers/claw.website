@@ -399,16 +399,15 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     backgroundColor: "transparent",
                     display: "flex",
                     alignItems: "center",
-                    gap: "5px",
+                    gap: 5,
                   }}
                 >
                   <Home />
                   <img
                     alt="Claw"
+                    className="rounded-none object-contain w-16 h-full"
                     style={{
                       backgroundColor: "transparent",
-                      height: "100%",
-                      marginTop: 8,
                     }}
                     src={clawLogo}
                   />
@@ -670,18 +669,15 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       backgroundColor: "transparent",
                       display: "flex",
                       alignItems: "center",
-                      gap: "5px",
+                      gap: 5,
                     }}
                   >
                     <Home />
                     <img
                       alt="Claw"
+                      className="rounded-none object-contain w-16 h-full"
                       style={{
                         backgroundColor: "transparent",
-                        height: "100%",
-                        marginTop: 8,
-                        objectFit: "fill",
-                        borderRadius: "0px",
                       }}
                       src={clawLogo}
                     />

@@ -20,6 +20,27 @@ import UploadIcon from "../../assets/icons/Upload.png";
 import axios from "axios";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 
+const languageArr = [
+  "English",
+  "Hindi",
+  "Bengali",
+  "Punjabi",
+  "Gujarati",
+  "Marathi",
+  "Tamil",
+  "Telugu",
+  "Kannada",
+  "Malayalam",
+  "Odia",
+  "Urdu",
+  "Assamese",
+  "Maithili",
+  "Dogri",
+  "Nepali",
+  "Sindhi",
+  "Sanskrit",
+];
+
 export default function CustomInputForm({
   onSubmit,
   isLoading = false,
@@ -41,7 +62,7 @@ export default function CustomInputForm({
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   const handleChange = (event) => {
-    setSelectedLanguage(event.target.value);
+    setSelectedLanguage(event.target.value.toLowerCase());
   };
 
   const handleClick = (event) => {
@@ -154,7 +175,7 @@ export default function CustomInputForm({
           value={query}
         />
 
-        <button
+        {/* <button
           aria-describedby={id}
           variant="contained"
           onClick={handleClick}
@@ -163,16 +184,14 @@ export default function CustomInputForm({
             border: "none",
             backgroundColor: primaryColor,
             borderRadius: 10,
-            // padding: 10,
             cursor: "pointer",
             marginRight: "5px",
           }}
         >
           <FileUploadIcon
-            // fontSize="large"
             style={{ color: "white", backgroundColor: "transparent" }}
           />
-        </button>
+        </button> */}
         <Popover
           className="w-full"
           id={id}
@@ -206,7 +225,7 @@ export default function CustomInputForm({
                   value={selectedLanguage}
                   onChange={handleChange}
                 >
-                  {["English", "Hindi", "Marathi", "Gujarati"].map((option) => (
+                  {languageArr.map((option) => (
                     <MenuItem key={option} value={option}>
                       {option}
                     </MenuItem>
@@ -287,80 +306,6 @@ export default function CustomInputForm({
           />
         </button>
       </form>
-
-      {/* <Modal open={isOpen} onClose={handlePopupClose}>
-        <div
-          style={{
-            backgroundColor: "white",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            color: "black",
-            borderRadius: 10,
-            overflowY: "scroll",
-            padding: 10,
-            transform: "translate(-50%, -50%)",
-            boxShadow: 24,
-          }}
-        >
-          <div
-            style={{
-              position: "sticky",
-              top: 0,
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <button
-              onClick={handlePopupClose}
-              style={{
-                border: "none",
-                backgroundColor: "inherit",
-                backgroundImage: "none",
-              }}
-            >
-              <ClearIcon style={{ fontSize: 30, color: "black" }} />
-            </button>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 10,
-              padding: 50,
-            }}
-          >
-            <LockIcon style={{ fontSize: 80, color: "black" }} />
-            <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
-            <div style={{ display: "flex", gap: 5 }}>
-              <button
-                className={Styles.backdropImg}
-                style={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  borderRadius: 15,
-                  padding: 10,
-                }}
-              >
-                <Link
-                  className={Styles.linkImg}
-                  to="/pricing"
-                  style={{
-                    color: "white",
-                    textDecoration: "none",
-                    width: "fit-content",
-                    border: "none",
-                  }}
-                >
-                  Buy Credits
-                </Link>
-              </button>
-            </div>
-          </div>
-        </div>
-      </Modal> */}
     </div>
   );
 }

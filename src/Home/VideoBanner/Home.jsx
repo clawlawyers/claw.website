@@ -25,7 +25,7 @@ const VideoBannerHome = () => {
       </div>
       <LegalGptBanner />
       <CaseSearchBanner />
-      <AdiraAiBanner />
+      {/* <AdiraAiBanner /> */}
     </div>
   );
 };

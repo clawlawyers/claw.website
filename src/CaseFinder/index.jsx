@@ -49,28 +49,21 @@ export default function CaseFinder({
   const collapsed = useSelector((state) => state.sidebar.collapsed);
   const [selectedCourts, setSelectedCourts] = useState([]);
 
-  useEffect(() => {
-    async function fetchGptUser() {
-      try {
-        const res =await fetchWrapper.get(`${NODE_API_ENDPOINT}/gpt/user`)
-        // const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
-        //   method: "GET",
-        //   headers: {
-        //     Authorization: `Bearer ${currentUser.jwt}`,
-        //     "Content-Type": "application/json",
-        //   },
-        // });
-        const parsed = await res.json();
+  // useEffect(() => {
+  //   async function fetchGptUser() {
+  //     try {
+  //       const res =await fetchWrapper.get(`${NODE_API_ENDPOINT}/gpt/user`)
+  //       const parsed = await res.json();
 
-        dispatch(setPlan({ plan: parsed.data.plan }));
-        dispatch(setToken({ token: parsed.data.token }));
-      } catch (error) {
-        console.log(error);
-      }
-    }
+  //       dispatch(setPlan({ plan: parsed.data.plan }));
+  //       dispatch(setToken({ token: parsed.data.token }));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
 
-    if (currentUser) fetchGptUser();
-  }, [currentUser]);
+  //   if (currentUser) fetchGptUser();
+  // }, [currentUser]);
 
   const handleCourtChange = (event) => {
     const {

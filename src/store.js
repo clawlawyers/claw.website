@@ -8,6 +8,8 @@ import bookingsSlice from "./features/bookCourtRoom/selectedDatesTimesSlice";
 import splashReducer from "./features/bookCourtRoom/splashSlice";
 import userSlice from "./features/bookCourtRoom/LoginReducreSlice";
 import pricingSlice from "./features/payment/pricingSlice";
+import promptSlice from "./features/gpt/promptSlice";
+
 export default configureStore({
   reducer: {
     auth: authReducer,
@@ -19,5 +21,6 @@ export default configureStore({
     splash: splashReducer,
     user: userSlice,
     price: pricingSlice,
+    prompt: promptSlice,
   },
 });

@@ -10,6 +10,6 @@ export const activePlanFeatures = (planArr, feature) => {
       .filter((x) => x.plan[`${feature}`]);
   }
 
-  console.log(activePlanFilter);
+  // console.log(activePlanFilter);
   return activePlanFilter;
 };
