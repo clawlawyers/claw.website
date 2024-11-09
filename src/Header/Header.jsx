@@ -149,7 +149,7 @@ function Header() {
             </button> */}
           </div>
 
-          <div style={{ backgroundColor: "transparent" }}>
+          {/* <div style={{ backgroundColor: "transparent" }}>
             <button>
               <Link
                 to="/leaders"
@@ -162,7 +162,7 @@ function Header() {
                 Leaders
               </Link>
             </button>
-          </div>
+          </div> */}
 
           <div style={{ backgroundColor: "transparent" }}>
             <button>
@@ -181,7 +181,7 @@ function Header() {
         </div>
 
         <div className={Styles.headerGPT}>
-          <div>
+          {/* <div>
             {plan?.length > 0 ? (
               <button
                 onClick={openAdiraAi}
@@ -200,7 +200,7 @@ function Header() {
                 Adira
               </button>
             )}
-          </div>
+          </div> */}
           <div>
             {activePlan ? (
               <>
