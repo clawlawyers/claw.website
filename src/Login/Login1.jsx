@@ -337,30 +337,30 @@ const Login1 = () => {
   const handleRetryClick =async  (e) => {
     e.preventDefault();
     setIsDisabled(true);
-    const response =await  fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
-      method:'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body:JSON.stringify({
-        phone:phoneNumber
-      })
+    // const response =await  fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
+    //   method:'POST',
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body:JSON.stringify({
+    //     phone:phoneNumber
+    //   })
 
-    })
-    if(response.status ==200){
-      const data= await response.json()
-      console.log(data.authtoken);
-      setOtpToken(data.authtoken)
-      // setVerificationId(confirmationResult?.verificationId);
-          toast.success("OTP sent successfully !");
-          setHasFilled(true);
-          setOtpLoading(false);
-          setIsDisabled(true);
-    }
-    else{
-      toast.error("Error during OTP request");
-      //     setOtpLoading(false);
-    }
+    // })
+    // if(response.status ==200){
+    //   const data= await response.json()
+    //   console.log(data.authtoken);
+    //   setOtpToken(data.authtoken)
+    //   // setVerificationId(confirmationResult?.verificationId);
+    //       toast.success("OTP sent successfully !");
+    //       setHasFilled(true);
+    //       setOtpLoading(false);
+    //       setIsDisabled(true);
+    // }
+    // else{
+    //   toast.error("Error during OTP request");
+    //   //     setOtpLoading(false);
+    // }
 
     if (!window.recaptchaVerifier) {
       console.log("recaptchaVerifier");
