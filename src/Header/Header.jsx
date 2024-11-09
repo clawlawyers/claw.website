@@ -109,10 +109,11 @@ function Header() {
           >
             <img
               alt="Claw"
+              className="w-full rounded-none"
               style={{
                 backgroundColor: "transparent",
-                height: 80,
-                width: 90,
+                // height: 80,
+                // width: 90,
               }}
               src={clawLogo}
             />
@@ -221,7 +222,6 @@ function Header() {
                   <button
                     onClick={handlePopupOpen}
                     className={Styles.headerButton}
-                    
                   >
                     Case Search
                   </button>
