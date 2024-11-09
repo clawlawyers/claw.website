@@ -1,5 +1,6 @@
-import store from '../store'; // Import your Redux store
 import {logout, setAutoLogout} from "../features/auth/authSlice"
+import store from '../store'; // Import your Redux store
+
 
 const fetchWrapper = {
     get: request('GET'),
@@ -45,30 +46,45 @@ function authHeader() {
 
 
  function handleResponse(response) {
-    return response.json().then( text => {
-        console.log("asdasd")
-        console.log(text)
-        // let data;
-        // try {
-        //     data = text && JSON.parse(text);
-        // } catch {
-        //     data = text;
-        // }
-
-        if (!response.ok) {
-            if (response.status === 401) {
-                // Dispatch logout action to Redux
-                store.dispatch(logout());
-                store.dispatch(setAutoLogout())
-                console.log("asdddddddddddddddddd")
-            }
-
-            // const error = (data && data.message) || response.statusText;
-            // return Promise.reject(error);
+    if (!response.ok) {
+        if (response.status === 401) {
+            // Dispatch logout action to Redux
+          
+            store.dispatch(logout());
+            store.dispatch(setAutoLogout())
+            console.log("asdddddddddddddddddd")
+            window.location.replace("/login")
+            
         }
 
-        return text;
-    });
+    }
+    console.log("asdddddddddddddddddd")
+    return response
 }
+    // return response.json().then( text => {
+    //     console.log("asdasd")
+    //     console.log(text)
+    //     // let data;
+    //     // try {
+    //     //     data = text && JSON.parse(text);
+    //     // } catch {
+    //     //     data = text;
+    //     // }
+
+    //     if (!response.ok) {
+    //         if (response.status === 401) {
+    //             // Dispatch logout action to Redux
+    //             // store.dispatch(logout());
+    //             // store.dispatch(setAutoLogout())
+    //             console.log("asdddddddddddddddddd")
+    //         }
+
+    //         // const error = (data && data.message) || response.statusText;
+    //         // return Promise.reject(error);
+    //     }
+
+    //     return text;
+    // });
+// }
 
 export default fetchWrapper;

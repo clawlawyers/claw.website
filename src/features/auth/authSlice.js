@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
+import { generateResponse, retrieveActivePlanUser } from "../gpt/gptSlice";
 
 export const retrieveAuth = createAsyncThunk("auth/retrieveAuth", async () => {
   const storedAuth = localStorage.getItem("auth");
@@ -28,6 +29,7 @@ export const userSlice = createSlice({
     status: "idle",
     autologout:false,
     error: null,
+
   },
   reducers: {
     login(state, action) {
@@ -68,6 +70,30 @@ export const userSlice = createSlice({
     builder.addCase(retrieveAuth.rejected, (state) => {
       state.status = "failed";
     });
+    builder.addCase(generateResponse.fulfilled, (state, action)=>{
+     if(action.payload==401){
+      console.log("hi")
+      state.autologout = true;
+      state.user = null;
+      state.props = null;
+      localStorage.removeItem("auth");
+    
+     }
+     
+  
+    })
+    // builder.addCase(retrieveActivePlanUser.fulfilled, (state, action)=>{
+    //  if(action.payload==401){
+    //   console.log("hi")
+    //   state.autologout = true;
+    //   state.user = null;
+    //   state.props = null;
+    //   localStorage.removeItem("auth");
+    
+    //  }
+     
+  
+    // })
   },
 });
 

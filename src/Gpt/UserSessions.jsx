@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { NODE_API_ENDPOINT } from "../utils/utils";
+import fetchWrapper from "../utils/fetchWrapper";
 
 export function UserSessions({ jwt, model, startnew, setStartNew }) {
   const [isLoading, setIsLoading] = useState();
@@ -13,13 +14,14 @@ export function UserSessions({ jwt, model, startnew, setStartNew }) {
     async function fetchUserSessions() {
       try {
         setIsLoading(true);
-        const res = await fetch(`${NODE_API_ENDPOINT}/gpt/sessions/${model}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await fetchWrapper.get(`${NODE_API_ENDPOINT}/gpt/sessions/${model}`)
+        // const res = await fetch(`${NODE_API_ENDPOINT}/gpt/sessions/${model}`, {
+        //   method: "GET",
+        //   headers: {
+        //     Authorization: `Bearer ${jwt}`,
+        //     "Content-Type": "application/json",
+        //   },
+        // });
         const { data } = await res.json();
         setSessions(data);
       } catch (error) {

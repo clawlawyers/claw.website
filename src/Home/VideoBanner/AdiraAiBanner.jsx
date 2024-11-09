@@ -9,11 +9,50 @@ import dateRange from "../../assets/guide/12.mp4";
 import { CircularProgress } from "@mui/material";
 
 const videoArr = [
-  { panel: "panel1", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/cjkxtpjxdu7ajuxm3spi.mp4` },
-  { panel: "panel2", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/wpdifk3khl1eicesftox.mp4` },
+  { panel: "panel1", src: `${firstCase}` },
+  { panel: "panel2", src: `${dateRange}` },
 ];
 
-const CaseSearchBanner = () => {
+
+
+const pannel_array =[{
+heading:"Upload Your Document",
+description:"Have a Document Sample which needs to be transformed into Legal Format Document ?"
+
+},
+{
+heading:"Create Document from Prompt",
+description:"You can also generate your desired Legal Prompt with the help of Prompts"
+},
+{
+heading:"Select Type of Document",
+description:"You can also Generate Document from a wide range of templated Legal Documents"
+
+},
+
+{
+heading:"Fill the Requirements",
+description:"When some details are missing from your side, Adira AI asks them from you for best results"
+
+},
+{
+heading:"Edit / Update Document",
+description:"Once a document is generated, you have the option to edit contents of document with prompt"
+
+},
+{
+heading:"Find Document Details",
+description:"The Query bar assists not only in editing your document but also find information from in it."
+
+},
+{
+heading:"Generate & Download Document",
+description:"At any point if you find that the document generated is perfect, generate the summary and download it."
+
+},
+]
+
+const AdiraAiBanner = () => {
   const [expanded, setExpanded] = React.useState("panel1");
   const [currentVid, setCurrentVid] = useState(null);
 
@@ -40,7 +79,7 @@ const CaseSearchBanner = () => {
   return (
     <div className="">
       <div className="flex w-full items-center gap-3 pb-3">
-        <h1 className="text-2xl font-bold m-0">Case Search</h1>
+        <h1 className="text-2xl font-bold m-0">Adira AI</h1>
         <div className="flex-1 w-full bg-[#00C37B] h-[2px]"></div>
       </div>
       <div className="relative  p-3">
@@ -49,19 +88,20 @@ const CaseSearchBanner = () => {
             {/* <img className="w-full rounded-none h-full" src={bg} /> */}
           </div>
           <div className="">
-            <Accordion
+            {pannel_array.map((e,i)=>( <Accordion
               sx={{
                 background: "transparent",
               }}
-              expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}
+              key={i}
+              expanded={expanded === `panel${i+1}`}
+              onChange={handleChange(`panel${i+1}`)}
             >
-              <AccordionSummary
+              <AccordionSummary 
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
                   borderRadius: "10px",
                   background:
-                    expanded === "panel1"
+                    expanded === `panel${i+1}`
                       ? "linear-gradient(90deg,#00767A,#003739)"
                       : "transparent",
                 }}
@@ -76,52 +116,17 @@ const CaseSearchBanner = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Finding Your First Case
-                </Typography>
+{e.heading}             
+   </Typography>
               </AccordionSummary>
               <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
                 <Typography sx={{ color: "white" }}>
-                  Get to know how to put your first Query in Case Search and get
-                  the optimum AI Generated Results
+                {e.description}    
                 </Typography>
               </AccordionDetails>
-            </Accordion>
-            <Accordion
-              sx={{
-                background: "transparent",
-              }}
-              expanded={expanded === "panel2"}
-              onChange={handleChange("panel2")}
-            >
-              <AccordionSummary
-                sx={{
-                  border: "1px solid rgb(23, 30, 38)",
-                  borderRadius: "10px",
-                  background:
-                    expanded === "panel2"
-                      ? "linear-gradient(90deg,#00767A,#003739)"
-                      : "transparent",
-                }}
-                aria-controls="panel2bh-content"
-                id="panel2bh-header"
-              >
-                <Typography
-                  sx={{
-                    color: "white",
-                    fontSize: "1.4rem",
-                    fontWeight: "500",
-                  }}
-                >
-                  Set A Date Range for Case Search
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
-                <Typography sx={{ color: "white" }}>
-                  Cases not exactly from the time you want it to be ? This is
-                  how you select a date range for your case searches
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
+            </Accordion>))}
+          
+         
           </div>
           {currentVid ? (
             <div className="flex justify-center items-center p-1 rounded-lg h-fit bg-black z-20">
@@ -146,4 +151,4 @@ const CaseSearchBanner = () => {
   );
 };
 
-export default CaseSearchBanner;
+export default AdiraAiBanner;

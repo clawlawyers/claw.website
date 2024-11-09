@@ -16,6 +16,7 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import { setPlan, setToken } from "../features/gpt/gptSlice";
 import { close, open } from "../features/popup/popupSlice";
 import aiIcon from "../assets/images/LegalGptBg.gif";
+import fetchWrapper from "../utils/fetchWrapper";
 
 export default function GPTLayout(props) {
   const location = useLocation();
@@ -31,13 +32,14 @@ export default function GPTLayout(props) {
   useEffect(() => {
     async function fetchGptUser() {
       try {
-        const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${currentUser.jwt}`,
-            "Content-Type": "application/json",
-          },
-        });
+        // const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
+        //   method: "GET",
+        //   headers: {
+        //     Authorization: `Bearer ${currentUser.jwt}`,
+        //     "Content-Type": "application/json",
+        //   },
+        // });
+        const res = await fetchWrapper.get(`${NODE_API_ENDPOINT}/gpt/user`)
         const parsed = await res.json();
 
         dispatch(setPlan({ plan: parsed.data.plan }));
