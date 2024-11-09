@@ -21,6 +21,8 @@ export const OTP_ENDPOINT =
    "https://claw-app.onrender.com"
     : "http://localhost:7000";
 
+export const MOBILE_NO="8603805697"
+
 // export const OTP_ENDPOINT = "https://claw-app.onrender.com"
    
 

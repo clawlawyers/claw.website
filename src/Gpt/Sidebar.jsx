@@ -244,6 +244,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   {!isAuthLoading ? (
                     <div style={{ fontSize: 16 }}>
                       {currentUser ? currentUser.phoneNumber : <>Guest</>}
+                      {/* {"GUEST"} */}
                     </div>
                   ) : (
                     <CircularProgress style={{ padding: 10, color: "white" }} />
@@ -273,7 +274,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               {token?.total?.totalGptTokens}
                             </div>
                           )} */}
-                          <div className="mt-3 flex justify-between">
+                          {/* <div className="mt-3 flex justify-between">
                             <button
                               className="font-semibold text-xs justify-center items-center"
                               style={{
@@ -304,7 +305,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                             >
                               End Subscription
                             </button>
-                          </div>
+                          </div> */}
                         </>
                       ) : (
                         <CircularProgress
@@ -366,7 +367,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   </div>
                   <div>Start a new chat</div>
                 </button>
-                <div style={{ flex: 1, overflow: "scroll" }}>
+                {/* <div style={{ flex: 1, overflow: "scroll" }}>
                   {currentUser && !isAuthLoading && !loading && (
                     <UserSessions
                       model={model}
@@ -375,7 +376,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       startnew={startnew}
                     />
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
             <div
@@ -542,7 +543,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 {token?.total?.totalGptTokens}
                               </div>
                             )} */}
-                            <div className="mt-3 flex justify-between">
+                            {/* <div className="mt-3 flex justify-between">
                               <button
                                 className="font-semibold text-xs  justify-center items-center"
                                 style={{
@@ -575,7 +576,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                               >
                                 End Subscription
                               </button>
-                            </div>
+                            </div> */}
                           </>
                         ) : (
                           <CircularProgress
