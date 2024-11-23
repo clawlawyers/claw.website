@@ -26,7 +26,6 @@ import { close, open } from "../features/popup/popupSlice";
 import bgimage from "../assets/images/button-gradient.png";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-import fetchWrapper from "../utils/fetchWrapper";
 
 export default function CaseFinder({
   keyword = "Legal",
@@ -49,21 +48,27 @@ export default function CaseFinder({
   const collapsed = useSelector((state) => state.sidebar.collapsed);
   const [selectedCourts, setSelectedCourts] = useState([]);
 
-  // useEffect(() => {
-  //   async function fetchGptUser() {
-  //     try {
-  //       const res =await fetchWrapper.get(`${NODE_API_ENDPOINT}/gpt/user`)
-  //       const parsed = await res.json();
+  useEffect(() => {
+    async function fetchGptUser() {
+      try {
+        const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const parsed = await res.json();
 
-  //       dispatch(setPlan({ plan: parsed.data.plan }));
-  //       dispatch(setToken({ token: parsed.data.token }));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+        dispatch(setPlan({ plan: parsed.data.plan }));
+        dispatch(setToken({ token: parsed.data.token }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-  //   if (currentUser) fetchGptUser();
-  // }, [currentUser]);
+    if (currentUser) fetchGptUser();
+  }, [currentUser]);
 
   const handleCourtChange = (event) => {
     const {
@@ -160,137 +165,133 @@ export default function CaseFinder({
           name="description"
           content="Claw's advanced case search empowers you to efficiently find relevant legal precedents. Search to navigate India's vast legal landscape with ease."
         />
+        {/* <meta
+          name="keywords"
+          content=""
+        /> */}
       </Helmet>
-      <div
-        style={{
-          color: "white",
-          minHeight: "90vh",
-          padding: "20px",
-         
-        }}
-      >
-       <div style={{ textAlign: "center", marginTop: "40px" }}> 
-  <h1 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-    Find Legal Cases With
-  </h1>
-  <h2
-    style={{
-      fontSize: "3.5rem",
-      fontWeight: "700",
-      background: 'linear-gradient(to bottom, #00767A, #00FFA3)', 
-      WebkitBackgroundClip: 'text', 
-      color: 'transparent',
-      marginTop: "0",
-      marginBottom: "10px",
-    }}
-  >
-    Claw Case Search
-  </h2>
-</div>
-
-  
+      <div className={`${Styles.container} `}>
         <div
-  style={{
-    display: "flex",
-    justifyContent: "center",  
-    alignItems: "center",     
-    minHeight: "100vh",       
-     
-  }}
->
-  <form onSubmit={handleCaseSearch} style={{ width: "90%", maxWidth: "800px",marginBottom:"160px" }}>
-    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-
-      {/* Case Search Input */}
-      <div style={{ position: "relative", width: "100%" }}>
-        <label
-          style={{
-            fontWeight: "bold",
-            marginBottom: "5px",
-            display: "block",
-          }}
+          className={`${
+            collapsed ? Styles.contentContainer : Styles.contentContainer1
+          } `}
         >
-          Enter Case Search:
-        </label>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Enter Prompt to find all the cases registered"
-            style={{
-              width: "100%",
-              padding: "20px",
-              borderRadius: "5px",
-              border: "1px solid #008080",
-              outline: "none",
-              fontSize: "1rem",
-              color: "black",
-              height: "70px",
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              position: "absolute", 
-              right:"10px", 
-             
-              background: 'linear-gradient(to right, #016466, #00152D)',
-              color: "whitesmoke",
-              padding: "10px 40px",
-              fontSize: "1rem",
-              fontWeight: "bold",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              
-            }}
-          >
-            Search
-          </button>
-        </div>
-      </div>
-
-      
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "20px",
-        }}
-      >
-       
-        <div style={{ flex: 1 }}>
-          <label
-            style={{
-              fontWeight: "bold",
-              marginBottom: "5px",
-              display: "block",
-            }}
-          >
-            Court Name:
-          </label>
-          <FormControl fullWidth>
-            <Select
-              value={selectedCourts}
-              onChange={handleCourtChange}
-              multiple
-              displayEmpty
-              style={{
-                backgroundColor: "white",
-                color: "black",
-                padding: "10px",
-                borderRadius: "5px",
-                height: "60px",
-              }}
-              renderValue={(selected) => {
-                if (selected.length === 0) {
-                  return <em>Select At Least One Court</em>;
-                }
-                return selected.join(", ");
-              }}
-            >
-                <MenuItem disabled value="">
+          <Modal open={isOpen} onClose={handlePopupClose}>
+            <div className={Styles.modalContent}>
+              <div className={Styles.modalHeader}>
+                <button
+                  onClick={handlePopupClose}
+                  style={{
+                    border: "none",
+                    backgroundColor: "inherit",
+                    backgroundImage: "none",
+                  }}
+                >
+                  <ClearIcon style={{ fontSize: 30, color: "black" }} />
+                </button>
+              </div>
+              <div className={Styles.modalBody}>
+                <LockIcon style={{ fontSize: 80, color: primaryColor }} />
+                <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
+                <div className={Styles.modalActions}>
+                  {/* <StudentReferralModal /> */}
+                  {/* <button
+                    onClick={topuphandler}
+                    className="backdropImg"
+                    style={{
+                      border: "none",
+                      backgroundColor: "rgb(0, 128, 128)",
+                      borderRadius: 15,
+                      padding: 10,
+                    }}
+                  >
+                    <Link
+                      className="linkImg"
+                      to="/paymentgateway"
+                      style={{
+                        color: "white",
+                        textDecoration: "none",
+                        width: "fit-content",
+                        border: "none",
+                      }}
+                    >
+                      Top Up 25 Rs
+                    </Link>
+                  </button> */}
+                  <button
+                    onClick={handlePopupClose}
+                    className="backdropImg"
+                    style={{
+                      border: "none",
+                      backgroundColor: "rgb(0, 128, 128)",
+                      borderRadius: 15,
+                      padding: 10,
+                    }}
+                  >
+                    <Link
+                      className="linkImg"
+                      to="/pricing"
+                      style={{
+                        color: "white",
+                        textDecoration: "none",
+                        width: "fit-content",
+                        border: "none",
+                      }}
+                    >
+                      Buy Credits
+                    </Link>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Modal>
+          <div className={Styles.inputGrid}>
+            <Box>
+              <div>Court Name</div>
+              <FormControl fullWidth error={selectedCourts.length === 0}>
+                {selectedCourts.length !== 0 ? null : (
+                  <InputLabel
+                    id="court-selector-label"
+                    style={{ color: "black" }}
+                  >
+                    Select a court....
+                  </InputLabel>
+                )}
+                <Select
+                  labelId="court-selector-label"
+                  onChange={handleCourtChange}
+                  value={selectedCourts}
+                  // onChange={(e) => setCourtName(e.target.value)}
+                  // value={courtName}
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    maxWidth: "450px",
+                    fontWeight: "bold",
+                    fontSize: "10px",
+                  }}
+                  multiple
+                  renderValue={(selected) => (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 0.5,
+                        maxHeight: 80,
+                        overflow: "auto",
+                      }}
+                    >
+                      {selected.map((value) => (
+                        <Chip
+                          key={value}
+                          label={value}
+                          sx={{ backgroundColor: "#e0f7fa" }}
+                        />
+                      ))}
+                    </Box>
+                  )}
+                >
+                  <MenuItem disabled value="">
                     <em>Select a court</em>
                   </MenuItem>
                   <MenuItem value="Supreme Court of India">
@@ -336,71 +337,117 @@ export default function CaseFinder({
                   <MenuItem value="Rajasthan High Court">
                     Rajasthan High Court
                   </MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-
-        {/* Start Date Box */}
-        <div style={{ flex: 1 }}>
-          <label
+                </Select>
+                {selectedCourts.length === 0 && (
+                  <FormHelperText>
+                    Please select at least one court.
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Box>
+            <div style={{ display: "flex", gap: 10 }}>
+              <div>
+                <div>From:</div>
+                <DatePicker
+                  value={startDate}
+                  onChange={(newVal) => setStartDate(newVal)}
+                  sx={{ backgroundColor: "white" }}
+                />
+              </div>
+              <div>
+                <div>To:</div>
+                <DatePicker
+                  value={endDate}
+                  onChange={(newVal) => setEndDate(newVal)}
+                  sx={{ backgroundColor: "white" }}
+                />
+              </div>
+            </div>
+          </div>
+          <form
+            onSubmit={handleCaseSearch}
             style={{
-              fontWeight: "bold",
-              marginBottom: "5px",
-              display: "block",
+              marginTop: 20,
+              marginBottom: 25,
+              display: "flex",
+              backgroundColor: "white",
+              padding: 16,
+              borderRadius: 10,
             }}
           >
-            Search Start Date:
-          </label>
-          <DatePicker
-            value={startDate}
-            onChange={(newVal) => setStartDate(newVal)}
-            sx={{
-              "& .MuiInputBase-root": {
-                backgroundColor: "white",
-                borderRadius: "5px",
+            <SearchOutlined
+              style={{ color: "#777", marginRight: "10px", marginTop: "7px" }}
+            />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              style={{
                 width: "100%",
-                height: "60px",
-              },
-            }}
-          />
+                fontSize: 16,
+                outline: "none",
+                border: "none",
+                color: "black",
+              }}
+              placeholder="Enter Prompt Here ..."
+            />
+            <button
+              type="submit"
+              className={Styles.bgbutton}
+              style={{
+                backgroundColor: primaryColor,
+                color: "white",
+                border: "none",
+                borderRadius: 5,
+                padding: "8px 16px",
+                cursor: "pointer",
+                marginLeft: 10,
+              }}
+            >
+              Search
+            </button>
+          </form>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {loading ? (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <CircularProgress style={{ color: "white" }} />
+              </div>
+            ) : (
+              <>
+                {result
+                  ? result.map((relatedCase) => {
+                      return (
+                        <CaseCard
+                          caseId={relatedCase.case_id}
+                          name={relatedCase.Title}
+                          date={relatedCase.Date}
+                          citations={relatedCase.num_cites}
+                          court={relatedCase.court}
+                          key={relatedCase.id}
+                          query={query}
+                        />
+                      );
+                    })
+                  : search.get("id") === messageId &&
+                    cases.map((relatedCase) => {
+                      return (
+                        <CaseCard
+                          caseId={relatedCase.case_id}
+                          name={relatedCase.Title}
+                          citations={relatedCase.num_cites}
+                          date={relatedCase.Date}
+                          court={relatedCase.court}
+                          key={relatedCase.id}
+                          query={query}
+                        />
+                      );
+                    })}
+              </>
+            )}
+          </div>
         </div>
-
-        {/* End Date Box */}
-        <div style={{ flex: 1 }}>
-          <label
-            style={{
-              fontWeight: "bold",
-              marginBottom: "5px",
-              display: "block",
-            }}
-          >
-            Search End Date:
-          </label>
-          <DatePicker
-            value={endDate}
-            onChange={(newVal) => setEndDate(newVal)}
-            sx={{
-              "& .MuiInputBase-root": {
-                backgroundColor: "white",
-                borderRadius: "5px",
-                width: "100%",
-                height: "60px",
-              },
-            }}
-          />
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
-
-
-
-
       </div>
     </LocalizationProvider>
   );
-  
 }
 
 function StudentReferralModal() {
