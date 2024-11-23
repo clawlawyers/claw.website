@@ -247,7 +247,7 @@ export default function CaseFinder({
           </Modal>
           <div className={Styles.inputGrid}>
             <Box>
-              <div>Court Name</div>
+              <div>Court:</div>
               <FormControl fullWidth error={selectedCourts.length === 0}>
                 {selectedCourts.length !== 0 ? null : (
                   <InputLabel
