@@ -88,6 +88,12 @@ function Header() {
     console.log(encodedStringBtoA);
     window.open(`http://adira.clawlaw.in/?user=${encodedStringBtoA}`);
   };
+  const openWarrrom = () => {
+    var encodedStringBtoA = btoa(JSON.stringify(currentUser));
+    console.log(currentUser);
+    console.log(encodedStringBtoA);
+    window.open(`http://localhost:3001/?user=${encodedStringBtoA}`);
+  };
 
   useEffect(() => {
     if (plan) {
@@ -179,6 +185,7 @@ function Header() {
             </button>
           </div>
         </div>
+        
 
         <div className={Styles.headerGPT}>
           <div>
@@ -199,6 +206,26 @@ function Header() {
               <button className={Styles.headerButton} onClick={handlePopupOpen}>
                 Adira
               </button>
+            )}
+          </div>
+          <div>
+            {true ? (
+              <button
+                onClick={openWarrrom}
+                className={Styles.headerButton}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  // backgroundColor: "transparent",
+                }}
+              >
+                Warrrom
+              </button>
+            ) : (
+              // </button>
+              <button className={Styles.headerButton} onClick={handlePopupOpen}>
+                Warrrom
+              </button> 
             )}
           </div>
           <div>
