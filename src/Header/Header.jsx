@@ -30,6 +30,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import { close, open } from "../features/popup/popupSlice";
 import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { WARROOM_ENDPOINT } from "../utils/utils";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
@@ -92,7 +93,7 @@ function Header() {
     var encodedStringBtoA = btoa(JSON.stringify(currentUser));
     console.log(currentUser);
     console.log(encodedStringBtoA);
-    window.open(`http://localhost:3001/?user=${encodedStringBtoA}`);
+    window.open(`${WARROOM_ENDPOINT}${encodedStringBtoA}`);
   };
 
   useEffect(() => {
