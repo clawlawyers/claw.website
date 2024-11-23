@@ -93,7 +93,7 @@ function Header() {
     var encodedStringBtoA = btoa(JSON.stringify(currentUser));
     console.log(currentUser);
     console.log(encodedStringBtoA);
-    window.open(`${WARROOM_ENDPOINT}${encodedStringBtoA}`);
+    window.open(`${WARROOM_ENDPOINT}?user=${encodedStringBtoA}`);
   };
 
   useEffect(() => {
