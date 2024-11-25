@@ -5,18 +5,27 @@ export const promptSlice = createSlice({
   initialState: {
     prompts: [],
     loading: false,
+    toggle: true,
   },
 
   reducers: {
-    setPromptsArr(state, action) {
+    setPromptsArrAction(state, action) {
       const newArr = [...state.prompts, ...action.payload]; // Assuming action.payload contains new prompts.
       state.prompts = newArr;
+    },
+    removePromptsArr(state, action) {
+      state.prompts = [];
     },
 
     setPromptLoading(state, action) {
       state.loading = !state.loading;
     },
-
+    setDataUsingIndex(state, action) {
+      const { index, text } = action.payload;
+      const promptsArr = [...state.prompts];
+      promptsArr[index] = text;
+      state.prompts = promptsArr;
+    },
     setNewPromptData(state, action) {
       const promptArr = state.prompts;
 
@@ -25,17 +34,29 @@ export const promptSlice = createSlice({
         // Get the last prompt
         const lastPromptIndex = promptArr.length - 1;
 
+        // Ensure text is initialized properly (default to an empty string if it's null or undefined)
+        const currentText = promptArr[lastPromptIndex].text || ""; // Fallback to empty string if null/undefined
+
         // Append the new string to the last prompt's content
         promptArr[lastPromptIndex] = {
           ...promptArr[lastPromptIndex], // Retain existing properties
-          text: promptArr[lastPromptIndex].text + action.payload.message, // Append the new string
+          text: currentText + action.payload.message, // Append the new string
         };
       }
+    },
+    setToggleMenu(state, action) {
+      state.toggle = !state.toggle;
     },
   },
 });
 
-export const { setPromptsArr, setPromptLoading, setNewPromptData } =
-  promptSlice.actions;
+export const {
+  setPromptsArrAction,
+  setPromptLoading,
+  setNewPromptData,
+  removePromptsArr,
+  setDataUsingIndex,
+  setToggleMenu,
+} = promptSlice.actions;
 
 export default promptSlice.reducer;

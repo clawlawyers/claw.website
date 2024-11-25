@@ -1,10 +1,14 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import SocketSidebar from "./SocketSidebar";
 
 const SocketLayout = () => {
   return (
-    <div>
-      <Outlet />
+    <div className="flex">
+      <SocketSidebar />
+      <div className="flex-1">
+        <Outlet />
+      </div>
     </div>
   );
 };
