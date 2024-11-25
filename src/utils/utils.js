@@ -21,6 +21,12 @@ export const OTP_ENDPOINT =
    "https://claw-app.onrender.com"
     : "http://localhost:7000";
 
+export const WARROOM_ENDPOINT =
+process.env.NODE_ENV === "production"
+      ? // ? "https://claw-app-dev.onrender.com/api/v1"
+     "https://courtroom-freetrial-dev.netlify.app/"
+      : "http://localhost:3001/";
+
 // export const OTP_ENDPOINT = "https://claw-app.onrender.com"
    
 

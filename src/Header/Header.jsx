@@ -30,6 +30,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import { close, open } from "../features/popup/popupSlice";
 import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { WARROOM_ENDPOINT } from "../utils/utils";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
@@ -87,6 +88,12 @@ function Header() {
     console.log(currentUser);
     console.log(encodedStringBtoA);
     window.open(`http://adira.clawlaw.in/?user=${encodedStringBtoA}`);
+  };
+  const openWarrrom = () => {
+    var encodedStringBtoA = btoa(JSON.stringify(currentUser));
+    console.log(currentUser);
+    console.log(encodedStringBtoA);
+    window.open(`${WARROOM_ENDPOINT}?user=${encodedStringBtoA}`);
   };
 
   useEffect(() => {
@@ -179,6 +186,7 @@ function Header() {
             </button>
           </div>
         </div>
+        
 
         <div className={Styles.headerGPT}>
           <div>
@@ -199,6 +207,26 @@ function Header() {
               <button className={Styles.headerButton} onClick={handlePopupOpen}>
                 Adira
               </button>
+            )}
+          </div>
+          <div>
+            {true ? (
+              <button
+                onClick={openWarrrom}
+                className={Styles.headerButton}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  // backgroundColor: "transparent",
+                }}
+              >
+                Warrrom
+              </button>
+            ) : (
+              // </button>
+              <button className={Styles.headerButton} onClick={handlePopupOpen}>
+                Warrrom
+              </button> 
             )}
           </div>
           <div>
