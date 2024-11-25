@@ -143,13 +143,13 @@ export default function CaseFinder({
   }
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className=" flex flex-col gap-2">
       <div className="flex flex-col justify-center items-center">
         <p className="text-4xl text-white font-bold m-0">
           Find Legal Cases With
         </p>
         <p
-          className="text-7xl font-bold mt-6"
+          className="text-7xl font-bold"
           style={{
             background: "linear-gradient(to bottom, #003131 0%, #00FFA3 100%)",
             WebkitBackgroundClip: "text",
