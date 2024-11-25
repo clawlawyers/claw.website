@@ -26,14 +26,25 @@ import { close, open } from "../features/popup/popupSlice";
 import bgimage from "../assets/images/button-gradient.png";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-import fetchWrapper from "../utils/fetchWrapper";
+
+const courts = [
+  "Supreme Court of India",
+  "Chattisgarh High Court",
+  "Sikkim High Court",
+  "Uttarakhand High Court",
+  "Calcutta High Court",
+  "Jammu and Kashmir High Court",
+  "Delhi High Court",
+  "Delhi District Court",
+  "Gujarat High Court",
+  "Rajasthan High Court"
+];
 
 export default function CaseFinder({
   keyword = "Legal",
   primaryColor = "#008080",
   model = "legalGPT",
 }) {
-  const [courtName, setCourtName] = useState("Supreme Court of India");
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [startDate, setStartDate] = useState(moment("18-sep-01"));
@@ -49,68 +60,55 @@ export default function CaseFinder({
   const collapsed = useSelector((state) => state.sidebar.collapsed);
   const [selectedCourts, setSelectedCourts] = useState([]);
 
-  // useEffect(() => {
-  //   async function fetchGptUser() {
-  //     try {
-  //       const res =await fetchWrapper.get(`${NODE_API_ENDPOINT}/gpt/user`)
-  //       const parsed = await res.json();
+  useEffect(() => {
+    async function fetchGptUser() {
+      try {
+        const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const parsed = await res.json();
 
-  //       dispatch(setPlan({ plan: parsed.data.plan }));
-  //       dispatch(setToken({ token: parsed.data.token }));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+        dispatch(setPlan({ plan: parsed.data.plan }));
+        dispatch(setToken({ token: parsed.data.token }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-  //   if (currentUser) fetchGptUser();
-  // }, [currentUser]);
+    if (currentUser) fetchGptUser();
+  }, [currentUser, dispatch]);
 
-  const handleCourtChange = (event) => {
+  const handleCourtChange = useCallback((event) => {
     const {
       target: { value },
     } = event;
-    // Update the state with the selected courts, allowing deselection
-
-    setSelectedCourts(typeof value === "string" ? value.split(",") : value);
-  };
+    setSelectedCourts(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  }, []);
 
   async function handleCaseSearch(e) {
     e.preventDefault();
-
-    // const isEligible = await axios.post(
-    //   `${NODE_API_ENDPOINT}/gpt/dummyCheckbox`,
-    //   {
-    //     phoneNumber: currentUser.phoneNumber,
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${currentUser.jwt}`,
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // );
-    // console.log(isEligible);
-    // if (!isEligible.data.data) {
-    //   dispatch(open());
-    //   return;
-    // }
+    
     if (selectedCourts.length === 0) {
       alert("Please select at least one court.");
       return;
     }
+
     const courtsString = selectedCourts.join(",");
     try {
       setLoading(true);
       if (
-        token?.used?.caseSearchTokenUsed >=
-          token?.total?.totalCaseSearchTokens ||
-        parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
-          token?.total?.totalCaseSearchTokens
+        token?.used?.caseSearchTokenUsed >= token?.total?.totalCaseSearchTokens ||
+        parseFloat(token?.used?.caseSearchTokenUsed) + 1 > token?.total?.totalCaseSearchTokens
       ) {
         dispatch(open());
-        throw new Error(
-          "Not enough tokens, please upgrade or try again later!"
-        );
+        throw new Error("Not enough tokens, please upgrade or try again later!");
       }
 
       const response = await fetch(`${NODE_API_ENDPOINT}/gpt/case/search`, {
@@ -127,7 +125,6 @@ export default function CaseFinder({
         }),
       });
       const parsed = await response.json();
-      console.log(parsed.success);
       if (parsed.success) {
         setResult(parsed.data.result);
         dispatch(setToken({ token: parsed.data.token }));
@@ -140,18 +137,6 @@ export default function CaseFinder({
     }
   }
 
-  const topuphandler = () => {
-    dispatch(
-      setCart({
-        request: 5,
-        session: 1,
-        total: 25,
-        plan: "LIFETIME",
-        type: "TOPUP",
-      })
-    );
-  };
-
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <Helmet>
@@ -160,25 +145,9 @@ export default function CaseFinder({
           name="description"
           content="Claw's advanced case search empowers you to efficiently find relevant legal precedents. Search to navigate India's vast legal landscape with ease."
         />
-        {/* <meta
-          name="keywords"
-          content=""
-        /> */}
       </Helmet>
-      <div className={`${Styles.container} `}>
-        <div className={`${Styles.sidebarContainer}`}>
-          <Sidebar
-            keyword={keyword}
-            primaryColor={primaryColor}
-            model={model}
-          />
-        </div>
-
-        <div
-          className={`${
-            collapsed ? Styles.contentContainer : Styles.contentContainer1
-          } `}
-        >
+      <div className={`${Styles.container}`}>
+        <div className={`${collapsed ? Styles.contentContainer : Styles.contentContainer1}`}>
           <Modal open={isOpen} onClose={handlePopupClose}>
             <div className={Styles.modalContent}>
               <div className={Styles.modalHeader}>
@@ -197,9 +166,8 @@ export default function CaseFinder({
                 <LockIcon style={{ fontSize: 80, color: primaryColor }} />
                 <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
                 <div className={Styles.modalActions}>
-                  {/* <StudentReferralModal /> */}
-                  {/* <button
-                    onClick={topuphandler}
+                  <button
+                    onClick={handlePopupClose}
                     className="backdropImg"
                     style={{
                       border: "none",
@@ -210,7 +178,7 @@ export default function CaseFinder({
                   >
                     <Link
                       className="linkImg"
-                      to="/paymentgateway"
+                      to="/pricing"
                       style={{
                         color: "white",
                         textDecoration: "none",
@@ -218,34 +186,9 @@ export default function CaseFinder({
                         border: "none",
                       }}
                     >
-                      Top Up 25 Rs
+                      Buy Credits
                     </Link>
-                  </button> */}
-                  <Link to="/pricing" style={{ textDecoration: "none" }}>
-                    <button
-                      onClick={handlePopupClose}
-                      className="backdropImg"
-                      style={{
-                        border: "none",
-                        backgroundColor: "rgb(0, 128, 128)",
-                        borderRadius: 15,
-                        padding: 10,
-                      }}
-                    >
-                      <p
-                        className="linkImg"
-                        style={{
-                          color: "white",
-                          textDecoration: "none",
-                          width: "fit-content",
-                          border: "none",
-                          margin: 0,
-                        }}
-                      >
-                        Buy Credits
-                      </p>
-                    </button>
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -254,20 +197,37 @@ export default function CaseFinder({
             <Box>
               <div>Court:</div>
               <FormControl fullWidth error={selectedCourts.length === 0}>
-                {selectedCourts.length !== 0 ? null : (
-                  <InputLabel
-                    id="court-selector-label"
-                    style={{ color: "black" }}
-                  >
-                    Select a court....
-                  </InputLabel>
-                )}
                 <Select
-                  labelId="court-selector-label"
-                  onChange={handleCourtChange}
+                  multiple
                   value={selectedCourts}
-                  // onChange={(e) => setCourtName(e.target.value)}
-                  // value={courtName}
+                  onChange={handleCourtChange}
+                  displayEmpty
+                  renderValue={(selected) => {
+                    if (selected.length === 0) {
+                      return <span style={{ color: 'rgba(0, 0, 0, 0.6)' }}>Select a court....</span>;
+                    }
+                    return (
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, maxHeight: 80, overflow: 'auto' }}>
+                        {selected.map((value) => (
+                          <Chip 
+                            key={value} 
+                            label={value} 
+                            sx={{ backgroundColor: "#e0f7fa" }} 
+                          />
+                        ))}
+                      </Box>
+                    );
+                  }}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 300,
+                        width: 250
+                      },
+                    },
+                    // Important: This keeps the menu from auto-closing on select
+                    autoFocus: false
+                  }}
                   style={{
                     backgroundColor: "white",
                     color: "black",
@@ -275,78 +235,15 @@ export default function CaseFinder({
                     fontWeight: "bold",
                     fontSize: "10px",
                   }}
-                  multiple
-                  renderValue={(selected) => (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: 0.5,
-                        maxHeight: 80,
-                        overflow: "auto",
-                      }}
-                    >
-                      {selected.map((value) => (
-                        <Chip
-                          key={value}
-                          label={value}
-                          sx={{ backgroundColor: "#e0f7fa" }}
-                        />
-                      ))}
-                    </Box>
-                  )}
                 >
-                  <MenuItem disabled value="">
-                    <em>Select a court</em>
-                  </MenuItem>
-                  <MenuItem value="Supreme Court of India">
-                    Supreme Court of India
-                  </MenuItem>
-                  <MenuItem value="Chattisgarh High Court">
-                    Chattisgarh High Court
-                  </MenuItem>
-                  <MenuItem value="Sikkim High Court">
-                    Sikkim High Court
-                  </MenuItem>
-                  <MenuItem value="Uttarakhand High Court">
-                    Uttarakhand High Court
-                  </MenuItem>
-                  <MenuItem value="Calcutta High Court">
-                    Calcutta High Court
-                  </MenuItem>
-                  {/* <MenuItem value="Kerela High Court">
-                    Kerela High Court
-                  </MenuItem>
-                  <MenuItem value="Karnataka High Court">
-                    Karnataka High Court
-                  </MenuItem> */}
-                  <MenuItem value="Jammu and Kashmir High Court">
-                    Jammu and Kashmir High Court
-                  </MenuItem>
-                  {/* <MenuItem value="Jharkhand High Court">
-                    Jharkhand High Court
-                  </MenuItem> */}
-                  <MenuItem value="Delhi High Court">Delhi High Court</MenuItem>
-                  <MenuItem value="Delhi District Court">
-                    Delhi District Court
-                  </MenuItem>
-                  {/* <MenuItem value="Madhya Pradesh High Court">
-                    Madhya Pradesh High Court
-                  </MenuItem> */}
-                  {/* <MenuItem value="Allahabad High Court">
-                    Allahabad High Court
-                  </MenuItem> */}
-                  <MenuItem value="Gujarat High Court">
-                    Gujarat High Court
-                  </MenuItem>
-                  <MenuItem value="Rajasthan High Court">
-                    Rajasthan High Court
-                  </MenuItem>
+                  {courts.map((court) => (
+                    <MenuItem key={court} value={court}>
+                      {court}
+                    </MenuItem>
+                  ))}
                 </Select>
                 {selectedCourts.length === 0 && (
-                  <FormHelperText>
-                    Please select at least one court.
-                  </FormHelperText>
+                  <FormHelperText>Please select at least one court.</FormHelperText>
                 )}
               </FormControl>
             </Box>
@@ -419,33 +316,29 @@ export default function CaseFinder({
             ) : (
               <>
                 {result
-                  ? result.map((relatedCase) => {
-                      return (
-                        <CaseCard
-                          caseId={relatedCase.case_id}
-                          name={relatedCase.Title}
-                          date={relatedCase.Date}
-                          citations={relatedCase.num_cites}
-                          court={relatedCase.court}
-                          key={relatedCase.id}
-                          query={query}
-                        />
-                      );
-                    })
+                  ? result.map((relatedCase) => (
+                      <CaseCard
+                        caseId={relatedCase.case_id}
+                        name={relatedCase.Title}
+                        date={relatedCase.Date}
+                        citations={relatedCase.num_cites}
+                        court={relatedCase.court}
+                        key={relatedCase.id}
+                        query={query}
+                      />
+                    ))
                   : search.get("id") === messageId &&
-                    cases.map((relatedCase) => {
-                      return (
-                        <CaseCard
-                          caseId={relatedCase.case_id}
-                          name={relatedCase.Title}
-                          citations={relatedCase.num_cites}
-                          date={relatedCase.Date}
-                          court={relatedCase.court}
-                          key={relatedCase.id}
-                          query={query}
-                        />
-                      );
-                    })}
+                    cases.map((relatedCase) => (
+                      <CaseCard
+                        caseId={relatedCase.case_id}
+                        name={relatedCase.Title}
+                        citations={relatedCase.num_cites}
+                        date={relatedCase.Date}
+                        court={relatedCase.court}
+                        key={relatedCase.id}
+                        query={query}
+                      />
+                    ))}
               </>
             )}
           </div>

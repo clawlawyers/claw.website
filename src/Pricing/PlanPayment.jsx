@@ -56,7 +56,7 @@ const PlanPayment = () => {
   //       const { amount, id, currency } = result.data.razorpayOrder;
   //       const { _id } = result.data.createdOrder;
   //       const options = {
-  //         key: "rzp_test_UWcqHHktRV6hxM",
+  //         key: "rzp_live_vlDmt5SV4QPDhN",
   //         amount: String(amount),
 
   //         currency: currency,
@@ -135,7 +135,7 @@ const PlanPayment = () => {
         console.log(subscription_id);
 
         const options = {
-          key: "rzp_test_UWcqHHktRV6hxM",
+          key: "rzp_live_vlDmt5SV4QPDhN",
           subscription_id: subscription_id, // Pass the subscription_id instead of order_id
           name: "CLAW LEGALTECH PRIVATE LIMITED",
           description: "Subscription",
@@ -243,7 +243,7 @@ const PlanPayment = () => {
         const { _id } = result.data.createdOrder;
 
         const options = {
-          key: "rzp_test_UWcqHHktRV6hxM",
+          key: "rzp_live_vlDmt5SV4QPDhN",
           amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
@@ -348,7 +348,7 @@ const PlanPayment = () => {
         // console.log(subscription_id);
 
         const options = {
-          key: "rzp_test_UWcqHHktRV6hxM",
+          key: "rzp_live_vlDmt5SV4QPDhN",
           amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
