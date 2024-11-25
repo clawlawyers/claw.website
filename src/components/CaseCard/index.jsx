@@ -53,7 +53,7 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
   const [content, setContent] = useState("");
   const jwt = useSelector((state) => state.auth.user.jwt);
   const [loading, setLoading] = useState(false);
-  const { token } = useSelector((state) => state.gpt);
+  // const { token } = useSelector((state) => state.gpt);
   const dispatch = useDispatch();
   // const handlePopupOpen = useCallback(() => dispatch(open()), []);
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
@@ -104,19 +104,19 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
 
   async function handleOpen() {
     try {
-      console.log(token);
-      console.log(parseFloat(token?.used?.caseSearchTokenUsed) + 1);
+      // console.log(token);
+      // console.log(parseFloat(token?.used?.caseSearchTokenUsed) + 1);
 
-      if (
-        token?.used?.caseSearchTokenUsed >=
-          token?.total?.totalCaseSearchTokens ||
-        parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
-          token?.total?.totalCaseSearchTokens
-      ) {
-        console.log("token exipred");
-        dispatch(open());
-        return;
-      }
+      // if (
+      //   token?.used?.caseSearchTokenUsed >=
+      //     token?.total?.totalCaseSearchTokens ||
+      //   parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
+      //     token?.total?.totalCaseSearchTokens
+      // ) {
+      //   console.log("token exipred");
+      //   dispatch(open());
+      //   return;
+      // }
       setLoading(true);
       setOpenCase(true);
 
@@ -138,7 +138,7 @@ export function CaseCard({ name, date, court, citations, caseId, query }) {
       const parsed = await response.json();
       //   console.log(parsed.data.token);
       setContent(parsed);
-      dispatch(setToken({ token: parsed.data.token }));
+      // dispatch(setToken({ token: parsed.data.token }));
       //   console.log(token);
     } catch (error) {
       console.log(error);

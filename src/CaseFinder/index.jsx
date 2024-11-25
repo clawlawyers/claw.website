@@ -37,7 +37,7 @@ const courts = [
   "Delhi High Court",
   "Delhi District Court",
   "Gujarat High Court",
-  "Rajasthan High Court"
+  "Rajasthan High Court",
 ];
 
 export default function CaseFinder({
@@ -49,7 +49,8 @@ export default function CaseFinder({
   const [loading, setLoading] = useState(false);
   const [startDate, setStartDate] = useState(moment("18-sep-01"));
   const [endDate, setEndDate] = useState(moment("19-sep-20"));
-  const [result, setResult] = useState();
+  const [result, setResult] = useState([]);
+  // console.log(result);
   const [search] = useSearchParams();
   const { messageId, cases } = useSelector((state) => state.gpt.relatedCases);
   const currentUser = useSelector((state) => state.auth.user);
@@ -60,27 +61,27 @@ export default function CaseFinder({
   const collapsed = useSelector((state) => state.sidebar.collapsed);
   const [selectedCourts, setSelectedCourts] = useState([]);
 
-  useEffect(() => {
-    async function fetchGptUser() {
-      try {
-        const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${currentUser.jwt}`,
-            "Content-Type": "application/json",
-          },
-        });
-        const parsed = await res.json();
+  // useEffect(() => {
+  //   async function fetchGptUser() {
+  //     try {
+  //       const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
+  //         method: "GET",
+  //         headers: {
+  //           Authorization: `Bearer ${currentUser.jwt}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //       const parsed = await res.json();
 
-        dispatch(setPlan({ plan: parsed.data.plan }));
-        dispatch(setToken({ token: parsed.data.token }));
-      } catch (error) {
-        console.log(error);
-      }
-    }
+  //       dispatch(setPlan({ plan: parsed.data.plan }));
+  //       dispatch(setToken({ token: parsed.data.token }));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
 
-    if (currentUser) fetchGptUser();
-  }, [currentUser, dispatch]);
+  //   if (currentUser) fetchGptUser();
+  // }, [currentUser, dispatch]);
 
   const handleCourtChange = useCallback((event) => {
     const {
@@ -88,13 +89,13 @@ export default function CaseFinder({
     } = event;
     setSelectedCourts(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === "string" ? value.split(",") : value
     );
   }, []);
 
   async function handleCaseSearch(e) {
     e.preventDefault();
-    
+
     if (selectedCourts.length === 0) {
       alert("Please select at least one court.");
       return;
@@ -103,13 +104,17 @@ export default function CaseFinder({
     const courtsString = selectedCourts.join(",");
     try {
       setLoading(true);
-      if (
-        token?.used?.caseSearchTokenUsed >= token?.total?.totalCaseSearchTokens ||
-        parseFloat(token?.used?.caseSearchTokenUsed) + 1 > token?.total?.totalCaseSearchTokens
-      ) {
-        dispatch(open());
-        throw new Error("Not enough tokens, please upgrade or try again later!");
-      }
+      // if (
+      //   token?.used?.caseSearchTokenUsed >=
+      //     token?.total?.totalCaseSearchTokens ||
+      //   parseFloat(token?.used?.caseSearchTokenUsed) + 1 >
+      //     token?.total?.totalCaseSearchTokens
+      // ) {
+      //   dispatch(open());
+      //   throw new Error(
+      //     "Not enough tokens, please upgrade or try again later!"
+      //   );
+      // }
 
       const response = await fetch(`${NODE_API_ENDPOINT}/gpt/case/search`, {
         method: "POST",
@@ -127,7 +132,7 @@ export default function CaseFinder({
       const parsed = await response.json();
       if (parsed.success) {
         setResult(parsed.data.result);
-        dispatch(setToken({ token: parsed.data.token }));
+        // dispatch(setToken({ token: parsed.data.token }));
       }
     } catch (error) {
       console.log(error);
@@ -138,16 +143,38 @@ export default function CaseFinder({
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <Helmet>
-        <title>Claw Case Search</title>
-        <meta
-          name="description"
-          content="Claw's advanced case search empowers you to efficiently find relevant legal precedents. Search to navigate India's vast legal landscape with ease."
-        />
-      </Helmet>
-      <div className={`${Styles.container}`}>
-        <div className={`${collapsed ? Styles.contentContainer : Styles.contentContainer1}`}>
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col justify-center items-center">
+        <p className="text-4xl text-white font-bold m-0">
+          Find Legal Cases With
+        </p>
+        <p
+          className="text-7xl font-bold mt-6"
+          style={{
+            background: "linear-gradient(to bottom, #003131 0%, #00FFA3 100%)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+
+            color: "transparent",
+          }}
+        >
+          Claw Case Search
+        </p>
+      </div>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <Helmet>
+          <title>Claw Case Search</title>
+          <meta
+            name="description"
+            content="Claw's advanced case search empowers you to efficiently find relevant legal precedents. Search to navigate India's vast legal landscape with ease."
+          />
+        </Helmet>
+        <div className="m-auto w-[80%]">
+          {/* <div
+          className={`${
+            collapsed ? Styles.contentContainer : Styles.contentContainer1
+          }`}
+        > */}
           <Modal open={isOpen} onClose={handlePopupClose}>
             <div className={Styles.modalContent}>
               <div className={Styles.modalHeader}>
@@ -193,10 +220,58 @@ export default function CaseFinder({
               </div>
             </div>
           </Modal>
+          <div>
+            <label>Enter Case Search</label>
+            <form
+              onSubmit={handleCaseSearch}
+              style={{
+                marginTop: 2,
+                marginBottom: 25,
+                display: "flex",
+                backgroundColor: "white",
+                padding: 16,
+                borderRadius: 10,
+              }}
+            >
+              <SearchOutlined
+                style={{ color: "#777", marginRight: "10px", marginTop: "7px" }}
+              />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                style={{
+                  width: "100%",
+                  fontSize: 16,
+                  outline: "none",
+                  border: "none",
+                  color: "black",
+                }}
+                placeholder="Enter your prompt to find all registered cases..."
+              />
+              <button
+                type="submit"
+                className={Styles.bgbutton}
+                style={{
+                  backgroundColor: primaryColor,
+                  color: "white",
+                  border: "none",
+                  borderRadius: 5,
+                  padding: "10px 30px",
+                  cursor: "pointer",
+                  marginLeft: 10,
+                }}
+              >
+                Search
+              </button>
+            </form>
+          </div>
           <div className={Styles.inputGrid}>
-            <Box>
-              <div>Court:</div>
-              <FormControl fullWidth error={selectedCourts.length === 0}>
+            <div className="flex-1">
+              <div>Court Name</div>
+              <FormControl
+                sx={{ width: "100%" }}
+                error={selectedCourts.length === 0}
+              >
                 <Select
                   multiple
                   value={selectedCourts}
@@ -204,15 +279,27 @@ export default function CaseFinder({
                   displayEmpty
                   renderValue={(selected) => {
                     if (selected.length === 0) {
-                      return <span style={{ color: 'rgba(0, 0, 0, 0.6)' }}>Select a court....</span>;
+                      return (
+                        <span style={{ color: "rgba(0, 0, 0, 0.6)" }}>
+                          Select a court....
+                        </span>
+                      );
                     }
                     return (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, maxHeight: 80, overflow: 'auto' }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: 0.5,
+                          maxHeight: 80,
+                          overflow: "auto",
+                        }}
+                      >
                         {selected.map((value) => (
-                          <Chip 
-                            key={value} 
-                            label={value} 
-                            sx={{ backgroundColor: "#e0f7fa" }} 
+                          <Chip
+                            key={value}
+                            label={value}
+                            sx={{ backgroundColor: "#e0f7fa" }}
                           />
                         ))}
                       </Box>
@@ -222,11 +309,11 @@ export default function CaseFinder({
                     PaperProps: {
                       style: {
                         maxHeight: 300,
-                        width: 250
+                        width: 250,
                       },
                     },
                     // Important: This keeps the menu from auto-closing on select
-                    autoFocus: false
+                    autoFocus: false,
                   }}
                   style={{
                     backgroundColor: "white",
@@ -243,108 +330,84 @@ export default function CaseFinder({
                   ))}
                 </Select>
                 {selectedCourts.length === 0 && (
-                  <FormHelperText>Please select at least one court.</FormHelperText>
+                  <FormHelperText>
+                    Please select at least one court.
+                  </FormHelperText>
                 )}
               </FormControl>
-            </Box>
+            </div>
             <div style={{ display: "flex", gap: 10 }}>
               <div>
-                <div>From:</div>
+                <div>Search Start Date</div>
                 <DatePicker
                   value={startDate}
                   onChange={(newVal) => setStartDate(newVal)}
-                  sx={{ backgroundColor: "white" }}
+                  sx={{ backgroundColor: "white", borderRadius: "10px" }}
                 />
               </div>
               <div>
-                <div>To:</div>
+                <div>Search End Date</div>
                 <DatePicker
                   value={endDate}
                   onChange={(newVal) => setEndDate(newVal)}
-                  sx={{ backgroundColor: "white" }}
+                  sx={{ backgroundColor: "white", borderRadius: "10px" }}
                 />
               </div>
             </div>
           </div>
-          <form
-            onSubmit={handleCaseSearch}
-            style={{
-              marginTop: 20,
-              marginBottom: 25,
-              display: "flex",
-              backgroundColor: "white",
-              padding: 16,
-              borderRadius: 10,
-            }}
+
+          <div
+            className="h-screen mt-5"
+            style={{ display: "flex", flexDirection: "column", gap: 10 }}
           >
-            <SearchOutlined
-              style={{ color: "#777", marginRight: "10px", marginTop: "7px" }}
-            />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              style={{
-                width: "100%",
-                fontSize: 16,
-                outline: "none",
-                border: "none",
-                color: "black",
-              }}
-              placeholder="Enter Prompt Here ..."
-            />
-            <button
-              type="submit"
-              className={Styles.bgbutton}
-              style={{
-                backgroundColor: primaryColor,
-                color: "white",
-                border: "none",
-                borderRadius: 5,
-                padding: "8px 16px",
-                cursor: "pointer",
-                marginLeft: 10,
-              }}
-            >
-              Search
-            </button>
-          </form>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {loading ? (
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <CircularProgress style={{ color: "white" }} />
               </div>
             ) : (
-              <>
-                {result
-                  ? result.map((relatedCase) => (
-                      <CaseCard
-                        caseId={relatedCase.case_id}
-                        name={relatedCase.Title}
-                        date={relatedCase.Date}
-                        citations={relatedCase.num_cites}
-                        court={relatedCase.court}
-                        key={relatedCase.id}
-                        query={query}
-                      />
-                    ))
-                  : search.get("id") === messageId &&
-                    cases.map((relatedCase) => (
-                      <CaseCard
-                        caseId={relatedCase.case_id}
-                        name={relatedCase.Title}
-                        citations={relatedCase.num_cites}
-                        date={relatedCase.Date}
-                        court={relatedCase.court}
-                        key={relatedCase.id}
-                        query={query}
-                      />
-                    ))}
-              </>
+              <div className="flex flex-col gap-3 overflow-auto">
+                {/* {result
+                ? result.map((relatedCase) => (
+                    <CaseCard
+                      caseId={relatedCase.case_id}
+                      name={relatedCase.Title}
+                      date={relatedCase.Date}
+                      citations={relatedCase.num_cites}
+                      court={relatedCase.court}
+                      key={relatedCase.id}
+                      query={query}
+                    />
+                  ))
+                : search.get("id") === messageId &&
+                  cases.map((relatedCase) => (
+                    <CaseCard
+                      caseId={relatedCase.case_id}
+                      name={relatedCase.Title}
+                      citations={relatedCase.num_cites}
+                      date={relatedCase.Date}
+                      court={relatedCase.court}
+                      key={relatedCase.id}
+                      query={query}
+                    />
+                  ))} */}
+                {result.map((relatedCase) => (
+                  <CaseCard
+                    caseId={relatedCase.case_id}
+                    name={relatedCase.Title}
+                    date={relatedCase.Date}
+                    citations={relatedCase.num_cites}
+                    court={relatedCase.court}
+                    key={relatedCase.id}
+                    query={query}
+                  />
+                ))}
+              </div>
             )}
           </div>
+          {/* </div> */}
         </div>
-      </div>
-    </LocalizationProvider>
+      </LocalizationProvider>
+    </div>
   );
 }
 
