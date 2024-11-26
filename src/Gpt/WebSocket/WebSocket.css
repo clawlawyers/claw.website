@@ -1,0 +1,36 @@
+.file-upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #83c6c1;
+  background-color: #eafafa;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 300px;
+  height: 150px;
+  text-align: center;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-upload-label {
+  color: #1baaa0;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.upload-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #1baaa0;
+}
+
+.backdropImg {
+  background-image: url("../../assets/images/button-gradient.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

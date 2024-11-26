@@ -1,6 +1,11 @@
 import "./App.css";
 import Home from "./Home/Home";
-import { createBrowserRouter, Outlet, RouterProvider, useNavigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 import Blog from "./Blog/Blog";
 import AllBlogs from "./AllBlogs/AllBlogs";
@@ -62,7 +67,6 @@ import AdiraAi from "./AdiraAi/AdiraAi.jsx";
 // import Verdict from "./CourtRoom/CourtroomAi/Verdict.jsx";
 // import Contact from "./CourtRoom/ContactUs/Contact.jsx";
 import { retrieveCourtroomAuth } from "./features/bookCourtRoom/LoginReducreSlice.js";
-import SessionGptNew from "./Gpt/components/SessionGptNew.jsx";
 import PlanPayment from "./Pricing/PlanPayment.jsx";
 import { retrieveActivePlanUser, setPlan } from "./features/gpt/gptSlice.js";
 import TestSubscription from "./Pricing/TestSubscription.jsx";
@@ -73,7 +77,6 @@ import WebSocketComponent from "./Gpt/WebSocket/WebSocket.jsx";
 import Prompts from "./Gpt/WebSocket/Prompts.jsx";
 import SocketLayout from "./Gpt/WebSocket/SocketLayout.jsx";
 import DocumentViewer from "./components/DocumentsComponent/DocumentViewer.jsx";
-
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -87,7 +90,6 @@ function App() {
   const [socket, setSocket] = useState(null);
 
   const dispatch = useDispatch();
-
 
   const currentUserRef = useRef(currentUser);
 
@@ -124,9 +126,8 @@ function App() {
     currentUserRef.current = currentUser;
     if (currentUser == null && autologout) {
       window.alert("You have been Logged out ");
-      window.location.replace("/login")
+      window.location.replace("/login");
     }
-   
   }, [currentUser]);
 
   // useEffect(() => {
@@ -546,9 +547,9 @@ function App() {
       path: "socket",
       element: <SocketLayout />,
       children: [
-        { path: "", element: <WebSocketComponent /> },
+        { path: "v1/:sessionId", element: <WebSocketComponent /> },
 
-        { path: "v1/:sessionId", element: <Prompts /> },
+        { path: "", element: <Prompts /> },
       ],
     },
     // {

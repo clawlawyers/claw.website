@@ -21,7 +21,7 @@ import axios from "axios";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 
 const languageArr = [
-  "English",
+  // "English",
   "Hindi",
   "Bengali",
   "Punjabi",

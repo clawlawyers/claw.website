@@ -186,7 +186,6 @@ function Header() {
             </button>
           </div>
         </div>
-        
 
         <div className={Styles.headerGPT}>
           <div>
@@ -220,13 +219,13 @@ function Header() {
                   // backgroundColor: "transparent",
                 }}
               >
-                Warrrom
+                War Room
               </button>
             ) : (
               // </button>
               <button className={Styles.headerButton} onClick={handlePopupOpen}>
-                Warrrom
-              </button> 
+                War Room
+              </button>
             )}
           </div>
           <div>

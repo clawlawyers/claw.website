@@ -46,8 +46,15 @@ const newCourtIdMapping = {
   "Rajasthan High Court": "18VP7y7NKx8jwSq87T2iSUEh4KnDyImOX",
 };
 
-export function CasecardGpt({ name, date, court, citations, caseId, query }) {
-  console.log(date);
+export function CasecardGpt({
+  name,
+  date,
+  court,
+  citations,
+  caseId,
+  keyIndex,
+}) {
+  // console.log(date);
   const md = markdownit({
     // Enable HTML tags in source
     html: true,
@@ -199,6 +206,7 @@ export function CasecardGpt({ name, date, court, citations, caseId, query }) {
 
   return (
     <div
+      key={keyIndex}
       className={Styles.backdrop}
       style={{
         display: "flex",
