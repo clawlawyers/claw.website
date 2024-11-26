@@ -51,7 +51,7 @@ const suggestedQuesArr = [
   "This is a sample question that will be generated once user drops his first question in the legalgpt",
 ];
 
-export default function   SessionGPT({ model, primaryColor }) {
+export default function SessionGPT({ model, primaryColor }) {
   let containerStyles = { width: "90%" };
   const md = markdownit({
     // Enable HTML tags in source
@@ -223,6 +223,7 @@ export default function   SessionGPT({ model, primaryColor }) {
     } else setcourtName("Supreme Court of India");
 
     if (!prompt && currentUser) {
+      console.log(sessionId);
       async function fetchSessionMessages() {
         setIsLoading(true);
         const res = await fetch(
@@ -346,9 +347,12 @@ export default function   SessionGPT({ model, primaryColor }) {
       //   }
       // );
 
-      const fetchData = await fetchWrapper.post( `${NODE_API_ENDPOINT}/gpt/session/judgement`,{
-        body: JSON.stringify({ sessionId }),
-      })
+      const fetchData = await fetchWrapper.post(
+        `${NODE_API_ENDPOINT}/gpt/session/judgement`,
+        {
+          body: JSON.stringify({ sessionId }),
+        }
+      );
 
       const response = await fetchData.json();
 

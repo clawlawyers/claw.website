@@ -278,6 +278,18 @@ function Header() {
               LegalGPT
             </Link>
           </button>
+          <button className={Styles.headerButton}>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "white",
+                //   backgroundColor: "transparent",
+              }}
+              to="/gpt/socket"
+            >
+              LegalGPT1
+            </Link>
+          </button>
           {!currentUser ? (
             <button
               className={Styles.headerButton}

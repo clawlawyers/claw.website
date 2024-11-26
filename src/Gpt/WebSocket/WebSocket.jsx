@@ -7,6 +7,7 @@ import {
   removePromptsArr,
   setDataUsingIndex,
   setNewPromptData,
+  setPromptHistory,
   setPromptLoading,
   setPromptsArrAction,
 } from "../../features/gpt/promptSlice";
@@ -35,6 +36,7 @@ import { setRelatedCases } from "../../features/gpt/gptSlice";
 import { CasecardGpt } from "../components/CasecardGpt";
 import markdownit from "markdown-it";
 import fetchWrapper from "../../utils/fetchWrapper";
+import { useAuthState } from "../../hooks/useAuthState";
 
 const languageArr = [
   // "English",
@@ -106,16 +108,43 @@ const WebSocketComponent = () => {
 
   const currentUser = useSelector((state) => state.auth.user);
   const promptsArrSelector = useSelector((state) => state?.prompt?.prompts);
+  const loadPromptHistory = useSelector((state) => state?.prompt?.loadHistory);
   const { prompt, status, response, error, relatedCases, plan } = useSelector(
     (state) => state.gpt
   );
-  // console.log(promptsArr);
+
+  const { isAuthLoading } = useAuthState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
 
   const divRef = useRef(null);
+
+  useEffect(() => {
+    if (loadPromptHistory && currentUser && promptsArrSelector.length === 0) {
+      console.log("triggered");
+      fetchSessionMessages();
+    }
+  }, [loadPromptHistory, isAuthLoading]);
+
+  async function fetchSessionMessages() {
+    const res = await fetch(
+      `${NODE_API_ENDPOINT}/gpt/session/${params.sessionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${currentUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const { data } = await res.json();
+    dispatch(setPromptsArrAction(data.messages));
+    // setPromptsArr(data.messages);
+    dispatch(setPromptHistory());
+    getAiSuggestedQuestions();
+    resetOnEveryContext();
+  }
 
   useEffect(() => {
     setPromptsArr(promptsArrSelector);
@@ -321,19 +350,19 @@ const WebSocketComponent = () => {
 
       const fileData = response.data;
 
-      const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${currentUser.jwt}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt: fileData.data.fetchUploaded.document,
-          model: "legalGPT",
-        }),
-      });
-      const { data } = await res.json();
-      setSessionId(data.id);
+      // const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
+      //   method: "POST",
+      //   headers: {
+      //     Authorization: `Bearer ${currentUser.jwt}`,
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     prompt: fileData.data.fetchUploaded.document,
+      //     model: "legalGPT",
+      //   }),
+      // });
+      // const { data } = await res.json();
+      // setSessionId(data.id);
       dispatch(
         setPromptsArrAction([
           {
@@ -341,7 +370,7 @@ const WebSocketComponent = () => {
             isDocument: uploadedFiles[0].name,
             contextId: null,
             isUser: true,
-            sessionId: data.id,
+            sessionId: params.sessionId,
           },
         ])
       );
@@ -350,7 +379,7 @@ const WebSocketComponent = () => {
         isDocument: uploadedFiles[0].name,
         contextId: null,
         isUser: true,
-        sessionId: data.id,
+        sessionId: params.sessionId,
       });
       resetOnEveryContext();
       handleClose();
@@ -637,151 +666,136 @@ const WebSocketComponent = () => {
           <p className="m-0 text-xs pt-1">by CLAW</p>
         </div>
         <br />
-        <div ref={divRef} className="h-[95%] overflow-auto flex flex-col gap-2">
-          {promptsArr.map((x, index) => (
-            <div key={index}>
-              <div className="flex items-center justify-end">
-                {!x.isUser ? (
-                  <>
-                    <IconButton
-                      onClick={handleMenuOpen}
-                      sx={{ color: "white" }}
-                    >
-                      <MoreVert />
-                    </IconButton>
-                    <Menu
-                      id="long-menu"
-                      anchorEl={anchorElMenu}
-                      keepMounted
-                      open={Boolean(anchorElMenu)}
-                      onClose={handleMenuClose}
-                    >
-                      <MenuItem>Reply</MenuItem>
-                    </Menu>
-                  </>
-                ) : null}
-              </div>
-              {x.text && !x.isDocument ? (
-                <div className="w-full flex gap-1 items-center">
-                  {x.isUser ? <AccountCircleIcon /> : null}
-                  <div
-                    className="w-full flex flex-col p-2 rounded-lg border-2"
-                    style={{
-                      background: x.isUser ? "transparent" : "#495057",
-                      borderColor: x.isUser ? "transparent" : "#018081",
-                    }}
-                  >
-                    {(textLoading || translationLoading) &&
-                    editIndex == index ? (
-                      <div className="h-full w-full p-3 flex flex-col gap-1">
-                        <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                        <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                        <div className="w-[60%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                        <div className="w-[40%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                      </div>
-                    ) : (
-                      <p
-                        className="flex-1 m-0"
-                        style={{
-                          borderBottom: x.isUser
-                            ? "0px"
-                            : "1px solid rgb(204, 204, 204)",
-                          paddingBottom: !x.isUser ? "8px" : "0px",
-                        }}
-                        key={index}
-                        dangerouslySetInnerHTML={{
-                          __html: x.text,
-                        }}
+        {promptsArr.length > 0 ? (
+          <div
+            ref={divRef}
+            className="h-[95%] overflow-auto flex flex-col gap-2"
+          >
+            {promptsArr.map((x, index) => (
+              <div key={index}>
+                <div className="flex items-center justify-end">
+                  {!x.isUser ? (
+                    <>
+                      <IconButton
+                        onClick={handleMenuOpen}
+                        sx={{ color: "white" }}
                       >
-                        {/* {x.text} */}
-                      </p>
-                    )}
-
-                    {!x.isUser ? (
-                      <div className="m-0 flex justify-between items-center w-full py-2">
-                        <div className="flex-1">
-                          {promptsArr.length - 1 == index && !x.user ? (
-                            <div className="flex gap-2">
-                              <p
-                                onClick={() => {
-                                  setShowCasesDialog(true);
-                                  fetchRelatedCases("Supreme Court of India");
-                                }}
-                                style={{
-                                  pointerEvents:
-                                    relatedCases?.cases?.length > 0
-                                      ? "none"
-                                      : "auto",
-                                }}
-                                className="m-0 border-2 border-white text-white rounded-lg py-1 px-3 cursor-pointer max-w-[7.5rem] flex justify-center items-center"
-                              >
-                                {casesLoading ? (
-                                  <CircularProgress
-                                    size={15}
-                                    sx={{ color: "white" }}
-                                  />
-                                ) : (
-                                  "Load Cases"
-                                )}
-                              </p>
-                              <p
-                                onClick={handleShowRelevantAct}
-                                className="m-0 border-2 border-white text-white max-w-[7rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center"
-                              >
-                                {relevantCaseLoading ? (
-                                  <CircularProgress
-                                    size={15}
-                                    sx={{ color: "white" }}
-                                  />
-                                ) : (
-                                  "References"
-                                )}
-                              </p>
-                              <p
-                                onClick={handleShowSupremeCourtJudgements}
-                                className="m-0 border-2 border-white text-white max-w-[9rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center"
-                              >
-                                {supremeCourtLoading ? (
-                                  <CircularProgress
-                                    size={15}
-                                    sx={{ color: "white" }}
-                                  />
-                                ) : (
-                                  "SC Judgement"
-                                )}
-                              </p>
-                            </div>
-                          ) : null}
+                        <MoreVert />
+                      </IconButton>
+                      <Menu
+                        id="long-menu"
+                        anchorEl={anchorElMenu}
+                        keepMounted
+                        open={Boolean(anchorElMenu)}
+                        onClose={handleMenuClose}
+                      >
+                        <MenuItem>Reply</MenuItem>
+                      </Menu>
+                    </>
+                  ) : null}
+                </div>
+                {x.text && !x.isDocument ? (
+                  <div className="w-full flex gap-1 items-center">
+                    {x.isUser ? <AccountCircleIcon /> : null}
+                    <div
+                      className="w-full flex flex-col p-2 rounded-lg border-2"
+                      style={{
+                        background: x.isUser ? "transparent" : "#495057",
+                        borderColor: x.isUser ? "transparent" : "#018081",
+                      }}
+                    >
+                      {(textLoading || translationLoading) &&
+                      editIndex == index ? (
+                        <div className="h-full w-full p-3 flex flex-col gap-1">
+                          <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                          <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                          <div className="w-[60%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                          <div className="w-[40%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
                         </div>
-                        <div className="m-0 flex items-center gap-3">
-                          <div>
-                            {textLoading && editIndex == index ? (
-                              <div className="flex items-center gap-2">
-                                <CircularProgress size={15} color="inherit" />
-                                <p className="m-0 text-[#018081]">
-                                  Regenerating Response...
+                      ) : (
+                        <p
+                          className="flex-1 m-0"
+                          style={{
+                            borderBottom: x.isUser
+                              ? "0px"
+                              : "1px solid rgb(204, 204, 204)",
+                            paddingBottom: !x.isUser ? "8px" : "0px",
+                          }}
+                          key={index}
+                          dangerouslySetInnerHTML={{
+                            __html: x.text,
+                          }}
+                        >
+                          {/* {x.text} */}
+                        </p>
+                      )}
+
+                      {!x.isUser ? (
+                        <div className="m-0 flex justify-between items-center w-full py-2">
+                          <div className="flex-1">
+                            {promptsArr.length - 1 == index && !x.user ? (
+                              <div className="flex gap-2">
+                                <p
+                                  onClick={() => {
+                                    setShowCasesDialog(true);
+                                    fetchRelatedCases("Supreme Court of India");
+                                  }}
+                                  style={{
+                                    pointerEvents:
+                                      relatedCases?.cases?.length > 0
+                                        ? "none"
+                                        : "auto",
+                                  }}
+                                  className="m-0 border-2 border-white text-white rounded-lg py-1 px-3 cursor-pointer max-w-[7.5rem] flex justify-center items-center"
+                                >
+                                  {casesLoading ? (
+                                    <CircularProgress
+                                      size={15}
+                                      sx={{ color: "white" }}
+                                    />
+                                  ) : (
+                                    "Load Cases"
+                                  )}
+                                </p>
+                                <p
+                                  onClick={handleShowRelevantAct}
+                                  className="m-0 border-2 border-white text-white max-w-[7rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center"
+                                >
+                                  {relevantCaseLoading ? (
+                                    <CircularProgress
+                                      size={15}
+                                      sx={{ color: "white" }}
+                                    />
+                                  ) : (
+                                    "References"
+                                  )}
+                                </p>
+                                <p
+                                  onClick={handleShowSupremeCourtJudgements}
+                                  className="m-0 border-2 border-white text-white max-w-[9rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center"
+                                >
+                                  {supremeCourtLoading ? (
+                                    <CircularProgress
+                                      size={15}
+                                      sx={{ color: "white" }}
+                                    />
+                                  ) : (
+                                    "SC Judgement"
+                                  )}
                                 </p>
                               </div>
-                            ) : (
-                              <div
-                                className="flex items-center gap-1 cursor-pointer"
-                                onClick={() => handleRegenerateResponse(index)}
-                              >
-                                <img className="w-4 h-4" src={regenerateIcon} />
-                                <p className="m-0">Regenerate</p>
-                              </div>
-                            )}
+                            ) : null}
                           </div>
-                          <div>
-                            {translationLoading && editIndex == index ? (
-                              <div className="flex items-center gap-2">
-                                <CircularProgress size={15} color="inherit" />
-                                <p className="m-0 text-[#018081]">
-                                  Translating...
-                                </p>
-                              </div>
-                            ) : (
-                              <>
+                          <div className="m-0 flex items-center gap-3">
+                            <div>
+                              {textLoading && editIndex == index ? (
+                                <div className="flex items-center gap-2">
+                                  <CircularProgress size={15} color="inherit" />
+                                  <p className="m-0 text-[#018081]">
+                                    Regenerating Response...
+                                  </p>
+                                </div>
+                              ) : (
                                 <div
                                   className="flex items-center gap-1 cursor-pointer"
                                   onClick={() =>
@@ -789,269 +803,298 @@ const WebSocketComponent = () => {
                                   }
                                 >
                                   <img
-                                    className="w-4 h-4 rounded-none"
-                                    src={translateIcon}
+                                    className="w-4 h-4"
+                                    src={regenerateIcon}
                                   />
-                                  <p
-                                    className="m-0 max-w-fit"
-                                    onClick={(e) =>
-                                      handleTranslateClick(e, index)
-                                    }
-                                  >
-                                    Translate
+                                  <p className="m-0">Regenerate</p>
+                                </div>
+                              )}
+                            </div>
+                            <div>
+                              {translationLoading && editIndex == index ? (
+                                <div className="flex items-center gap-2">
+                                  <CircularProgress size={15} color="inherit" />
+                                  <p className="m-0 text-[#018081]">
+                                    Translating...
                                   </p>
                                 </div>
-                                <Popover
-                                  className="w-full h-2/3"
-                                  id={translateId}
-                                  open={translateOpen}
-                                  anchorEl={anchorElTranslate}
-                                  onClose={handleTranslateClose}
-                                  anchorOrigin={{
-                                    vertical: "bottom",
-                                    horizontal: "left",
-                                  }}
-                                >
-                                  {languageArr.map((x, i) => (
+                              ) : (
+                                <>
+                                  <div
+                                    className="flex items-center gap-1 cursor-pointer"
+                                    onClick={() =>
+                                      handleRegenerateResponse(index)
+                                    }
+                                  >
+                                    <img
+                                      className="w-4 h-4 rounded-none"
+                                      src={translateIcon}
+                                    />
                                     <p
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleTranslatePrompt(x);
-                                      }}
-                                      key={i}
-                                      className="m-0 text-[#018081] py-1 px-4 cursor-pointer border-b border-[#018081]"
+                                      className="m-0 max-w-fit"
+                                      onClick={(e) =>
+                                        handleTranslateClick(e, index)
+                                      }
                                     >
-                                      {x}
+                                      Translate
                                     </p>
-                                  ))}
-                                </Popover>
-                              </>
-                            )}
-                          </div>
-                          <div>
-                            {anchorElAudio && editIndex == index ? (
-                              <AudioPlayer
-                                token={currentUser.jwt}
-                                text={promptsArr[index].text}
-                                setAnchorEl={setAnchorElAudio}
-                              />
-                            ) : (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="18"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                className="cursor-pointer"
-                                onClick={() => handleAudioPlayerClick(index)}
-                                fill="white"
-                              >
-                                <path d="M19 7.358v15.642l-8-5v-.785l8-9.857zm3-6.094l-1.548-1.264-3.446 4.247-6.006 3.753v3.646l-2 2.464v-6.11h-4v10h.843l-3.843 4.736 1.548 1.264 18.452-22.736z" />
-                              </svg>
-                            )}
+                                  </div>
+                                  <Popover
+                                    className="w-full h-2/3"
+                                    id={translateId}
+                                    open={translateOpen}
+                                    anchorEl={anchorElTranslate}
+                                    onClose={handleTranslateClose}
+                                    anchorOrigin={{
+                                      vertical: "bottom",
+                                      horizontal: "left",
+                                    }}
+                                  >
+                                    {languageArr.map((x, i) => (
+                                      <p
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleTranslatePrompt(x);
+                                        }}
+                                        key={i}
+                                        className="m-0 text-[#018081] py-1 px-4 cursor-pointer border-b border-[#018081]"
+                                      >
+                                        {x}
+                                      </p>
+                                    ))}
+                                  </Popover>
+                                </>
+                              )}
+                            </div>
+                            <div>
+                              {anchorElAudio && editIndex == index ? (
+                                <AudioPlayer
+                                  token={currentUser.jwt}
+                                  text={promptsArr[index].text}
+                                  setAnchorEl={setAnchorElAudio}
+                                />
+                              ) : (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="18"
+                                  height="20"
+                                  viewBox="0 0 24 24"
+                                  className="cursor-pointer"
+                                  onClick={() => handleAudioPlayerClick(index)}
+                                  fill="white"
+                                >
+                                  <path d="M19 7.358v15.642l-8-5v-.785l8-9.857zm3-6.094l-1.548-1.264-3.446 4.247-6.006 3.753v3.646l-2 2.464v-6.11h-4v10h.843l-3.843 4.736 1.548 1.264 18.452-22.736z" />
+                                </svg>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ) : null}
+                      ) : null}
+                    </div>
+                  </div>
+                ) : x.isDocument ? (
+                  <div className="flex items-center gap-2 bg-[#495057] max-w-fit py-3 pr-3 rounded-lg border-2 border-[#018081]">
+                    <DescriptionIcon />
+                    <p className="m-0">{x.isDocument}</p>
+                  </div>
+                ) : (
+                  <div className="h-full w-full p-3 flex flex-col gap-1">
+                    <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                    <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                    <div className="w-[60%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                    <div className="w-[40%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                  </div>
+                )}
+              </div>
+            ))}
+            {suggestedQuestionsIsLoading ? (
+              <div className="h-full w-full pt-2 flex flex-col gap-2">
+                <p className="m-0">Generating AI Suggestions....</p>
+                <div className="w-full h-5 bg-slate-600 animate-pulse  rounded"></div>
+              </div>
+            ) : (
+              <>
+                {aiSuggestedQuestions.length > 0 ? (
+                  <>
+                    {aiSuggestedQuestions.map((x, index) => (
+                      <p
+                        // onClick={() => setSelectedAiSuggestion(x)}
+                        className="border-2 border-gray-400 rounded p-2 cursor-pointer m-0 w-fit hover:border-white hover:text-white"
+                        key={index}
+                      >
+                        {x}
+                      </p>
+                    ))}
+                  </>
+                ) : null}
+              </>
+            )}
+            {showCasesDialog ? (
+              <div className="border-2 border-[#018081] rounded bg-[#303030] flex flex-col gap-3 py-2">
+                <div className="flex flex-col flex-wrap md:flex-row justify-between md:items-center">
+                  <p className="font-bold m-0 px-3 text-xl text-white">
+                    Reference to High Court Judgements
+                  </p>
+                  <div>
+                    <FormControl
+                      sx={{
+                        m: 1,
+                        minWidth: 120,
+                        background: "white",
+                        borderRadius: "4px",
+                      }}
+                      size="small"
+                    >
+                      <Select
+                        value={courtName}
+                        onChange={handleHighCourtChange}
+                        displayEmpty
+                        autoWidth
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem disabled value="">
+                          <em>Select a High Court</em>
+                        </MenuItem>
+                        {highCourtArr.map((x, index) => (
+                          <MenuItem key={index} value={x}>
+                            {x}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </div>
                 </div>
-              ) : x.isDocument ? (
-                <div className="flex items-center gap-2 bg-[#495057] max-w-fit py-3 pr-3 rounded-lg border-2 border-[#018081]">
-                  <DescriptionIcon />
-                  <p className="m-0">{x.isDocument}</p>
-                </div>
-              ) : (
-                <div className="h-full w-full p-3 flex flex-col gap-1">
-                  <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                  <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                  <div className="w-[60%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                  <div className="w-[40%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                </div>
-              )}
-            </div>
-          ))}
-          {suggestedQuestionsIsLoading ? (
-            <div className="h-full w-full pt-2 flex flex-col gap-2">
-              <p className="m-0">Generating AI Suggestions....</p>
-              <div className="w-full h-5 bg-slate-600 animate-pulse  rounded"></div>
-            </div>
-          ) : (
-            <>
-              {aiSuggestedQuestions.length > 0 ? (
-                <>
-                  {aiSuggestedQuestions.map((x, index) => (
-                    <p
-                      // onClick={() => setSelectedAiSuggestion(x)}
-                      className="border-2 border-gray-400 rounded p-2 cursor-pointer m-0 w-fit hover:border-white hover:text-white"
-                      key={index}
-                    >
-                      {x}
-                    </p>
-                  ))}
-                </>
-              ) : null}
-            </>
-          )}
-          {showCasesDialog ? (
-            <div className="border-2 border-[#018081] rounded bg-[#303030] flex flex-col gap-3 py-2">
-              <div className="flex flex-col flex-wrap md:flex-row justify-between md:items-center">
-                <p className="font-bold m-0 px-3 text-xl text-white">
-                  Reference to High Court Judgements
-                </p>
-                <div>
-                  <FormControl
-                    sx={{
-                      m: 1,
-                      minWidth: 120,
-                      background: "white",
-                      borderRadius: "4px",
+                {relatedCases?.cases?.length > 0 ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 5,
+                      marginTop: 5,
+                      padding: "0px 10px",
                     }}
-                    size="small"
                   >
-                    <Select
-                      value={courtName}
-                      onChange={handleHighCourtChange}
-                      displayEmpty
-                      autoWidth
-                      inputProps={{ "aria-label": "Without label" }}
-                    >
-                      <MenuItem disabled value="">
-                        <em>Select a High Court</em>
-                      </MenuItem>
-                      {highCourtArr.map((x, index) => (
-                        <MenuItem key={index} value={x}>
-                          {x}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </div>
+                    <>
+                      {relatedCases.cases
+                        .slice(0, caseCount)
+                        .map((relatedCase, index) => {
+                          return (
+                            <CasecardGpt
+                              name={relatedCase.Title}
+                              caseId={relatedCase.case_id}
+                              citations={relatedCase.num_cites}
+                              date={relatedCase.Date}
+                              court={relatedCase.court}
+                              keyIndex={index}
+                            />
+                          );
+                        })}
+                      <div>
+                        <p
+                          onClick={() =>
+                            setCaseCount((caseCount) => caseCount + 2)
+                          }
+                          className="m-0 border-2 border-white text-white rounded-lg py-1 px-3 cursor-pointer max-w-fit flex justify-center items-center"
+                        >
+                          Load More...
+                        </p>
+                      </div>
+                    </>
+                  </div>
+                ) : (
+                  <div className="h-full w-full flex flex-col gap-2 px-2">
+                    <div className="w-full h-20 bg-slate-600 animate-pulse  rounded"></div>
+                  </div>
+                )}
               </div>
-              {relatedCases?.cases?.length > 0 ? (
+            ) : (
+              ""
+            )}
+            <div className="flex flex-col gap-2">
+              {showRelevantCase ? (
                 <div
+                  class="backdropImg"
                   style={{
+                    padding: "12px",
+                    border: "2px solid white",
+                    borderRadius: "10px",
                     display: "flex",
                     flexDirection: "column",
-                    gap: 5,
-                    marginTop: 5,
-                    padding: "0px 10px",
+                    gap: "12px",
                   }}
+                  // className="m-2 p-3 border-2 border-white rounded bg-[#018081] flex flex-col gap-3"
                 >
-                  <>
-                    {relatedCases.cases
-                      .slice(0, caseCount)
-                      .map((relatedCase, index) => {
-                        return (
-                          <CasecardGpt
-                            name={relatedCase.Title}
-                            caseId={relatedCase.case_id}
-                            citations={relatedCase.num_cites}
-                            date={relatedCase.Date}
-                            court={relatedCase.court}
-                            keyIndex={index}
-                          />
-                        );
-                      })}
-                    <div>
-                      <p
-                        onClick={() =>
-                          setCaseCount((caseCount) => caseCount + 2)
-                        }
-                        className="m-0 border-2 border-white text-white rounded-lg py-1 px-3 cursor-pointer max-w-fit flex justify-center items-center"
-                      >
-                        Load More...
-                      </p>
+                  <div className="flex justify-between items-center">
+                    <p className="font-bold m-0 text-2xl text-white">
+                      Reference to Relevant Cases
+                    </p>
+                  </div>
+                  {refRelevantCase ? (
+                    <div
+                      className="text-sm"
+                      dangerouslySetInnerHTML={{
+                        __html: refRelevantCase,
+                      }}
+                    ></div>
+                  ) : (
+                    <div className="h-full w-full p-3 flex flex-col gap-1">
+                      <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                      <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                      <div className="w-[60%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                      <div className="w-[40%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
                     </div>
-                  </>
+                  )}
                 </div>
               ) : (
-                <div className="h-full w-full flex flex-col gap-2 px-2">
-                  <div className="w-full h-20 bg-slate-600 animate-pulse  rounded"></div>
+                ""
+              )}
+
+              {showSupremeCourtCases ? (
+                <div
+                  class="backdropImg"
+                  style={{
+                    padding: "12px",
+                    border: "2px solid white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px",
+                  }}
+                >
+                  <div className="flex justify-between items-center">
+                    <p className="font-bold m-0 text-2xl text-white">
+                      Reference to Supreme Court Judgements
+                    </p>
+                  </div>
+                  {refSupremeCase ? (
+                    <div
+                      className="text-sm"
+                      dangerouslySetInnerHTML={{
+                        __html: refSupremeCase,
+                      }}
+                    >
+                      {/* <ReactMarkdown>{refSupremeCase}</ReactMarkdown> */}
+                      {/* {refSupremeCase}/ */}
+                    </div>
+                  ) : (
+                    <div className="h-full w-full p-3 flex flex-col gap-1">
+                      <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                      <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                      <div className="w-[60%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                      <div className="w-[40%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                    </div>
+                  )}
                 </div>
+              ) : (
+                ""
               )}
             </div>
-          ) : (
-            ""
-          )}
-          <div className="flex flex-col gap-2">
-            {showRelevantCase ? (
-              <div
-                class="backdropImg"
-                style={{
-                  padding: "12px",
-                  border: "2px solid white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                }}
-                // className="m-2 p-3 border-2 border-white rounded bg-[#018081] flex flex-col gap-3"
-              >
-                <div className="flex justify-between items-center">
-                  <p className="font-bold m-0 text-2xl text-white">
-                    Reference to Relevant Cases
-                  </p>
-                </div>
-                {refRelevantCase ? (
-                  <div
-                    className="text-sm"
-                    dangerouslySetInnerHTML={{
-                      __html: refRelevantCase,
-                    }}
-                  ></div>
-                ) : (
-                  <div className="h-full w-full p-3 flex flex-col gap-1">
-                    <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                    <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                    <div className="w-[60%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                    <div className="w-[40%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              ""
-            )}
-
-            {showSupremeCourtCases ? (
-              <div
-                class="backdropImg"
-                style={{
-                  padding: "12px",
-                  border: "2px solid white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                }}
-              >
-                <div className="flex justify-between items-center">
-                  <p className="font-bold m-0 text-2xl text-white">
-                    Reference to Supreme Court Judgements
-                  </p>
-                </div>
-                {refSupremeCase ? (
-                  <div
-                    className="text-sm"
-                    dangerouslySetInnerHTML={{
-                      __html: refSupremeCase,
-                    }}
-                  >
-                    {/* <ReactMarkdown>{refSupremeCase}</ReactMarkdown> */}
-                    {/* {refSupremeCase}/ */}
-                  </div>
-                ) : (
-                  <div className="h-full w-full p-3 flex flex-col gap-1">
-                    <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                    <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                    <div className="w-[60%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                    <div className="w-[40%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              ""
-            )}
           </div>
-        </div>
+        ) : (
+          <div className="h-[95%]  flex flex-col justify-center items-center">
+            <CircularProgress size={100} sx={{ color: "white" }} />
+          </div>
+        )}
         <br />
         <div className="flex gap-2 w-full">
           <input
