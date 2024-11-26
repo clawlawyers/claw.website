@@ -72,6 +72,7 @@ import { WindowRounded } from "@mui/icons-material";
 import WebSocketComponent from "./Gpt/WebSocket/WebSocket.jsx";
 import Prompts from "./Gpt/WebSocket/Prompts.jsx";
 import SocketLayout from "./Gpt/WebSocket/SocketLayout.jsx";
+import DocumentViewer from "./components/DocumentsComponent/DocumentViewer.jsx";
 
 
 function App() {
@@ -355,6 +356,10 @@ function App() {
           element: <TrackedQuizMain />,
         },
         {
+          path:"documents",
+          element:<DocumentViewer/>
+        },
+        {
           path: "dummy",
           element: <TestSubscription />,
         },
@@ -402,6 +407,7 @@ function App() {
           path: "login",
           element: <Login1 />,
         },
+       
         {
           path: "leaders",
           element: <Ambassador />,
