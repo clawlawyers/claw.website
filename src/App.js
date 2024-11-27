@@ -357,10 +357,6 @@ function App() {
           element: <TrackedQuizMain />,
         },
         {
-          path: "documents",
-          element: <DocumentViewer />,
-        },
-        {
           path: "dummy",
           element: <TestSubscription />,
         },

@@ -66,7 +66,9 @@ export function UserSessions({ jwt, model }) {
                 dispatch(setPromptHistory());
               }}
               key={id}
-              className="text-sm gap-2 py-2 px-1"
+              className={`text-sm gap-2 py-2 px-1 hover:bg-gray-700 ${
+                sessionId === id ? "bg-[#777]" : "bg-gray-800"
+              }`}
               style={{
                 textDecoration: "none",
                 display: "block",
@@ -77,7 +79,7 @@ export function UserSessions({ jwt, model }) {
                 overflow: "hidden",
                 // padding: 12,
                 borderRadius: 10,
-                backgroundColor: sessionId === id ? "#777" : "inherit",
+                // backgroundColor: sessionId === id ? "#777" : "inherit",
               }}
               to={`/gpt/socket/v1/${id}`}
               // to={`session/${id}`}

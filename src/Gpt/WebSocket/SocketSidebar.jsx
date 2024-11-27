@@ -66,7 +66,10 @@ const SocketSidebar = () => {
                   </div>
                   <div style={{ fontSize: 12 }}>
                     <span className="text-white">Plan Type : </span>
-                    <span style={{ textTransform: "capitalize" }}>
+                    <span
+                      className="font-bold"
+                      style={{ textTransform: "capitalize" }}
+                    >
                       {activePlan.length
                         ? activePlan[0]?.planName?.split("_")[0]
                         : " No Plan"}

@@ -360,7 +360,10 @@ function Header() {
                     {activePlan ? (
                       <>
                         {activePlan[0]?.plan?.AICaseSearchAccess ? (
-                          <p className="m-0 p-1 border-b border-white cursor-pointer">
+                          <p
+                            className="m-0 p-1 border-b border-white cursor-pointer"
+                            onClick={() => setAnchorElProduct(null)}
+                          >
                             <Link
                               className=" text-white "
                               style={{ textDecoration: "none" }}

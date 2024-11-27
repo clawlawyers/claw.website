@@ -19,6 +19,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SendIcon from "@mui/icons-material/Send";
 import regenerateIcon from "../../assets/images/regenerate.png";
+import HomepageSuggestionCards from "./HomepageSuggestionCards";
 
 const languageArr = [
   // "English",
@@ -208,141 +209,227 @@ const Prompts = () => {
     }
   };
 
-  return (
-    <div className="h-screen flex flex-col justify-center items-center p-3">
-      <form
-        onSubmit={(e) => {
-          getSessionId(e, {
-            prompt: inputText,
-          });
-        }}
-        className="flex gap-2 w-full"
-      >
-        <input
-          required
-          placeholder="Add your query..."
-          className="text-black flex-1 p-2 rounded-lg"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-        />
-        <button
-          type="button"
-          aria-describedby={id}
-          variant="contained"
-          onClick={handleClick}
-          style={{
-            border: "none",
-            borderRadius: 10,
-            cursor: "pointer",
-            marginRight: "5px",
-          }}
-        >
-          <FileUploadIcon
-            style={{ color: "white", backgroundColor: "transparent" }}
-          />
-        </button>
+  async function onPromptSelect(selectedPrompt) {
+    if (currentUser) {
+      const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${currentUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: selectedPrompt, model: "legalGPT" }),
+      });
+      const { data } = await res.json();
+      console.log(data);
+      setSessionId(data.id);
+      dispatch(
+        setPromptsArrAction([
+          {
+            text: selectedPrompt,
+            isDocument: null,
+            contextId: null,
+            isUser: true,
+            sessionId: data.id,
+          },
+          {
+            text: null,
+            isDocument: null,
+            contextId: null,
+            isUser: false,
+            sessionId: data.id,
+          },
+        ])
+      );
+      setUserGptResponse({
+        text: selectedPrompt,
+        isDocument: null,
+        contextId: null,
+        isUser: true,
+        sessionId: data.id,
+      });
+      dispatch(setLoadUserSessions());
+      navigate(`v1/${data.id}`);
+    }
+  }
 
-        <Popover
-          className="w-full"
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
+  return (
+    <div className="h-screen flex flex-col gap-5 justify-center items-center p-3">
+      <div className="w-full flex-1 flex flex-col gap-10 justify-center items-center">
+        <div
+          style={{
+            backgroundColor: "transparent",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            paddingBottom: "40px",
           }}
         >
-          {!fileDialog ? (
-            <div className="p-3 bg-[#C2FFFF] w-full border-4 border-[#018081]">
-              <div className="flex w-full justify-between items-center gap-28">
-                <p className="m-0 text-[#018081] text-lg font-semibold">
-                  Select Document Language
-                </p>
-                <Close
-                  sx={{ color: "#018081" }}
-                  className="cursor-pointer"
-                  onClick={handleClose}
-                />
-              </div>
-              <div>
-                <TextField
-                  label="Choose a Language"
-                  select
-                  fullWidth
-                  margin="normal"
-                  size="small"
-                  value={selectedLanguage}
-                  onChange={handleChange}
-                >
-                  {languageArr.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </div>
-              <div className="w-full flex justify-end">
-                <button
-                  disabled={selectedLanguage === ""}
-                  onClick={() => setFileDialog(true)}
-                  className="rounded-lg"
-                  style={{
-                    background: "linear-gradient(90deg,#018081,#001B1B)",
-                  }}
-                >
-                  Continue
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="p-3 bg-[#C2FFFF] w-full border-4 border-[#018081]">
-              <div className="flex w-full justify-between items-center gap-28 pb-2">
-                <p className="m-0 text-[#018081] text-lg font-semibold">
-                  Upload Document
-                </p>
-                <Close
-                  sx={{ color: "#018081" }}
-                  className="cursor-pointer"
-                  onClick={handleClose}
-                />
-              </div>
-              {fileSubmitLoading ? (
-                <div className="w-full h-[150px] flex justify-center items-center">
-                  <CircularProgress sx={{ color: "#018081" }} />
-                </div>
-              ) : (
-                <div className="file-upload-container">
-                  <input
-                    type="file"
-                    id="file-upload"
-                    className="file-input"
-                    // multiple
-                    single
-                    accept=".docx, .pdf,.txt"
-                    onChange={handleFileUpload}
-                  />
-                  <label htmlFor="file-upload" className="file-upload-label">
-                    <div className="flex w-full justify-center pb-2">
-                      <img className="rounded-none" src={UploadIcon} />
-                    </div>
-                    <span className="text-[#018081]">
-                      Click Here to Choose a File to Upload
-                    </span>
-                  </label>
-                </div>
-              )}
-            </div>
-          )}
-        </Popover>
-        <button
-          disabled={inputText === ""}
-          type="submit"
-          className="rounded-lg"
+          <div
+            style={{
+              backgroundColor: "transparent",
+              fontSize: "48px",
+              fontWeight: 700,
+              color: "#E5E5E5",
+            }}
+          >
+            Welcome to{" "}
+            <span
+              style={{
+                padding: 3,
+                borderLeft: `4px solid #008080`,
+                background: `linear-gradient(to right, rgba(0,128,128,0.75), rgba(0,128,128,0))`,
+              }}
+            >
+              LegalGPT
+            </span>
+          </div>
+          <div
+            style={{
+              textAlign: "center",
+              paddingTop: 10,
+              fontSize: 16,
+              background: "inherit",
+            }}
+          >
+            The power of AI for your Legal service
+          </div>
+        </div>
+        <form
+          onSubmit={(e) => {
+            getSessionId(e, {
+              prompt: inputText,
+            });
+          }}
+          className=" flex gap-2 w-full"
         >
-          <SendIcon />
-        </button>
-      </form>
+          <input
+            required
+            placeholder="Add your query..."
+            className="text-black flex-1 p-2 rounded-lg"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+          <button
+            type="button"
+            aria-describedby={id}
+            variant="contained"
+            onClick={handleClick}
+            style={{
+              border: "none",
+              borderRadius: 10,
+              cursor: "pointer",
+              marginRight: "5px",
+            }}
+          >
+            <FileUploadIcon
+              style={{ color: "white", backgroundColor: "transparent" }}
+            />
+          </button>
+
+          <Popover
+            className="w-full"
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            {!fileDialog ? (
+              <div className="p-3 bg-[#C2FFFF] w-full border-4 border-[#018081]">
+                <div className="flex w-full justify-between items-center gap-28">
+                  <p className="m-0 text-[#018081] text-lg font-semibold">
+                    Select Document Language
+                  </p>
+                  <Close
+                    sx={{ color: "#018081" }}
+                    className="cursor-pointer"
+                    onClick={handleClose}
+                  />
+                </div>
+                <div>
+                  <TextField
+                    label="Choose a Language"
+                    select
+                    fullWidth
+                    margin="normal"
+                    size="small"
+                    value={selectedLanguage}
+                    onChange={handleChange}
+                  >
+                    {languageArr.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </div>
+                <div className="w-full flex justify-end">
+                  <button
+                    disabled={selectedLanguage === ""}
+                    onClick={() => setFileDialog(true)}
+                    className="rounded-lg"
+                    style={{
+                      background: "linear-gradient(90deg,#018081,#001B1B)",
+                    }}
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="p-3 bg-[#C2FFFF] w-full border-4 border-[#018081]">
+                <div className="flex w-full justify-between items-center gap-28 pb-2">
+                  <p className="m-0 text-[#018081] text-lg font-semibold">
+                    Upload Document
+                  </p>
+                  <Close
+                    sx={{ color: "#018081" }}
+                    className="cursor-pointer"
+                    onClick={handleClose}
+                  />
+                </div>
+                {fileSubmitLoading ? (
+                  <div className="w-full h-[150px] flex justify-center items-center">
+                    <CircularProgress sx={{ color: "#018081" }} />
+                  </div>
+                ) : (
+                  <div className="file-upload-container">
+                    <input
+                      type="file"
+                      id="file-upload"
+                      className="file-input"
+                      // multiple
+                      single
+                      accept=".docx, .pdf,.txt"
+                      onChange={handleFileUpload}
+                    />
+                    <label htmlFor="file-upload" className="file-upload-label">
+                      <div className="flex w-full justify-center pb-2">
+                        <img className="rounded-none" src={UploadIcon} />
+                      </div>
+                      <span className="text-[#018081]">
+                        Click Here to Choose a File to Upload
+                      </span>
+                    </label>
+                  </div>
+                )}
+              </div>
+            )}
+          </Popover>
+          <button
+            disabled={inputText === ""}
+            type="submit"
+            className="rounded-lg"
+          >
+            <SendIcon />
+          </button>
+        </form>
+      </div>
+      <HomepageSuggestionCards onPromptSelect={onPromptSelect} />
     </div>
   );
 };
