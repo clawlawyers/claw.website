@@ -1268,17 +1268,7 @@ const WebSocketComponent = () => {
               </div>
             )}
           </Popover>
-          <button
-            type="submit"
-            className="rounded-lg"
-            // onClick={() => {
-            //   sendMessage({
-            //     prompt: inputText,
-            //     context: getContext(),
-            //   });
-            //   setMessagesArray();
-            // }}
-          >
+          <button type="submit" className="rounded-lg">
             <SendIcon />
           </button>
         </form>

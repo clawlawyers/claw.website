@@ -11,6 +11,7 @@ import { activePlanFeatures } from "../../utils/checkActivePlanFeatures";
 import StarIcon from "@mui/icons-material/Star";
 import { UserSessions } from "../UserSessions";
 import { useNavigate } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
 
 const SocketSidebar = () => {
   const toggleMenu = useSelector((state) => state.prompt.toggle);
@@ -98,6 +99,13 @@ const SocketSidebar = () => {
             </div>
             <div className="bg-gray-800 flex-1 h-full overflow-auto pt-2 px-2 m-1 rounded-lg ">
               <UserSessions model="legalGPT" jwt={currentUser?.jwt} />
+            </div>
+            <div
+              onClick={() => navigate("/")}
+              className="w-full bg-gray-800 flex gap-1 justify-center items-center px-1 py-2 rounded-lg cursor-pointer"
+            >
+              <HomeIcon fontSize="medium" />
+              <p className="m-0 max-w-fit text-lg font-bold">HOME</p>
             </div>
           </div>
         ) : null}

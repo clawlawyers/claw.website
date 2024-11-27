@@ -200,6 +200,7 @@ const Prompts = () => {
       });
 
       navigate(`v1/${data.id}`);
+      dispatch(setLoadUserSessions());
     } catch (error) {
       console.error(error);
     } finally {
