@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  setLoadUserSessions,
   setNewPromptData,
   setPromptLoading,
   setPromptsArrAction,
@@ -56,7 +57,8 @@ const Prompts = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [fileSubmitLoading, setFileSubmitLoading] = useState(false);
 
-  async function getSessionId(message) {
+  async function getSessionId(e, message) {
+    e.preventDefault();
     if (currentUser) {
       const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
         method: "POST",
@@ -94,7 +96,7 @@ const Prompts = () => {
         isUser: true,
         sessionId: data.id,
       });
-
+      dispatch(setLoadUserSessions());
       navigate(`v1/${data.id}`);
     }
   }
@@ -207,7 +209,14 @@ const Prompts = () => {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center p-3">
-      <div className="flex gap-2 w-full">
+      <form
+        onSubmit={(e) => {
+          getSessionId(e, {
+            prompt: inputText,
+          });
+        }}
+        className="flex gap-2 w-full"
+      >
         <input
           placeholder="Add your query..."
           className="text-black flex-1 p-2 rounded-lg"
@@ -215,6 +224,7 @@ const Prompts = () => {
           onChange={(e) => setInputText(e.target.value)}
         />
         <button
+          type="button"
           aria-describedby={id}
           variant="contained"
           onClick={handleClick}
@@ -323,17 +333,10 @@ const Prompts = () => {
             </div>
           )}
         </Popover>
-        <button
-          className="rounded-lg"
-          onClick={() => {
-            getSessionId({
-              prompt: inputText,
-            });
-          }}
-        >
+        <button type="submit" className="rounded-lg">
           <SendIcon />
         </button>
-      </div>
+      </form>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removePromptsArr,
+  setLoadUserSessions,
   setToggleMenu,
 } from "../../features/gpt/promptSlice";
 import { CircularProgress } from "@mui/material";
@@ -14,15 +15,12 @@ import { useNavigate } from "react-router-dom";
 const SocketSidebar = () => {
   const toggleMenu = useSelector((state) => state.prompt.toggle);
   const { plan } = useSelector((state) => state.gpt);
-  console.log(plan);
   const currentUser = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [activePlan, setActivePlan] = useState([]);
-
-  const [startNew, setStartNew] = useState(false);
 
   useEffect(() => {
     if (plan) {
@@ -32,7 +30,6 @@ const SocketSidebar = () => {
 
   const handleNewChat = () => {
     dispatch(removePromptsArr());
-    setStartNew(false);
     navigate("/gpt/socket");
   };
 
@@ -74,7 +71,7 @@ const SocketSidebar = () => {
                         : " No Plan"}
                     </span>
                   </div>
-                  <div className="pt-2 flex justify-stretch gap-2">
+                  <div className="pt-2 flex flex-col lg:flex-row justify-stretch gap-2">
                     <button
                       className="font-semibold text-xs justify-center items-center  rounded-lg"
 
@@ -100,12 +97,7 @@ const SocketSidebar = () => {
               </button>
             </div>
             <div className="bg-gray-800 flex-1 h-full overflow-auto pt-2 px-2 m-1 rounded-lg ">
-              <UserSessions
-                model="legalGPT"
-                jwt={currentUser?.jwt}
-                setStartNew={setStartNew}
-                startNew={startNew}
-              />
+              <UserSessions model="legalGPT" jwt={currentUser?.jwt} />
             </div>
           </div>
         ) : null}

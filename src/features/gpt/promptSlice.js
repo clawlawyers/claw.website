@@ -7,6 +7,7 @@ export const promptSlice = createSlice({
     loading: false,
     toggle: true,
     loadHistory: false,
+    loadUserSession: false,
   },
 
   reducers: {
@@ -51,6 +52,9 @@ export const promptSlice = createSlice({
     setPromptHistory(state, action) {
       state.loadHistory = !state.loadHistory;
     },
+    setLoadUserSessions(state, action) {
+      state.loadUserSession = !state.loadUserSession;
+    },
   },
 });
 
@@ -62,6 +66,7 @@ export const {
   setDataUsingIndex,
   setToggleMenu,
   setPromptHistory,
+  setLoadUserSessions,
 } = promptSlice.actions;
 
 export default promptSlice.reducer;

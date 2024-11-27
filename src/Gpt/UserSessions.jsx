@@ -3,17 +3,19 @@ import { Link, useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import fetchWrapper from "../utils/fetchWrapper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removePromptsArr,
   setPromptHistory,
 } from "../features/gpt/promptSlice";
 
-export function UserSessions({ jwt, model, startNew, setStartNew }) {
+export function UserSessions({ jwt, model }) {
   const [isLoading, setIsLoading] = useState();
   const [sessions, setSessions] = useState([]);
+
   const { sessionId } = useParams();
-  // console.log(startnew);
+
+  const loadUserSessions = useSelector((state) => state.prompt.loadUserSession);
 
   const dispatch = useDispatch();
 
@@ -33,9 +35,6 @@ export function UserSessions({ jwt, model, startNew, setStartNew }) {
         // });
         const { data } = await res.json();
         setSessions(data);
-        if (!startNew) {
-          setStartNew(true);
-        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -43,8 +42,8 @@ export function UserSessions({ jwt, model, startNew, setStartNew }) {
       }
     }
     fetchUserSessions();
-  }, [jwt, model, startNew]);
-  // }, [jwt, model]);
+  }, [jwt, model, loadUserSessions]);
+
   return (
     <div style={{ height: "100%" }}>
       {isLoading ? (

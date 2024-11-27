@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   removePromptsArr,
   setDataUsingIndex,
+  setLoadUserSessions,
   setNewPromptData,
   setPromptHistory,
   setPromptLoading,
@@ -112,6 +113,7 @@ const WebSocketComponent = () => {
   const { prompt, status, response, error, relatedCases, plan } = useSelector(
     (state) => state.gpt
   );
+  const loadUserSessions = useSelector((state) => state.prompt.loadUserSession);
 
   const { isAuthLoading } = useAuthState();
 
@@ -120,15 +122,39 @@ const WebSocketComponent = () => {
   const params = useParams();
 
   const divRef = useRef(null);
+  const hasFetchedRef = useRef(false);
+  const onReloadRef = useRef(false);
+  const onLoadUserSessionRef = useRef(false);
 
   useEffect(() => {
-    if (loadPromptHistory && currentUser && promptsArrSelector.length === 0) {
-      console.log("triggered");
+    if (loadUserSessions && !onLoadUserSessionRef.current) {
+      dispatch(setLoadUserSessions());
+      onLoadUserSessionRef.current = true;
+    }
+  }, [loadUserSessions]);
+
+  useEffect(() => {
+    if (
+      promptsArrSelector.length === 0 &&
+      !onReloadRef.current &&
+      !isAuthLoading &&
+      !loadPromptHistory
+    ) {
+      console.log("triggered - fetchSessionMessagesonReload");
+      fetchSessionMessagesonReload();
+      onReloadRef.current = true;
+    }
+
+    // Fetch on loadPromptHistory condition
+    if (loadPromptHistory && !hasFetchedRef.current && !isAuthLoading) {
+      console.log("triggered - fetchSessionMessages");
+      hasFetchedRef.current = true;
       fetchSessionMessages();
     }
-  }, [loadPromptHistory, isAuthLoading]);
+  }, [isAuthLoading, loadPromptHistory]);
 
   async function fetchSessionMessages() {
+    console.log("triggerred");
     const res = await fetch(
       `${NODE_API_ENDPOINT}/gpt/session/${params.sessionId}`,
       {
@@ -140,8 +166,25 @@ const WebSocketComponent = () => {
     );
     const { data } = await res.json();
     dispatch(setPromptsArrAction(data.messages));
-    // setPromptsArr(data.messages);
     dispatch(setPromptHistory());
+    hasFetchedRef.current = false;
+    getAiSuggestedQuestions();
+    resetOnEveryContext();
+  }
+
+  async function fetchSessionMessagesonReload() {
+    console.log("triggerred");
+    const res = await fetch(
+      `${NODE_API_ENDPOINT}/gpt/session/${params.sessionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${currentUser.jwt}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const { data } = await res.json();
+    dispatch(setPromptsArrAction(data.messages));
     getAiSuggestedQuestions();
     resetOnEveryContext();
   }
@@ -209,7 +252,8 @@ const WebSocketComponent = () => {
     };
   }, []);
 
-  const sendMessage = (message) => {
+  const sendMessage = (e, message) => {
+    e.preventDefault();
     if (socket && socket.readyState === WebSocket.OPEN) {
       // console.log(message);
       socket.send(JSON.stringify(message));
@@ -217,7 +261,8 @@ const WebSocketComponent = () => {
     }
   };
 
-  function setMessagesArray() {
+  function setMessagesArray(e) {
+    e.preventDefault();
     dispatch(
       setPromptsArrAction([
         {
@@ -918,7 +963,7 @@ const WebSocketComponent = () => {
                   <>
                     {aiSuggestedQuestions.map((x, index) => (
                       <p
-                        // onClick={() => setSelectedAiSuggestion(x)}
+                        onClick={() => setInputText(x)}
                         className="border-2 border-gray-400 rounded p-2 cursor-pointer m-0 w-fit hover:border-white hover:text-white"
                         key={index}
                       >
@@ -980,6 +1025,7 @@ const WebSocketComponent = () => {
                         .map((relatedCase, index) => {
                           return (
                             <CasecardGpt
+                              key={index}
                               name={relatedCase.Title}
                               caseId={relatedCase.case_id}
                               citations={relatedCase.num_cites}
@@ -1096,7 +1142,16 @@ const WebSocketComponent = () => {
           </div>
         )}
         <br />
-        <div className="flex gap-2 w-full">
+        <form
+          onSubmit={(e) => {
+            sendMessage(e, {
+              prompt: inputText,
+              context: getContext(),
+            });
+            setMessagesArray(e);
+          }}
+          className="flex gap-2 w-full"
+        >
           <input
             placeholder="Add your query..."
             className="text-black flex-1 p-2 rounded-lg"
@@ -1104,6 +1159,7 @@ const WebSocketComponent = () => {
             onChange={(e) => setInputText(e.target.value)}
           />
           <button
+            type="button"
             aria-describedby={id}
             variant="contained"
             onClick={handleClick}
@@ -1213,18 +1269,19 @@ const WebSocketComponent = () => {
             )}
           </Popover>
           <button
+            type="submit"
             className="rounded-lg"
-            onClick={() => {
-              sendMessage({
-                prompt: inputText,
-                context: getContext(),
-              });
-              setMessagesArray();
-            }}
+            // onClick={() => {
+            //   sendMessage({
+            //     prompt: inputText,
+            //     context: getContext(),
+            //   });
+            //   setMessagesArray();
+            // }}
           >
             <SendIcon />
           </button>
-        </div>
+        </form>
       </div>
     </>
   );
