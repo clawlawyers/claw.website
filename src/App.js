@@ -357,8 +357,8 @@ function App() {
           element: <TrackedQuizMain />,
         },
         {
-          path:"documents",
-          element:<DocumentViewer/>
+          path: "documents",
+          element: <DocumentViewer />,
         },
         {
           path: "dummy",
@@ -408,7 +408,7 @@ function App() {
           path: "login",
           element: <Login1 />,
         },
-       
+
         {
           path: "leaders",
           element: <Ambassador />,
@@ -541,21 +541,23 @@ function App() {
             },
           ],
         },
-      ],
-    },
-    {
-      path: "socket",
-      element: <SocketLayout />,
-      children: [
-        { path: "v1/:sessionId", element: <WebSocketComponent /> },
-
-        { path: "", element: <Prompts /> },
+        {
+          path: "socket",
+          element: <SocketLayout />,
+          children: [
+            { path: "", element: <Prompts /> },
+            { path: "v1/:sessionId", element: <WebSocketComponent /> },
+          ],
+        },
       ],
     },
     // {
-    //   path: "",
-    //   element: <WebSocketComponent />,
-    //   // children: [{ path: "v1/:sessionId", element: <Prompts /> }],
+    //   path: "socket",
+    //   element: <SocketLayout />,
+    //   children: [
+    //     { path: "", element: <Prompts /> },
+    //     { path: "v1/:sessionId", element: <WebSocketComponent /> },
+    //   ],
     // },
     {
       path: "/adira",

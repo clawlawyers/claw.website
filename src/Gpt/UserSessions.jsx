@@ -3,18 +3,29 @@ import { Link, useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import fetchWrapper from "../utils/fetchWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removePromptsArr,
+  setPromptHistory,
+} from "../features/gpt/promptSlice";
 
-export function UserSessions({ jwt, model, startnew, setStartNew }) {
+export function UserSessions({ jwt, model }) {
   const [isLoading, setIsLoading] = useState();
   const [sessions, setSessions] = useState([]);
+
   const { sessionId } = useParams();
-  console.log(startnew);
+
+  const loadUserSessions = useSelector((state) => state.prompt.loadUserSession);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchUserSessions() {
       try {
         setIsLoading(true);
-        const res = await fetchWrapper.get(`${NODE_API_ENDPOINT}/gpt/sessions/${model}`)
+        const res = await fetchWrapper.get(
+          `${NODE_API_ENDPOINT}/gpt/sessions/${model}`
+        );
         // const res = await fetch(`${NODE_API_ENDPOINT}/gpt/sessions/${model}`, {
         //   method: "GET",
         //   headers: {
@@ -31,7 +42,8 @@ export function UserSessions({ jwt, model, startnew, setStartNew }) {
       }
     }
     fetchUserSessions();
-  }, [jwt, model, startnew]);
+  }, [jwt, model, loadUserSessions]);
+
   return (
     <div style={{ height: "100%" }}>
       {isLoading ? (
@@ -49,7 +61,12 @@ export function UserSessions({ jwt, model, startnew, setStartNew }) {
         <div>
           {sessions?.map(({ name, id }) => (
             <Link
+              onClick={() => {
+                dispatch(removePromptsArr());
+                dispatch(setPromptHistory());
+              }}
               key={id}
+              className="text-sm gap-2 py-2 px-1"
               style={{
                 textDecoration: "none",
                 display: "block",
@@ -58,12 +75,12 @@ export function UserSessions({ jwt, model, startnew, setStartNew }) {
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
                 overflow: "hidden",
-                padding: 12,
-                gap: 15,
+                // padding: 12,
                 borderRadius: 10,
                 backgroundColor: sessionId === id ? "#777" : "inherit",
               }}
-              to={`session/${id}`}
+              to={`/gpt/socket/v1/${id}`}
+              // to={`session/${id}`}
             >
               {name}
             </Link>

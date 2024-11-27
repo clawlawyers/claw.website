@@ -56,6 +56,18 @@ function Header() {
   const handlePopupOpen = useCallback(() => dispatch(open()), []);
   const handlePopupClose = useCallback(() => dispatch(close()), []);
 
+  const [anchorElProduct, setAnchorElProduct] = useState(null);
+
+  const handleClickProduct = (event) => {
+    setAnchorElProduct(event.currentTarget);
+  };
+  const handleCloseProduct = () => {
+    setAnchorElProduct(null);
+  };
+
+  const openDialogProduct = Boolean(anchorElProduct);
+  const idProduct = openDialogProduct ? "simple-popover" : undefined;
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -64,9 +76,6 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  // console.log(plan);
-  // console.log(plan?.length);
 
   const openDialog = Boolean(anchorEl);
   const id = openDialog ? "simple-popover" : undefined;
@@ -188,7 +197,7 @@ function Header() {
         </div>
 
         <div className={Styles.headerGPT}>
-          <div>
+          {/* <div>
             {plan?.length > 0 ? (
               <button
                 onClick={openAdiraAi}
@@ -196,19 +205,17 @@ function Header() {
                 style={{
                   textDecoration: "none",
                   color: "white",
-                  // backgroundColor: "transparent",
                 }}
               >
                 Adira
               </button>
             ) : (
-              // </button>
               <button className={Styles.headerButton} onClick={handlePopupOpen}>
                 Adira
               </button>
             )}
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             {true ? (
               <button
                 onClick={openWarrrom}
@@ -216,19 +223,17 @@ function Header() {
                 style={{
                   textDecoration: "none",
                   color: "white",
-                  // backgroundColor: "transparent",
                 }}
               >
                 War Room
               </button>
             ) : (
-              // </button>
               <button className={Styles.headerButton} onClick={handlePopupOpen}>
                 War Room
               </button>
             )}
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             {activePlan ? (
               <>
                 {activePlan[0]?.plan?.AICaseSearchAccess ? (
@@ -238,9 +243,7 @@ function Header() {
                       style={{
                         textDecoration: "none",
                         color: "white",
-                        //   backgroundColor: "transparent",
                       }}
-                      // className={Styles.headerButton}
                     >
                       Case Search
                     </Link>
@@ -265,19 +268,148 @@ function Header() {
                 <CircularProgress size={20} color="inherit" />
               </button>
             )}
-          </div>
-          <button className={Styles.headerButton}>
+          </div> */}
+          {/* <button className={Styles.headerButton}>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
+              to="/gpt/legalGPT"
+            >
+              LegalGPT
+            </Link>
+          </button> */}
+          {/* <button className={Styles.headerButton}>
             <Link
               style={{
                 textDecoration: "none",
                 color: "white",
                 //   backgroundColor: "transparent",
               }}
-              to="/gpt/legalGPT"
+              to="/gpt/socket"
             >
-              LegalGPT
+              LegalGPT1
             </Link>
-          </button>
+          </button> */}
+          <>
+            <button
+              onClick={handleClickProduct}
+              className={Styles.headerButton}
+              style={{
+                textDecoration: "none",
+                color: "white",
+                //   backgroundColor: "transparent",
+              }}
+            >
+              Products
+            </button>
+            {anchorElProduct && (
+              <Popover
+                sx={{ marginTop: "5px", opacity: "0.7" }}
+                id={idProduct}
+                open={openDialogProduct}
+                anchorEl={anchorElProduct}
+                onClose={handleCloseProduct}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+              >
+                <div
+                  className="p-3 w-full bg-black z-20 border-2 border-[#00C37B] rounded"
+                  style={{
+                    background: "linear-gradient(135deg,#003723E5,#1D2330E5)",
+                  }}
+                >
+                  <div>
+                    {plan?.length > 0 ? (
+                      <p
+                        onClick={openAdiraAi}
+                        className="m-0 text-white border-b border-white p-1 cursor-pointer"
+                      >
+                        Adira
+                      </p>
+                    ) : (
+                      <p
+                        className="m-0 text-white border-b border-white p-1 cursor-pointer"
+                        onClick={handlePopupOpen}
+                      >
+                        Adira
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    {true ? (
+                      <p
+                        className="m-0 text-white border-b border-white p-1 cursor-pointer"
+                        onClick={openWarrrom}
+                      >
+                        War Room
+                      </p>
+                    ) : (
+                      <p
+                        className="m-0 text-white border-b border-white p-1 cursor-pointer"
+                        onClick={handlePopupOpen}
+                      >
+                        War Room
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    {activePlan ? (
+                      <>
+                        {activePlan[0]?.plan?.AICaseSearchAccess ? (
+                          <p className="m-0 p-1 border-b border-white cursor-pointer">
+                            <Link
+                              className=" text-white "
+                              style={{ textDecoration: "none" }}
+                              to="/case/search"
+                            >
+                              Case Search
+                            </Link>
+                          </p>
+                        ) : (
+                          <p
+                            onClick={handlePopupOpen}
+                            className="m-0 text-white border-b border-white p-1 cursor-pointer"
+                          >
+                            Case Search
+                          </p>
+                        )}
+                      </>
+                    ) : (
+                      <p className="m-0 text-white border-b border-white p-1 cursor-pointer">
+                        <CircularProgress size={20} color="inherit" />
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <p className="m-0 p-1 border-b border-white cursor-pointer">
+                      <Link
+                        className=" text-white "
+                        style={{ textDecoration: "none" }}
+                        to="/gpt/legalGPT"
+                      >
+                        LegalGPT
+                      </Link>
+                    </p>
+                  </div>
+                  <div>
+                    <p className="m-0 p-1 border-b border-white cursor-pointer">
+                      <Link
+                        className=" text-white "
+                        style={{ textDecoration: "none" }}
+                        to="/gpt/socket"
+                      >
+                        Socket
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              </Popover>
+            )}
+          </>
           {!currentUser ? (
             <button
               className={Styles.headerButton}

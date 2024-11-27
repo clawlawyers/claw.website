@@ -6,11 +6,13 @@ export const promptSlice = createSlice({
     prompts: [],
     loading: false,
     toggle: true,
+    loadHistory: false,
+    loadUserSession: false,
   },
 
   reducers: {
     setPromptsArrAction(state, action) {
-      const newArr = [...state.prompts, ...action.payload]; // Assuming action.payload contains new prompts.
+      const newArr = [...state.prompts, ...action.payload];
       state.prompts = newArr;
     },
     removePromptsArr(state, action) {
@@ -47,6 +49,12 @@ export const promptSlice = createSlice({
     setToggleMenu(state, action) {
       state.toggle = !state.toggle;
     },
+    setPromptHistory(state, action) {
+      state.loadHistory = !state.loadHistory;
+    },
+    setLoadUserSessions(state, action) {
+      state.loadUserSession = !state.loadUserSession;
+    },
   },
 });
 
@@ -57,6 +65,8 @@ export const {
   removePromptsArr,
   setDataUsingIndex,
   setToggleMenu,
+  setPromptHistory,
+  setLoadUserSessions,
 } = promptSlice.actions;
 
 export default promptSlice.reducer;
