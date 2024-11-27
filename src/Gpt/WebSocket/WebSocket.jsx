@@ -1153,6 +1153,7 @@ const WebSocketComponent = () => {
           className="flex gap-2 w-full"
         >
           <input
+            required
             placeholder="Add your query..."
             className="text-black flex-1 p-2 rounded-lg"
             value={inputText}
@@ -1268,7 +1269,11 @@ const WebSocketComponent = () => {
               </div>
             )}
           </Popover>
-          <button type="submit" className="rounded-lg">
+          <button
+            disabled={inputText === ""}
+            type="submit"
+            className="rounded-lg"
+          >
             <SendIcon />
           </button>
         </form>
