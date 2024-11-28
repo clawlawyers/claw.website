@@ -2,6 +2,7 @@ import React from "react";
 import LegalGptBanner from "./LegalGptBanner";
 import CaseSearchBanner from "./CaseSearchBanner";
 import AdiraAiBanner from "./AdiraAiBanner";
+import WarRoomBanner from "./WarRoomBanner";
 
 const VideoBannerHome = () => {
   return (
@@ -25,7 +26,8 @@ const VideoBannerHome = () => {
       </div>
       <LegalGptBanner />
       <CaseSearchBanner />
-      {/* <AdiraAiBanner /> */}
+      <WarRoomBanner/>
+      <AdiraAiBanner />
     </div>
   );
 };
