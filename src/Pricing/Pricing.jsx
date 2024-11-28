@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { Box, Button, Modal, Typography } from "@mui/material";
-
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Styles from "./Pricing.module.css";
 import { setCart } from "../features/cart/cartSlice";
@@ -77,32 +75,14 @@ export default function Pricing() {
   const [isCouponCode, setIsCouponCode] = useState("");
   const [isReferralCode, setIsReferralCode] = useState(null);
   const [couponLoading, setCouponLoading] = useState(false);
-  const [isOpen, setisOpen] = useState(false);
 
   const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.auth.user);
-
-  const handleClose = () => {
-    setisOpen(false);
-  };
-  const handleLogin = () => {
-    // Assuming you have a route set up for login
-    const searchParams = new URLSearchParams({
-      callbackUrl: pathname,
-    }).toString();
-    navigate(`/login?${searchParams}`);
-    // navigate(`/login?callbackUrl=${pathname}`);
-  };
-
 
   const handleApplyCoupon = async () => {
     // const findCoupon = couponCodes.find(
     //   (x) => x.name.toUpperCase() === couponApplied.toUpperCase()
     // );
-    if(!currentUser){
-      setisOpen(true)
-      return
-    }
     if (couponApplied.toUpperCase() === "EXAM50") {
       setIsCouponCode(couponApplied);
       setCouponFound(true);
@@ -518,7 +498,7 @@ export default function Pricing() {
   const handlePricingSelect = (plan, planType, sessions, totalPrice) => {
     const planName = `${planType.toUpperCase()}_${plan[0]}`;
     //check if plan exists
-    if (existingPlan?.length > 0) {
+    if (existingPlan.length > 0) {
       const checkAmbassadorPlan = existingPlan.find(
         (x) => x.planName === "FREE_M"
       );
@@ -754,10 +734,6 @@ export default function Pricing() {
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
                     </p>
-                    <p className="text-black">
-                      Free Access to {" "}
-                      <span className="font-bold">Adira AI {"(Beta)"}</span>
-                    </p>
                   </div>
                 </div>
                 <button
@@ -825,10 +801,6 @@ export default function Pricing() {
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
                     </p>
-                    <p className="text-black">
-                      Free Access to {" "}
-                      <span className="font-bold">Adira AI {"(Beta)"}</span>
-                    </p>
                   </div>
                 </div>
                 <button
@@ -891,10 +863,6 @@ export default function Pricing() {
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
                     </p>
-                    <p className="text-black">
-                      Free Access to {" "}
-                      <span className="font-bold">Adira AI {"(Beta)"}</span>
-                    </p>
                   </div>
                 </div>
                 <button
@@ -952,10 +920,6 @@ export default function Pricing() {
                     <p className="text-black">
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
-                    </p>
-                    <p className="text-black">
-                      Free Access to {" "}
-                      <span className="font-bold">Adira AI {"(Beta)"}</span>
                     </p>
                   </div>
                 </div>
@@ -1024,10 +988,6 @@ export default function Pricing() {
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
                     </p>
-                    <p className="text-black">
-                      Free Access to {" "}
-                      <span className="font-bold">Adira AI {"(Beta)"}</span>
-                    </p>
                   </div>
                 </div>
                 <button
@@ -1090,10 +1050,6 @@ export default function Pricing() {
                       Ability to Purchase{" "}
                       <span className="font-bold">Add-on</span>
                     </p>
-                    <p className="text-black">
-                      Free Access to {" "}
-                      <span className="font-bold">Adira AI {"(Beta)"}</span>
-                    </p>
                   </div>
                 </div>
                 <button
@@ -1149,67 +1105,20 @@ export default function Pricing() {
         </div>
         <div className="w-4/5 flex flex-col md:flex-row justify-between items-center bg-white rounded p-5">
           <h1 style={{ color: "#008080", fontWeight: 800 }}>Enterprise</h1>
-          <Link to={"/contact-us"}>
-            <button
-              style={{
-                backgroundColor: "#008080",
-                color: "white",
-                padding: "12px 40px",
-                borderRadius: 10,
-                border: "none",
-                fontSize: 27,
-              }}
-            >
-              Contact us
-            </button>
-          </Link>
-        </div>
-      </div>
-      <Modal
-          open={isOpen}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: 400,
-              bgcolor: "background.paper",
-              border: "2px solid #000",
-              boxShadow: 24,
-              p: 4,
+          <button
+            style={{
+              backgroundColor: "#008080",
+              color: "white",
+              padding: "12px 40px",
+              borderRadius: 10,
+              border: "none",
+              fontSize: 27,
             }}
           >
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Login Required
-            </Typography>
-            <Typography
-              id="modal-modal-description"
-              sx={{ mt: 2 }}
-              style={{ color: "black" }}
-            >
-              You must be logged in to access coupoun code.
-            </Typography>
-            <Button
-              onClick={handleLogin}
-              variant="contained"
-              color="primary"
-              sx={{ mt: 2 }}
-              style={{
-                border: "none",
-                backgroundColor: "rgb(0, 128, 128)",
-                borderRadius: 15,
-                padding: 10,
-              }}
-            >
-              Go to Login
-            </Button>
-          </Box>
-        </Modal>
+            Contact us
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -77,6 +77,7 @@ import WebSocketComponent from "./Gpt/WebSocket/WebSocket.jsx";
 import Prompts from "./Gpt/WebSocket/Prompts.jsx";
 import SocketLayout from "./Gpt/WebSocket/SocketLayout.jsx";
 import DocumentViewer from "./components/DocumentsComponent/DocumentViewer.jsx";
+import PricingPlans from "./Pricing/PricingPlans.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -386,7 +387,8 @@ function App() {
         },
         {
           path: "pricing",
-          element: <Pricing />,
+          // element: <Pricing />,
+          element:<PricingPlans/>
         },
         {
           path: "payment",
