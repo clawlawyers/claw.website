@@ -44,16 +44,14 @@ const WarRoomBanner = () => {
     arrows: true,
   };
 
- 
-
   return (
     <div className="w-full">
-      <div className="flex w-full items-center gap-3 pb-3">
+      <div className="flex flex-col md:flex-row items-center gap-3 pb-3">
         <h1 className="text-2xl font-bold m-0">WarRoom</h1>
         <div className="flex-1 w-full bg-[#00C37B] h-[2px]"></div>
       </div>
       <div className="relative p-3">
-        <div className="grid md:grid-cols-2 gap-3 items-center rounded-lg p-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center rounded-lg p-3">
           {/* Accordion Section */}
           <div>
             <Accordion
@@ -180,46 +178,49 @@ const WarRoomBanner = () => {
 
           {/* Carousel Section */}
           <div className="relative p-2 w-full">
-    <Slider {...settings}>
-      {videoArr.map((video, index) => (
-        <div key={index} className="p-2">
-          <video
-            className="rounded-lg w-full h-72 md:h-80"
-            src={video.src}
-            autoPlay
-            loop
-            muted
-            controls
-            playsInline
-          />
-        </div>
-      ))}
-    </Slider>
-  </div>
-        </div>
-        <div className="mt-8 flex justify-center  gap-10 text-white">
-       
-        <div className="text-center">
-          <h2 className="text-2l font-semibold mb-4">Want to Explore War Room?</h2>
-          <button className="bg-gradient-to-r from-[#005F62] to-[#00DDE5] text-white py-1 px-10 border border-white rounded-lg shadow-lg hover:opacity-90 transition">
-            Explore
-          </button>
+            <Slider {...settings}>
+              {videoArr.map((video, index) => (
+                <div key={index} className="p-2">
+                  <video
+                    className="rounded-lg w-full h-72 md:h-80"
+                    src={video.src}
+                    autoPlay
+                    loop
+                    muted
+                    controls
+                    playsInline
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
         </div>
 
-        {/* dividing line  */}
-        <div className="h-24 w-[2px] bg-[#00C37B]"></div>
+        {/* Buttons Section */}
+        <div className="mt-8 flex flex-col md:flex-row justify-center gap-10 text-white">
+          <div className="text-center">
+            <h2 className="text-xl md:text-2xl font-semibold mb-4">
+              Want to Explore War Room?
+            </h2>
+            <button className="bg-gradient-to-r from-[#005F62] to-[#00DDE5] text-white py-1 px-8 md:py-2 md:px-10 border border-white rounded-lg shadow-lg hover:opacity-90 transition">
+              Explore
+            </button>
+          </div>
 
-      
-        <div className="text-center">
-          <h2 className="text-2l font-semibold mb-4">Unlock All Features Available</h2>
-          <button className="bg-gradient-to-r from-[#005F62] to-[#00DDE5] text-white py-1 px-10 border border-white rounded-lg shadow-lg hover:opacity-90 transition">
-            Enter Courtroom
-          </button>
+          {/* dividing line  */}
+          <div className="h-24 w-[2px] bg-[#00C37B] hidden md:block"></div>
+
+          <div className="text-center">
+            <h2 className="text-xl md:text-2xl font-semibold mb-4">
+              Unlock All Features Available
+            </h2>
+            <button className="bg-gradient-to-r from-[#005F62] to-[#00DDE5] text-white py-1 px-8 md:py-2 md:px-10 border border-white rounded-lg shadow-lg hover:opacity-90 transition">
+              Enter Courtroom
+            </button>
+          </div>
         </div>
       </div>
     </div>
-      </div>
-    
   );
 };
 
