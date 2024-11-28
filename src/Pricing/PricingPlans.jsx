@@ -37,7 +37,7 @@ const PricingPlans = () => {
     Weekly: [
       {
         type: "BASIC",
-        price: "₹ 1,999 /-",
+        price: "₹ 1999 /-",
         discount: "15% DISCOUNT",
         features: [
           "All Ready-Made Templates",
@@ -48,7 +48,7 @@ const PricingPlans = () => {
       },
       {
         type: "PRO",
-        price: "₹ 2,999 /-",
+        price: "₹ 2999 /-",
         discount: "15% DISCOUNT",
         features: [
           "All Ready-Made Templates",
@@ -66,7 +66,7 @@ const PricingPlans = () => {
     Monthly: [
       {
         type: "BASIC",
-        price: "₹ 4,999 /-",
+        price: "₹ 4999 /-",
         discount: "25% DISCOUNT",
         features: [
           "All Ready-Made Templates",
@@ -77,7 +77,7 @@ const PricingPlans = () => {
       },
       {
         type: "PRO",
-        price: "₹ 8,999 /-",
+        price: "₹ 8999 /-",
         discount: "25% DISCOUNT",
         features: [
           "All Ready-Made Templates",
