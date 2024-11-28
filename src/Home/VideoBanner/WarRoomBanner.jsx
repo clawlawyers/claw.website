@@ -46,9 +46,9 @@ const WarRoomBanner = () => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col md:flex-row items-center gap-3 pb-3">
+      <div className="flex w-full  items-center gap-3 pb-3">
         <h1 className="text-2xl font-bold m-0">WarRoom</h1>
-        <div className="flex-1 w-full bg-[#00C37B] h-[2px]"></div>
+        <div className="flex-1 w-full  bg-[#00C37B] h-[2px]"></div>
       </div>
       <div className="relative p-3">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center rounded-lg p-3">
