@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-
 import NDA from "../../assets/documents/NDA.png";
 import IPA from "../../assets/documents/Intellectual Property Agreement.png";
 import MOU from "../../assets/documents/Memorandum of Understanding.png";
 import Vendor from "../../assets/documents/Vendor Agreement.png";
 import Rent from "../../assets/documents/Rent Agreement.png";
 import { Close } from "@mui/icons-material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const DocumentViewer = () => {
   const [selectedDocument, setSelectedDocument] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const documents = [
     { id: 1, name: "Non-Disclosure Agreement (NDA)", image: NDA },
@@ -17,6 +18,15 @@ const DocumentViewer = () => {
     { id: 4, name: "Vendor Agreement", image: Vendor },
     { id: 5, name: "Rent Agreement", image: Rent },
   ];
+
+  const handleDocumentClick = (doc) => {
+    setLoading(true);
+    setSelectedDocument(null); 
+    setTimeout(() => {
+      setSelectedDocument(doc);
+      setLoading(false);
+    }, 1000); 
+  };
 
   return (
     <div className="pt-20 w-[80%] bg-gray-900 bg-transparent text-white m-auto flex flex-col gap-3">
@@ -50,24 +60,27 @@ const DocumentViewer = () => {
                 ? "flex-[0_1_calc(40%-1rem)]"
                 : "flex-[0_1_calc(33%-1rem)]"
             } mx-2`}
-            onClick={() => setSelectedDocument(doc)}
+            onClick={() => handleDocumentClick(doc)}
           >
             {doc.name}
           </button>
         ))}
       </div>
 
-      {selectedDocument && (
+      {loading && (
+        <div className="flex justify-center items-center h-60">
+          <CircularProgress size={50} color="inherit" />
+        </div>
+      )}
+
+      {selectedDocument && !loading && (
         <div className="relative bg-black opacity-80 text-white p-6 rounded-lg max-w-3xl mx-auto shadow-lg">
-          {/* Close Button */}
           <Close
             onClick={() => setSelectedDocument(null)}
             className="absolute top-2 right-2 text-gray-400 hover:text-white cursor-pointer"
           />
-
           <div className="text-center">
             <h2 className="text-xl font-bold mb-4">{selectedDocument.name}</h2>
-
             <div className="relative" style={{ height: "400px" }}>
               <div className="absolute bottom-0 inset-0 bg-gradient-to-t from-black via-black/80 to-black/10 rounded text-white p-4">
                 <div className="absolute bottom-0 flex gap-32">
