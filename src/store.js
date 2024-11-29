@@ -9,6 +9,7 @@ import splashReducer from "./features/bookCourtRoom/splashSlice";
 import userSlice from "./features/bookCourtRoom/LoginReducreSlice";
 import pricingSlice from "./features/payment/pricingSlice";
 import promptSlice from "./features/gpt/promptSlice";
+import paymentSlice from "./features/payment/paymentSlice";
 
 export default configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export default configureStore({
     user: userSlice,
     price: pricingSlice,
     prompt: promptSlice,
+    payments: paymentSlice,
   },
 });

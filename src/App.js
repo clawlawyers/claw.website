@@ -78,6 +78,8 @@ import Prompts from "./Gpt/WebSocket/Prompts.jsx";
 import SocketLayout from "./Gpt/WebSocket/SocketLayout.jsx";
 import DocumentViewer from "./components/DocumentsComponent/DocumentViewer.jsx";
 import PricingPlans from "./Pricing/PricingPlans.jsx";
+import NewPlanPayment from "./Pricing/NewPlanPayment.jsx";
+import { retrieveActiveAdiraPlan } from "./features/payment/paymentSlice.js";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -191,6 +193,7 @@ function App() {
   useEffect(() => {
     store.dispatch(retrieveActivePlanUser());
     store.dispatch(retrieveAuth());
+    store.dispatch(retrieveActiveAdiraPlan());
     // store.dispatch(retrieveCourtroomAuth());
   }, []);
   useEffect(() => {
@@ -388,11 +391,12 @@ function App() {
         {
           path: "pricing",
           // element: <Pricing />,
-          element:<PricingPlans/>
+          element: <PricingPlans />,
         },
         {
           path: "payment",
-          element: <PlanPayment />,
+          // element: <PlanPayment />,
+          element: <NewPlanPayment />,
         },
         {
           path: "purchases",
