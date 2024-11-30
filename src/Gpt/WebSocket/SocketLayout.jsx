@@ -7,7 +7,7 @@ const SocketLayout = () => {
     <div className="flex h-screen">
       <SocketSidebar />
       <div className="flex-1">
-        <Outlet />
+        <Outlet className="" />
       </div>
     </div>
   );

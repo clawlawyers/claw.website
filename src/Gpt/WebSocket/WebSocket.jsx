@@ -703,8 +703,8 @@ const WebSocketComponent = () => {
 
   return (
     <>
-      <div className="h-screen flex flex-col p-3">
-        <div className="flex gap-2 items-start justify-start">
+      <div className="h-screen w-auto flex flex-col p-3">
+        <div className="ml-5 flex gap-2 items-start justify-start">
           <p className="text-3xl font-semibold m-0 max-w-fit text-[#018081]">
             LegalGPT
           </p>
@@ -776,7 +776,7 @@ const WebSocketComponent = () => {
                       )}
 
                       {!x.isUser ? (
-                        <div className="m-0 flex justify-between items-center w-full py-2">
+                        <div className="m-0 flex flex-col md:flex-row gap-3 justify-between items-center w-full py-2">
                           <div className="flex-1">
                             {promptsArr.length - 1 == index && !x.user ? (
                               <div className="flex gap-2">
@@ -831,7 +831,7 @@ const WebSocketComponent = () => {
                               </div>
                             ) : null}
                           </div>
-                          <div className="m-0 flex items-center gap-3">
+                          <div className="m-0 flex  items-center gap-3">
                             <div>
                               {textLoading && editIndex == index ? (
                                 <div className="flex items-center gap-2">
