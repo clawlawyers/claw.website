@@ -10,7 +10,7 @@ export const retrieveActiveAdiraPlan = createAsyncThunk(
       const props = await fetch(
         `${NODE_API_ENDPOINT}/ai-drafter/retrive-adira_plan`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             Authorization: `Bearer ${parsedUser.jwt}`,
             "Content-Type": "application/json",
