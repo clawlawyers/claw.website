@@ -26,10 +26,10 @@ const Contact = () => {
         , we value your time and are committed to providing prompt and effective
         assistance for all your queries and concerns."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="digital legal transformation, privacy policies, your, us, concerns, business law services, data-driven law, legal news insights, legal compliance, questions"
+        />
       </Helmet>
       <h1 className="text-5xl font-bold">Contact Us</h1>
       <p>

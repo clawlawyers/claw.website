@@ -97,10 +97,10 @@ export default function ContactUs() {
           name="description"
           content="We welcome your questions, concerns, and feedback. Reach out using the contact information below or connect with us on social media."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="digital legal transformation, privacy policies, your, us, concerns, business law services, data-driven law, legal news insights, legal compliance, questions"
+        />
       </Helmet>
       <div className="grid md:grid-cols-2 px-4 py-2">
         <div className="p-8">
