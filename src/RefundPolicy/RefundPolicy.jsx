@@ -23,10 +23,10 @@ export default function RefundPolicy() {
           name="description"
           content="Learn about Claw's cancellation policy and understand the circumstances under which you may be eligible for a refund."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="digital legal transformation, privacy policies, business law services, data-driven law, legal news insights, cancellation, about, legal compliance, AI legal solutions, contract management tools"
+        />
       </Helmet>
       <h1 className="text-5xl font-bold">Refund & Cancellation Policy</h1>
       <p>

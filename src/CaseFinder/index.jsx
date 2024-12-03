@@ -168,6 +168,10 @@ export default function CaseFinder({
             name="description"
             content="Claw's advanced case search empowers you to efficiently find relevant legal precedents. Search to navigate India's vast legal landscape with ease."
           />
+          <meta
+            name="keywords"
+            content="digital legal transformation, privacy policies, your, us, concerns, business law services, data-driven law, legal news insights, legal compliance, questions"
+          />
         </Helmet>
         <div className="m-auto w-[80%]">
           {/* <div

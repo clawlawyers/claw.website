@@ -26,7 +26,6 @@ import {
 import toast from "react-hot-toast";
 import { AutoFixHighOutlined } from "@mui/icons-material";
 
-
 const Login1 = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -146,7 +145,6 @@ const Login1 = () => {
     //   toast.error("Error during OTP request");
     //   //     setOtpLoading(false);
     // }
-    
 
     console.log(window.recaptchaVerifier);
     console.log("i am here");
@@ -226,12 +224,11 @@ const Login1 = () => {
         //   setError(error.message || "Invalid Otp!");
         //   setIsLoading(false);
         //   toast.error("invaid otp")
-        //   return 
+        //   return
         // }
         // var data =await  response.json()
         // console.log(data)
-      
-        
+
         const response = await fetch(`${NODE_API_ENDPOINT}/client/verify`, {
           method: "POST",
           headers: {
@@ -309,7 +306,6 @@ const Login1 = () => {
           })
         );
       } else throw new Error("Otp length should be of 6");
-       
     } catch (error) {
       setError(error.message || "Invalid Otp!");
     } finally {
@@ -334,30 +330,28 @@ const Login1 = () => {
     return () => clearInterval(intervalId); // Cleanup on unmount
   }, [isDisabled, countdown]);
 
-  const handleRetryClick =async  (e) => {
+  const handleRetryClick = async (e) => {
     e.preventDefault();
     setIsDisabled(true);
-    const response =await  fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
-      method:'POST',
+    const response = await fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body:JSON.stringify({
-        phone:phoneNumber
-      })
-
-    })
-    if(response.status ==200){
-      const data= await response.json()
+      body: JSON.stringify({
+        phone: phoneNumber,
+      }),
+    });
+    if (response.status == 200) {
+      const data = await response.json();
       console.log(data.authtoken);
-      setOtpToken(data.authtoken)
+      setOtpToken(data.authtoken);
       // setVerificationId(confirmationResult?.verificationId);
-          toast.success("OTP sent successfully !");
-          setHasFilled(true);
-          setOtpLoading(false);
-          setIsDisabled(true);
-    }
-    else{
+      toast.success("OTP sent successfully !");
+      setHasFilled(true);
+      setOtpLoading(false);
+      setIsDisabled(true);
+    } else {
       toast.error("Error during OTP request");
       //     setOtpLoading(false);
     }
@@ -397,11 +391,26 @@ const Login1 = () => {
 
   return (
     <div className="w-[80%] m-auto">
+      <Helmet>
+        <title>Login</title>
+        <meta
+          name="description"
+          content="Join us to access comprehensive legal resources, expert insights, and efficient case management tools."
+        />
+        <meta
+          name="keywords"
+          content="digital legal transformation, privacy policies, business law services, comprehensive, data-driven law, access, legal news insights, legal compliance, AI legal solutions"
+        />
+      </Helmet>
       <div className="flex justify-center pb-10">
         <h1 className="text-5xl font-bold">Welcome Back</h1>
       </div>
       <div className="bg-white bg-opacity-10 p-3 grid md:grid-cols-2 rounded-lg border">
-        <img className="w-auto h-auto rounded-none" src={loginIcon} />
+        <img
+          className="w-auto h-auto rounded-none"
+          alt="login-img"
+          src={loginIcon}
+        />
         {!hasFilled ? (
           <form onSubmit={handleSend} className="flex flex-col gap-3 py-5">
             <p className="m-0 flex-none">Phone Number</p>

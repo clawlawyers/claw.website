@@ -19,10 +19,10 @@ export default function TermsOfService() {
           name="description"
           content="This document outlines the legal agreement between you and Claw regarding your use of our website and services."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="this, outlines, privacy policies, business law services, document, of, services, law firm automation, the, legal"
+        />
       </Helmet>
       <h1>Terms & Conditions</h1>
       <p>Last updated on 20-06-2024 10:26:48</p>

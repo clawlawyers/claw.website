@@ -26,10 +26,10 @@ export default function AmbassadorApply() {
           name="description"
           content="Ready to join the Claw family? Fill out the application form below to kickstart your journey as a brand ambassador."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="privacy policies, business law services, now, join, legal compliance, AI legal solutions, law firm automation, become"
+        />
       </Helmet>
       <div
         style={{

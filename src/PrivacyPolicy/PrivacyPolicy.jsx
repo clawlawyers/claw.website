@@ -24,10 +24,10 @@ function PrivacyPolicy() {
           name="description"
           content="At Claw, we are committed to protecting the privacy of our users. This Privacy Policy explains what information we collect and how we keep it safe."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="commitment, your, privacy policies, to, privacy, business law services, at, explains, law firm automation, are"
+        />
       </Helmet>
       <h1>Privacy Policy</h1>
       <p>

@@ -23,10 +23,10 @@ export default function TermsAndConditions() {
           name="description"
           content="A binding agreement outlining the legal rights and obligations between you and Claw."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="privacy policies, business law services, outlining, agreement, conditions, legal compliance, law firm automation, claw, the, legal"
+        />
       </Helmet>
       <h1 className="text-5xl font-bold">Terms & Conditions</h1>
       <p>

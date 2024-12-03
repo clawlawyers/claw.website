@@ -131,6 +131,17 @@ export default function AmbassadorDashboard() {
 
   return (
     <div className={Styles.container}>
+      <Helmet>
+        <title>Become a Claw Brand Ambassador</title>
+        <meta
+          name="description"
+          content="Join our dynamic community of brand ambassadors and help spread the word about CLAW's innovative legal tech solutions."
+        />
+        <meta
+          name="keywords"
+          content="dynamic, ambassador, community, privacy policies, business law services, brand, legal compliance, law firm automation, become"
+        />
+      </Helmet>
       <div
         style={{
           display: "flex",

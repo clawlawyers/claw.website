@@ -25,10 +25,10 @@ export default function RootLayout() {
           name="description"
           content="Claw is a legal tech company that is transforming the legal industry with its innovative use of AI. Our platform, powered by legalGPT, provides businesses with access to affordable and efficient legal services."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="tech, ai-driven, privacy policies, business law services, services, legal compliance, businesses, law firm automation, clawlaw"
+        />
       </Helmet>
       {/* <div
         style={{

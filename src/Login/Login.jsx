@@ -228,10 +228,10 @@ export default function Login() {
           name="description"
           content="Join us to access comprehensive legal resources, expert insights, and efficient case management tools."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="digital legal transformation, privacy policies, business law services, comprehensive, data-driven law, access, legal news insights, legal compliance, AI legal solutions"
+        />
       </Helmet>
       <div
         style={{

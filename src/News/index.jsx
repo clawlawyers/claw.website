@@ -48,10 +48,10 @@ export default function News() {
           name="description"
           content="Our news section provides you with the latest legal industry news and insights, all conveniently located in one place."
         />
-        {/* <meta
+        <meta
           name="keywords"
-          content=""
-        /> */}
+          content="provides, you, privacy policies, business law services, news, legal compliance, law firm automation, legal, insights, industry"
+        />
       </Helmet>
       <div>
         <ExpandedCard newsData={newsData} />
