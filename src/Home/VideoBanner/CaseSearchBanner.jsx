@@ -90,7 +90,12 @@ const CaseSearchBanner = () => {
                   Finding Your First Case
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   Get to know how to put your first Query in Case Search and get
                   the optimum AI Generated Results
@@ -126,7 +131,12 @@ const CaseSearchBanner = () => {
                   Set A Date Range for Case Search
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   Cases not exactly from the time you want it to be ? This is
                   how you select a date range for your case searches

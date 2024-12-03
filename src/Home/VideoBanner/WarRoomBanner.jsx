@@ -21,11 +21,22 @@ import { CircularProgress } from "@mui/material";
 //   { panel: "panel6", src: `${references}` },
 // ];
 const videoArr = [
-  { panel: "panel1", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1732692075/LegalGPT/pms6oh8e5kk957mg41df.mp4` },
-  { panel: "panel2", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1732692068/LegalGPT/fjp5exromwxv6aucjhyi.mp4` },
-  { panel: "panel3", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1732692047/LegalGPT/rvccuwov1ttypoofrscy.mp4` },
-  { panel: "panel4", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1732692033/LegalGPT/bpmjc1zaxlv7cdevfub4.mp4` },
-  
+  {
+    panel: "panel1",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1732692075/LegalGPT/pms6oh8e5kk957mg41df.mp4`,
+  },
+  {
+    panel: "panel2",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1732692068/LegalGPT/fjp5exromwxv6aucjhyi.mp4`,
+  },
+  {
+    panel: "panel3",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1732692047/LegalGPT/rvccuwov1ttypoofrscy.mp4`,
+  },
+  {
+    panel: "panel4",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1732692033/LegalGPT/bpmjc1zaxlv7cdevfub4.mp4`,
+  },
 ];
 
 const WarRoomBanner = () => {
@@ -100,10 +111,15 @@ const WarRoomBanner = () => {
                   Getting Started with WarRoom
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
-                  Dive into a Quick Free Trial of AI Powered Court
-                  Arguments and Counter-Arguments
+                  Dive into a Quick Free Trial of AI Powered Court Arguments and
+                  Counter-Arguments
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -136,10 +152,15 @@ const WarRoomBanner = () => {
                   Upload Your Document
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
-                 Keep Your Document Handy and Get started 
-                 easily with arguments and counter-arguments
+                  Keep Your Document Handy and Get started easily with arguments
+                  and counter-arguments
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -169,13 +190,19 @@ const WarRoomBanner = () => {
                     fontWeight: "500",
                   }}
                 >
-                  Free Trial Limit 
+                  Free Trial Limit
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
-                 Keep Your Arguments ready to get the most out 
-                 of it in Free Trial of <span className="text-white font-bold">30 Minutes</span>
+                  Keep Your Arguments ready to get the most out of it in Free
+                  Trial of{" "}
+                  <span className="text-white font-bold">30 Minutes</span>
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -208,14 +235,18 @@ const WarRoomBanner = () => {
                   Placing Arguments & Fighting Case
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
-                  Place Your Arguments,and receive counter-
-                  arguments from War Room AI
+                  Place Your Arguments,and receive counter- arguments from War
+                  Room AI
                 </Typography>
               </AccordionDetails>
             </Accordion>
-  
           </div>
           {currentVid ? (
             <div className="flex justify-center items-center p-1 rounded-lg z-20">

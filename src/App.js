@@ -80,6 +80,8 @@ import DocumentViewer from "./components/DocumentsComponent/DocumentViewer.jsx";
 import PricingPlans from "./Pricing/PricingPlans.jsx";
 import NewPlanPayment from "./Pricing/NewPlanPayment.jsx";
 import { retrieveActiveAdiraPlan } from "./features/payment/paymentSlice.js";
+import AboutUs from "./AboutUs/AboutUs.jsx";
+import Contact from "./Contact/Contact.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -459,6 +461,8 @@ function App() {
           element: <AuthWall />,
           children: [{ path: "", element: <TrackedCaseSearch /> }],
         },
+        { path: "about-us", element: <AboutUs /> },
+        { path: "contact", element: <Contact /> },
         { path: "contact-us", element: <ContactUs /> },
         { path: "refund-and-cancellation-policy", element: <RefundPolicy /> },
         { path: "terms-and-conditions", element: <TermsAndConditions /> },

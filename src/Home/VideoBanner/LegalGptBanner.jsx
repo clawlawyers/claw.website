@@ -3,30 +3,33 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
-import bg from "../../assets/guide/bg.gif";
-import getStartedVid from "../../assets/guide/1.mp4";
-import genAi from "../../assets/guide/2.mp4";
-import relevantHC from "../../assets/guide/3.mp4";
-import specificHC from "../../assets/guide/4.mp4";
-import specificSC from "../../assets/guide/5.mp4";
-import references from "../../assets/guide/6.mp4";
 import { CircularProgress } from "@mui/material";
 
-// const videoArr = [
-//   { panel: "panel1", src: `${getStartedVid}` },
-//   { panel: "panel2", src: `${genAi}` },
-//   { panel: "panel3", src: `${relevantHC}` },
-//   { panel: "panel4", src: `${specificHC}` },
-//   { panel: "panel5", src: `${specificSC}` },
-//   { panel: "panel6", src: `${references}` },
-// ];
 const videoArr = [
-  { panel: "panel1", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/cncwcytiraola9fmpeym.mp4` },
-  { panel: "panel2", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/jzjldnltlcua5pfqnnzf.mp4  ` },
-  { panel: "panel3", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/bixixvcvvjdu85i7lkr5.mp4` },
-  { panel: "panel4", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/hhursgp0kbpvh6p9bccr.mp4` },
-  { panel: "panel5", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/rnu0dueaormfr3lgyleo.mp4` },
-  { panel: "panel6", src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/ccbjqddkmceifxiwndsn.mp4` },
+  {
+    panel: "panel1",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/cncwcytiraola9fmpeym.mp4`,
+  },
+  {
+    panel: "panel2",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/jzjldnltlcua5pfqnnzf.mp4  `,
+  },
+  {
+    panel: "panel3",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/bixixvcvvjdu85i7lkr5.mp4`,
+  },
+  {
+    panel: "panel4",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/hhursgp0kbpvh6p9bccr.mp4`,
+  },
+  {
+    panel: "panel5",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/rnu0dueaormfr3lgyleo.mp4`,
+  },
+  {
+    panel: "panel6",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/ccbjqddkmceifxiwndsn.mp4`,
+  },
 ];
 
 const LegalGptBanner = () => {
@@ -101,7 +104,12 @@ const LegalGptBanner = () => {
                   Getting Started with LegalGPT
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   Get to know how to put your Question / Query in LegalGPT and
                   get the results
@@ -137,7 +145,12 @@ const LegalGptBanner = () => {
                   Generative AI Suggestions
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   After you start a conversation LegalGPT analyzes your question
                   and helps you with more related questions to assist you
@@ -173,7 +186,12 @@ const LegalGptBanner = () => {
                   Find Relevant High Court Cases
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   LegalGPT also finds all the Related Cases registered in Indian
                   High Courts
@@ -209,7 +227,12 @@ const LegalGptBanner = () => {
                   Choose Specific High Court
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   LegalGPT also allows you to choose a specific State High Court
                   according to your requirements
@@ -245,7 +268,12 @@ const LegalGptBanner = () => {
                   Find Supreme Court Cases
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   LegalGPT allows you to find Relevant Registered Cases in
                   Supreme Court of India
@@ -281,7 +309,12 @@ const LegalGptBanner = () => {
                   Find Reference Cases
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ backgroundColor: "rgb(23, 30, 38)" }}>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   LegalGPT also finds all the Relevant Reference Cases based on
                   your input

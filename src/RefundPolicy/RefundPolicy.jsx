@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 
 export default function RefundPolicy() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top of the page
+  }, []);
+
   return (
     <div
       style={{
         width: "80%",
         margin: "auto",
         zIndex: 2,
-        backgroundColor: "#13161f",
+        // backgroundColor: "#13161f",
         padding: 20,
         position: "inherit",
       }}
@@ -24,52 +28,99 @@ export default function RefundPolicy() {
           content=""
         /> */}
       </Helmet>
-      <h1>Refund & Cancellation Policy</h1>
-      <p>Last updated on 20-06-2024 10:28:56</p>
+      <h1 className="text-5xl font-bold">Refund & Cancellation Policy</h1>
       <p>
-        CLAW LEGALTECH PRIVATE LIMITED believes in helping its customers as far
-        as possible, and has therefore a liberal cancellation policy. Under this
-        policy:
+        At Claw Legaltech, we strive to provide a seamless experience with our
+        services. Please review our refund and cancellation policy to understand
+        the terms of your membership and subscription:
       </p>
+      <h2>Refund Policy</h2>
       <ul>
         <li>
-          Cancellations will be considered only if the request is made
-          immediately after placing the order. However, the cancellation request
-          may not be entertained if the orders have been communicated to the
-          vendors/merchants and they have initiated the process of shipping
-          them.
+          <p className="font-bold text-lg">No Refunds:</p>
+          <p>
+            Claw Legaltech does not issue refunds for any memberships,
+            subscriptions, or services purchased.
+          </p>
         </li>
         <li>
-          CLAW LEGALTECH PRIVATE LIMITED does not accept cancellation requests
-          for perishable items like flowers, eatables etc. However,
-          refund/replacement can be made if the customer establishes that the
-          quality of product delivered is not good.
-        </li>
-        <li>
-          In case of receipt of damaged or defective items, please report the
-          same to our Customer Service team. The request will, however, be
-          entertained once the merchant has checked and determined the same at
-          his own end. This should be reported within the same day of receipt of
-          the products. In case you feel that the product received is not as
-          shown on the site or as per your expectations, you must bring it to
-          the notice of our customer service within the same day of receiving
-          the product. The Customer Service Team after looking into your
-          complaint will take an appropriate decision.
-        </li>
-        <li>
-          In case of complaints regarding products that come with a warranty
-          from manufacturers, please refer the issue to them. In case of any
-          refunds approved by CLAW LEGALTECH PRIVATE LIMITED, it’ll take 6-8
-          days for the refund to be processed to the end customer.
+          <p className="font-bold text-lg">
+            In Case of Upgrades or Technical Issues:
+          </p>
+          <p>
+            If there are service upgrades or technical issues, such as website
+            lagging or interruptions from our side, we may offer:
+          </p>
+          <ul>
+            <li>
+              <p>Membership extensions.</p>
+            </li>
+            <li>
+              <p>Complimentary product trials.</p>
+            </li>
+            <li>
+              <p>Special user benefits as a goodwill gesture.</p>
+            </li>
+          </ul>
         </li>
       </ul>
       <p>
-        For any inquiries or assistance regarding our refund and cancellation
-        policy, please contact us at{" "}
-        <a href="mailto:Claw.lawyers@gmail.com">Claw.lawyers@gmail.com</a> or
-        call us at +91 9950866260.
+        These measures are provided solely at the discretion of Claw Legaltech
+        and are not guaranteed.
       </p>
-      <p>Thank you for choosing ClawLaw.in!</p>
+      <h2>Cancellation Policy</h2>
+      <ul>
+        <li>
+          <p className="font-bold text-lg">User-Initiated Cancellation:</p>
+          <p>
+            Users may cancel their subscription at any time as per their
+            requirements. Upon cancellation:
+          </p>
+          <ul>
+            <li>
+              <p>
+                The subscription will remain active until the end of the current
+                billing cycle.
+              </p>
+            </li>
+            <li>
+              <p>
+                No refunds will be provided for unused time during the
+                subscription period.
+              </p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p className="font-bold text-lg">How to Cancel:</p>
+          <p>
+            To cancel your subscription, simply unsubscribe through your account
+            settings on our platform.
+          </p>
+        </li>
+      </ul>
+      <h2>Contact Us</h2>
+      <p>
+        If you have questions about our refund and cancellation policy, please
+        feel free to contact us:
+      </p>
+      <ul>
+        <li>
+          <p>
+            <span className="font-bold">Email:</span> claw.lawyers@gmail.com
+          </p>
+        </li>
+        <li>
+          <p>
+            <span className="font-bold">Phone:</span> +91 6352321550 (Available
+            10 AM - 6 PM IST)
+          </p>
+        </li>
+      </ul>
+      <p>
+        We appreciate your understanding and are committed to providing you with
+        exceptional service.
+      </p>
     </div>
   );
 }

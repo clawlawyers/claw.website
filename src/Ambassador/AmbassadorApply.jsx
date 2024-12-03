@@ -39,10 +39,10 @@ export default function AmbassadorApply() {
           gap: 46,
         }}
       >
-        <div style={{ display: "flex" }}>
+        <div className="grid grid-cols-2">
           <div>
             <h1 className={Styles.heading}>Brand Ambassadorship</h1>
-            <p style={{ fontSize: 18, color: "#C9C7C7", textWrap: "wrap" }}>
+            <p style={{ fontSize: 15, color: "#C9C7C7", textWrap: "wrap" }}>
               Claw ambassadorship program is basically for undergraduate
               students and graduates who are looking for entry-level jobs.  As a
               brand ambassador, you will promote the platform within your circle
@@ -54,8 +54,12 @@ export default function AmbassadorApply() {
               you soon.
             </p>
           </div>
-          <div className={Styles.img}>
-            <img alt="becoming an ambassador" src={ambassadorshipImg} />
+          <div className="flex justify-center items-center">
+            <img
+              className="h-auto w-auto rounded-lg"
+              alt="becoming an ambassador"
+              src={ambassadorshipImg}
+            />
           </div>
         </div>
         <div>

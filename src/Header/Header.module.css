@@ -48,7 +48,7 @@
 }
 
 .headerLinks button:hover {
-  background-color: #008080;
+  background-color: transparent;
   transform: scale(1.05);
 }
 
@@ -91,7 +91,7 @@
   transform: scale(1.1);
 }
 .headerButton:hover {
-  transform: scale(1.1) ;
+  transform: scale(1.1);
 }
 
 .mobileNav {

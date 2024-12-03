@@ -10,7 +10,7 @@ export default function RootLayout() {
       style={{
         position: "relative",
         backgroundColor: "#13161f",
-        background: `radial-gradient(circle at 50% 0%, #018585, transparent 15%),
+        background: `radial-gradient(circle at 50% 0%, #018585, transparent 45rem),
         
         radial-gradient(circle at 100% 90%, #018585, transparent 15%)
         `,

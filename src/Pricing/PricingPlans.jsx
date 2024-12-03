@@ -9,6 +9,8 @@ const plansArr = {
     {
       type: "Basic",
       price: "299",
+      originalPrice: "349",
+      discount: "10% DISCOUNT",
       features: [
         "All Ready-Made Templates",
         "Prompt Drafting",
@@ -19,6 +21,8 @@ const plansArr = {
     {
       type: "Pro",
       price: "499",
+      originalPrice: "599",
+      discount: "10% DISCOUNT",
       features: [
         "All Ready-Made Templates",
         "Prompt Drafting",
@@ -37,6 +41,7 @@ const plansArr = {
     {
       type: "Basic",
       price: "1999",
+      originalPrice: "2399",
       discount: "15% DISCOUNT",
       features: [
         "All Ready-Made Templates",
@@ -48,6 +53,7 @@ const plansArr = {
     {
       type: "Pro",
       price: "2999",
+      originalPrice: "3499",
       discount: "15% DISCOUNT",
       features: [
         "All Ready-Made Templates",
@@ -66,6 +72,7 @@ const plansArr = {
     {
       type: "Basic",
       price: "4999",
+      originalPrice: "5999",
       discount: "25% DISCOUNT",
       features: [
         "All Ready-Made Templates",
@@ -77,11 +84,12 @@ const plansArr = {
     {
       type: "Pro",
       price: "8999",
+      originalPrice: "11999",
       discount: "25% DISCOUNT",
       features: [
         "All Ready-Made Templates",
         "Prompt Drafting",
-        "Download with Watermark",
+        "Download without Watermark",
         "Summarize Document",
         "Summarize Each Clause Individually",
         "Edit Document with AI",
@@ -175,7 +183,7 @@ const PricingPlans = () => {
 
   return (
     <div className="min-h-screen text-white flex flex-col items-center py-8 px-4">
-      <h1 className="text-3xl font-bold mb-4">
+      <h1 className="text-5xl font-bold mb-4">
         Find the Perfect Pricing Option for{" "}
         <span className="text-teal-400">Adira AI</span>
       </h1>
@@ -201,7 +209,7 @@ const PricingPlans = () => {
         ))}
       </div>
 
-      <div className="flex flex-wrap justify-center gap-6">
+      <div className="flex flex-wrap justify-center h-[550px] gap-6">
         {plansArr[activeTab].map((plan, index) => (
           <div
             key={index}
@@ -223,9 +231,14 @@ const PricingPlans = () => {
               </div>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-white mb-4">
-                ₹ {plan.price} /-
-              </p>
+              <div className="flex gap-3">
+                <p className="text-2xl font-bold text-white mb-4">
+                  ₹ {plan.price} /-
+                </p>
+                <p className="text-2xl font-bold text-white mb-4 line-through">
+                  ₹ {plan.originalPrice} /-
+                </p>
+              </div>
               <button
                 className="w-full bg-[#055151] text-white font-bold py-2 rounded hover:bg-teal-600 transition mb-4"
                 onClick={() => handleGetNowClick(plan)}

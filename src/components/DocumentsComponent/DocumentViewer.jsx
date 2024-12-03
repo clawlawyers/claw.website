@@ -21,11 +21,11 @@ const DocumentViewer = () => {
 
   const handleDocumentClick = (doc) => {
     setLoading(true);
-    setSelectedDocument(null); 
+    setSelectedDocument(null);
     setTimeout(() => {
       setSelectedDocument(doc);
       setLoading(false);
-    }, 1000); 
+    }, 1000);
   };
 
   return (
@@ -68,13 +68,13 @@ const DocumentViewer = () => {
       </div>
 
       {loading && (
-        <div className="flex justify-center items-center h-60">
+        <div className="flex justify-center items-center h-80 w-[80%] bg-black mx-auto">
           <CircularProgress size={50} color="inherit" />
         </div>
       )}
 
       {selectedDocument && !loading && (
-        <div className="relative bg-black opacity-80 text-white p-6 rounded-lg max-w-3xl mx-auto shadow-lg">
+        <div className="relative bg-black opacity-80 text-white p-6 rounded-lg w-[80%] mx-auto shadow-lg">
           <Close
             onClick={() => setSelectedDocument(null)}
             className="absolute top-2 right-2 text-gray-400 hover:text-white cursor-pointer"
@@ -82,12 +82,12 @@ const DocumentViewer = () => {
           <div className="text-center">
             <h2 className="text-xl font-bold mb-4">{selectedDocument.name}</h2>
             <div className="relative" style={{ height: "400px" }}>
-              <div className="absolute bottom-0 inset-0 bg-gradient-to-t from-black via-black/80 to-black/10 rounded text-white p-4">
-                <div className="absolute bottom-0 flex gap-32">
-                  <p className="text-2xl font-bold">
+              <div className="absolute flex justify-center bottom-0 inset-0 bg-gradient-to-t from-black via-black/80 to-black/10 rounded text-white p-4">
+                <div className="absolute  bottom-0 flex items-center gap-32">
+                  <p className="text-2xl font-bold m-0">
                     Want to Unlock Full Document?
                   </p>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all">
+                  <button className="px-4 py-2 text-white rounded hover:bg-opacity-25 transition-all">
                     Visit ADIRA AI
                   </button>
                 </div>

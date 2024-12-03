@@ -221,14 +221,14 @@ function FooterBanner() {
       >
         <div className={Styles.footerNav}>
           <Link
-            to="/"
+            to="/about-us"
             className={Styles.muted}
             style={{ textDecoration: "none" }}
           >
             About us
           </Link>
           <Link
-            to="/contact-us"
+            to="/contact"
             className={Styles.muted}
             style={{ textDecoration: "none" }}
           >
@@ -241,13 +241,13 @@ function FooterBanner() {
           >
             Privacy Policy
           </Link>
-          <Link
+          {/* <Link
             to="/case/search"
             className={Styles.muted}
             style={{ textDecoration: "none" }}
           >
             Case details
-          </Link>
+          </Link> */}
           <Link
             to="/refund-and-cancellation-policy"
             className={Styles.muted}
