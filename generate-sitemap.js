@@ -16,6 +16,8 @@ const staticRoutes = [
   "/leaders/apply",
   "/case/search",
   "/contact-us",
+  "contact",
+  "about-us",
   "/refund-and-cancellation-policy",
   "/shipping-and-delivery",
   "/gpt/legalGPT",
