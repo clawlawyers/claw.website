@@ -238,6 +238,7 @@ const WebSocketComponent = () => {
     };
 
     newSocket.onclose = (event) => {
+      console.log(event)
       console.log("Closed code:", event.code);
       console.log("Close reason:", event.reason);
       console.log("WebSocket connection closed");
