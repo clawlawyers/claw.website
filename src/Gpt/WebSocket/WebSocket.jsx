@@ -237,7 +237,9 @@ const WebSocketComponent = () => {
       setMessage((prevMessages) => [...prevMessages, formattedData]);
     };
 
-    newSocket.onclose = () => {
+    newSocket.onclose = (event) => {
+      console.log("Closed code:", event.code);
+      console.log("Close reason:", event.reason);
       console.log("WebSocket connection closed");
     };
 
