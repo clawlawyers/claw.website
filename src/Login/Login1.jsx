@@ -32,6 +32,7 @@ const Login1 = () => {
   const [verificationId, setVerificationId] = useState("");
   const [isFirst, setIsfirst] = useState(true);
   const [otpToken, setOtpToken] = useState("");
+  const [verifyToken, setVerifyToken] = useState("");
 
   let area;
 
@@ -313,6 +314,205 @@ const Login1 = () => {
     }
   };
 
+  const retryOTP = async (e) => {
+    try {
+      e.preventDefault();
+      setIsDisabled(true);
+      const handleOTPsend = await fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: phoneNumber,
+          siteName: "www.clawlaw.in",
+        }),
+      });
+      if (!handleOTPsend.ok) {
+        console.error("Failed to send OTP");
+        toast.error("Failed to send OTP");
+        throw new Error("Failed to send OTP");
+      }
+      const data = await handleOTPsend.json();
+      if (data.authtoken) {
+        setOtpToken(data.authtoken);
+      }
+      // setVerificationId(confirmationResult?.verificationId);
+      toast.success("OTP sent successfully !");
+      setHasFilled(true);
+      setOtpLoading(false);
+      setIsDisabled(true);
+    } catch (error) {
+      console.error(error);
+      setOtpLoading(false);
+      toast.error("Failed to retry OTP");
+    }
+  };
+
+  const sendOTP = async (e) => {
+    e.preventDefault();
+
+    setOtpLoading(true);
+
+    try {
+      const handleOTPsend = await fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: phoneNumber,
+          siteName: "www.clawlaw.in",
+        }),
+      });
+      if (!handleOTPsend.ok) {
+        console.error("Failed to send OTP");
+        toast.error("Failed to send OTP");
+        throw new Error("Failed to send OTP");
+      }
+      const data = await handleOTPsend.json();
+      if (data.authtoken) {
+        setOtpToken(data.authtoken);
+      }
+      toast.success("OTP sent successfully");
+      setHasFilled(true);
+      setOtpLoading(false);
+      setIsDisabled(true);
+    } catch (error) {
+      toast.error("Failed to send OTP");
+      setOtpLoading(false);
+      console.error(error);
+    }
+  };
+
+  console.log(otpToken);
+  console.log(otp);
+
+  const verifyOTP = async (e) => {
+    e.preventDefault();
+    try {
+      if (otp.length === 6) {
+        setIsLoading(true);
+
+        const verifyOTPResponse = await fetch(
+          `${OTP_ENDPOINT}/verifyotpmobile`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "auth-token": otpToken,
+            },
+            body: JSON.stringify({
+              otp: otp,
+            }),
+          }
+        );
+
+        if (!verifyOTPResponse.ok) {
+          const err = verifyOTPResponse.json();
+          setIsLoading(false);
+          toast.error(err.error);
+          return;
+        }
+
+        const OTPdata = await verifyOTPResponse.json();
+        console.log(OTPdata);
+        if (OTPdata.authtoken) {
+          console.log(verifyToken);
+          await loginToUser(OTPdata.authtoken);
+
+          // setVerifyToken(OTPdata.authtoken);
+        }
+        console.log(verifyToken);
+      } else throw new Error("Otp length should be of 6");
+    } catch (error) {
+      toast.error("Failed to verify OTP");
+      setIsLoading(false);
+
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loginToUser = async (authT) => {
+    try {
+      const response = await fetch(`${NODE_API_ENDPOINT}/client/verifyCleint`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": authT,
+        },
+        // body: JSON.stringify({
+        //   phoneNumber: phoneNumber.slice(3),
+        //   verified: true,
+        // }),
+      });
+      console.log(response);
+      const { data } = await response.json();
+      console.log(data);
+      const userMongoId = data.mongoId;
+
+      if (data?.sessions % 5 === 0 || !data?.sessions || !data?.stateLocation) {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              const { latitude, longitude } = position.coords;
+              console.log(latitude + " " + longitude);
+              setLocation({ latitude, longitude });
+
+              try {
+                area = await getAreaName(latitude, longitude);
+                setAreaName(area);
+                // console.log(area);
+
+                console.log(areaName);
+
+                const response = await fetch(
+                  `${NODE_API_ENDPOINT}/client/setState`,
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      id: userMongoId,
+                      location: area,
+                    }),
+                  }
+                );
+                const { data } = await response.json();
+                // console.log(data);
+
+                // console.log(area);
+              } catch (error) {
+                setError("Failed to get area name");
+              }
+            },
+            (error) => {
+              setError(error.message);
+            }
+          );
+        } else {
+          setError("Geolocation not supported");
+        }
+      } else {
+        localStorage.setItem("userLocation", data.stateLocation);
+      }
+      dispatch(
+        login({
+          // uid,
+          phoneNumber,
+          jwt: data.jwt,
+          expiresAt: data.expiresAt,
+          newGptUser: data.newGptUser,
+          ambassador: data.ambassador,
+          stateLocation: area ? area : data.stateLocation,
+        })
+      );
+    } catch (error) {}
+  };
+
   useEffect(() => {
     let intervalId;
     if (isDisabled && countdown > 0) {
@@ -345,7 +545,9 @@ const Login1 = () => {
     if (response.status == 200) {
       const data = await response.json();
       console.log(data.authtoken);
-      setOtpToken(data.authtoken);
+      if (data.authtoken) {
+        setOtpToken(data.authtoken);
+      }
       // setVerificationId(confirmationResult?.verificationId);
       toast.success("OTP sent successfully !");
       setHasFilled(true);
@@ -412,7 +614,7 @@ const Login1 = () => {
           src={loginIcon}
         />
         {!hasFilled ? (
-          <form onSubmit={handleSend} className="flex flex-col gap-3 py-5">
+          <form onSubmit={sendOTP} className="flex flex-col gap-3 py-5">
             <p className="m-0 flex-none">Phone Number</p>
             <input
               required
@@ -436,7 +638,7 @@ const Login1 = () => {
             </div>
           </form>
         ) : (
-          <form onSubmit={verifyOtp} className="flex flex-col gap-3 py-5">
+          <form onSubmit={verifyOTP} className="flex flex-col gap-3 py-5">
             <p className="m-0 flex-none">OTP</p>
             <input
               required
