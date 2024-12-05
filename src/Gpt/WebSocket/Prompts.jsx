@@ -5,6 +5,7 @@ import { NODE_API_ENDPOINT } from "../../utils/utils";
 import { Link, useNavigate } from "react-router-dom";
 import {
   setLoadUserSessions,
+  setMessageIdPromptData,
   setNewPromptData,
   setPromptLoading,
   setPromptsArrAction,
@@ -115,6 +116,9 @@ const Prompts = () => {
           },
         }
       );
+      const resData = await res.json();
+      // console.log(resData);
+      dispatch(setMessageIdPromptData({ index: 0, data: resData.data.id }));
     }
   }
 

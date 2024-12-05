@@ -7,6 +7,7 @@ import {
   removePromptsArr,
   setDataUsingIndex,
   setLoadUserSessions,
+  setMessageIdPromptData,
   setNewPromptData,
   setPromptHistory,
   setPromptLoading,
@@ -285,7 +286,7 @@ const WebSocketComponent = () => {
         },
       ])
     );
-    setUserGptResponse({
+    setUserGptResponse(promptsArr.length, {
       text: inputText,
       isDocument: null,
       contextId: null,
@@ -295,7 +296,7 @@ const WebSocketComponent = () => {
     resetOnEveryContext();
   }
 
-  async function setUserGptResponse(message) {
+  async function setUserGptResponse(index, message) {
     if (currentUser) {
       const res = await fetch(
         `${NODE_API_ENDPOINT}/gpt/session/appendMessage`,
@@ -308,6 +309,10 @@ const WebSocketComponent = () => {
           },
         }
       );
+      const resData = await res.json();
+      console.log(promptsArr.length);
+      console.log(index, resData);
+      dispatch(setMessageIdPromptData({ index, data: resData.data.id }));
     }
   }
 
@@ -322,7 +327,8 @@ const WebSocketComponent = () => {
 
         if (message[index] === "<EOS>") {
           console.log("Message is Finished");
-          setUserGptResponse({
+          console.log(promptsArr.length - 1);
+          setUserGptResponse(promptsArr.length - 1, {
             text: promptsArr[promptsArr.length - 1].text,
             isDocument: null,
             contextId: null,
@@ -399,19 +405,6 @@ const WebSocketComponent = () => {
 
       const fileData = response.data;
 
-      // const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
-      //   method: "POST",
-      //   headers: {
-      //     Authorization: `Bearer ${currentUser.jwt}`,
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     prompt: fileData.data.fetchUploaded.document,
-      //     model: "legalGPT",
-      //   }),
-      // });
-      // const { data } = await res.json();
-      // setSessionId(data.id);
       dispatch(
         setPromptsArrAction([
           {
@@ -423,7 +416,7 @@ const WebSocketComponent = () => {
           },
         ])
       );
-      setUserGptResponse({
+      setUserGptResponse(promptsArr.length - 1, {
         text: fileData.data.fetchUploaded.document,
         isDocument: uploadedFiles[0].name,
         contextId: null,
@@ -807,7 +800,7 @@ const WebSocketComponent = () => {
                                         ? "none"
                                         : "auto",
                                   }}
-                                  className="m-0 border-2 border-white text-white rounded-lg py-1 px-3 cursor-pointer max-w-[7.5rem] flex justify-center items-center hover:bg-white hover:bg-opacity-25"
+                                  className="m-0 border-2 border-white text-white rounded-lg py-1 px-3 cursor-pointer max-w-[7.5rem] flex justify-center items-center bg-[#018081] hover:bg-opacity-75"
                                 >
                                   {casesLoading ? (
                                     <CircularProgress
@@ -820,7 +813,7 @@ const WebSocketComponent = () => {
                                 </p>
                                 <p
                                   onClick={handleShowRelevantAct}
-                                  className="m-0 border-2 border-white text-white max-w-[7rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center hover:bg-white hover:bg-opacity-25"
+                                  className="m-0 border-2 border-white text-white max-w-[7rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center bg-[#018081] hover:bg-opacity-75"
                                 >
                                   {relevantCaseLoading ? (
                                     <CircularProgress
@@ -833,7 +826,7 @@ const WebSocketComponent = () => {
                                 </p>
                                 <p
                                   onClick={handleShowSupremeCourtJudgements}
-                                  className="m-0 border-2 border-white text-white max-w-[9rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center hover:bg-white hover:bg-opacity-25"
+                                  className="m-0 border-2 border-white text-white max-w-[9rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center bg-[#018081] hover:bg-opacity-75"
                                 >
                                   {supremeCourtLoading ? (
                                     <CircularProgress
@@ -956,9 +949,14 @@ const WebSocketComponent = () => {
                     </div>
                   </div>
                 ) : x.isDocument ? (
-                  <div className="flex items-center gap-2 bg-[#495057] max-w-fit py-3 pr-3 rounded-lg border-2 border-[#018081]">
-                    <DescriptionIcon />
-                    <p className="m-0">{x.isDocument}</p>
+                  <div className="flex justify-between items-center bg-[#495057] w-full py-3 pr-3 rounded-lg border-2 border-[#018081]">
+                    <div className="flex-1 flex gap-2 items-center pl-1">
+                      <DescriptionIcon />
+                      <p className="m-0">{x.isDocument}</p>
+                    </div>
+                    <div>
+                      <p className="text-[#00CBCD] m-0">FILE UPLOADED</p>
+                    </div>
                   </div>
                 ) : (
                   <div className="h-full w-full p-3 flex flex-col gap-1">
@@ -979,10 +977,13 @@ const WebSocketComponent = () => {
               <>
                 {aiSuggestedQuestions.length > 0 ? (
                   <>
+                    <p className="m-0  text-[#018081] text-lg font-bold">
+                      AI Suggested Questions
+                    </p>
                     {aiSuggestedQuestions.map((x, index) => (
                       <p
                         onClick={() => setInputText(x)}
-                        className="border-2 border-gray-400 rounded p-2 cursor-pointer m-0 w-fit hover:border-white hover:text-white"
+                        className="border-2 border-gray-400 rounded p-2 cursor-pointer m-0 w-full hover:border-white hover:text-white"
                         key={index}
                       >
                         {x}

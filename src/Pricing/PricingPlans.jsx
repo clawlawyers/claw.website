@@ -60,6 +60,7 @@ const plansArr = {
         "Prompt Drafting",
         "Download without Watermark",
         "Summarize Document",
+        "Summarize Each Clause Individually",
         "Edit Document with AI",
         "Upload Your Own Document",
         "Analyze Any Document",

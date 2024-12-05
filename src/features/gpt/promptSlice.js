@@ -31,18 +31,24 @@ export const promptSlice = createSlice({
     setNewPromptData(state, action) {
       const promptArr = state.prompts;
 
-      // Only update if there's at least one prompt
       if (promptArr.length > 0) {
-        // Get the last prompt
         const lastPromptIndex = promptArr.length - 1;
 
-        // Ensure text is initialized properly (default to an empty string if it's null or undefined)
-        const currentText = promptArr[lastPromptIndex].text || ""; // Fallback to empty string if null/undefined
+        const currentText = promptArr[lastPromptIndex].text || "";
 
-        // Append the new string to the last prompt's content
         promptArr[lastPromptIndex] = {
-          ...promptArr[lastPromptIndex], // Retain existing properties
-          text: currentText + action.payload.message, // Append the new string
+          ...promptArr[lastPromptIndex],
+          text: currentText + action.payload.message,
+        };
+      }
+    },
+    setMessageIdPromptData(state, action) {
+      const promptArr = state.prompts;
+
+      if (promptArr.length > 0) {
+        promptArr[action.payload.index] = {
+          ...promptArr[action.payload.index],
+          id: action.payload.data,
         };
       }
     },
@@ -67,6 +73,7 @@ export const {
   setToggleMenu,
   setPromptHistory,
   setLoadUserSessions,
+  setMessageIdPromptData,
 } = promptSlice.actions;
 
 export default promptSlice.reducer;
