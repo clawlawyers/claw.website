@@ -17,7 +17,8 @@ export const ADIRA_ENDPOINT =
 export const OTP_ENDPOINT =
   process.env.NODE_ENV === "production"
     ? "https://claw-app.onrender.com"
-    : "http://localhost:7000";
+    : "https://claw-app.onrender.com";
+// : "http://localhost:7000";
 
 export const WARROOM_ENDPOINT =
   process.env.NODE_ENV === "production"
