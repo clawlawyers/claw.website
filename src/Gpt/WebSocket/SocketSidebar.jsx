@@ -36,12 +36,6 @@ const SocketSidebar = () => {
 
   return (
     <>
-      {/* <div className="w-full flex flex-col bg-gray-900 relative">
-        <div className="absolute w-full h-[5%] flex justify-end p-2">
-          <MenuOutlinedIcon className="cursor-pointer" />
-        </div>
-        <div>Hello</div>
-      </div> */}
       <>
         <div className="absolute top-4 h-[5%] flex justify-end p-2">
           <MenuOutlinedIcon
@@ -92,18 +86,17 @@ const SocketSidebar = () => {
                     </div>
                     <div className="pt-2 flex flex-col justify-stretch gap-2">
                       <button
-                        className="font-semibold text-xs justify-center items-center  rounded-lg"
+                        className="font-semibold text-xs justify-center items-center bg-white text-[#00969A] rounded-lg"
 
-                        //   onClick={() => dispatch(open())}
+                        // onClick={() => dispatch(open())}
                       >
                         Upgrade
                       </button>
-                      <button
-                        //   onClick={() => setCancelSubscriptionDialog(true)}
+                      {/* <button
                         className="font-semibold text-xs justify-center items-center bg-white text-[#00969A] rounded-lg"
                       >
                         End Subscription
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 ) : (

@@ -807,7 +807,7 @@ const WebSocketComponent = () => {
                                         ? "none"
                                         : "auto",
                                   }}
-                                  className="m-0 border-2 border-white text-white rounded-lg py-1 px-3 cursor-pointer max-w-[7.5rem] flex justify-center items-center"
+                                  className="m-0 border-2 border-white text-white rounded-lg py-1 px-3 cursor-pointer max-w-[7.5rem] flex justify-center items-center hover:bg-white hover:bg-opacity-25"
                                 >
                                   {casesLoading ? (
                                     <CircularProgress
@@ -820,7 +820,7 @@ const WebSocketComponent = () => {
                                 </p>
                                 <p
                                   onClick={handleShowRelevantAct}
-                                  className="m-0 border-2 border-white text-white max-w-[7rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center"
+                                  className="m-0 border-2 border-white text-white max-w-[7rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center hover:bg-white hover:bg-opacity-25"
                                 >
                                   {relevantCaseLoading ? (
                                     <CircularProgress
@@ -833,7 +833,7 @@ const WebSocketComponent = () => {
                                 </p>
                                 <p
                                   onClick={handleShowSupremeCourtJudgements}
-                                  className="m-0 border-2 border-white text-white max-w-[9rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center"
+                                  className="m-0 border-2 border-white text-white max-w-[9rem] rounded-lg py-1 px-3 cursor-pointer flex justify-center items-center hover:bg-white hover:bg-opacity-25"
                                 >
                                   {supremeCourtLoading ? (
                                     <CircularProgress
@@ -858,7 +858,7 @@ const WebSocketComponent = () => {
                                 </div>
                               ) : (
                                 <div
-                                  className="flex items-center gap-1 cursor-pointer"
+                                  className="flex items-center gap-1 cursor-pointer "
                                   onClick={() =>
                                     handleRegenerateResponse(index)
                                   }
@@ -867,7 +867,9 @@ const WebSocketComponent = () => {
                                     className="w-4 h-4"
                                     src={regenerateIcon}
                                   />
-                                  <p className="m-0">Regenerate</p>
+                                  <p className="m-0 hover:text-white">
+                                    Regenerate
+                                  </p>
                                 </div>
                               )}
                             </div>
@@ -892,7 +894,7 @@ const WebSocketComponent = () => {
                                       src={translateIcon}
                                     />
                                     <p
-                                      className="m-0 max-w-fit"
+                                      className="m-0 max-w-fit hover:text-white"
                                       onClick={(e) =>
                                         handleTranslateClick(e, index)
                                       }
@@ -911,7 +913,7 @@ const WebSocketComponent = () => {
                                       horizontal: "left",
                                     }}
                                   >
-                                    {languageArr.map((x, i) => (
+                                    {languageArr.sort().map((x, i) => (
                                       <p
                                         onClick={(e) => {
                                           e.stopPropagation();
