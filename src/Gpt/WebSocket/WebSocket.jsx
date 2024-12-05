@@ -195,7 +195,7 @@ const WebSocketComponent = () => {
 
   useEffect(() => {
     if (divRef.current) {
-      divRef.current.scrollTop = divRef.current.scrollHeight * 0.75;
+      divRef.current.scrollTop = divRef.current.scrollHeight;
     }
   }, [
     promptsArr,
@@ -462,6 +462,7 @@ const WebSocketComponent = () => {
     setEditIndex(index);
     const reqQuery = promptsArr[index];
     const reqQueryIndex = promptsArr[index - 1];
+    console.log(reqQueryIndex);
 
     try {
       setTextLoading(true);
@@ -473,7 +474,7 @@ const WebSocketComponent = () => {
         },
         body: JSON.stringify({
           prompt: reqQueryIndex.text,
-          sessionId: reqQueryIndex.sessionId,
+          sessionId: params.sessionId,
         }),
       });
       if (!res.ok) {
@@ -482,10 +483,21 @@ const WebSocketComponent = () => {
 
       const data = await res.json();
       console.log(data);
-      const newObj = { ...reqQuery, text: data.data.gptResponse.message };
-      promptsArr[index] = newObj;
-      setPromptsArr(promptsArr);
-      // setPromptText(data.data.gptResponse.message);
+      const newObj = {
+        ...reqQuery,
+        text: data.data.gptResponse.message
+          .replaceAll("\\\\n\\\\n", "<br/>")
+          .replaceAll("\\\\n", "<br/>")
+          .replaceAll("\\n\\n", "<br/>")
+          .replaceAll("\\n", "<br/>")
+          .replaceAll("\n", "<br/>")
+          .replaceAll(/\*([^*]+)\*/g, "<strong>$1</strong>")
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll(":", " :")
+          .replaceAll("#", ""),
+      };
+      dispatch(setDataUsingIndex({ index: index, text: newObj }));
       setTextLoading(false);
     } catch (error) {
       console.log(error);
