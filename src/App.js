@@ -193,7 +193,8 @@ function App() {
 
   useEffect(() => {
     const newSocket = new WebSocket(
-      "wss://20.198.24.104:8000/api/v1/gpt/generate"
+      // "wss://20.198.24.104:8000/api/v1/gpt/generate"
+      "wss://api.clawlaw.in:8000/api/v1/gpt/generate"
     );
 
     newSocket.onopen = () => {

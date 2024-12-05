@@ -207,7 +207,8 @@ const WebSocketComponent = () => {
 
   useEffect(() => {
     const newSocket = new WebSocket(
-      "wss://20.198.24.104:8000/api/v1/gpt/generate"
+      // "wss://20.198.24.104:8000/api/v1/gpt/generate"
+      "wss://api.clawlaw.in:8000/api/v1/gpt/generate"
     );
 
     newSocket.onopen = () => {
@@ -238,7 +239,7 @@ const WebSocketComponent = () => {
     };
 
     newSocket.onclose = (event) => {
-      console.log(event)
+      console.log(event);
       console.log("Closed code:", event.code);
       console.log("Close reason:", event.reason);
       console.log("WebSocket connection closed");
