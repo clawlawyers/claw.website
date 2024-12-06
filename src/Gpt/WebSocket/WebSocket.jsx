@@ -41,7 +41,7 @@ import fetchWrapper from "../../utils/fetchWrapper";
 import { useAuthState } from "../../hooks/useAuthState";
 
 const languageArr = [
-  // "English",
+  "English",
   "Hindi",
   "Bengali",
   "Punjabi",
