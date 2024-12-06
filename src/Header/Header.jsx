@@ -292,7 +292,7 @@ function Header() {
                       </p>
                     )}
                   </div>
-                  <div>
+                  {/*  <div> 
                     <p className="m-0 py-2 border-b border-white cursor-pointer">
                       <Link
                         className=" text-white "
@@ -302,7 +302,7 @@ function Header() {
                         LegalGPT
                       </Link>
                     </p>
-                  </div>
+                  </div>*/}
                   <div>
                     <p className="m-0 py-2 border-b border-white cursor-pointer">
                       <Link
