@@ -16,52 +16,25 @@ const prompArr = [
 
 const HomepageSuggestionCards = ({ onPromptSelect }) => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-      {cardDisplayArr.map((x, index) => (
-        <motion.div
-          key={index}
-          whileTap={{ scale: "0.95" }}
-          className="cursor-pointer flex flex-col justify-between items-center p-2 rounded tracking-wide text-xs bg-gray-800 hover:bg-gray-700 border text-center"
-        >
-          <div
-            onClick={() => onPromptSelect(prompArr[index])}
-            className="flex flex-col gap-2 items-center justify-center p-3"
+    <div className="flex flex-col gap-2 items-center justify-center">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {cardDisplayArr.map((x, index) => (
+          <motion.div
+            key={index}
+            whileTap={{ scale: "0.95" }}
+            className="cursor-pointer flex flex-col justify-between items-center p-2 rounded tracking-wide text-xs bg-[#2D2D2D] hover:bg-[#4b4b4b] border text-center"
           >
-            <img className="h-8 w-8" src={mindIcon} />
-            <p className="flex-1 m-0">{x}</p>
-          </div>
-        </motion.div>
-      ))}
-      {/* <motion.div
-        whileTap={{ scale: "0.95" }}
-        className="cursor-pointer flex flex-col justify-between items-center p-2 rounded tracking-wide text-xs bg-[#303030] text-center"
-      >
-        <div
-          onClick={() => onPromptSelect(prompArr[2])}
-          className="flex flex-col gap-2 items-center justify-center p-3"
-        >
-          <img className="h-8 w-8" src={mindIcon} />
-          <p className="flex-1 m-0">
-            Learn the process of calculating tax amounts, including applicable
-            rates and deductions.
-          </p>
-        </div>
-      </motion.div>
-      <motion.div
-        whileTap={{ scale: "0.95" }}
-        className="cursor-pointer flex flex-col justify-between items-center p-2 rounded tracking-wide text-xs bg-[#303030] text-center"
-      >
-        <div
-          onClick={() => onPromptSelect(prompArr[4])}
-          className="flex flex-col gap-2 items-center justify-center p-3"
-        >
-          <img className="h-8 w-8" src={mindIcon} />
-          <p className="flex-1 m-0">
-            Engage in a discussion regarding legal issues and relevant laws
-            associated with the incident.
-          </p>
-        </div>
-      </motion.div> */}
+            <div
+              onClick={() => onPromptSelect(prompArr[index])}
+              className="flex flex-col gap-2 items-center justify-center p-3"
+            >
+              <img className="h-8 w-8" src={mindIcon} />
+              <p className="flex-1 m-0">{x}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      <p>Type your query below or select an above suggestion to start...</p>
     </div>
   );
 };

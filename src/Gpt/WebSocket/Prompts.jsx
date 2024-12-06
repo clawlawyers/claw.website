@@ -23,24 +23,16 @@ import regenerateIcon from "../../assets/images/regenerate.png";
 import HomepageSuggestionCards from "./HomepageSuggestionCards";
 
 const languageArr = [
-  // "English",
   "Hindi",
   "Bengali",
-  "Punjabi",
   "Gujarati",
   "Marathi",
-  "Tamil",
-  "Telugu",
+  "Punjabi",
+  "English",
   "Kannada",
-  "Malayalam",
-  "Odia",
-  "Urdu",
-  "Assamese",
-  "Maithili",
-  "Dogri",
-  "Nepali",
-  "Sindhi",
-  "Sanskrit",
+  "Telugu",
+  "Tamil",
+  "Malyalam",
 ];
 
 const Prompts = () => {
@@ -257,47 +249,50 @@ const Prompts = () => {
   }
 
   return (
-    <div className="h-screen m-auto md:w-[80%] flex flex-col gap-5 justify-center items-center p-3">
-      <div className="w-full flex-1 flex flex-col gap-10 justify-center items-center">
-        <div
-          style={{
-            backgroundColor: "transparent",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            paddingBottom: "40px",
-          }}
-        >
+    <div className="h-screen m-auto flex flex-col gap-5 justify-center items-center p-3 bg-[#0F0F0FCC]">
+      <div className="md:w-[80%]">
+        <div className="w-full flex-1 flex flex-col gap-10 justify-center items-center">
           <div
             style={{
               backgroundColor: "transparent",
-              fontSize: "48px",
-              fontWeight: 700,
-              color: "#E5E5E5",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+              paddingBottom: "40px",
             }}
           >
-            Welcome to{" "}
-            <span
+            <div
               style={{
-                padding: 3,
-                borderLeft: `4px solid #008080`,
-                background: `linear-gradient(to right, rgba(0,128,128,0.75), rgba(0,128,128,0))`,
+                backgroundColor: "transparent",
+                fontSize: "48px",
+                fontWeight: 700,
+                color: "#E5E5E5",
               }}
             >
-              LegalGPT
-            </span>
+              Welcome to{" "}
+              <span
+                style={{
+                  padding: 3,
+                  borderLeft: `4px solid #008080`,
+                  background: `linear-gradient(to right, rgba(0,128,128,0.75), rgba(0,128,128,0))`,
+                }}
+              >
+                LegalGPT
+              </span>
+            </div>
+            <div
+              style={{
+                textAlign: "center",
+                paddingTop: 10,
+                fontSize: 16,
+                background: "inherit",
+              }}
+            >
+              The power of AI for your Legal service
+            </div>
           </div>
-          <div
-            style={{
-              textAlign: "center",
-              paddingTop: 10,
-              fontSize: 16,
-              background: "inherit",
-            }}
-          >
-            The power of AI for your Legal service
-          </div>
+          <HomepageSuggestionCards onPromptSelect={onPromptSelect} />
         </div>
         <form
           onSubmit={(e) => {
@@ -364,7 +359,7 @@ const Prompts = () => {
                     value={selectedLanguage}
                     onChange={handleChange}
                   >
-                    {languageArr.map((option) => (
+                    {languageArr.sort().map((option) => (
                       <MenuItem key={option} value={option}>
                         {option}
                       </MenuItem>
@@ -433,7 +428,6 @@ const Prompts = () => {
           </button>
         </form>
       </div>
-      <HomepageSuggestionCards onPromptSelect={onPromptSelect} />
     </div>
   );
 };

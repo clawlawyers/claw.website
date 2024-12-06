@@ -34,6 +34,10 @@ const videoArr = [
     panel: "panel7",
     src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1733138684/LegalGPT/jqk36t4mvzqirekazopd.mp4`,
   },
+  {
+    panel: "panel8",
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1733287388/LegalGPT/praxwhjlyic9onznlstk.mp4`,
+  },
 ];
 
 const AdiraAiBanner = () => {
@@ -363,6 +367,46 @@ const AdiraAiBanner = () => {
                 <Typography sx={{ color: "white" }}>
                   At any point if you find that the document generated is
                   perfect, generate the summary and download it.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              sx={{
+                background: "transparent",
+              }}
+              expanded={expanded === "panel8"}
+              onChange={handleChange("panel8")}
+            >
+              <AccordionSummary
+                sx={{
+                  border: "1px solid rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                  background:
+                    expanded === "panel8"
+                      ? "linear-gradient(90deg,#00767A,#003739)"
+                      : "transparent",
+                }}
+                aria-controls="panel8bh-content"
+                id="panel8bh-header"
+              >
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1.4rem",
+                    fontWeight: "500",
+                  }}
+                >
+                  Chatbot
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: "rgb(23, 30, 38)",
+                  borderRadius: "10px",
+                }}
+              >
+                <Typography sx={{ color: "white" }}>
+                  Talk to an expert to get any queries
                 </Typography>
               </AccordionDetails>
             </Accordion>

@@ -61,6 +61,19 @@ const languageArr = [
   "Sanskrit",
 ];
 
+const multilingualSupportLanguages = [
+  "Hindi",
+  "Bengali",
+  "Gujarati",
+  "Marathi",
+  "Punjabi",
+  "English",
+  "Kannada",
+  "Telugu",
+  "Tamil",
+  "Malyalam",
+];
+
 const highCourtArr = [
   "Supreme Court of India",
   "Chattisgarh High Court",
@@ -712,7 +725,7 @@ const WebSocketComponent = () => {
 
   return (
     <>
-      <div className="h-screen w-auto flex flex-col p-3">
+      <div className="h-screen w-auto flex flex-col p-3 bg-[#0F0F0FCC]">
         <div className="ml-5 flex gap-2 items-start justify-start">
           <p className="text-3xl font-semibold m-0 max-w-fit text-[#018081]">
             LegalGPT
@@ -754,7 +767,7 @@ const WebSocketComponent = () => {
                     <div
                       className="w-full flex flex-col p-2 rounded-lg border-2"
                       style={{
-                        background: x.isUser ? "transparent" : "#495057",
+                        background: x.isUser ? "transparent" : "#303030",
                         borderColor: x.isUser ? "transparent" : "#018081",
                       }}
                     >
@@ -1228,7 +1241,7 @@ const WebSocketComponent = () => {
                     value={selectedLanguage}
                     onChange={handleChange}
                   >
-                    {languageArr.map((option) => (
+                    {multilingualSupportLanguages.sort().map((option) => (
                       <MenuItem key={option} value={option}>
                         {option}
                       </MenuItem>
