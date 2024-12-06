@@ -5,7 +5,7 @@ export const FLASK_API_ENDPOINT =
 
 export const NODE_API_ENDPOINT =
   process.env.NODE_ENV === "production"
-    ? "https://claw-app-dev.onrender.com/api/v1"
+    ? "https://claw-backend.onrender.com/api/v1"
     : "http://localhost:8000/api/v1";
 
 export const ADIRA_ENDPOINT =
