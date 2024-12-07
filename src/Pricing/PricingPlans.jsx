@@ -203,19 +203,17 @@ const PricingPlans = () => {
                 ? "bg-teal-500 text-white"
                 : "bg-gray-700 text-gray-300"
             }`}
-            onClick={() => setActiveTab(tab)}
-          >
+            onClick={() => setActiveTab(tab)}>
             {tab}
           </button>
         ))}
       </div>
 
-      <div className="flex flex-wrap justify-center h-[550px] gap-6">
+      <div className="flex flex-wrap justify-center gap-6 px-4 py-6">
         {plansArr[activeTab].map((plan, index) => (
           <div
             key={index}
-            className="bg-[#00808033] rounded-lg shadow-lg p-6 w-80 relative flex flex-col justify-between border-4 border-white"
-          >
+            className="bg-[#00808033] rounded-lg shadow-lg p-6 w-80 relative flex flex-col justify-between border-4 border-white">
             <div>
               <h2 className="text-2xl font-bold text-center mb-2">
                 {plan.type.toUpperCase()}
@@ -232,7 +230,7 @@ const PricingPlans = () => {
               </div>
             </div>
             <div className="text-center">
-              <div className="flex gap-3">
+              <div className="flex gap-3 justify-center">
                 <p className="text-2xl font-bold text-white mb-4">
                   ₹ {plan.price} /-
                 </p>
@@ -242,8 +240,7 @@ const PricingPlans = () => {
               </div>
               <button
                 className="w-full bg-[#055151] text-white font-bold py-2 rounded hover:bg-teal-600 transition mb-4"
-                onClick={() => handleGetNowClick(plan)}
-              >
+                onClick={() => handleGetNowClick(plan)}>
                 Get It Now
               </button>
             </div>
