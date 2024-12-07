@@ -85,7 +85,7 @@ const SocketSidebar = () => {
                           : " No Plan"}
                       </span>
                     </div>
-                    <div className="pt-2 flex flex-col justify-stretch gap-2">
+                    {/* <div className="pt-2 flex flex-col justify-stretch gap-2">
                       <button
                         className="font-semibold text-xs justify-center items-center bg-white text-[#00969A] rounded-lg"
 
@@ -93,12 +93,12 @@ const SocketSidebar = () => {
                       >
                         Upgrade
                       </button>
-                      {/* <button
+                      <button
                         className="font-semibold text-xs justify-center items-center bg-white text-[#00969A] rounded-lg"
                       >
                         End Subscription
-                      </button> */}
-                    </div>
+                      </button>
+                    </div> */}
                   </div>
                 ) : (
                   <CircularProgress style={{ padding: 10, color: "white" }} />

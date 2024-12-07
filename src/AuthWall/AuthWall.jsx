@@ -58,10 +58,11 @@ export default function AuthWall() {
     return (
       <>
         <Modal
+          sx={{ background: "#f2f2f2" }}
           open={isOpen}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          // onClose={handleClose}
+          // aria-labelledby="modal-modal-title"
+          // aria-describedby="modal-modal-description"
         >
           <Box
             sx={{
@@ -70,13 +71,14 @@ export default function AuthWall() {
               left: "50%",
               transform: "translate(-50%, -50%)",
               width: 400,
-              bgcolor: "background.paper",
-              border: "2px solid #000",
+              bgcolor: "white",
+              border: "2px solid rgb(0, 128, 128)",
+              borderRadius: "10px",
               boxShadow: 24,
               p: 4,
             }}
           >
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Typography id="modal-modal-title" variant="h4" component="h2">
               Login Required
             </Typography>
             <Typography
@@ -94,7 +96,7 @@ export default function AuthWall() {
               style={{
                 border: "none",
                 backgroundColor: "rgb(0, 128, 128)",
-                borderRadius: 15,
+                borderRadius: 10,
                 padding: 10,
               }}
             >

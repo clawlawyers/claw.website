@@ -19,12 +19,14 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import {
   generateResponse,
+  retrieveActivePlanUser,
   setGpt,
   setPlan,
   setToken,
 } from "../features/gpt/gptSlice";
 import toast from "react-hot-toast";
 import { AutoFixHighOutlined } from "@mui/icons-material";
+import { retrieveActiveAdiraPlan } from "../features/payment/paymentSlice";
 
 const Login1 = () => {
   const navigate = useNavigate();
@@ -510,6 +512,8 @@ const Login1 = () => {
           stateLocation: area ? area : data.stateLocation,
         })
       );
+      dispatch(retrieveActivePlanUser());
+      dispatch(retrieveActiveAdiraPlan());
     } catch (error) {}
   };
 
