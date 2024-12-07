@@ -12,7 +12,7 @@ export const ADIRA_ENDPOINT =
   process.env.NODE_ENV === "production"
     ? // ? "https://claw-app-dev.onrender.com/api/v1"
       "https://adira.clawlaw.in"
-    : "http://localhost:5000";
+    : "https://adira.clawlaw.in";
 
 export const OTP_ENDPOINT =
   process.env.NODE_ENV === "production"
@@ -23,7 +23,7 @@ export const OTP_ENDPOINT =
 export const WARROOM_ENDPOINT =
   process.env.NODE_ENV === "production"
     ? // ? "https://claw-app-dev.onrender.com/api/v1"
-      "https://courtroom-freetrial-dev.netlify.app/"
-    : "http://localhost:3001/";
+      "https://warroom.clawlaw.in/"
+    : "https://warroom.clawlaw.in/";
 
 // export const OTP_ENDPOINT = "https://claw-app.onrender.com"
