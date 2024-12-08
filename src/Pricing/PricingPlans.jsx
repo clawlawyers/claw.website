@@ -184,11 +184,21 @@ const PricingPlans = () => {
 
   return (
     <div className="min-h-screen text-white flex flex-col items-center py-8 px-4">
-      <h1 className="text-5xl font-bold mb-4">
+      {/* <h1 className="text-5xl font-bold mb-4">
         Find the Perfect Pricing Option for{" "}
         <span className="text-teal-400">Adira AI</span>
       </h1>
       <p className="text-center max-w-2xl mb-6">
+        Explore our flexible pricing options designed to cater to a range of
+        legal requirements. Select the plan that best fits your needs and
+        budget.
+      </p> */}
+
+      <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+        Find the Perfect Pricing Option for{" "}
+        <span className="text-teal-400">Adira AI</span>
+      </h1>
+      <p className="text-center max-w-3xl sm:max-w-2xl mb-6 px-4 sm:px-6">
         Explore our flexible pricing options designed to cater to a range of
         legal requirements. Select the plan that best fits your needs and
         budget.
@@ -203,7 +213,8 @@ const PricingPlans = () => {
                 ? "bg-teal-500 text-white"
                 : "bg-gray-700 text-gray-300"
             }`}
-            onClick={() => setActiveTab(tab)}>
+            onClick={() => setActiveTab(tab)}
+          >
             {tab}
           </button>
         ))}
@@ -213,7 +224,8 @@ const PricingPlans = () => {
         {plansArr[activeTab].map((plan, index) => (
           <div
             key={index}
-            className="bg-[#00808033] rounded-lg shadow-lg p-6 w-80 relative flex flex-col justify-between border-4 border-white">
+            className="bg-[#00808033] rounded-lg shadow-lg p-6 w-80 relative flex flex-col justify-between border-4 border-white"
+          >
             <div>
               <h2 className="text-2xl font-bold text-center mb-2">
                 {plan.type.toUpperCase()}
@@ -240,7 +252,8 @@ const PricingPlans = () => {
               </div>
               <button
                 className="w-full bg-[#055151] text-white font-bold py-2 rounded hover:bg-teal-600 transition mb-4"
-                onClick={() => handleGetNowClick(plan)}>
+                onClick={() => handleGetNowClick(plan)}
+              >
                 Get It Now
               </button>
             </div>
