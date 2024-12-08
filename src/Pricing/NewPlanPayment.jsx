@@ -54,7 +54,7 @@ const NewPlanPayment = () => {
         const { _id } = result.data.createdOrder;
 
         const options = {
-          key: "rzp_test_UWcqHHktRV6hxM",
+          key: "rzp_live_vlDmt5SV4QPDhN",
           //   amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
