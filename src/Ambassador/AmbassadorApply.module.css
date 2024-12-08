@@ -1,4 +1,4 @@
-.heading {
+/* .heading {
   font-size: 50px;
 }
 
@@ -12,5 +12,29 @@
   }
   .img {
     display: none;
+  }
+} */
+
+/* Default styles for larger screens */
+.heading {
+  font-size: 50px;
+  /* text-align: center; */
+}
+
+.img {
+  width: 430px;
+}
+
+/* Responsive styles for screens with a max width of 768px */
+@media only screen and (max-width: 768px) {
+  .heading {
+    font-size: 25px; /* Reduce heading size on smaller screens */
+  }
+
+  .img {
+    width: 100%; /* Make image responsive by setting width to 100% */
+    max-width: 430px; /* Ensure image doesn't stretch beyond the original width */
+    display: block; /* Ensure image is visible and takes full width */
+    margin: 0 auto; /* Center the image horizontally */
   }
 }

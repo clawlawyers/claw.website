@@ -39,7 +39,8 @@ const navLinks = [
   { path: "/leaders", label: "Leaders", icon: LeaderboardIcon },
   // { path: "/case/search", label: "Case Search", icon: SearchIcon },
   { path: "/news", label: "News", icon: FeedIcon },
-  { path: "/gpt/legalGPT", label: "LegalGPT", icon: GavelIcon },
+  // { path: "/gpt/legalGPT", label: "LegalGPT", icon: GavelIcon },
+  { path: "/gpt/socket", label: "LegalGPT", icon: GavelIcon },
 ];
 
 function Header() {
@@ -310,7 +311,7 @@ function Header() {
                         style={{ textDecoration: "none" }}
                         to="/gpt/socket"
                       >
-                        Socket
+                        LegalGPT
                       </Link>
                     </p>
                   </div>
@@ -381,7 +382,11 @@ function Header() {
         <button
           className={Styles.mobileNav}
           onClick={() => setNavOpen(true)}
-          style={{ border: "none", backgroundColor: "inherit", color: "white" }}
+          style={{
+            border: "none",
+            backgroundColor: "transparent",
+            color: "white",
+          }}
         >
           <TableRowsIcon />
         </button>

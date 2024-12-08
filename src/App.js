@@ -196,8 +196,8 @@ function App() {
     store.dispatch(retrieveActivePlanUser());
     store.dispatch(retrieveAuth());
     store.dispatch(retrieveActiveAdiraPlan());
-    // store.dispatch(retrieveCourtroomAuth());
   }, []);
+
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
@@ -211,6 +211,7 @@ function App() {
       setInit(true);
     });
   }, []);
+
   const options = useMemo(
     () => ({
       fpsLimit: 120,

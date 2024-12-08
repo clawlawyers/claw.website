@@ -184,11 +184,21 @@ const PricingPlans = () => {
 
   return (
     <div className="min-h-screen text-white flex flex-col items-center py-8 px-4">
-      <h1 className="text-5xl font-bold mb-4">
+      {/* <h1 className="text-5xl font-bold mb-4">
         Find the Perfect Pricing Option for{" "}
         <span className="text-teal-400">Adira AI</span>
       </h1>
       <p className="text-center max-w-2xl mb-6">
+        Explore our flexible pricing options designed to cater to a range of
+        legal requirements. Select the plan that best fits your needs and
+        budget.
+      </p> */}
+
+      <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+        Find the Perfect Pricing Option for{" "}
+        <span className="text-teal-400">Adira AI</span>
+      </h1>
+      <p className="text-center max-w-3xl sm:max-w-2xl mb-6 px-4 sm:px-6">
         Explore our flexible pricing options designed to cater to a range of
         legal requirements. Select the plan that best fits your needs and
         budget.
@@ -210,7 +220,7 @@ const PricingPlans = () => {
         ))}
       </div>
 
-      <div className="flex flex-wrap justify-center h-[550px] gap-6">
+      <div className="flex flex-wrap justify-center gap-6 px-4 py-6">
         {plansArr[activeTab].map((plan, index) => (
           <div
             key={index}
@@ -232,7 +242,7 @@ const PricingPlans = () => {
               </div>
             </div>
             <div className="text-center">
-              <div className="flex gap-3">
+              <div className="flex gap-3 justify-center">
                 <p className="text-2xl font-bold text-white mb-4">
                   ₹ {plan.price} /-
                 </p>

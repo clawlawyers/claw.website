@@ -19,12 +19,14 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import {
   generateResponse,
+  retrieveActivePlanUser,
   setGpt,
   setPlan,
   setToken,
 } from "../features/gpt/gptSlice";
 import toast from "react-hot-toast";
 import { AutoFixHighOutlined } from "@mui/icons-material";
+import { retrieveActiveAdiraPlan } from "../features/payment/paymentSlice";
 
 const Login1 = () => {
   const navigate = useNavigate();
@@ -510,6 +512,8 @@ const Login1 = () => {
           stateLocation: area ? area : data.stateLocation,
         })
       );
+      dispatch(retrieveActivePlanUser());
+      dispatch(retrieveActiveAdiraPlan());
     } catch (error) {}
   };
 
@@ -532,63 +536,40 @@ const Login1 = () => {
 
   const handleRetryClick = async (e) => {
     e.preventDefault();
-    setIsDisabled(true);
-    const response = await fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phone: phoneNumber,
-      }),
-    });
-    if (response.status == 200) {
-      const data = await response.json();
+
+    try {
+      setIsDisabled(true);
+      const handleOTPsend = await fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: phoneNumber,
+          siteName: "www.clawlaw.in",
+        }),
+      });
+      if (!handleOTPsend.ok) {
+        console.error("Failed to send OTP");
+        toast.error("Error during OTP request");
+        setOtpLoading(false);
+        throw new Error("Failed to send OTP");
+      }
+      const data = await handleOTPsend.json();
       console.log(data.authtoken);
       if (data.authtoken) {
         setOtpToken(data.authtoken);
       }
-      // setVerificationId(confirmationResult?.verificationId);
+
       toast.success("OTP sent successfully !");
       setHasFilled(true);
       setOtpLoading(false);
       setIsDisabled(true);
-    } else {
+    } catch (error) {
+      console.log(error);
       toast.error("Error during OTP request");
-      //     setOtpLoading(false);
+      setOtpLoading(false);
     }
-
-    if (!window.recaptchaVerifier) {
-      console.log("recaptchaVerifier");
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
-        size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          console.log(response);
-        },
-        auth,
-      });
-    }
-
-    signInWithPhoneNumber(
-      auth,
-      countryCode + phoneNumber,
-      window.recaptchaVerifier
-    )
-      .then((confirmationResult) => {
-        setVerificationId(confirmationResult.verificationId);
-        toast.success("OTP sent successfully !");
-        setHasFilled(true);
-        setOtpLoading(false);
-        setIsDisabled(true);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Error during OTP request");
-        setOtpLoading(false);
-      });
-
-    //  API call here
   };
 
   return (
