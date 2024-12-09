@@ -31,6 +31,7 @@ export const paymentSlice = createSlice({
   initialState: {
     plan: null,
     activePlan: null,
+    status: "idle",
   },
 
   reducers: {
@@ -45,10 +46,17 @@ export const paymentSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(retrieveActiveAdiraPlan.pending, (state) => {
+      state.status = "loading";
+    });
     builder.addCase(retrieveActiveAdiraPlan.fulfilled, (state, action) => {
       if (action.payload && action.payload.activePlan) {
         state.activePlan = action.payload.activePlan;
       }
+      state.status = "succeeded";
+    });
+    builder.addCase(retrieveActiveAdiraPlan.rejected, (state) => {
+      state.status = "failed";
     });
   },
 });
