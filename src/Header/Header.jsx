@@ -240,14 +240,14 @@ function Header() {
                         {activeAdiraPlan && activeAdiraPlan.isActive ? (
                           <p
                             onClick={openAdiraAi}
-                            className="m-0 text-white border-b border-white py-2 cursor-pointer"
+                            className="m-0 text-white border-b border-white  py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
                           >
                             Adira
                           </p>
                         ) : (
                           <Link
                             to={"/pricing"}
-                            className="m-0 text-white border-b border-white py-2 cursor-pointer flex"
+                            className="m-0 text-white border-b border-white py-2 cursor-pointer flex hover:bg-white hover:bg-opacity-5 "
                             style={{ textDecoration: "none" }}
                           >
                             Adira
@@ -255,7 +255,7 @@ function Header() {
                         )}
                       </>
                     ) : (
-                      <p className="m-0 text-white border-b border-white py-2 cursor-pointer">
+                      <p className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                         <CircularProgress size={15} color="inherit" />
                       </p>
                     )}
@@ -263,14 +263,14 @@ function Header() {
                   <div>
                     {true ? (
                       <p
-                        className="m-0 text-white border-b border-white py-2 cursor-pointer"
+                        className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
                         onClick={openWarrrom}
                       >
                         War Room
                       </p>
                     ) : (
                       <p
-                        className="m-0 text-white border-b border-white py-2 cursor-pointer"
+                        className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
                         onClick={handlePopupOpen}
                       >
                         War Room
@@ -282,11 +282,11 @@ function Header() {
                       <>
                         {activePlan[0]?.plan?.AICaseSearchAccess ? ( */}
                     <p
-                      className="m-0 w-full py-2 border-b border-white cursor-pointer"
+                      className="m-0 w-full py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
                       onClick={() => setAnchorElProduct(null)}
                     >
                       <Link
-                        className=" text-white "
+                        className=" text-white hover:bg-white hover:bg-opacity-5 "
                         style={{ textDecoration: "none" }}
                         to="/case/search"
                       >
@@ -320,7 +320,7 @@ function Header() {
                     </p>
                   </div>*/}
                   <div>
-                    <p className="m-0 py-2 border-b border-white cursor-pointer">
+                    <p className="m-0 py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                       <Link
                         className=" text-white "
                         style={{ textDecoration: "none" }}
@@ -378,13 +378,13 @@ function Header() {
                       style={{ textDecoration: "none" }}
                       to={"/purchases"}
                     >
-                      <p className="text-white border-b border-white p-1 cursor-pointer">
+                      <p className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                         All Purchases
                       </p>
                     </Link>
                     <p
                       onClick={handleLogout}
-                      className="text-white border-b border-white p-1 cursor-pointer"
+                      className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 "
                     >
                       Logout
                     </p>

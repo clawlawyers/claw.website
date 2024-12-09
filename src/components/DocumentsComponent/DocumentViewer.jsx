@@ -74,7 +74,7 @@ const DocumentViewer = () => {
       )}
 
       {selectedDocument && !loading && (
-        <div className="relative bg-black opacity-80 text-white p-6 rounded-lg w-[80%] mx-auto shadow-lg">
+        <div className="relative bg-black opacity-80 text-white p-6 rounded-lg md:w-[80%] mx-auto shadow-lg">
           <Close
             onClick={() => setSelectedDocument(null)}
             className="absolute top-2 right-2 text-gray-400 hover:text-white cursor-pointer"
@@ -83,7 +83,7 @@ const DocumentViewer = () => {
             <h2 className="text-xl font-bold mb-4">{selectedDocument.name}</h2>
             <div className="relative" style={{ height: "400px" }}>
               <div className="absolute flex justify-center bottom-0 inset-0 bg-gradient-to-t from-black via-black/80 to-black/10 rounded text-white p-4">
-                <div className="absolute  bottom-0 flex items-center gap-32">
+                <div className="absolute  bottom-0 flex flex-col md:flex-row items-center gap-2 md:gap-32">
                   <p className="text-2xl font-bold m-0">
                     Want to Unlock Full Document?
                   </p>
@@ -95,7 +95,7 @@ const DocumentViewer = () => {
               <img
                 src={selectedDocument.image}
                 alt={selectedDocument.name}
-                className="w-full h-full object-cover rounded"
+                className="w-full h-full rounded"
               />
             </div>
           </div>
