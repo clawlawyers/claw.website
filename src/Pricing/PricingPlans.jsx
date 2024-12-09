@@ -313,7 +313,7 @@ const PricingPlans = () => {
               <h3 className="text-xl  flex justify-start font-semibold mb-1 mx-2">
                 TALK TO A LAWYER
               </h3>
-              <p className="text-gray-300  max-w-md">
+              <p className="text-gray-300 mx-2 max-w-md text-left">
                 Connect with experienced lawyers at your convenience. Book a
                 time slot and get personalized legal advice tailored to your
                 needs.
@@ -323,8 +323,7 @@ const PricingPlans = () => {
               <p className="text-2xl font-bold text-teal-400">₹ 699/-</p>
               <button
                 className="mt-2 px-4 py-1 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition border border-white"
-                onClick={() => setModalOpen(true)} // Show modal on click
-              >
+                onClick={() => setModalOpen(true)}>
                 Get It Now
               </button>
             </div>
@@ -335,10 +334,10 @@ const PricingPlans = () => {
       {/* Modal for Lawyer Consultation */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-[#333333] border-white border-2 text-white my-12 mx-10 rounded-lg shadow-lg p-6 w-full max-w-5xl relative flex">
+          <div className="bg-[#333333] border-white border-2 text-white  mx-12  rounded-lg shadow-lg p-6 w-full max-w-5xl relative flex">
             {/* Close Button */}
             <button
-              className="absolute w-4 h-4 top-1 right-1 rounded-full text-gray-400 hover:text-gray-200 text-sm p-1"
+              className="absolute w-7 h-7  top-2 right-1 rounded-full text-gray-400 hover:text-gray-200 text-sm p-1"
               onClick={() => setModalOpen(false)}>
               ✕
             </button>
@@ -356,7 +355,7 @@ const PricingPlans = () => {
             </div>
 
             {/* Right Section (Form) */}
-            <div className="w-1/2">
+            <div className="w-1/2 mr-2">
               <form className="flex flex-col space-y-4">
                 <input
                   type="text"

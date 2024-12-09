@@ -10,6 +10,10 @@ export const useAuthState = () => {
   };
 };
 
-// export const useGptAuthState = () => {
-
-// }
+export const useAdiraAuthState = () => {
+  const authStatus = useSelector((state) => state.payments.status);
+  return {
+    isAdiraLoading:
+      authStatus === "loading" || authStatus === "idle" ? true : false,
+  };
+};
