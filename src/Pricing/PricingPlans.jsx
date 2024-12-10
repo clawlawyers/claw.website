@@ -54,14 +54,14 @@ const plansArr = {
     },
   ],
   Weekly: [
-    {
-      type: "Free",
-      features: [
-        "Access to LegalGPT(15 Mins/Day)",
-        "Access to WarRoom(30 Mins/Day)",
-        "Full Access to Case Search",
-      ],
-    },
+    // {
+    //   type: "Free",
+    //   features: [
+    //     "Access to LegalGPT(15 Mins/Day)",
+    //     "Access to WarRoom(30 Mins/Day)",
+    //     "Full Access to Case Search",
+    //   ],
+    // },
     {
       type: "Basic",
       price: "1999",
@@ -100,14 +100,14 @@ const plansArr = {
     },
   ],
   Monthly: [
-    {
-      type: "Free",
-      features: [
-        "Access to LegalGPT(15 Mins/Day)",
-        "Access to WarRoom(30 Mins/Day)",
-        "Full Access to Case Search",
-      ],
-    },
+    // {
+    //   type: "Free",
+    //   features: [
+    //     "Access to LegalGPT(15 Mins/Day)",
+    //     "Access to WarRoom(30 Mins/Day)",
+    //     "Full Access to Case Search",
+    //   ],
+    // },
     {
       type: "Basic",
       price: "4999",
@@ -159,26 +159,56 @@ const PricingPlans = () => {
   const dispatch = useDispatch();
 
   const handleGetNowClick = (newSelectedPlan) => {
-    if (activePlan && activePlan.isActive) {
-      const durationDays =
-        activePlan.plan.duration === "Daily"
-          ? 1
-          : activePlan.plan.duration === "Weekly"
-          ? 7
-          : 30;
-      if (newSelectedPlan.price > activePlan.plan.price) {
-        const checkCurrentPlanUsage = parseInt(
-          (new Date() - new Date(activePlan.createdAt)) / (24 * 60 * 60 * 1000)
-        );
-        const totalPriceForUsedDays = Math.floor(
-          (activePlan.plan.price / durationDays) * checkCurrentPlanUsage
-        );
+    if (newSelectedPlan.type === "Free") {
+      toast.success("This plan is already active. Renews everyday !");
+    } else {
+      if (activePlan && activePlan.isActive) {
+        const durationDays =
+          activePlan.plan.duration === "Daily"
+            ? 1
+            : activePlan.plan.duration === "Weekly"
+            ? 7
+            : 30;
+        if (newSelectedPlan.price > activePlan.plan.price) {
+          const checkCurrentPlanUsage = parseInt(
+            (new Date() - new Date(activePlan.createdAt)) /
+              (24 * 60 * 60 * 1000)
+          );
+          const totalPriceForUsedDays = Math.floor(
+            (activePlan.plan.price / durationDays) * checkCurrentPlanUsage
+          );
 
-        const totalRefundableAmount = Math.floor(
-          parseInt(newSelectedPlan.price) - totalPriceForUsedDays
-        );
+          const totalRefundableAmount = Math.floor(
+            parseInt(newSelectedPlan.price) - totalPriceForUsedDays
+          );
+          const newObj = {
+            amount: totalRefundableAmount,
+            planName: `${newSelectedPlan.type}_${activeTab[0]}`,
+            billingCycle: activeTab.toUpperCase(),
+            createdAt: new Date().toISOString(),
+            expiresAt:
+              activeTab === "Daily"
+                ? new Date().toISOString()
+                : activeTab === "Weekly"
+                ? new Date(
+                    new Date().getTime() + 7 * 24 * 60 * 60 * 1000
+                  ).toISOString()
+                : new Date(
+                    new Date().getTime() + 30 * 24 * 60 * 60 * 1000
+                  ).toISOString(),
+            refferalCode: "",
+            couponCode: "",
+            existingSubscription: activePlan.subscriptionId,
+          };
+          console.log(newObj);
+          dispatch(setPaymentDetails(newObj));
+          navigate("/payment");
+        } else {
+          toast.error("Please choose a higher plan than existing one!");
+        }
+      } else {
         const newObj = {
-          amount: totalRefundableAmount,
+          amount: newSelectedPlan.price,
           planName: `${newSelectedPlan.type}_${activeTab[0]}`,
           billingCycle: activeTab.toUpperCase(),
           createdAt: new Date().toISOString(),
@@ -194,37 +224,12 @@ const PricingPlans = () => {
                 ).toISOString(),
           refferalCode: "",
           couponCode: "",
-          existingSubscription: activePlan.subscriptionId,
+          existingSubscription: "",
         };
         console.log(newObj);
         dispatch(setPaymentDetails(newObj));
         navigate("/payment");
-      } else {
-        toast.error("Please choose a higher plan than existing one!");
       }
-    } else {
-      const newObj = {
-        amount: newSelectedPlan.price,
-        planName: `${newSelectedPlan.type}_${activeTab[0]}`,
-        billingCycle: activeTab.toUpperCase(),
-        createdAt: new Date().toISOString(),
-        expiresAt:
-          activeTab === "Daily"
-            ? new Date().toISOString()
-            : activeTab === "Weekly"
-            ? new Date(
-                new Date().getTime() + 7 * 24 * 60 * 60 * 1000
-              ).toISOString()
-            : new Date(
-                new Date().getTime() + 30 * 24 * 60 * 60 * 1000
-              ).toISOString(),
-        refferalCode: "",
-        couponCode: "",
-        existingSubscription: "",
-      };
-      console.log(newObj);
-      dispatch(setPaymentDetails(newObj));
-      navigate("/payment");
     }
   };
 
@@ -253,8 +258,8 @@ const PricingPlans = () => {
             } w-full`}
           >
             <h1 className="text-5xl text-center font-bold mb-4">
-              Find the Perfect Pricing Option for{" "}
-              <span className="text-teal-400">Adira AI</span>
+              Find the Perfect Pricing Option{" "}
+              {/* <span className="text-teal-400">Adira AI</span> */}
             </h1>
             <p className="text-center mx-auto max-w-2xl mb-6">
               Explore our flexible pricing options designed to cater to a range
@@ -334,7 +339,7 @@ const PricingPlans = () => {
               </h2>
               <div className="bg-[#5b5b5b] rounded-lg   transition border-2 border-white shadow-md p-2 flex justify-between  mt-6">
                 <div className="mx-2">
-                  <h3 className="text-xl  flex justify-start font-semibold mb-1 mx-2">
+                  <h3 className="text-xl  flex justify-start font-bold mb-1 mx-2">
                     TALK TO A LAWYER
                   </h3>
                   <p className="text-gray-300 mx-2 max-w-md text-left">

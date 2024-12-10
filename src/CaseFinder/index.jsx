@@ -149,9 +149,10 @@ export default function CaseFinder({
           Find Legal Cases With
         </p>
         <p
-          className="text-7xl font-bold"
+          className="text-7xl font-bold text-center"
           style={{
-            background: "linear-gradient(to bottom, #003131 0%, #00FFA3 100%)",
+            background:
+              "linear-gradient(to bottom, rgb(0, 128, 128) 0%, #00FFA3 100%)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
 
