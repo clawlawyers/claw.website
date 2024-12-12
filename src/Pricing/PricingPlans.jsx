@@ -152,6 +152,7 @@ const PricingPlans = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const activePlan = useSelector((state) => state.payments.activePlan);
+  console.log(activePlan);
 
   const { isAdiraLoading } = useAdiraAuthState();
 
@@ -316,10 +317,17 @@ const PricingPlans = () => {
                       </div>
                     )}
                     <button
+                      disabled={
+                        plan.type === activePlan.planName.split("_")[0] &&
+                        activeTab === activePlan.plan.duration
+                      }
                       className="w-full bg-[#055151] text-white font-bold py-2 rounded hover:bg-teal-600 transition mb-4"
                       onClick={() => handleGetNowClick(plan)}
                     >
-                      Get It Now
+                      {plan.type === activePlan.planName.split("_")[0] &&
+                      activeTab === activePlan.plan.duration
+                        ? "Currently Active"
+                        : "Get It Now"}
                     </button>
                   </div>
                   {plan.type !== "Free" && plan.badge && (
