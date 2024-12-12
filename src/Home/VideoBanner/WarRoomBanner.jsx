@@ -11,6 +11,9 @@ import specificHC from "../../assets/guide/4.mp4";
 import specificSC from "../../assets/guide/5.mp4";
 import references from "../../assets/guide/6.mp4";
 import { CircularProgress } from "@mui/material";
+import { Link } from "react-router-dom";
+import { WARROOM_ENDPOINT } from "../../utils/utils";
+import { useSelector } from "react-redux";
 
 // const videoArr = [
 //   { panel: "panel1", src: `${getStartedVid}` },
@@ -42,6 +45,7 @@ const videoArr = [
 const WarRoomBanner = () => {
   const [expanded, setExpanded] = React.useState("panel1");
   const [currentVid, setCurrentVid] = useState(null);
+  const currentUser = useSelector((state) => state.auth.user);
   // console.log(currentVid);
 
   // const panelVideoSrc = useMemo(() => {
@@ -50,6 +54,12 @@ const WarRoomBanner = () => {
   //     return findVideo.src;
   //   }
   // }, [expanded]);
+  const openWarrrom = () => {
+    var encodedStringBtoA = btoa(JSON.stringify(currentUser));
+    console.log(currentUser);
+    console.log(encodedStringBtoA);
+    window.open(`${WARROOM_ENDPOINT}?user=${encodedStringBtoA}`);
+  };
 
   useEffect(() => {
     // setCurrentVid(null);
@@ -86,8 +96,7 @@ const WarRoomBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}
-            >
+              onChange={handleChange("panel1")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -99,15 +108,13 @@ const WarRoomBanner = () => {
                 }}
                 //   expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
+                id="panel1bh-header">
                 <Typography
                   sx={{
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
-                  }}
-                >
+                  }}>
                   Getting Started with WarRoom
                 </Typography>
               </AccordionSummary>
@@ -115,8 +122,7 @@ const WarRoomBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography sx={{ color: "white" }}>
                   Dive into a Quick Free Trial of AI Powered Court Arguments and
                   Counter-Arguments
@@ -128,8 +134,7 @@ const WarRoomBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel2"}
-              onChange={handleChange("panel2")}
-            >
+              onChange={handleChange("panel2")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -140,15 +145,13 @@ const WarRoomBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel2bh-content"
-                id="panel2bh-header"
-              >
+                id="panel2bh-header">
                 <Typography
                   sx={{
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
-                  }}
-                >
+                  }}>
                   Upload Your Document
                 </Typography>
               </AccordionSummary>
@@ -156,8 +159,7 @@ const WarRoomBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography sx={{ color: "white" }}>
                   Keep Your Document Handy and Get started easily with arguments
                   and counter-arguments
@@ -169,8 +171,7 @@ const WarRoomBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel3"}
-              onChange={handleChange("panel3")}
-            >
+              onChange={handleChange("panel3")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -181,15 +182,13 @@ const WarRoomBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel3bh-content"
-                id="panel3bh-header"
-              >
+                id="panel3bh-header">
                 <Typography
                   sx={{
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
-                  }}
-                >
+                  }}>
                   Free Trial Limit
                 </Typography>
               </AccordionSummary>
@@ -197,8 +196,7 @@ const WarRoomBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography sx={{ color: "white" }}>
                   Keep Your Arguments ready to get the most out of it in Free
                   Trial of{" "}
@@ -211,8 +209,7 @@ const WarRoomBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel4"}
-              onChange={handleChange("panel4")}
-            >
+              onChange={handleChange("panel4")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -223,15 +220,13 @@ const WarRoomBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel4bh-content"
-                id="panel4bh-header"
-              >
+                id="panel4bh-header">
                 <Typography
                   sx={{
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
-                  }}
-                >
+                  }}>
                   Placing Arguments & Fighting Case
                 </Typography>
               </AccordionSummary>
@@ -239,8 +234,7 @@ const WarRoomBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography sx={{ color: "white" }}>
                   Place Your Arguments,and receive counter- arguments from War
                   Room AI
@@ -265,6 +259,34 @@ const WarRoomBanner = () => {
               <CircularProgress size={30} color="inherit" />
             </div>
           )}
+        </div>
+        <div className="flex items-center justify-center bg-gray-900 py-6">
+          <div className="flex items-center space-x-8 text-white">
+            {/* Explore War Room */}
+            <div className="flex flex-col items-center">
+              <p className="mb-2 text-2xl text-white text-center">
+                Want to Explore War Room?
+              </p>
+              <p
+                className="px-4 py-2 bg-teal-500 no-underline text-black rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg"
+                onClick={openWarrrom}>
+                War Room
+              </p>
+            </div>
+            {/* Divider */}
+            <div className="h-10 w-px bg-teal-500" />
+            {/* Unlock All Features */}
+            <div className="flex flex-col items-center">
+              <p className="mb-2 text-2xl text-white text-center">
+                Unlock All Features Available
+              </p>
+              <Link
+                to="https://courtroom.clawlaw.in/"
+                className="px-4 py-2 bg-teal-500 no-underline text-black rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg">
+                Enter Courtroom
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
