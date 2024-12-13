@@ -86,7 +86,7 @@ const NewPlanPayment = () => {
             setPaymentVerified(true);
             console.log(result.data);
             dispatch(setActivePlanDetails(result.data.plan.plan));
-            // dispatch(retrieveActivePlanUser());
+            dispatch(retrieveActivePlanUser());
           },
           prefill: {
             name: currentUser?.name,

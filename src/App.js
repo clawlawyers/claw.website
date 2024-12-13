@@ -328,11 +328,8 @@ function App() {
 
   const CourtRoomLayout = () => {
     return (
-      // <div className="container">
       <div>
-        {/* <div className="contentContainer"> */}
         <Outlet />
-        {/* </div> */}
       </div>
     );
   };
@@ -371,10 +368,6 @@ function App() {
           path: "news",
           element: <TrackedNews />,
         },
-        // {
-        //   path: "blog",
-        //   element: <TrackedAllBlogs />,
-        // },
         {
           path: "blog/:blogName",
           element: <Blog />,
@@ -393,7 +386,6 @@ function App() {
         },
         {
           path: "pricing",
-          // element: <Pricing />,
           element: <PricingPlans />,
         },
         {
@@ -450,6 +442,11 @@ function App() {
               ],
             },
           ],
+        },
+        {
+          path: "pricing",
+          element: <AuthWall />,
+          children: [{ path: "", element: <PricingPlans /> }],
         },
 
         {
