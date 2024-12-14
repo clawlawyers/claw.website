@@ -32,6 +32,7 @@ import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { ADIRA_ENDPOINT, WARROOM_ENDPOINT } from "../utils/utils";
 import { useAdiraAuthState } from "../hooks/useAuthState";
+import toast from "react-hot-toast";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
@@ -112,11 +113,25 @@ function Header() {
     window.open(`${WARROOM_ENDPOINT}?user=${encodedStringBtoA}`);
   };
 
+  const LEGALGPT_ENDPOINT_ENDPOINT =
+    process.env.NODE_ENV === "production"
+      ? "https://claw-legalgpt.netlify.app"
+      : "http://localhost:5173";
+
+  // ("http://localhost:5173");
+  const openLegalGpt = () => {
+    window.open(`${LEGALGPT_ENDPOINT_ENDPOINT}?user=${currentUser.jwt}`);
+  };
+
   useEffect(() => {
     if (plan) {
       setActivePlan(activePlanFeatures(plan, "AICaseSearchAccess"));
     }
   }, [plan]);
+
+  const handleLimitExceed = () => {
+    toast.error("Daily limit already used. Please buy a plan!");
+  };
 
   return (
     <div className={Styles.headerContainer}>
@@ -206,7 +221,9 @@ function Header() {
         <div className={Styles.headerGPT}>
           <>
             <button
-              onClick={handleClickProduct}
+              onClick={(e) =>
+                currentUser ? handleClickProduct(e) : navigate("/login")
+              }
               className={Styles.headerButton}
               style={{
                 textDecoration: "none",
@@ -328,6 +345,18 @@ function Header() {
                       >
                         LegalGPT
                       </Link>
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      onClick={
+                        plan[0].planName === "FREE" && plan[0].totalUsed >= 15
+                          ? handleLimitExceed
+                          : openLegalGpt
+                      }
+                      className="m-0 py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                    >
+                      LegalGPT-N
                     </p>
                   </div>
                 </div>
