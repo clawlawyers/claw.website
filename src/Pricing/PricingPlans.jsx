@@ -435,14 +435,14 @@ const PricingPlans = () => {
                 </div>
               ))}
             </div>
-            <hr className="w-3/4 mx-auto mt-8 border-teal-500 border-3" />
+            <hr className="w-4/6 mx-auto mt-8 border-teal-500 border-3" />
 
-            <div className="text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center w-4/6 mx-auto px-1 sm:px-6 lg:px-8">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                 Personalized{" "}
                 <span className="text-teal-400">Legal Consultation</span>
               </h2>
-              <div className="bg-[#5b5b5b] rounded-lg transition border-2 border-white shadow-md p-4 flex flex-col sm:flex-row justify-between items-center sm:items-start mt-6">
+              <div className="bg-[#5b5b5b]  rounded-lg transition border-2 border-white shadow-md  p-4 flex flex-col sm:flex-row justify-between items-center sm:items-start mt-6">
                 {/* Left Section */}
                 <div className="sm:w-2/3">
                   <h3 className="text-lg sm:text-xl flex justify-start font-bold mb-2">
@@ -455,12 +455,12 @@ const PricingPlans = () => {
                   </p>
                 </div>
                 {/* Right Section */}
-                <div className="mt-4 sm:mt-0 sm:w-1/3 text-center">
+                <div className="  sm:w-1/3 text-center">
                   <p className="text-xl sm:text-2xl font-bold text-teal-400">
                     ₹ 699/-
                   </p>
                   <button
-                    className="mt-2 px-4 py-2 w-full sm:w-auto bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition border border-white"
+                    className=" px-4 py-1 w-full sm:w-auto bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition border border-white"
                     onClick={() => setModalOpen(true)}
                   >
                     Get It Now
