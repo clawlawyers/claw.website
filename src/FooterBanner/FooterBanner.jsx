@@ -3,11 +3,9 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import toast from "react-hot-toast";
 import CircularProgress from "@mui/material/CircularProgress";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import XIcon from "@mui/icons-material/X";
-import ShopIcon from "@mui/icons-material/Shop";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 import Styles from "./FooterBanner.module.css";
 import { NODE_API_ENDPOINT } from "../utils/utils";
@@ -174,7 +172,7 @@ function FooterBanner() {
             </div>
             <div className={Styles.hover}>
               <a
-                href="https://www.instagram.com/claw_lawyers/"
+                href="https://www.instagram.com/claw__lawyers?igsh=a25qZzJkZW84anBt"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -183,30 +181,12 @@ function FooterBanner() {
             </div>
             <div className={Styles.hover}>
               <a
-                href="http://www.twitter.com/claw_lawyers"
+                href="https://youtube.com/@clawlegaltech?si=iehyWC9uSmzk657K"
                 target="_blank"
                 rel="noreferrer"
               >
-                <XIcon />
+                <YouTubeIcon />
               </a>
-            </div>
-            <div className={Styles.hover}>
-              <a
-                href="https://www.facebook.com/profile.php?id=61557181644675"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FacebookIcon />
-              </a>
-            </div>
-            <div className={Styles.hover}>
-              {/* <a
-                href="https://play.google.com/store/games?hl=en_IN&gl=US"
-                target="_blank"
-                rel="noreferrer"
-              > */}
-              <ShopIcon />
-              {/* </a> */}
             </div>
           </div>
         </div>

@@ -118,7 +118,7 @@ function Header() {
   };
 
   const openLegalGpt = () => {
-    window.open(`${LEGALGPT_ENDPOINT}?user=${currentUser.jwt}`);
+    window.open(`${LEGALGPT_ENDPOINT}?user=${currentUser.jwt}`, "_self");
   };
 
   useEffect(() => {
@@ -352,7 +352,7 @@ function Header() {
                           ? handleLimitExceed
                           : openLegalGpt
                       }
-                      className="m-0 py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                      className="m-0 py-2 text-white border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
                     >
                       LegalGPT
                     </p>

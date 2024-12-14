@@ -437,7 +437,7 @@ const PricingPlans = () => {
             </div>
             <hr className="w-4/6 mx-auto mt-8 border-teal-500 border-3" />
 
-            <div className="text-center w-4/6 mx-auto px-1 sm:px-6 lg:px-8">
+            <div className="text-center w-[80%] mx-auto px-1 sm:px-6 lg:px-8">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                 Personalized{" "}
                 <span className="text-teal-400">Legal Consultation</span>
