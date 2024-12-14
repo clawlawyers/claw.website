@@ -445,7 +445,7 @@ function App() {
         },
         {
           path: "pricing",
-          element: <AuthWall />,
+          // element: <AuthWall />,
           children: [{ path: "", element: <PricingPlans /> }],
         },
 
