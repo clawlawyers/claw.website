@@ -260,7 +260,7 @@ const WarRoomBanner = () => {
             </div>
           )}
         </div>
-        <div className="flex items-center justify-center w-full">
+        <div className="flex items-center  justify-center w-full">
           <div className="flex justify-between items-center space-x-8 text-white">
             {/* Explore War Room */}
             <div className="flex flex-col items-center">
