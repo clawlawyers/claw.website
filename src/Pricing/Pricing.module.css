@@ -5,6 +5,11 @@
   gap: 24px;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) !important;
+  color: white; /* Optional, if supported */
+}
+
 .pricingContainer button {
   background-image: url("../assets/images/button-gradient.png");
 }

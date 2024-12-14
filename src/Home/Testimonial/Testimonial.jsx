@@ -9,33 +9,81 @@ import { Slide } from "./Slider";
 const data = [
   {
     description:
-      "LegalGPT has completely changed the way I do my legal research. What used to take me hours now only takes minutes. The way it understands context and pulls up exactly what I need is incredible. Honestly, I don't know how I managed without it before.",
+      "The War Room is an innovation I never imagined. Practicing against Claw AI helps me refine my arguments before going to court.",
     person: "Senior Advocate",
     rating: 5,
   },
   {
     description:
-      "I’ve been using LegalGPT for a few months now, and I’m genuinely impressed. It makes legal research feel effortless, and the time I save lets me focus more on strategy and client interactions. It’s become an indispensable part of my practice.",
-    person: "Independent Lawyer",
+      "ClawLaw made my research for moot courts so easy! LegalGPT helped me find relevant cases in minutes, and War Room improved my argumentation skills. It's a must-have for every law student.",
+    person: "Law Intern",
     rating: 4.5,
   },
   {
     description:
-      "LegalGPT has become my go-to tool for research. It’s almost like having a personal assistant who knows exactly where to find the information I need, fast. It’s streamlined my workflow and made legal research so much less daunting.",
-    person: "Junior Associate",
+      "I was skeptical about AI in legal practice, but ClawLaw exceeded my expectations. LegalGPT’s precision and War Room’s challenges have genuinely sharpened my courtroom strategies.",
+    person: "High Court Lawyer",
     rating: 5,
   },
   {
     description:
-      "As a corporate lawyer, speed and accuracy are everything. LegalGPT nails both. Drafting documents has become so much quicker, and I love how it organizes everything I need in one place. At this point, its become an essential part of my daily work.",
-    person: "Corporate Lawyer",
+      "Running a business means facing legal issues regularly. ClawLaw’s case search and Adira AI made it easy for me to find precedents and draft contracts without relying entirely on external counsel.",
+    person: "Business Owner",
     rating: 4,
   },
   {
     description:
-      "I was amazed the first time I used LegalGPT. It quickly found all the relevant case laws and documents I needed, and the interface is super easy to use. If you're a legal professional, you need this in your toolkit.",
-    person: "Legal Consultant",
+      "ClawLaw saved us time and money. Adira AI’s ready-made templates and document drafting tools are perfect for startups like ours!",
+    person: "Startup Owner",
     rating: 4.5,
+  },
+  {
+    description:
+      "ClawLaw is my go-to platform for case preparation. LegalGPT saves me hours of research, and War Room gives me the confidence to handle tough cases.",
+    person: "Junior Advocate",
+    rating: 3.5,
+  },
+  {
+    description:
+      "I was looking for affordable legal advice and found it on ClawLaw. Booking a lawyer was easy, and I got the help I needed without spending a fortune.",
+    person: "Common Citizen",
+    rating: 3.5,
+  },
+  {
+    description:
+      "I used Adira AI to draft internship assignments, and my mentors were impressed. It’s a lifesaver for students!",
+    person: "Law Intern",
+    rating: 5,
+  },
+  {
+    description:
+      "ClawLaw’s tools helped me streamline the legal side of my business. The combination of AI research and real lawyer consultations is unmatched.",
+    person: "Startup Owner",
+    rating: 4,
+  },
+  {
+    description:
+      "War Room is a game-changer for legal professionals. It forces you to think on your feet, and Claw AI’s factual depth is incredible.",
+    person: "District Court Lawyer",
+    rating: 4,
+  },
+  {
+    description:
+      "As a young lawyer, ClawLaw gave me the support I needed to succeed. The combination of case search and document drafting tools is invaluable.",
+    person: "Junior Advocate",
+    rating: 4.5,
+  },
+  {
+    description:
+      "I consulted a lawyer through ClawLaw and got clear, actionable advice. It’s great to have affordable access to real experts.",
+    person: "Common Citizen",
+    rating: 3.5,
+  },
+  {
+    description:
+      "LegalGPT makes research so much faster. I use it for every internship assignment and college project.",
+    person: "Law Intern",
+    rating: 4,
   },
 ];
 

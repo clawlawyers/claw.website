@@ -7,17 +7,24 @@ import { NODE_API_ENDPOINT } from "../utils/utils";
 import { retrieveActivePlanUser } from "../features/gpt/gptSlice";
 import { CircularProgress } from "@mui/material";
 import paymentIcon from "../assets/images/paymentConfirm.gif";
-import { setActivePlanDetails } from "../features/payment/paymentSlice";
+import {
+  resetTalkToExpert,
+  setActivePlanDetails,
+} from "../features/payment/paymentSlice";
 
 const NewPlanPayment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [docId, setDocId] = useState("");
 
   const [receipt, setReceipt] = useState(`receipt_${Date.now()}`);
   const [paymentVerified, setPaymentVerified] = useState(false);
 
   const paymentDetails = useSelector((state) => state.payments.plan);
+  const talkToExpertDetails = useSelector(
+    (state) => state.payments.talkToExpertData
+  );
   console.log(paymentDetails);
   const currentUser = useSelector((state) => state.auth.user);
   // console.log(paymentDetails);
@@ -86,7 +93,7 @@ const NewPlanPayment = () => {
             setPaymentVerified(true);
             console.log(result.data);
             dispatch(setActivePlanDetails(result.data.plan.plan));
-            // dispatch(retrieveActivePlanUser());
+            dispatch(retrieveActivePlanUser());
           },
           prefill: {
             name: currentUser?.name,
@@ -109,6 +116,118 @@ const NewPlanPayment = () => {
         alert(error.message);
       } finally {
         setLoading(false);
+      }
+    };
+    document.body.appendChild(script);
+  };
+
+  useEffect(() => {
+    const getCreateDoc = async () => {
+      const docId = await fetch(
+        `${NODE_API_ENDPOINT}/ai-drafter/create_document`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const resp = await docId.json();
+      console.log(resp.data.fetchedData.doc_id);
+      setDocId(resp.data.fetchedData.doc_id);
+    };
+    getCreateDoc();
+  }, []);
+
+  const TalkToExpertPay = async () => {
+    setLoading(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onerror = () => {
+      setLoading(false);
+      alert("Razorpay SDK failed to load. Are you online?");
+    };
+    script.onload = async () => {
+      try {
+        const result = await axios.post(
+          `https://adira-backend.onrender.com/api/v1/payment/talk-to-expert-createOrder`,
+          {
+            amount: paymentDetails?.amount,
+            currency: "INR",
+            receipt: receipt,
+          }
+        );
+
+        if (!result || !result.data.razorpayOrder) {
+          throw new Error("Failed to create Razorpay order");
+        }
+
+        const { amount, id, currency } = result.data.razorpayOrder;
+
+        const options = {
+          key: "rzp_live_vlDmt5SV4QPDhN",
+          amount: String(amount),
+          currency: currency,
+          name: "CLAW LEGALTECH PRIVATE LIMITED",
+          description: "Transaction",
+          order_id: id,
+          handler: async function (response) {
+            console.log(response);
+            const data = {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              phoneNumber: currentUser.phoneNumber,
+              meetingData: {
+                doc_id: docId,
+                User_name: talkToExpertDetails.name,
+                email_id: talkToExpertDetails.email,
+                contact_no: talkToExpertDetails.mobile,
+                meeting_date: talkToExpertDetails.date,
+                start_time: talkToExpertDetails.startdate,
+                end_time: talkToExpertDetails.enddate,
+                user_query: talkToExpertDetails.query,
+                additional_details: talkToExpertDetails.comments,
+                number_of_pages: 0,
+                customer_type: "consulting",
+              },
+            };
+
+            console.log(response);
+
+            const result = await axios.post(
+              `https://adira-backend.onrender.com/api/v1/payment/talk-to-expert-verifyOrder`,
+              data
+            );
+            alert(result.data.data.fetchedMeeting);
+            setLoading(false);
+            setPaymentVerified(true);
+
+            // dispatch(setActivePlanDetails(result.data.plan.plan));
+            // dispatch(retrieveActivePlanUser());
+          },
+          prefill: {
+            name: talkToExpertDetails?.name,
+            email: talkToExpertDetails?.email,
+            contact: talkToExpertDetails?.mobile,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+
+        console.log(options);
+
+        const paymentObject = new window.Razorpay(options);
+
+        console.log(paymentObject);
+        paymentObject.open();
+      } catch (error) {
+        setLoading(false);
+        alert(error.message);
+      } finally {
+        setLoading(false);
+        // dispatch(resetTalkToExpert(null));
       }
     };
     document.body.appendChild(script);
@@ -190,7 +309,14 @@ const NewPlanPayment = () => {
                 </div>
               </div>
             </div>
-            <button onClick={loadRazorpay} className="w-full rounded py-2">
+            <button
+              onClick={() => {
+                paymentDetails?.planName === "Talk to Expert"
+                  ? TalkToExpertPay()
+                  : loadRazorpay();
+              }}
+              className="w-full rounded py-2"
+            >
               {loading ? (
                 <CircularProgress size={15} color="inherit" />
               ) : (

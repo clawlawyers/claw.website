@@ -31,6 +31,8 @@ export const paymentSlice = createSlice({
   initialState: {
     plan: null,
     activePlan: null,
+    status: "idle",
+    talkToExpertData: null,
   },
 
   reducers: {
@@ -40,20 +42,38 @@ export const paymentSlice = createSlice({
     resetPaymentDetails(state, action) {
       state.plan = null;
     },
+    setTalkToExpert(state, action) {
+      state.talkToExpertData = action.payload;
+    },
+    resetTalkToExpert(state, action) {
+      state.talkToExpertData = action.payload;
+    },
     setActivePlanDetails(state, action) {
       state.activePlan = action.payload;
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(retrieveActiveAdiraPlan.pending, (state) => {
+      state.status = "loading";
+    });
     builder.addCase(retrieveActiveAdiraPlan.fulfilled, (state, action) => {
       if (action.payload && action.payload.activePlan) {
         state.activePlan = action.payload.activePlan;
       }
+      state.status = "succeeded";
+    });
+    builder.addCase(retrieveActiveAdiraPlan.rejected, (state) => {
+      state.status = "failed";
     });
   },
 });
 
-export const { setPaymentDetails, resetPaymentDetails, setActivePlanDetails } =
-  paymentSlice.actions;
+export const {
+  setPaymentDetails,
+  resetPaymentDetails,
+  setActivePlanDetails,
+  setTalkToExpert,
+  resetTalkToExpert,
+} = paymentSlice.actions;
 
 export default paymentSlice.reducer;

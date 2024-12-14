@@ -31,6 +31,8 @@ import { close, open } from "../features/popup/popupSlice";
 import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { ADIRA_ENDPOINT, WARROOM_ENDPOINT } from "../utils/utils";
+import { useAdiraAuthState } from "../hooks/useAuthState";
+import toast from "react-hot-toast";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
@@ -46,11 +48,16 @@ const navLinks = [
 function Header() {
   const [navOpen, setNavOpen] = useState(false);
   const [activePlan, setActivePlan] = useState([]);
+
   const currentUser = useSelector((state) => state.auth.user);
   const authStatus = useSelector((state) => state.auth.status);
   const { plan } = useSelector((state) => state.gpt);
   const isOpen = useSelector((state) => state.popup.open);
   const isAuthLoading = authStatus === "loading" ? true : false;
+  const activeAdiraPlan = useSelector((state) => state.payments.activePlan);
+
+  const { isAdiraLoading } = useAdiraAuthState();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -106,11 +113,25 @@ function Header() {
     window.open(`${WARROOM_ENDPOINT}?user=${encodedStringBtoA}`);
   };
 
+  const LEGALGPT_ENDPOINT_ENDPOINT =
+    process.env.NODE_ENV === "production"
+      ? "https://claw-legalgpt.netlify.app"
+      : "http://localhost:5173";
+
+  // ("http://localhost:5173");
+  const openLegalGpt = () => {
+    window.open(`${LEGALGPT_ENDPOINT_ENDPOINT}?user=${currentUser.jwt}`);
+  };
+
   useEffect(() => {
     if (plan) {
       setActivePlan(activePlanFeatures(plan, "AICaseSearchAccess"));
     }
   }, [plan]);
+
+  const handleLimitExceed = () => {
+    toast.error("Daily limit already used. Please buy a plan!");
+  };
 
   return (
     <div className={Styles.headerContainer}>
@@ -200,7 +221,9 @@ function Header() {
         <div className={Styles.headerGPT}>
           <>
             <button
-              onClick={handleClickProduct}
+              onClick={(e) =>
+                currentUser ? handleClickProduct(e) : navigate("/login")
+              }
               className={Styles.headerButton}
               style={{
                 textDecoration: "none",
@@ -229,33 +252,42 @@ function Header() {
                   }}
                 >
                   <div>
-                    {plan?.length > 0 ? (
-                      <p
-                        onClick={openAdiraAi}
-                        className="m-0 text-white border-b border-white py-2 cursor-pointer"
-                      >
-                        Adira
-                      </p>
+                    {!isAdiraLoading ? (
+                      <>
+                        {activeAdiraPlan && activeAdiraPlan.isActive ? (
+                          <p
+                            onClick={openAdiraAi}
+                            className="m-0 text-white border-b border-white  py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                          >
+                            Adira
+                          </p>
+                        ) : (
+                          <Link
+                            to={"/pricing"}
+                            className="m-0 text-white border-b border-white py-2 cursor-pointer flex hover:bg-white hover:bg-opacity-5 "
+                            style={{ textDecoration: "none" }}
+                          >
+                            Adira
+                          </Link>
+                        )}
+                      </>
                     ) : (
-                      <p
-                        className="m-0 text-white border-b border-white py-2 cursor-pointer"
-                        onClick={handlePopupOpen}
-                      >
-                        Adira
+                      <p className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                        <CircularProgress size={15} color="inherit" />
                       </p>
                     )}
                   </div>
                   <div>
                     {true ? (
                       <p
-                        className="m-0 text-white border-b border-white py-2 cursor-pointer"
+                        className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
                         onClick={openWarrrom}
                       >
                         War Room
                       </p>
                     ) : (
                       <p
-                        className="m-0 text-white border-b border-white py-2 cursor-pointer"
+                        className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
                         onClick={handlePopupOpen}
                       >
                         War Room
@@ -263,22 +295,22 @@ function Header() {
                     )}
                   </div>
                   <div>
-                    {activePlan ? (
+                    {/* {activePlan ? (
                       <>
-                        {activePlan[0]?.plan?.AICaseSearchAccess ? (
-                          <p
-                            className="m-0 w-full py-2 border-b border-white cursor-pointer"
-                            onClick={() => setAnchorElProduct(null)}
-                          >
-                            <Link
-                              className=" text-white "
-                              style={{ textDecoration: "none" }}
-                              to="/case/search"
-                            >
-                              Case Search
-                            </Link>
-                          </p>
-                        ) : (
+                        {activePlan[0]?.plan?.AICaseSearchAccess ? ( */}
+                    <p
+                      className="m-0 w-full py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                      onClick={() => setAnchorElProduct(null)}
+                    >
+                      <Link
+                        className=" text-white hover:bg-white hover:bg-opacity-5 "
+                        style={{ textDecoration: "none" }}
+                        to="/case/search"
+                      >
+                        Case Search
+                      </Link>
+                    </p>
+                    {/* ) : (
                           <p
                             onClick={handlePopupOpen}
                             className="m-0 text-white border-b border-white py-2 cursor-pointer"
@@ -291,7 +323,7 @@ function Header() {
                       <p className="m-0 text-white border-b border-white p-1 cursor-pointer">
                         <CircularProgress size={20} color="inherit" />
                       </p>
-                    )}
+                    )} */}
                   </div>
                   {/*  <div> 
                     <p className="m-0 py-2 border-b border-white cursor-pointer">
@@ -305,7 +337,7 @@ function Header() {
                     </p>
                   </div>*/}
                   <div>
-                    <p className="m-0 py-2 border-b border-white cursor-pointer">
+                    <p className="m-0 py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                       <Link
                         className=" text-white "
                         style={{ textDecoration: "none" }}
@@ -313,6 +345,18 @@ function Header() {
                       >
                         LegalGPT
                       </Link>
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      onClick={
+                        plan[0].planName === "FREE" && plan[0].totalUsed >= 15
+                          ? handleLimitExceed
+                          : openLegalGpt
+                      }
+                      className="m-0 py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                    >
+                      LegalGPT-N
                     </p>
                   </div>
                 </div>
@@ -325,11 +369,11 @@ function Header() {
               // class="flex flex-1 items-center justify-center  text-white font-medium text-lg rounded-lg p-2.5 border-none "
               onClick={handleAuthChange}
             >
-              {isAuthLoading && (
+              {isAuthLoading ? (
                 <CircularProgress size={16} style={{ color: "white" }} />
+              ) : (
+                "Login"
               )}
-              {/* {!isAuthLoading && (currentUser ? <>My Account</> : <>Login</>)} */}
-              Login
             </button>
           ) : (
             <>
@@ -363,13 +407,13 @@ function Header() {
                       style={{ textDecoration: "none" }}
                       to={"/purchases"}
                     >
-                      <p className="text-white border-b border-white p-1 cursor-pointer">
+                      <p className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                         All Purchases
                       </p>
                     </Link>
                     <p
                       onClick={handleLogout}
-                      className="text-white border-b border-white p-1 cursor-pointer"
+                      className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 "
                     >
                       Logout
                     </p>
@@ -446,9 +490,10 @@ function Header() {
             >
               <ListItemButton
                 onClick={() => {
-                  activePlan[0]?.plan?.AICaseSearchAccess
-                    ? navigate("/case/search")
-                    : handlePopupOpen();
+                  // activePlan[0]?.plan?.AICaseSearchAccess
+                  // ?
+                  navigate("/case/search");
+                  // : handlePopupOpen();
                   setNavOpen(false);
                 }}
               >
@@ -458,25 +503,44 @@ function Header() {
                 <ListItemText primary={"Case Search"} />
               </ListItemButton>
             </ListItem>
-            <ListItem
-              key={"adira"}
-              sx={{ borderBottom: "1px solid white" }}
-              disablePadding
-            >
-              <ListItemButton
-                onClick={() => {
-                  activePlan[0]?.plan?.AICaseSearchAccess
-                    ? navigate("/case/search")
-                    : handlePopupOpen();
-                  setNavOpen(false);
-                }}
+            {!isAdiraLoading ? (
+              <ListItem
+                key={"adira"}
+                sx={{ borderBottom: "1px solid white" }}
+                disablePadding
               >
-                <ListItemIcon>
-                  <FilePresentIcon style={{ color: "white" }}></FilePresentIcon>
-                </ListItemIcon>
-                <ListItemText primary={"Adira"} />
-              </ListItemButton>
-            </ListItem>
+                <ListItemButton
+                  onClick={() => {
+                    activeAdiraPlan && activeAdiraPlan.isActive
+                      ? openAdiraAi()
+                      : navigate("/pricing");
+                    setNavOpen(false);
+                  }}
+                >
+                  <ListItemIcon>
+                    <FilePresentIcon
+                      style={{ color: "white" }}
+                    ></FilePresentIcon>
+                  </ListItemIcon>
+                  <ListItemText primary={"Adira"} />
+                </ListItemButton>
+              </ListItem>
+            ) : (
+              <ListItem
+                key={"adira"}
+                sx={{ borderBottom: "1px solid white" }}
+                disablePadding
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <FilePresentIcon
+                      style={{ color: "white" }}
+                    ></FilePresentIcon>
+                  </ListItemIcon>
+                  <ListItemText primary={"Adira Loading..."} />
+                </ListItemButton>
+              </ListItem>
+            )}
             {currentUser ? (
               <ListItem
                 key={"purchase"}

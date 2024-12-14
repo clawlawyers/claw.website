@@ -15,9 +15,11 @@ export const retrieveActivePlanUser = createAsyncThunk(
         },
       });
       const parsedProps = await props.json();
-      console.log(parsedProps);
+      const temp = parsedProps.data.plan[0];
+      const newArr = [{ ...temp, totalUsed: parsedProps.data.totalUsed }];
+      console.log(newArr);
       return {
-        user: parsedProps.data.plan,
+        user: newArr,
       };
     } else return null;
   }
@@ -44,8 +46,8 @@ export const generateResponse = createAsyncThunk(
         "Content-Type": "application/json",
       },
     });
-    if(res.status==401){
-      return 401
+    if (res.status == 401) {
+      return 401;
     }
     return await res.json();
 
@@ -112,20 +114,17 @@ export const gptSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(generateResponse.pending, (state) => {
       state.status = "pending";
-      
     });
     builder.addCase(generateResponse.fulfilled, (state, action) => {
       state.response = action.payload.data;
       state.token = action.payload.data?.token;
       state.status = "succeeded";
-      
     });
     builder.addCase(generateResponse.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.error;
     });
     builder.addCase(retrieveActivePlanUser.fulfilled, (state, action) => {
-     
       if (action.payload && action.payload.user) {
         state.plan = action.payload.user;
       }
