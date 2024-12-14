@@ -30,7 +30,11 @@ import LockIcon from "@mui/icons-material/Lock";
 import { close, open } from "../features/popup/popupSlice";
 import { activePlanFeatures } from "../utils/checkActivePlanFeatures";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { ADIRA_ENDPOINT, WARROOM_ENDPOINT } from "../utils/utils";
+import {
+  ADIRA_ENDPOINT,
+  LEGALGPT_ENDPOINT,
+  WARROOM_ENDPOINT,
+} from "../utils/utils";
 import { useAdiraAuthState } from "../hooks/useAuthState";
 import toast from "react-hot-toast";
 
@@ -113,14 +117,8 @@ function Header() {
     window.open(`${WARROOM_ENDPOINT}?user=${encodedStringBtoA}`);
   };
 
-  const LEGALGPT_ENDPOINT_ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? "https://claw-legalgpt.netlify.app"
-      : "http://localhost:5173";
-
-  // ("http://localhost:5173");
   const openLegalGpt = () => {
-    window.open(`${LEGALGPT_ENDPOINT_ENDPOINT}?user=${currentUser.jwt}`);
+    window.open(`${LEGALGPT_ENDPOINT}?user=${currentUser.jwt}`);
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -15,6 +15,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
+import Back from "../assets/back-arrow.png";
 
 const plansArr = {
   Daily: [
@@ -175,7 +177,9 @@ const PricingPlans = () => {
 
   const [Hour, setHour] = useState(null);
 
+  const currentUser = useSelector((state) => state.auth.user);
   const activePlan = useSelector((state) => state.payments.activePlan);
+  console.log(activePlan);
 
   const { isAdiraLoading } = useAdiraAuthState();
 
@@ -292,7 +296,29 @@ const PricingPlans = () => {
     }
   };
 
+  useEffect(() => {
+    // Disable scroll when either the modal or form is open
+    if (formOpen || isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // Cleanup to reset scroll behavior on component unmount or modal/form close
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [formOpen, isModalOpen]); // Dependency array to run this effect when formOpen or isModalOpen changes
+
   const goToPaymentPage = () => {
+    if (formData.date == null) {
+      toast.error("Please Select Date");
+      return;
+    }
+    if (formData.enddate == null) {
+      toast.error("Please Select Time");
+      return;
+    }
     const newObj1 = {
       amount: 699,
       planName: "Talk to Expert",
@@ -403,9 +429,20 @@ const PricingPlans = () => {
                       </div>
                     )}
                     <button
+                      disabled={
+                        plan.type === activePlan?.planName?.split("_")[0] &&
+                        activeTab === activePlan?.plan?.duration
+                      }
                       className="w-full bg-[#055151] text-white font-bold py-2 rounded hover:bg-teal-600 transition mb-4"
-                      onClick={() => handleGetNowClick(plan)}>
-                      Get It Now
+                      onClick={() =>
+                        currentUser
+                          ? handleGetNowClick(plan)
+                          : navigate("/login")
+                      }>
+                      {plan.type === activePlan?.planName?.split("_")[0] &&
+                      activeTab === activePlan?.plan?.duration
+                        ? "Currently Active"
+                        : "Get It Now"}
                     </button>
                   </div>
                   {plan.type !== "Free" && plan.badge && (
@@ -458,10 +495,10 @@ const PricingPlans = () => {
           {/* Modal for Lawyer Consultation */}
           {isModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-[#333333] border-white border-2 text-white mx-4 sm:mx-8 md:mx-12 rounded-lg shadow-lg p-6 w-full max-w-3xl relative flex flex-col md:flex-row space-y-4 md:space-y-0">
+              <div className="bg-[#333333] border-white border-2 text-white mx-4 sm:mx-8 md:mx-12 rounded-lg shadow-lg p-6 w-full max-w-4xl relative flex flex-col md:flex-row space-y-4 md:space-y-0">
                 {/* Close Button */}
                 <button
-                  className="absolute w-7 h-7 top-2 right-2 rounded-full text-gray-400 hover:text-gray-200 text-sm p-1"
+                  className="absolute w-7 h-7 top-2 right-2 rounded-full text-gray-200 hover:text-gray-200 text-sm p-1"
                   onClick={() => setModalOpen(false)}>
                   ✕
                 </button>
@@ -479,7 +516,7 @@ const PricingPlans = () => {
                 </div>
 
                 {/* Right Section (Form) */}
-                <div className="w-full p-2 md:w-1/2">
+                <div className="w-full p-3 md:w-1/2">
                   <form
                     className="flex flex-col space-y-3"
                     onSubmit={() => {
@@ -540,16 +577,31 @@ const PricingPlans = () => {
               </div>
             </div>
           )}
-
           {formOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-              <div className="bg-[#333333] border-white border-2 text-white rounded-lg shadow-lg p-6 w-11/12 max-w-3xl relative flex flex-col md:flex-row md:h-[480px]">
-                {/* Close Button */}
-                <button
-                  className="absolute w-7 h-7 top-2 right-2 rounded-full text-gray-400 hover:text-gray-200 text-sm p-1"
-                  onClick={() => setFormOpen(false)}>
-                  ✕
-                </button>
+              <div className="bg-[#333333] border-white border-2 text-white rounded-lg shadow-lg p-6 w-11/12 max-w-4xl relative flex flex-col md:flex-row md:h-[440px] space-y-4 md:space-y-0">
+                {/* Back and Close Buttons */}
+                <div className="absolute top-2 right-2 flex space-x-2">
+                  <button
+                    className="w-7 h-7 rounded-full text-gray-400 hover:text-gray-200 text-sm p-1 flex items-center justify-center transition duration-300 ease-in-out transform hover:scale-110 hover:bg-gray-700"
+                    onClick={() => {
+                      setModalOpen(true);
+                      setFormOpen(false);
+                    }}>
+                    <img
+                      src={Back}
+                      alt="back"
+                      className="w-4 h-4"
+                      style={{ filter: "grayscale(100%)" }} // Default grayscale
+                    />
+                  </button>
+
+                  <button
+                    className="w-7 h-7 rounded-full text-gray-200 hover:text-gray-200 text-sm p-1 flex items-center justify-center transition duration-300 ease-in-out transform hover:scale-110 hover:bg-gray-700"
+                    onClick={() => setFormOpen(false)}>
+                    ✕
+                  </button>
+                </div>
 
                 {/* Left Section (Text) */}
                 <div className="w-full md:w-1/2 md:pr-6">
@@ -564,13 +616,17 @@ const PricingPlans = () => {
                 </div>
 
                 {/* Right Section (Form) */}
-                <div className="w-full md:w-1/2 flex flex-col p-4 relative space-y-4">
+                <div className="w-full md:w-1/2 flex flex-col p-4 space-y-4">
                   {/* Date Input */}
                   <input
                     type="date"
                     name="date"
                     onChange={handleChange}
-                    className="bg-[#3f4040] w-full text-sm text-white focus:outline-none p-3 rounded-md"
+                    className=" w-full text-sm text-white focus:outline-none p-3 rounded-md"
+                    style={{
+                      backgroundColor: "rgba(34, 34, 34, 0.8)",
+                    }}
+                    required
                   />
 
                   {/* Accordion */}
@@ -595,9 +651,9 @@ const PricingPlans = () => {
                       </AccordionSummary>
                       <AccordionDetails
                         style={{ maxHeight: "150px", overflowY: "auto" }}>
-                        <div className="grid text-xs text-white grid-cols-4 gap-1">
+                        <div className="grid text-xs text-white grid-cols-2 sm:grid-cols-4 gap-2">
                           {rows.map((val, index) => (
-                            <div key={index} className="text-center">
+                            <div key={index} className="text-center rounded-md">
                               {val}
                             </div>
                           ))}
