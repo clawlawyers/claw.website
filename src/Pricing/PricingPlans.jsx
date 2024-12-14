@@ -416,32 +416,38 @@ const PricingPlans = () => {
                 </div>
               ))}
             </div>
-            <hr className="w-4/6 mx-auto mt-8 border-teal-500 border-3" />
 
-            <div className="text-center w-4/6 mx-auto px-1 sm:px-6 lg:px-8">
+            {/* Horizontal Line */}
+            <hr className="max-w-5xl mx-auto mt-8 border-teal-500 border-3" />
+
+            {/* Main Content */}
+            <div className="text-center max-w-5xl mx-auto mt-8">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                 Personalized{" "}
                 <span className="text-teal-400">Legal Consultation</span>
               </h2>
-              <div className="bg-[#5b5b5b]  rounded-lg transition border-2 border-white shadow-md  p-4 flex flex-col sm:flex-row justify-between items-center sm:items-start mt-6">
+
+              {/* Card Section */}
+              <div className="bg-[#5b5b5b] rounded-lg transition border-2 border-white shadow-md p-4 flex flex-col sm:flex-row justify-between items-center sm:items-start mt-6">
                 {/* Left Section */}
-                <div className="sm:w-2/3">
-                  <h3 className="text-lg sm:text-xl flex justify-start font-bold mb-2">
+                <div className="sm:w-2/3 w-full mb-4 sm:mb-0">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2 text-left">
                     TALK TO A LAWYER
                   </h3>
-                  <p className="text-gray-300 max-w-md text-left">
+                  <p className="text-gray-300 text-left">
                     Connect with experienced lawyers at your convenience. Book a
                     time slot and get personalized legal advice tailored to your
                     needs.
                   </p>
                 </div>
+
                 {/* Right Section */}
-                <div className="  sm:w-1/3 text-center">
+                <div className="sm:w-1/3 w-full text-center sm:text-right">
                   <p className="text-xl sm:text-2xl font-bold text-teal-400">
                     ₹ 699/-
                   </p>
                   <button
-                    className=" px-4 py-1 w-full sm:w-auto bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition border border-white"
+                    className="mt-2 px-4 py-2 w-full sm:w-auto bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition border border-white"
                     onClick={() => setModalOpen(true)}>
                     Get It Now
                   </button>
@@ -473,7 +479,7 @@ const PricingPlans = () => {
                 </div>
 
                 {/* Right Section (Form) */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full p-2 md:w-1/2">
                   <form
                     className="flex flex-col space-y-3"
                     onSubmit={() => {
