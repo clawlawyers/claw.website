@@ -298,7 +298,7 @@ function Header() {
                     {/* {activePlan ? (
                       <>
                         {activePlan[0]?.plan?.AICaseSearchAccess ? ( */}
-                    <p
+                    {/* <p
                       className="m-0 w-full py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
                       onClick={() => setAnchorElProduct(null)}
                     >
@@ -309,7 +309,7 @@ function Header() {
                       >
                         Case Search
                       </Link>
-                    </p>
+                    </p> */}
                     {/* ) : (
                           <p
                             onClick={handlePopupOpen}
@@ -336,7 +336,7 @@ function Header() {
                       </Link>
                     </p>
                   </div>*/}
-                  <div>
+                  {/* <div>
                     <p className="m-0 py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                       <Link
                         className=" text-white "
@@ -346,7 +346,7 @@ function Header() {
                         LegalGPT
                       </Link>
                     </p>
-                  </div>
+                  </div> */}
                   <div>
                     <p
                       onClick={
@@ -356,7 +356,7 @@ function Header() {
                       }
                       className="m-0 py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
                     >
-                      LegalGPT-N
+                      LegalGPT
                     </p>
                   </div>
                 </div>
