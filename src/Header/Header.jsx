@@ -113,7 +113,12 @@ function Header() {
     window.open(`${WARROOM_ENDPOINT}?user=${encodedStringBtoA}`);
   };
 
-  const LEGALGPT_ENDPOINT_ENDPOINT = "http://localhost:5173";
+  const LEGALGPT_ENDPOINT_ENDPOINT =
+    process.env.NODE_ENV === "production"
+      ? "https://claw-legalgpt.netlify.app"
+      : "http://localhost:5173";
+
+  // ("http://localhost:5173");
   const openLegalGpt = () => {
     window.open(`${LEGALGPT_ENDPOINT_ENDPOINT}?user=${currentUser.jwt}`);
   };
