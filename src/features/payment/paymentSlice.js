@@ -32,6 +32,7 @@ export const paymentSlice = createSlice({
     plan: null,
     activePlan: null,
     status: "idle",
+    talkToExpertData: null,
   },
 
   reducers: {
@@ -40,6 +41,12 @@ export const paymentSlice = createSlice({
     },
     resetPaymentDetails(state, action) {
       state.plan = null;
+    },
+    setTalkToExpert(state, action) {
+      state.talkToExpertData = action.payload;
+    },
+    resetTalkToExpert(state, action) {
+      state.talkToExpertData = action.payload;
     },
     setActivePlanDetails(state, action) {
       state.activePlan = action.payload;
@@ -61,7 +68,12 @@ export const paymentSlice = createSlice({
   },
 });
 
-export const { setPaymentDetails, resetPaymentDetails, setActivePlanDetails } =
-  paymentSlice.actions;
+export const {
+  setPaymentDetails,
+  resetPaymentDetails,
+  setActivePlanDetails,
+  setTalkToExpert,
+  resetTalkToExpert,
+} = paymentSlice.actions;
 
 export default paymentSlice.reducer;

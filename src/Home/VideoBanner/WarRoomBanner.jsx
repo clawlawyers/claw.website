@@ -260,29 +260,35 @@ const WarRoomBanner = () => {
             </div>
           )}
         </div>
-        <div className="flex items-center justify-center bg-gray-900 py-6">
+        <div className="flex items-center justify-center bg-gray-900 ">
           <div className="flex items-center space-x-8 text-white">
             {/* Explore War Room */}
-            <div className="flex flex-col items-center">
-              <p className="mb-2 text-2xl text-white text-center">
+            <div className="flex flex-col mr-5 mt-2 items-center">
+              <p className="mb-2 text-xl text-white opacity-90 text-center">
                 Want to Explore War Room?
               </p>
               <p
-                className="px-4 py-2 bg-teal-500 no-underline text-black rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg"
-                onClick={openWarrrom}>
-                War Room
+                className="px-8 py-1 font-medium no-underline border-1  border-white cursor-pointer text-black rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg"
+                onClick={openWarrrom}
+                style={{
+                  background: "linear-gradient(30deg, #00767A, #003739)",
+                }}>
+                Explore
               </p>
             </div>
             {/* Divider */}
-            <div className="h-10 w-px bg-teal-500" />
+            <div className="h-16 mx-5 w-px bg-teal-500" />
             {/* Unlock All Features */}
-            <div className="flex flex-col items-center">
-              <p className="mb-2 text-2xl text-white text-center">
+            <div className="flex flex-col  items-center">
+              <p className="mb-2 text-xl text-white opacity-90 text-center">
                 Unlock All Features Available
               </p>
               <Link
                 to="https://courtroom.clawlaw.in/"
-                className="px-4 py-2 bg-teal-500 no-underline text-black rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg">
+                className="px-4 py-1 no-underline text-black font-medium border-1 border-white rounded-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+                style={{
+                  background: "linear-gradient(90deg, #00767A, #003739)",
+                }}>
                 Enter Courtroom
               </Link>
             </div>
