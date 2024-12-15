@@ -61,7 +61,7 @@ const NewPlanPayment = () => {
         const { _id } = result.data.createdOrder;
 
         const options = {
-          key: "rzp_live_vlDmt5SV4QPDhN",
+          key: "rzp_test_UWcqHHktRV6hxM",
           //   amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
@@ -150,7 +150,7 @@ const NewPlanPayment = () => {
     script.onload = async () => {
       try {
         const result = await axios.post(
-          `https://adira-backend.onrender.com/api/v1/payment/talk-to-expert-createOrder`,
+          `https://adira-dev-backend.onrender.com/api/v1/payment/talk-to-expert-createOrder`,
           {
             amount: paymentDetails?.amount,
             currency: "INR",
@@ -165,7 +165,7 @@ const NewPlanPayment = () => {
         const { amount, id, currency } = result.data.razorpayOrder;
 
         const options = {
-          key: "rzp_live_vlDmt5SV4QPDhN",
+          key: "rzp_test_UWcqHHktRV6hxM",
           amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
@@ -196,7 +196,7 @@ const NewPlanPayment = () => {
             console.log(response);
 
             const result = await axios.post(
-              `https://adira-backend.onrender.com/api/v1/payment/talk-to-expert-verifyOrder`,
+              `https://adira-dev-backend.onrender.com/api/v1/payment/talk-to-expert-verifyOrder`,
               data
             );
             alert(result.data.data.fetchedMeeting);
