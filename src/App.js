@@ -88,44 +88,10 @@ function App() {
 
   const currentUser = useSelector((state) => state.auth.user);
   const autologout = useSelector((state) => state.auth.autologout);
-  const gpt = useSelector((state) => state.gpt);
 
   const [init, setInit] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [socket, setSocket] = useState(null);
-
-  const dispatch = useDispatch();
 
   const currentUserRef = useRef(currentUser);
-
-  // useEffect(() => {
-  //   const newSocket = new WebSocket(
-  //     "ws://20.198.24.104:8000/api/v1/gpt/generate"
-  //   );
-
-  //   newSocket.onopen = () => {
-  //     console.log("WebSocket connection established");
-  //   };
-
-  //   newSocket.onmessage = (event) => {
-  //     const newMessage = JSON.parse(event.data);
-  //     setMessages((prevMessages) => [...prevMessages, newMessage]);
-  //   };
-
-  //   newSocket.onclose = () => {
-  //     console.log("WebSocket connection closed");
-  //   };
-
-  //   newSocket.onerror = (error) => {
-  //     console.error("WebSocket error:", error);
-  //   };
-
-  //   setSocket(newSocket);
-
-  //   return () => {
-  //     newSocket.close();
-  //   };
-  // }, []);
 
   useEffect(() => {
     currentUserRef.current = currentUser;
@@ -134,27 +100,6 @@ function App() {
       window.location.replace("/login");
     }
   }, [currentUser]);
-
-  // useEffect(() => {
-  //   async function fetchGptUser() {
-  //     try {
-  //       const res = await fetch(`${NODE_API_ENDPOINT}/gpt/user`, {
-  //         method: "GET",
-  //         headers: {
-  //           Authorization: `Bearer ${currentUser.jwt}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-  //       const parsed = await res.json();
-
-  //       dispatch(setPlan({ plan: parsed.data.plan }));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-
-  //   if (currentUser) fetchGptUser();
-  // }, [currentUser]);
 
   const updateEngagementTime = useCallback(async (engagementData) => {
     try {
@@ -322,14 +267,6 @@ function App() {
         <div className="contentContainer">
           <Outlet />
         </div>
-      </div>
-    );
-  };
-
-  const CourtRoomLayout = () => {
-    return (
-      <div>
-        <Outlet />
       </div>
     );
   };

@@ -27,3 +27,8 @@ export const WARROOM_ENDPOINT =
     : "https://warroom.clawlaw.in/";
 
 // export const OTP_ENDPOINT = "https://claw-app.onrender.com"
+
+export const LEGALGPT_ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? "https://claw-legalgpt.netlify.app"
+    : "http://localhost:5173";

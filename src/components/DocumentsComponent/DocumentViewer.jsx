@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import NDA from "../../assets/documents/NDA.png";
-import IPA from "../../assets/documents/Intellectual Property Agreement.png";
-import MOU from "../../assets/documents/Memorandum of Understanding.png";
-import Vendor from "../../assets/documents/Vendor Agreement.png";
-import Rent from "../../assets/documents/Rent Agreement.png";
+import Intell from "../../assets/Intell.png";
+import Memo from "../../assets/memorand.png";
+import Non from "../../assets/Nondesclosure.png";
+import Vendor from "../../assets/vendor.png";
+import Rent from "../../assets/rental.png";
 import { Close } from "@mui/icons-material";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -12,9 +12,9 @@ const DocumentViewer = () => {
   const [loading, setLoading] = useState(false);
 
   const documents = [
-    { id: 1, name: "Non-Disclosure Agreement (NDA)", image: NDA },
-    { id: 2, name: "Intellectual Property Agreement", image: IPA },
-    { id: 3, name: "Memorandum of Understanding", image: MOU },
+    { id: 1, name: "Non-Disclosure Agreement (NDA)", image: Non },
+    { id: 2, name: "Intellectual Property Agreement", image: Intell },
+    { id: 3, name: "Memorandum of Understanding", image: Memo },
     { id: 4, name: "Vendor Agreement", image: Vendor },
     { id: 5, name: "Rent Agreement", image: Rent },
   ];
@@ -45,8 +45,7 @@ const DocumentViewer = () => {
             fontSize: "3rem",
             fontWeight: "700",
             display: "inline-block",
-          }}
-        >
+          }}>
           Pre-Made Legal Document Samples
         </h3>
       </div>
@@ -60,28 +59,27 @@ const DocumentViewer = () => {
                 ? "flex-[0_1_calc(40%-1rem)]"
                 : "flex-[0_1_calc(33%-1rem)]"
             } mx-2`}
-            onClick={() => handleDocumentClick(doc)}
-          >
+            onClick={() => handleDocumentClick(doc)}>
             {doc.name}
           </button>
         ))}
       </div>
 
       {loading && (
-        <div className="flex justify-center items-center h-80 w-[80%] bg-black mx-auto">
+        <div className="flex justify-center items-center h-96 w-[90%] bg-black mx-auto">
           <CircularProgress size={50} color="inherit" />
         </div>
       )}
 
       {selectedDocument && !loading && (
-        <div className="relative bg-black opacity-80 text-white p-6 rounded-lg md:w-[80%] mx-auto shadow-lg">
+        <div className="relative bg-black opacity-80 text-white p-6 rounded-lg md:w-[90%] mx-auto shadow-lg">
           <Close
             onClick={() => setSelectedDocument(null)}
             className="absolute top-2 right-2 text-gray-400 hover:text-white cursor-pointer"
           />
           <div className="text-center">
-            <h2 className="text-xl font-bold mb-4">{selectedDocument.name}</h2>
-            <div className="relative" style={{ height: "400px" }}>
+            <h2 className="text-xl font-bold mb-8">{selectedDocument.name}</h2>
+            <div className="relative" style={{ height: "600px" }}>
               <div className="absolute flex justify-center bottom-0 inset-0 bg-gradient-to-t from-black via-black/80 to-black/10 rounded text-white p-4">
                 <div className="absolute  bottom-0 flex flex-col md:flex-row items-center gap-2 md:gap-32">
                   <p className="text-2xl font-bold m-0">
