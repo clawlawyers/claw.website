@@ -46,7 +46,7 @@ const navLinks = [
   // { path: "/case/search", label: "Case Search", icon: SearchIcon },
   { path: "/news", label: "News", icon: FeedIcon },
   // { path: "/gpt/legalGPT", label: "LegalGPT", icon: GavelIcon },
-  { path: "/gpt/socket", label: "LegalGPT", icon: GavelIcon },
+  // { path: "/gpt/socket", label: "LegalGPT", icon: GavelIcon },
 ];
 
 function Header() {
@@ -59,6 +59,8 @@ function Header() {
   const isOpen = useSelector((state) => state.popup.open);
   const isAuthLoading = authStatus === "loading" ? true : false;
   const activeAdiraPlan = useSelector((state) => state.payments.activePlan);
+
+  console.log(plan);
 
   const { isAdiraLoading } = useAdiraAuthState();
 
@@ -141,8 +143,7 @@ function Header() {
               textDecoration: "none",
               color: "white",
               backgroundColor: "transparent",
-            }}
-          >
+            }}>
             <img
               alt="Claw"
               className="w-full rounded-none"
@@ -164,8 +165,7 @@ function Header() {
                   textDecoration: "none",
                   color: "white",
                   backgroundColor: "transparent",
-                }}
-              >
+                }}>
                 Pricing
               </Link>
             </button>
@@ -179,8 +179,7 @@ function Header() {
                   textDecoration: "none",
                   color: "white",
                   backgroundColor: "transparent",
-                }}
-              >
+                }}>
                 Leaders
               </Link>
             </button>
@@ -194,8 +193,7 @@ function Header() {
                   textDecoration: "none",
                   color: "white",
                   backgroundColor: "transparent",
-                }}
-              >
+                }}>
                 News
               </Link>
             </button>
@@ -208,8 +206,7 @@ function Header() {
                   textDecoration: "none",
                   color: "white",
                   backgroundColor: "transparent",
-                }}
-              >
+                }}>
                 Contact Us
               </Link>
             </button>
@@ -227,8 +224,7 @@ function Header() {
                 textDecoration: "none",
                 color: "white",
                 //   backgroundColor: "transparent",
-              }}
-            >
+              }}>
               Products
             </button>
             {anchorElProduct && (
@@ -241,30 +237,26 @@ function Header() {
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "left",
-                }}
-              >
+                }}>
                 <div
                   className="p-3  w-52 bg-black z-20 border-2 border-[#00C37B] rounded"
                   style={{
                     background: "linear-gradient(135deg,#003723E5,#1D2330E5)",
-                  }}
-                >
+                  }}>
                   <div>
                     {!isAdiraLoading ? (
                       <>
                         {activeAdiraPlan && activeAdiraPlan.isActive ? (
                           <p
                             onClick={openAdiraAi}
-                            className="m-0 text-white border-b border-white  py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
-                          >
+                            className="m-0 text-white border-b border-white  py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                             Adira
                           </p>
                         ) : (
                           <Link
                             to={"/pricing"}
                             className="m-0 text-white border-b border-white py-2 cursor-pointer flex hover:bg-white hover:bg-opacity-5 "
-                            style={{ textDecoration: "none" }}
-                          >
+                            style={{ textDecoration: "none" }}>
                             Adira
                           </Link>
                         )}
@@ -279,15 +271,13 @@ function Header() {
                     {true ? (
                       <p
                         className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
-                        onClick={openWarrrom}
-                      >
+                        onClick={openWarrrom}>
                         War Room
                       </p>
                     ) : (
                       <p
                         className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
-                        onClick={handlePopupOpen}
-                      >
+                        onClick={handlePopupOpen}>
                         War Room
                       </p>
                     )}
@@ -352,8 +342,7 @@ function Header() {
                           ? handleLimitExceed
                           : openLegalGpt
                       }
-                      className="m-0 py-2 text-white border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
-                    >
+                      className="m-0 py-2 text-white border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                       LegalGPT
                     </p>
                   </div>
@@ -365,8 +354,7 @@ function Header() {
             <button
               className={Styles.headerButton}
               // class="flex flex-1 items-center justify-center  text-white font-medium text-lg rounded-lg p-2.5 border-none "
-              onClick={handleAuthChange}
-            >
+              onClick={handleAuthChange}>
               {isAuthLoading ? (
                 <CircularProgress size={16} style={{ color: "white" }} />
               ) : (
@@ -377,8 +365,7 @@ function Header() {
             <>
               <button
                 className={Styles.headerButton2}
-                onClick={currentUser ? handleClick : null}
-              >
+                onClick={currentUser ? handleClick : null}>
                 {/* {!isAuthLoading && (currentUser ? <>My Account</> : <>Login</>)} */}
                 <AccountCircleIcon></AccountCircleIcon>
               </button>
@@ -392,27 +379,23 @@ function Header() {
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left",
-                  }}
-                >
+                  }}>
                   <div
                     className="p-3 w-full bg-black z-20 border-2 border-[#00C37B] rounded"
                     style={{
                       background: "linear-gradient(135deg,#003723E5,#1D2330E5)",
-                    }}
-                  >
+                    }}>
                     <Link
                       onClick={() => setAnchorEl(null)}
                       style={{ textDecoration: "none" }}
-                      to={"/purchases"}
-                    >
+                      to={"/purchases"}>
                       <p className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                         All Purchases
                       </p>
                     </Link>
                     <p
                       onClick={handleLogout}
-                      className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 "
-                    >
+                      className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                       Logout
                     </p>
                   </div>
@@ -428,8 +411,7 @@ function Header() {
             border: "none",
             backgroundColor: "transparent",
             color: "white",
-          }}
-        >
+          }}>
           <TableRowsIcon />
         </button>
         <Drawer
@@ -441,23 +423,20 @@ function Header() {
           }}
           anchor="top"
           open={navOpen}
-          onClose={() => setNavOpen(false)}
-        >
+          onClose={() => setNavOpen(false)}>
           <div
             style={{
               display: "flex",
               justifyContent: "flex-end",
               padding: "10px 10px 0px 0px",
-            }}
-          >
+            }}>
             <button
               style={{
                 backgroundColor: "inherit",
                 border: "none",
                 color: "white",
               }}
-              onClick={() => setNavOpen(false)}
-            >
+              onClick={() => setNavOpen(false)}>
               <ClearIcon />
             </button>
           </div>
@@ -466,14 +445,12 @@ function Header() {
               <ListItem
                 key={path}
                 sx={{ borderBottom: "1px solid white" }}
-                disablePadding
-              >
+                disablePadding>
                 <ListItemButton
                   onClick={() => {
                     navigate(path);
                     setNavOpen(false);
-                  }}
-                >
+                  }}>
                   <ListItemIcon>
                     <Icon style={{ color: "white" }} />
                   </ListItemIcon>
@@ -482,43 +459,49 @@ function Header() {
               </ListItem>
             ))}
             <ListItem
-              key={"caseSearch"}
+              key={"LegalGPT"}
               sx={{ borderBottom: "1px solid white" }}
-              disablePadding
-            >
+              disablePadding>
               <ListItemButton
-                onClick={() => {
-                  // activePlan[0]?.plan?.AICaseSearchAccess
-                  // ?
-                  navigate("/case/search");
-                  // : handlePopupOpen();
-                  setNavOpen(false);
-                }}
-              >
+                onClick={
+                  plan !== null &&
+                  plan[0]?.planName === "FREE" &&
+                  plan[0]?.totalUsed >= 15
+                    ? handleLimitExceed
+                    : openLegalGpt
+                }>
+                <ListItemIcon>
+                  <GavelIcon style={{ color: "white" }} />
+                </ListItemIcon>
+                <ListItemText primary={"LegalGPT"} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              key={"War Room"}
+              sx={{ borderBottom: "1px solid white" }}
+              disablePadding>
+              <ListItemButton onClick={openWarrrom}>
                 <ListItemIcon>
                   <SearchIcon style={{ color: "white" }} />
                 </ListItemIcon>
-                <ListItemText primary={"Case Search"} />
+                <ListItemText primary={"War Room"} />
               </ListItemButton>
             </ListItem>
             {!isAdiraLoading ? (
               <ListItem
                 key={"adira"}
                 sx={{ borderBottom: "1px solid white" }}
-                disablePadding
-              >
+                disablePadding>
                 <ListItemButton
                   onClick={() => {
                     activeAdiraPlan && activeAdiraPlan.isActive
                       ? openAdiraAi()
                       : navigate("/pricing");
                     setNavOpen(false);
-                  }}
-                >
+                  }}>
                   <ListItemIcon>
                     <FilePresentIcon
-                      style={{ color: "white" }}
-                    ></FilePresentIcon>
+                      style={{ color: "white" }}></FilePresentIcon>
                   </ListItemIcon>
                   <ListItemText primary={"Adira"} />
                 </ListItemButton>
@@ -527,13 +510,11 @@ function Header() {
               <ListItem
                 key={"adira"}
                 sx={{ borderBottom: "1px solid white" }}
-                disablePadding
-              >
+                disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     <FilePresentIcon
-                      style={{ color: "white" }}
-                    ></FilePresentIcon>
+                      style={{ color: "white" }}></FilePresentIcon>
                   </ListItemIcon>
                   <ListItemText primary={"Adira Loading..."} />
                 </ListItemButton>
@@ -543,14 +524,12 @@ function Header() {
               <ListItem
                 key={"purchase"}
                 sx={{ borderBottom: "1px solid white" }}
-                disablePadding
-              >
+                disablePadding>
                 <ListItemButton
                   onClick={() => {
                     navigate("/purchases");
                     setNavOpen(false);
-                  }}
-                >
+                  }}>
                   <ListItemIcon>
                     <ShoppingCartIcon style={{ color: "white" }} />
                   </ListItemIcon>
@@ -564,8 +543,7 @@ function Header() {
                   currentUser ? handleLogout() : handleAuthChange();
                   // handleAuthChange();
                   setNavOpen(false);
-                }}
-              >
+                }}>
                 <ListItemIcon>
                   <PersonIcon style={{ color: "white" }} />
                 </ListItemIcon>
@@ -590,24 +568,21 @@ function Header() {
             padding: 10,
             transform: "translate(-50%, -50%)",
             boxShadow: 24,
-          }}
-        >
+          }}>
           <div
             style={{
               position: "sticky",
               top: 0,
               display: "flex",
               justifyContent: "flex-end",
-            }}
-          >
+            }}>
             <button
               onClick={handlePopupClose}
               style={{
                 border: "none",
                 backgroundColor: "inherit",
                 backgroundImage: "none",
-              }}
-            >
+              }}>
               <ClearIcon style={{ fontSize: 30, color: "black" }} />
             </button>
           </div>
@@ -619,8 +594,7 @@ function Header() {
               alignItems: "center",
               gap: 10,
               padding: 50,
-            }}
-          >
+            }}>
             <LockIcon style={{ fontSize: 80, color: "black" }} />
             <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
             <div style={{ display: "flex", gap: 5 }}>
@@ -657,8 +631,7 @@ function Header() {
                     backgroundColor: "transparent",
                     borderRadius: 15,
                     padding: 10,
-                  }}
-                >
+                  }}>
                   <p
                     className={Styles.linkImg}
                     style={{
@@ -667,8 +640,7 @@ function Header() {
                       width: "fit-content",
                       border: "none",
                       margin: 0,
-                    }}
-                  >
+                    }}>
                     Buy Credits
                   </p>
                 </button>

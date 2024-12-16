@@ -23,8 +23,7 @@ export default forwardRef(function Features(props, ref) {
                 position: "relative",
                 background: "transparent",
                 zIndex: 10,
-              }}
-            >
+              }}>
               Features
             </span>
             <div

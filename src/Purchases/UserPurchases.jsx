@@ -46,17 +46,20 @@ const UserPurchases = () => {
   // Function to download invoice PDF
   const handleDownloadInvoice = async (planName, clientId) => {
     try {
-      const response = await fetch(`${NODE_API_ENDPOINT}/gpt/generate-invoice`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${currentUser.jwt}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          client: { _id: clientId },
-          planName: planName,
-        }),
-      });
+      const response = await fetch(
+        `${NODE_API_ENDPOINT}/gpt/generate-invoice`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            client: { _id: clientId },
+            planName: planName,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to generate PDF");
@@ -106,7 +109,12 @@ const UserPurchases = () => {
       ) : (
         <Box sx={{ borderRadius: "8px", overflow: "hidden", boxShadow: 1 }}>
           <Table aria-label="simple table">
-            <TableHead sx={{ background: "#afafaf", borderRadius: "10px", overflow: "hidden" }}>
+            <TableHead
+              sx={{
+                background: "#afafaf",
+                borderRadius: "10px",
+                overflow: "hidden",
+              }}>
               <TableRow>
                 <TableCell sx={{ color: "white" }}>Plan Name</TableCell>
                 <TableCell sx={{ color: "white" }}>Start Date</TableCell>
@@ -116,24 +124,34 @@ const UserPurchases = () => {
                 <TableCell sx={{ color: "white" }}>Receipt</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody sx={{ background: "linear-gradient(90deg,#BDFFE7,#62FFC5)" }}>
+            <TableBody
+              sx={{ background: "linear-gradient(90deg,#BDFFE7,#62FFC5)" }}>
               {filteredTableData.length > 0 ? (
                 filteredTableData.map((row, index) => (
-                  <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableRow
+                    key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                     <TableCell>{row.planName}</TableCell>
-                    <TableCell>{new Date(row.createdAt).toDateString()}</TableCell>
-                    <TableCell>{new Date(row.expiresAt).toDateString()}</TableCell>
-                    <TableCell>{row.referralCodeId || row.isCouponCode}</TableCell>
+                    <TableCell>
+                      {new Date(row.createdAt).toDateString()}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(row.expiresAt).toDateString()}
+                    </TableCell>
+                    <TableCell>
+                      {row.referralCodeId || row.isCouponCode}
+                    </TableCell>
                     <TableCell>{row.Paidprice}</TableCell>
                     <TableCell align="center">
                       <svg
                         className="cursor-pointer"
-                        onClick={() => handleDownloadInvoice(row.planName, currentUser._id)}
+                        onClick={() =>
+                          handleDownloadInvoice(row.planName, currentUser._id)
+                        }
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
                         height="18"
-                        viewBox="0 0 24 24"
-                      >
+                        viewBox="0 0 24 24">
                         <path d="M12 21l-8-9h6v-12h4v12h6l-8 9zm9-1v2h-18v-2h-2v4h22v-4h-2z" />
                       </svg>
                     </TableCell>
@@ -141,7 +159,9 @@ const UserPurchases = () => {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={6} align="center">No Data Found</TableCell>
+                  <TableCell colSpan={6} align="center">
+                    No Data Found
+                  </TableCell>
                 </TableRow>
               )}
             </TableBody>

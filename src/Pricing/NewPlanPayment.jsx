@@ -238,13 +238,13 @@ const NewPlanPayment = () => {
   };
 
   return (
-    <div className="m-auto w-[85%]">
+    <div className="m-auto px-2 w-[90%]">
       {!paymentVerified ? (
         <div className="grid md:grid-cols-2 gap-3 md:gap-0">
-          <div className="px-5 md:px-24 ">
-            <div className="pb-5">
-              <h1 className="font-bold">Payment Confirmation</h1>
-              <p className="m-0">Please Confirm Your Purchase Items Before</p>
+          <div className=" md:px-24 ">
+            <div className="pb-5 ">
+              <h1 className="font-bold ">Payment Confirmation</h1>
+              <p className="m-0 ">Please Confirm Your Purchase Items Before</p>
               <p>Proceeding with your Payment</p>
             </div>
             {/* <div className="">
@@ -254,12 +254,11 @@ const NewPlanPayment = () => {
               </button>
             </div> */}
           </div>
-          <div className="w-full flex flex-col px-5 md:px-0 md:pr-24 gap-3">
+          <div className="w-full flex flex-col  md:px-0 md:pr-24 gap-3">
             <div className="flex justify-start md:justify-end">
               <button
                 onClick={() => navigate("/pricing")}
-                className="px-3 py-1 rounded"
-              >
+                className="px-3 py-1 rounded">
                 Go Back
               </button>
             </div>
@@ -274,7 +273,7 @@ const NewPlanPayment = () => {
                       ({paymentDetails?.billingCycle})
                     </p>
                   </div>
-                  <div className="flex justify-end">
+                  <div className="flex mt-1 justify-end">
                     <p className="text-white">₹ {paymentDetails?.amount}</p>
                   </div>
                 </div>
@@ -298,14 +297,14 @@ const NewPlanPayment = () => {
               <hr />
               <div className="flex justify-between items-center">
                 <p className="m-0 text-white text-lg">Total Payable</p>
-                <div className="flex justify-end">
+                <div className="flex mt-2 justify-end">
                   {/* <p className="m-0 text-white">
                     ₹{" "}
                     {paymentDetails?.refundAmount
                       ? paymentDetails?.refundAmount
                       : paymentDetails?.totalPrice}
                   </p> */}
-                  <p className="m-0 text-white">₹ {paymentDetails?.amount}</p>
+                  <p className=" text-white">₹ {paymentDetails?.amount}</p>
                 </div>
               </div>
             </div>
@@ -315,8 +314,7 @@ const NewPlanPayment = () => {
                   ? TalkToExpertPay()
                   : loadRazorpay();
               }}
-              className="w-full rounded py-2"
-            >
+              className="w-full rounded py-2">
               {loading ? (
                 <CircularProgress size={15} color="inherit" />
               ) : (
