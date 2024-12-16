@@ -97,6 +97,7 @@ const TestimonialCard = () => {
         border: "none",
         display: "flex",
         alignItems: "center",
+        boxShadow: "none",
       }}
     >
       <div style={{ position: "relative", width: "100%" }}>
@@ -110,8 +111,8 @@ const TestimonialCard = () => {
               <StackedCarousel
                 ref={carouselRef}
                 slideComponent={Slide}
-                slideWidth={350}
-                height={400}
+                slideWidth={320}
+                height={300}
                 carouselWidth={parentWidth}
                 data={data}
                 maxVisibleSlide={5}

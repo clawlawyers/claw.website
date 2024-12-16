@@ -45,7 +45,8 @@ const DocumentViewer = () => {
             fontSize: "3rem",
             fontWeight: "700",
             display: "inline-block",
-          }}>
+          }}
+        >
           Pre-Made Legal Document Samples
         </h3>
       </div>
@@ -54,12 +55,9 @@ const DocumentViewer = () => {
           <button
             key={doc.id}
             style={{ border: "2px solid rgb(0, 200, 128)" }}
-            className={`px-4 py-2 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition-all ${
-              index < 2
-                ? "flex-[0_1_calc(40%-1rem)]"
-                : "flex-[0_1_calc(33%-1rem)]"
-            } mx-2`}
-            onClick={() => handleDocumentClick(doc)}>
+            className={`w-[300px] mx-1 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition-all`}
+            onClick={() => handleDocumentClick(doc)}
+          >
             {doc.name}
           </button>
         ))}

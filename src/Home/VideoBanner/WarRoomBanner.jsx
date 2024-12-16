@@ -96,7 +96,8 @@ const WarRoomBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}>
+              onChange={handleChange("panel1")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -108,13 +109,15 @@ const WarRoomBanner = () => {
                 }}
                 //   expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
-                id="panel1bh-header">
+                id="panel1bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
-                  }}>
+                  }}
+                >
                   Getting Started with WarRoom
                 </Typography>
               </AccordionSummary>
@@ -122,7 +125,8 @@ const WarRoomBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   Dive into a Quick Free Trial of AI Powered Court Arguments and
                   Counter-Arguments
@@ -134,7 +138,8 @@ const WarRoomBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel2"}
-              onChange={handleChange("panel2")}>
+              onChange={handleChange("panel2")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -145,13 +150,15 @@ const WarRoomBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel2bh-content"
-                id="panel2bh-header">
+                id="panel2bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
-                  }}>
+                  }}
+                >
                   Upload Your Document
                 </Typography>
               </AccordionSummary>
@@ -159,7 +166,8 @@ const WarRoomBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   Keep Your Document Handy and Get started easily with arguments
                   and counter-arguments
@@ -171,7 +179,8 @@ const WarRoomBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel3"}
-              onChange={handleChange("panel3")}>
+              onChange={handleChange("panel3")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -182,13 +191,15 @@ const WarRoomBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel3bh-content"
-                id="panel3bh-header">
+                id="panel3bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
-                  }}>
+                  }}
+                >
                   Free Trial Limit
                 </Typography>
               </AccordionSummary>
@@ -196,7 +207,8 @@ const WarRoomBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   Keep Your Arguments ready to get the most out of it in Free
                   Trial of{" "}
@@ -209,7 +221,8 @@ const WarRoomBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel4"}
-              onChange={handleChange("panel4")}>
+              onChange={handleChange("panel4")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -220,13 +233,15 @@ const WarRoomBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel4bh-content"
-                id="panel4bh-header">
+                id="panel4bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
-                  }}>
+                  }}
+                >
                   Placing Arguments & Fighting Case
                 </Typography>
               </AccordionSummary>
@@ -234,7 +249,8 @@ const WarRoomBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography sx={{ color: "white" }}>
                   Place Your Arguments,and receive counter- arguments from War
                   Room AI
@@ -260,41 +276,43 @@ const WarRoomBanner = () => {
             </div>
           )}
         </div>
-        <div className="flex items-center  justify-center w-full">
-          <div className="flex justify-between items-center space-x-8 text-white">
-            {/* Explore War Room */}
-            <div className="flex flex-col items-center">
-              <p className="mb-2 text-xl text-white opacity-90 text-center">
-                Want to Explore War Room?
-              </p>
-              <span
-                className=" py-1  font-medium no-underline border-1 border-white cursor-pointer text-white rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg w-48 text-center"
-                onClick={openWarrrom}
-                style={{
-                  background: "linear-gradient(30deg, #00767A, #003739)",
-                }}>
-                Explore
-              </span>
-            </div>
-
-            {/* Divider */}
-            <div className="h-16 mx-5 w-px bg-teal-500" />
-
-            {/* Unlock All Features */}
-            <div className="flex flex-col items-center">
-              <p className="mb-2 text-xl text-white opacity-90 text-center">
-                Unlock All Features Available
-              </p>
-              <Link
-                to="https://courtroom.clawlaw.in/"
-                className=" py-1 no-underline text-white font-medium border-1 border-white rounded-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg w-48 text-center"
-                style={{
-                  background: "linear-gradient(90deg, #00767A, #003739)",
-                }}>
-                Enter Courtroom
-              </Link>
-            </div>
+        <div className="flex flex-col md:flex-row items-center  justify-center w-full gap-2">
+          {/* <div className="flex justify-between items-center space-x-8 text-white"> */}
+          {/* Explore War Room */}
+          <div className="flex flex-col items-center">
+            <p className="mb-2 text-xl text-white opacity-90 text-center">
+              Want to Explore War Room?
+            </p>
+            <span
+              className=" py-1  font-medium no-underline border-1 border-white cursor-pointer text-white rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg w-48 text-center"
+              onClick={openWarrrom}
+              style={{
+                background: "linear-gradient(30deg, #00767A, #003739)",
+              }}
+            >
+              Explore
+            </span>
           </div>
+
+          {/* Divider */}
+          <div className="hidden  md:h-16 md:mx-5 md:w-px md:bg-teal-500" />
+
+          {/* Unlock All Features */}
+          <div className="flex flex-col items-center">
+            <p className="mb-2 text-xl text-white opacity-90 text-center">
+              Unlock All Features Available
+            </p>
+            <Link
+              to="https://courtroom.clawlaw.in/"
+              className=" py-1 no-underline text-white font-medium border-1 border-white rounded-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg w-48 text-center"
+              style={{
+                background: "linear-gradient(90deg, #00767A, #003739)",
+              }}
+            >
+              Enter Courtroom
+            </Link>
+          </div>
+          {/* </div> */}
         </div>
       </div>
     </div>
