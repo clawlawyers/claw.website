@@ -121,6 +121,15 @@ const LegalGptBanner = () => {
                   Get to know how to put your Question / Query in LegalGPT and
                   get the results
                 </Typography>
+                <video
+                  className="rounded-lg  pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
 
@@ -169,6 +178,15 @@ const LegalGptBanner = () => {
                   After you start a conversation LegalGPT analyzes your question
                   and helps you with more related questions to assist you
                 </Typography>
+                <video
+                  className="rounded-lg  pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -216,6 +234,15 @@ const LegalGptBanner = () => {
                   LegalGPT also finds all the Related Cases registered in Indian
                   High Courts
                 </Typography>
+                <video
+                  className="rounded-lg  pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -263,6 +290,15 @@ const LegalGptBanner = () => {
                   LegalGPT also allows you to choose a specific State High Court
                   according to your requirements
                 </Typography>
+                <video
+                  className="rounded-lg  pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -310,6 +346,15 @@ const LegalGptBanner = () => {
                   LegalGPT allows you to find Relevant Registered Cases in
                   Supreme Court of India
                 </Typography>
+                <video
+                  className="rounded-lg  pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -357,11 +402,20 @@ const LegalGptBanner = () => {
                   LegalGPT also finds all the Relevant Reference Cases based on
                   your input
                 </Typography>
+                <video
+                  className="rounded-lg  pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
           </div>
           {currentVid ? (
-            <div className="flex justify-center items-center p-1 rounded-lg z-20">
+            <div className="hidden md:flex justify-center items-center p-1 rounded-lg z-20">
               <video
                 className="rounded-lg h-80"
                 src={currentVid}
@@ -373,7 +427,7 @@ const LegalGptBanner = () => {
               />
             </div>
           ) : (
-            <div className="h-80 flex justify-center items-center bg-black z-20 rounded-lg">
+            <div className="hidden h-80 md:flex justify-center items-center bg-black z-20 rounded-lg">
               <CircularProgress size={30} color="inherit" />
             </div>
           )}

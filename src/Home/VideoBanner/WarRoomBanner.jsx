@@ -139,6 +139,15 @@ const WarRoomBanner = () => {
                   Dive into a Quick Free Trial of AI Powered Court Arguments and
                   Counter-Arguments
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -186,6 +195,15 @@ const WarRoomBanner = () => {
                   Keep Your Document Handy and Get started easily with arguments
                   and counter-arguments
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -234,6 +252,15 @@ const WarRoomBanner = () => {
                   Trial of{" "}
                   <span className="text-white font-bold">30 Minutes</span>
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -281,11 +308,20 @@ const WarRoomBanner = () => {
                   Place Your Arguments,and receive counter- arguments from War
                   Room AI
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
           </div>
           {currentVid ? (
-            <div className="flex justify-center items-center p-1 rounded-lg z-20">
+            <div className="hidden  md:flex justify-center items-center p-1 rounded-lg z-20">
               <video
                 className="rounded-lg h-80"
                 src={currentVid}
@@ -297,7 +333,7 @@ const WarRoomBanner = () => {
               />
             </div>
           ) : (
-            <div className="h-80 flex justify-center items-center bg-black z-20 rounded-lg">
+            <div className=" hidden h-80 md:flex justify-center items-center bg-black z-20 rounded-lg">
               <CircularProgress size={30} color="inherit" />
             </div>
           )}
