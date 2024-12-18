@@ -42,9 +42,10 @@ const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
   // { path: "/blog", label: "Blog", icon: BookIcon },
   { path: "/pricing", label: "Pricing", icon: AttachMoneyIcon },
-  { path: "/leaders", label: "Leaders", icon: LeaderboardIcon },
+  // { path: "/leaders", label: "Leaders", icon: LeaderboardIcon },
   // { path: "/case/search", label: "Case Search", icon: SearchIcon },
   { path: "/news", label: "News", icon: FeedIcon },
+  { path: "/contact-us", label: "Contact Us", icon: FeedIcon },
   // { path: "/gpt/legalGPT", label: "LegalGPT", icon: GavelIcon },
   // { path: "/gpt/socket", label: "LegalGPT", icon: GavelIcon },
 ];
@@ -59,6 +60,7 @@ function Header() {
   const isOpen = useSelector((state) => state.popup.open);
   const isAuthLoading = authStatus === "loading" ? true : false;
   const activeAdiraPlan = useSelector((state) => state.payments.activePlan);
+  const [showList, setShowList] = useState("");
 
   console.log(plan);
 
@@ -133,6 +135,11 @@ function Header() {
     toast.error("Daily limit already used. Please buy a plan!");
   };
 
+  const handleProducts = () => {
+    navigate("/login");
+    setNavOpen(false);
+  };
+
   return (
     <div className={Styles.headerContainer}>
       <div className={Styles.headerContent}>
@@ -143,7 +150,8 @@ function Header() {
               textDecoration: "none",
               color: "white",
               backgroundColor: "transparent",
-            }}>
+            }}
+          >
             <img
               alt="Claw"
               className="w-full rounded-none"
@@ -165,13 +173,14 @@ function Header() {
                   textDecoration: "none",
                   color: "white",
                   backgroundColor: "transparent",
-                }}>
+                }}
+              >
                 Pricing
               </Link>
             </button>
           </div>
 
-          <div style={{ backgroundColor: "transparent" }}>
+          {/* <div style={{ backgroundColor: "transparent" }}>
             <button>
               <Link
                 to="/leaders"
@@ -183,7 +192,7 @@ function Header() {
                 Leaders
               </Link>
             </button>
-          </div>
+          </div> */}
 
           <div style={{ backgroundColor: "transparent" }}>
             <button>
@@ -193,7 +202,8 @@ function Header() {
                   textDecoration: "none",
                   color: "white",
                   backgroundColor: "transparent",
-                }}>
+                }}
+              >
                 News
               </Link>
             </button>
@@ -206,7 +216,8 @@ function Header() {
                   textDecoration: "none",
                   color: "white",
                   backgroundColor: "transparent",
-                }}>
+                }}
+              >
                 Contact Us
               </Link>
             </button>
@@ -224,7 +235,8 @@ function Header() {
                 textDecoration: "none",
                 color: "white",
                 //   backgroundColor: "transparent",
-              }}>
+              }}
+            >
               Products
             </button>
             {anchorElProduct && (
@@ -237,26 +249,30 @@ function Header() {
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "left",
-                }}>
+                }}
+              >
                 <div
                   className="p-3  w-52 bg-black z-20 border-2 border-[#00C37B] rounded"
                   style={{
                     background: "linear-gradient(135deg,#003723E5,#1D2330E5)",
-                  }}>
+                  }}
+                >
                   <div>
                     {!isAdiraLoading ? (
                       <>
                         {activeAdiraPlan && activeAdiraPlan.isActive ? (
                           <p
                             onClick={openAdiraAi}
-                            className="m-0 text-white border-b border-white  py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                            className="m-0 text-white border-b border-white  py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                          >
                             Adira
                           </p>
                         ) : (
                           <Link
                             to={"/pricing"}
                             className="m-0 text-white border-b border-white py-2 cursor-pointer flex hover:bg-white hover:bg-opacity-5 "
-                            style={{ textDecoration: "none" }}>
+                            style={{ textDecoration: "none" }}
+                          >
                             Adira
                           </Link>
                         )}
@@ -271,13 +287,15 @@ function Header() {
                     {true ? (
                       <p
                         className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
-                        onClick={openWarrrom}>
+                        onClick={openWarrrom}
+                      >
                         War Room
                       </p>
                     ) : (
                       <p
                         className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
-                        onClick={handlePopupOpen}>
+                        onClick={handlePopupOpen}
+                      >
                         War Room
                       </p>
                     )}
@@ -342,7 +360,8 @@ function Header() {
                           ? handleLimitExceed
                           : openLegalGpt
                       }
-                      className="m-0 py-2 text-white border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                      className="m-0 py-2 text-white border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                    >
                       LegalGPT
                     </p>
                   </div>
@@ -354,7 +373,8 @@ function Header() {
             <button
               className={Styles.headerButton}
               // class="flex flex-1 items-center justify-center  text-white font-medium text-lg rounded-lg p-2.5 border-none "
-              onClick={handleAuthChange}>
+              onClick={handleAuthChange}
+            >
               {isAuthLoading ? (
                 <CircularProgress size={16} style={{ color: "white" }} />
               ) : (
@@ -365,7 +385,8 @@ function Header() {
             <>
               <button
                 className={Styles.headerButton2}
-                onClick={currentUser ? handleClick : null}>
+                onClick={currentUser ? handleClick : null}
+              >
                 {/* {!isAuthLoading && (currentUser ? <>My Account</> : <>Login</>)} */}
                 <AccountCircleIcon></AccountCircleIcon>
               </button>
@@ -379,23 +400,27 @@ function Header() {
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left",
-                  }}>
+                  }}
+                >
                   <div
                     className="p-3 w-full bg-black z-20 border-2 border-[#00C37B] rounded"
                     style={{
                       background: "linear-gradient(135deg,#003723E5,#1D2330E5)",
-                    }}>
+                    }}
+                  >
                     <Link
                       onClick={() => setAnchorEl(null)}
                       style={{ textDecoration: "none" }}
-                      to={"/purchases"}>
+                      to={"/purchases"}
+                    >
                       <p className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                         All Purchases
                       </p>
                     </Link>
                     <p
                       onClick={handleLogout}
-                      className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                      className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                    >
                       Logout
                     </p>
                   </div>
@@ -406,153 +431,309 @@ function Header() {
         </div>
         <button
           className={Styles.mobileNav}
-          onClick={() => setNavOpen(true)}
+          onClick={() => {
+            setNavOpen(true);
+            setShowList("");
+          }}
           style={{
             border: "none",
             backgroundColor: "transparent",
             color: "white",
-          }}>
+          }}
+        >
           <TableRowsIcon />
         </button>
         <Drawer
           PaperProps={{
             style: {
-              backgroundColor: "#008080",
+              backgroundColor: "black",
               color: "white",
             },
           }}
           anchor="top"
           open={navOpen}
-          onClose={() => setNavOpen(false)}>
+          onClose={() => {
+            setNavOpen(false);
+            setShowList("");
+          }}
+        >
           <div
             style={{
               display: "flex",
               justifyContent: "flex-end",
               padding: "10px 10px 0px 0px",
-            }}>
+            }}
+          >
             <button
               style={{
                 backgroundColor: "inherit",
                 border: "none",
                 color: "white",
               }}
-              onClick={() => setNavOpen(false)}>
+              onClick={() => {
+                setNavOpen(false);
+                setShowList("");
+              }}
+            >
               <ClearIcon />
             </button>
           </div>
-          <List sx={{ padding: "10px" }}>
-            {navLinks.map(({ path, label, icon: Icon }, index) => (
-              <ListItem
-                key={path}
-                sx={{ borderBottom: "1px solid white" }}
-                disablePadding>
-                <ListItemButton
-                  onClick={() => {
-                    navigate(path);
-                    setNavOpen(false);
-                  }}>
-                  <ListItemIcon>
-                    <Icon style={{ color: "white" }} />
-                  </ListItemIcon>
-                  <ListItemText primary={label} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-            <ListItem
-              key={"LegalGPT"}
-              sx={{ borderBottom: "1px solid white" }}
-              disablePadding>
-              <ListItemButton
-                onClick={
-                  plan !== null &&
-                  plan[0]?.planName === "FREE" &&
-                  plan[0]?.totalUsed >= 15
-                    ? handleLimitExceed
-                    : openLegalGpt
-                }>
-                <ListItemIcon>
-                  <GavelIcon style={{ color: "white" }} />
-                </ListItemIcon>
-                <ListItemText primary={"LegalGPT"} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem
-              key={"War Room"}
-              sx={{ borderBottom: "1px solid white" }}
-              disablePadding>
-              <ListItemButton onClick={openWarrrom}>
-                <ListItemIcon>
-                  <SearchIcon style={{ color: "white" }} />
-                </ListItemIcon>
-                <ListItemText primary={"War Room"} />
-              </ListItemButton>
-            </ListItem>
-            {!isAdiraLoading ? (
-              <ListItem
-                key={"adira"}
-                sx={{ borderBottom: "1px solid white" }}
-                disablePadding>
-                <ListItemButton
-                  onClick={() => {
-                    activeAdiraPlan && activeAdiraPlan.isActive
-                      ? openAdiraAi()
-                      : navigate("/pricing");
-                    setNavOpen(false);
-                  }}>
-                  <ListItemIcon>
-                    <FilePresentIcon
-                      style={{ color: "white" }}></FilePresentIcon>
-                  </ListItemIcon>
-                  <ListItemText primary={"Adira"} />
-                </ListItemButton>
-              </ListItem>
-            ) : (
-              <ListItem
-                key={"adira"}
-                sx={{ borderBottom: "1px solid white" }}
-                disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <FilePresentIcon
-                      style={{ color: "white" }}></FilePresentIcon>
-                  </ListItemIcon>
-                  <ListItemText primary={"Adira Loading..."} />
-                </ListItemButton>
-              </ListItem>
-            )}
-            {currentUser ? (
+          {showList === "login" ? (
+            <List sx={{ padding: "10px" }}>
               <ListItem
                 key={"purchase"}
-                sx={{ borderBottom: "1px solid white" }}
-                disablePadding>
+                sx={{ padding: "5px 0px" }}
+                disablePadding
+              >
                 <ListItemButton
+                  sx={{
+                    textAlign: "center",
+                    background: "linear-gradient(90deg,#005F62,#00C37B)",
+                    borderRadius: "5px",
+                  }}
                   onClick={() => {
                     navigate("/purchases");
                     setNavOpen(false);
-                  }}>
-                  <ListItemIcon>
-                    <ShoppingCartIcon style={{ color: "white" }} />
-                  </ListItemIcon>
+                  }}
+                >
                   <ListItemText primary={"All Purchases"} />
                 </ListItemButton>
               </ListItem>
-            ) : null}
-            <ListItem key={"auth"} disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  currentUser ? handleLogout() : handleAuthChange();
-                  // handleAuthChange();
-                  setNavOpen(false);
-                }}>
-                <ListItemIcon>
-                  <PersonIcon style={{ color: "white" }} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={!isAuthLoading && (currentUser ? "Logout" : "Login")}
-                />
-              </ListItemButton>
-            </ListItem>
-          </List>
+              <ListItem key={"auth"} sx={{ padding: "5px 0px" }}>
+                <ListItemButton
+                  sx={{
+                    textAlign: "center",
+                    background: "linear-gradient(90deg,#005F62,#00C37B)",
+                    borderRadius: "5px",
+                  }}
+                  onClick={() => {
+                    handleLogout();
+                    setNavOpen(false);
+                  }}
+                >
+                  <ListItemText primary={"Logout"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem key={"back"} sx={{ padding: "40px 0px 0px 0px" }}>
+                <ListItemButton
+                  sx={{
+                    textAlign: "center",
+                    background: "linear-gradient(90deg,#005F62,#00C37B)",
+                    borderRadius: "5px",
+                  }}
+                  onClick={() => {
+                    setShowList("");
+                  }}
+                >
+                  <ListItemText primary={"Back"} />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          ) : showList === "products" ? (
+            <List
+              sx={{
+                padding: "10px",
+                background: "linear-gradient(90deg,#005F62,#00C37B)",
+              }}
+            >
+              <h1 className="text-center">Products</h1>
+              <ListItem
+                key={"LegalGPT"}
+                sx={{ borderBottom: "1px solid white" }}
+                disablePadding
+              >
+                <ListItemButton
+                  onClick={
+                    plan !== null &&
+                    plan[0]?.planName === "FREE" &&
+                    plan[0]?.totalUsed >= 15
+                      ? handleLimitExceed
+                      : openLegalGpt
+                  }
+                  sx={{ textAlign: "center" }}
+                >
+                  <ListItemText primary={"LEGALGPT"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem
+                key={"War Room"}
+                sx={{ borderBottom: "1px solid white" }}
+                disablePadding
+              >
+                <ListItemButton
+                  sx={{ textAlign: "center" }}
+                  onClick={openWarrrom}
+                >
+                  <ListItemText primary={"WAR ROOM"} />
+                </ListItemButton>
+              </ListItem>
+              {!isAdiraLoading ? (
+                <ListItem
+                  key={"adira"}
+                  sx={{ borderBottom: "1px solid white" }}
+                  disablePadding
+                >
+                  <ListItemButton
+                    sx={{ textAlign: "center" }}
+                    onClick={() => {
+                      activeAdiraPlan && activeAdiraPlan.isActive
+                        ? openAdiraAi()
+                        : navigate("/pricing");
+                      setNavOpen(false);
+                    }}
+                  >
+                    <ListItemText primary={"ADIRA"} />
+                  </ListItemButton>
+                </ListItem>
+              ) : (
+                <ListItem
+                  key={"adira"}
+                  sx={{ borderBottom: "1px solid white" }}
+                  disablePadding
+                >
+                  <ListItemButton sx={{ textAlign: "center" }}>
+                    <ListItemText primary={"Adira Loading..."} />
+                  </ListItemButton>
+                </ListItem>
+              )}
+              <ListItem key={"back"} sx={{ padding: "10px" }} disablePadding>
+                <button
+                  onClick={() => setShowList("")}
+                  className="hover:bg-black w-full"
+                  style={{
+                    textAlign: "center",
+                    background: "black",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <ListItemText primary={"Back"} />
+                </button>
+              </ListItem>
+            </List>
+          ) : (
+            <List sx={{ padding: "10px" }}>
+              {navLinks.map(({ path, label, icon: Icon }, index) => (
+                <ListItem
+                  key={path}
+                  sx={{ borderBottom: "1px solid white" }}
+                  disablePadding
+                >
+                  <ListItemButton
+                    onClick={() => {
+                      navigate(path);
+                      setNavOpen(false);
+                    }}
+                    sx={{ textAlign: "center" }}
+                  >
+                    {/* <ListItemIcon>
+                    <Icon style={{ color: "white" }} />
+                  </ListItemIcon> */}
+                    <ListItemText primary={label} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+              <ListItem
+                key={"Products"}
+                sx={{
+                  padding: "5px 0px",
+                }}
+                disablePadding
+              >
+                <ListItemButton
+                  onClick={() =>
+                    currentUser ? setShowList("products") : handleProducts()
+                  }
+                  sx={{
+                    textAlign: "center",
+                    background: "linear-gradient(90deg,#005F62,#00C37B)",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <ListItemText primary={"Products"} />
+                </ListItemButton>
+              </ListItem>
+              {currentUser ? (
+                <ListItem
+                  key={"My Account"}
+                  sx={{
+                    padding: "5px 0px",
+                  }}
+                  disablePadding
+                >
+                  <ListItemButton
+                    onClick={() => setShowList("login")}
+                    sx={{
+                      textAlign: "center",
+                      background: "linear-gradient(90deg,#005F62,#00C37B)",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <ListItemText primary={"My Account"} />
+                  </ListItemButton>
+                </ListItem>
+              ) : (
+                <ListItem
+                  key={"Login"}
+                  sx={{
+                    padding: "5px 0px",
+                  }}
+                  disablePadding
+                >
+                  <ListItemButton
+                    onClick={() => {
+                      handleAuthChange();
+                      setNavOpen(false);
+                    }}
+                    sx={{
+                      textAlign: "center",
+                      background: "linear-gradient(90deg,#005F62,#00C37B)",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <ListItemText primary={"Login"} />
+                  </ListItemButton>
+                </ListItem>
+              )}
+
+              {/* {currentUser ? (
+                <ListItem
+                  key={"purchase"}
+                  sx={{ borderBottom: "1px solid white" }}
+                  disablePadding
+                >
+                  <ListItemButton
+                    onClick={() => {
+                      navigate("/purchases");
+                      setNavOpen(false);
+                    }}
+                  >
+                    <ListItemIcon>
+                      <ShoppingCartIcon style={{ color: "white" }} />
+                    </ListItemIcon>
+                    <ListItemText primary={"All Purchases"} />
+                  </ListItemButton>
+                </ListItem>
+              ) : null}
+              <ListItem key={"auth"} disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    currentUser ? handleLogout() : handleAuthChange();
+                    // handleAuthChange();
+                    setNavOpen(false);
+                  }}
+                >
+                  <ListItemIcon>
+                    <PersonIcon style={{ color: "white" }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      !isAuthLoading && (currentUser ? "Logout" : "Login")
+                    }
+                  />
+                </ListItemButton>
+              </ListItem> */}
+            </List>
+          )}
         </Drawer>
       </div>
       <Modal open={isOpen} onClose={handlePopupClose}>
@@ -568,21 +749,24 @@ function Header() {
             padding: 10,
             transform: "translate(-50%, -50%)",
             boxShadow: 24,
-          }}>
+          }}
+        >
           <div
             style={{
               position: "sticky",
               top: 0,
               display: "flex",
               justifyContent: "flex-end",
-            }}>
+            }}
+          >
             <button
               onClick={handlePopupClose}
               style={{
                 border: "none",
                 backgroundColor: "inherit",
                 backgroundImage: "none",
-              }}>
+              }}
+            >
               <ClearIcon style={{ fontSize: 30, color: "black" }} />
             </button>
           </div>
@@ -594,7 +778,8 @@ function Header() {
               alignItems: "center",
               gap: 10,
               padding: 50,
-            }}>
+            }}
+          >
             <LockIcon style={{ fontSize: 80, color: "black" }} />
             <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
             <div style={{ display: "flex", gap: 5 }}>
@@ -631,7 +816,8 @@ function Header() {
                     backgroundColor: "transparent",
                     borderRadius: 15,
                     padding: 10,
-                  }}>
+                  }}
+                >
                   <p
                     className={Styles.linkImg}
                     style={{
@@ -640,7 +826,8 @@ function Header() {
                       width: "fit-content",
                       border: "none",
                       margin: 0,
-                    }}>
+                    }}
+                  >
                     Buy Credits
                   </p>
                 </button>
