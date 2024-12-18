@@ -84,6 +84,8 @@ import { retrieveActiveAdiraPlan } from "./features/payment/paymentSlice.js";
 import AboutUs from "./AboutUs/AboutUs.jsx";
 import Contact from "./Contact/Contact.jsx";
 import { RiLayoutGrid2Line } from "react-icons/ri";
+import SignUpPage from "./Login/Signup.jsx";
+import PopupPage from "./Login/PopupPage.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -347,6 +349,14 @@ function App() {
         {
           path: "login2",
           element: <Login2 />,
+        },
+        {
+          path: "signup1",
+          element: <SignUpPage />,
+        },
+        {
+          path: "popup",
+          element: <PopupPage />,
         },
 
         {
