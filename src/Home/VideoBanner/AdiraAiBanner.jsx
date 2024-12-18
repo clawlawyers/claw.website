@@ -131,6 +131,15 @@ const AdiraAiBanner = () => {
                   Have a Document Sample which needs to be transformed into
                   Legal Format Document ?
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -178,6 +187,15 @@ const AdiraAiBanner = () => {
                   You can also generate your desired Legal Prompt with the help
                   of Prompts
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -225,6 +243,15 @@ const AdiraAiBanner = () => {
                   You can also Generate Document from a wide range of templated
                   Legal Documents
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -272,6 +299,15 @@ const AdiraAiBanner = () => {
                   When some details are missing from your side, Adira AI asks
                   them from you for best results
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -319,6 +355,15 @@ const AdiraAiBanner = () => {
                   Once a document is generated, you have the option to edit
                   contents of document with prompt
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -366,6 +411,15 @@ const AdiraAiBanner = () => {
                   The Query bar assists not only in editing your document but
                   also find information from in it.
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -413,6 +467,15 @@ const AdiraAiBanner = () => {
                   At any point if you find that the document generated is
                   perfect, generate the summary and download it.
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -459,13 +522,22 @@ const AdiraAiBanner = () => {
                   }}>
                   Talk to an expert to get any queries
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
           </div>
           {currentVid ? (
-            <div className="flex justify-center items-center p-1 rounded-lg z-20">
+            <div className=" hidden md:flex justify-center items-center p-1 rounded-lg z-20">
               <video
-                className="rounded-lg h-80"
+                className="rounded-lg h-80 "
                 src={currentVid}
                 autoPlay
                 loop
@@ -475,7 +547,7 @@ const AdiraAiBanner = () => {
               />
             </div>
           ) : (
-            <div className="h-80 flex justify-center items-center bg-black z-20 rounded-lg">
+            <div className="hidden h-80 md:flex justify-center items-center bg-black z-20 rounded-lg">
               <CircularProgress size={30} color="inherit" />
             </div>
           )}
