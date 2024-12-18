@@ -67,7 +67,8 @@ const CaseSearchBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}>
+              onChange={handleChange("panel1")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -79,7 +80,8 @@ const CaseSearchBanner = () => {
                 }}
                 //   expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
-                id="panel1bh-header">
+                id="panel1bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -88,7 +90,8 @@ const CaseSearchBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Finding Your First Case
                 </Typography>
               </AccordionSummary>
@@ -96,7 +99,8 @@ const CaseSearchBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -104,10 +108,20 @@ const CaseSearchBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Get to know how to put your first Query in Case Search and get
                   the optimum AI Generated Results
                 </Typography>
+                <video
+                  className="rounded-lg  pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -115,7 +129,8 @@ const CaseSearchBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel2"}
-              onChange={handleChange("panel2")}>
+              onChange={handleChange("panel2")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -126,7 +141,8 @@ const CaseSearchBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel2bh-content"
-                id="panel2bh-header">
+                id="panel2bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -135,7 +151,8 @@ const CaseSearchBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Set A Date Range for Case Search
                 </Typography>
               </AccordionSummary>
@@ -143,7 +160,8 @@ const CaseSearchBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -151,15 +169,25 @@ const CaseSearchBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Cases not exactly from the time you want it to be ? This is
                   how you select a date range for your case searches
                 </Typography>
+                <video
+                  className="rounded-lg pt-3 md:hidden"
+                  src={currentVid}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  playsInline
+                />
               </AccordionDetails>
             </Accordion>
           </div>
           {currentVid ? (
-            <div className="flex justify-center items-center p-1 rounded-lg z-20">
+            <div className="hidden md:flex justify-center items-center p-1 rounded-lg z-20">
               <video
                 className="rounded-lg h-80"
                 src={currentVid}
@@ -171,7 +199,7 @@ const CaseSearchBanner = () => {
               />
             </div>
           ) : (
-            <div className="h-80 flex justify-center items-center bg-black z-20 rounded-lg">
+            <div className="hidden h-80 md:flex justify-center items-center bg-black z-20 rounded-lg">
               <CircularProgress size={30} color="inherit" />
             </div>
           )}
