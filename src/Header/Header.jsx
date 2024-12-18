@@ -180,6 +180,21 @@ function Header() {
             </button>
           </div>
 
+          <div style={{ backgroundColor: "transparent" }}>
+            <button>
+              <Link
+                to="/blog"
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  backgroundColor: "transparent",
+                }}
+              >
+                Blog
+              </Link>
+            </button>
+          </div>
+
           {/* <div style={{ backgroundColor: "transparent" }}>
             <button>
               <Link
