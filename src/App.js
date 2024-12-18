@@ -72,6 +72,7 @@ import { retrieveActivePlanUser, setPlan } from "./features/gpt/gptSlice.js";
 import TestSubscription from "./Pricing/TestSubscription.jsx";
 import UserPurchases from "./Purchases/UserPurchases.jsx";
 import Login1 from "./Login/Login1.jsx";
+import Login2 from "./Login/Login2.jsx";
 import { WindowRounded } from "@mui/icons-material";
 import WebSocketComponent from "./Gpt/WebSocket/WebSocket.jsx";
 import Prompts from "./Gpt/WebSocket/Prompts.jsx";
@@ -82,6 +83,7 @@ import NewPlanPayment from "./Pricing/NewPlanPayment.jsx";
 import { retrieveActiveAdiraPlan } from "./features/payment/paymentSlice.js";
 import AboutUs from "./AboutUs/AboutUs.jsx";
 import Contact from "./Contact/Contact.jsx";
+import { RiLayoutGrid2Line } from "react-icons/ri";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -341,6 +343,10 @@ function App() {
         {
           path: "login",
           element: <Login1 />,
+        },
+        {
+          path: "login2",
+          element: <Login2 />,
         },
 
         {
