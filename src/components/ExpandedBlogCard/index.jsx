@@ -17,13 +17,8 @@ export function ExpandedBlogCard({
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ delay: 0.25 }}
-      className={Styles.blogCardContainer}
-    >
-      <img
-        alt="blogs"
-        style={{ height: "inherit", borderRadius: "inherit" }}
-        src={blog0}
-      />
+      className={Styles.blogCardContainer}>
+      <img alt="blogs" style={{ borderRadius: "inherit" }} src={blog0} />
 
       <div className={Styles.blogCardContent}>
         <h3 className={Styles.blogCardHeading}>{heading}</h3>
@@ -36,19 +31,17 @@ export function ExpandedBlogCard({
             width: "fit-content",
             marginTop: 15,
             border: "none",
-          }}
-        >
+          }}>
           <Link
             to={`/blog/${heading}`}
             style={{
               color: "white",
-              fontSize: 17,
+              fontSize: 15,
               fontWeight: 600,
               border: "none",
               backgroundColor: "transparent",
               textDecoration: "none",
-            }}
-          >
+            }}>
             Read more
           </Link>
         </button>

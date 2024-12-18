@@ -23,7 +23,7 @@
   background-image: url("../../assets/images/button-gradient.png");
   font-weight: 600;
   font-size: 14px;
-  color: white;
+
   padding: 12px;
   border-radius: 24px;
   border: none;
@@ -36,7 +36,46 @@
 
 @media only screen and (max-width: 768px) {
   .searchContent {
+    width: 90%; /* Make search container wider on mobile */
+  }
+  /* 
+  .searchContainerChild {
+    height: 2.75rem;
+  } */
+
+  .searchContent input {
+    padding: 0px;
+    height: 5px;
+    font-size: 5px; /* Smaller input font size for mobile */
+  }
+
+  .buttonContainer button {
+    font-size: 8px; /* Smaller button font size */
+    height: 5px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+  }
+
+  /* Adjust the modal content to fit well on mobile */
+  .modalContent {
+    width: 90%; /* Ensure modal content is responsive */
+  }
+
+  /* If needed, you can adjust the input field container */
+  .searchContent input {
     width: 90%;
+    height: 20px;
+    border-radius: 20px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .description {
+    font-size: 12px; /* Adjust font size for description on mobile */
   }
 }
 .backdropImg {

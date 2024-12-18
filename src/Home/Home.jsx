@@ -19,8 +19,7 @@ function Home({ featuresRef, engineReady, particleOptions }) {
       <DocumentViewer />
       <div
         className="relative bg-transparent flex flex-col gap-10"
-        style={{ position: "relative", backgroundColor: "transparent" }}
-      >
+        style={{ position: "relative", backgroundColor: "transparent" }}>
         <div
           style={{
             position: "absolute",
@@ -38,8 +37,9 @@ function Home({ featuresRef, engineReady, particleOptions }) {
         <br />
         <div className="flex flex-col gap-4">
           <div className="flex flex-col justify-center items-center gap-1">
-            <h1 className="font-bold text-5xl md:text-7xl">Testimonials</h1>
-            <p className="text-sm md:text-2xl font-semibold text-[#777]">
+            <h1 className="font-bold text-[32px] md:text-7xl">Testimonials</h1>
+
+            <p className="text-[8px] md:text-2xl font-semibold text-[#777]">
               Get to know what the professionals got to say
             </p>
           </div>

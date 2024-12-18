@@ -74,18 +74,18 @@ export default function SearchGPT() {
     if (currentUser) {
       const res = await fetchWrapper.post(`${NODE_API_ENDPOINT}/gpt/session`, {
         body: JSON.stringify({ prompt: query, model: "legalGPT" }),
-      })
-     
-      console.log(res)
+      });
 
-    //   const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
-    //     method: "POST",
-    //     headers: {
-    //       Authorization: `Bearer ${currentUser.jwt}`,
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ prompt: query, model: "legalGPT" }),
-    //   });
+      console.log(res);
+
+      //   const res = await fetch(`${NODE_API_ENDPOINT}/gpt/session`, {
+      //     method: "POST",
+      //     headers: {
+      //       Authorization: `Bearer ${currentUser.jwt}`,
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ prompt: query, model: "legalGPT" }),
+      //   });
       const { data } = await res.json();
       // const data = response.data
       dispatch(setGpt({ prompt: query }));
@@ -104,20 +104,19 @@ export default function SearchGPT() {
     <div className={Styles.searchContainer}>
       <div className={Styles.searchContent}>
         <div
+          className={Styles.searchContainerChild}
           style={{
             backgroundColor: "transparent",
             display: "flex",
             padding: 10,
-          }}
-        >
+          }}>
           <div
             style={{
               flex: 1,
               backgroundColor: "transparent",
               display: "flex",
               alignItems: "center",
-            }}
-          >
+            }}>
             <SearchOutlined
               style={{
                 backgroundColor: "transparent",
@@ -149,11 +148,8 @@ export default function SearchGPT() {
                 className={globalStyles.backdrop}
                 onClick={() =>
                   // activePlan[0]?.plan.legalGptAccess
-                  true
-                    ? onSubmitPrompt()
-                    : handlePopupOpen()
-                }
-              >
+                  true ? onSubmitPrompt() : handlePopupOpen()
+                }>
                 Ask LegalGPT
               </button>
             )}
@@ -171,24 +167,21 @@ export default function SearchGPT() {
                 padding: 10,
                 transform: "translate(-50%, -50%)",
                 boxShadow: 24,
-              }}
-            >
+              }}>
               <div
                 style={{
                   position: "sticky",
                   top: 0,
                   display: "flex",
                   justifyContent: "flex-end",
-                }}
-              >
+                }}>
                 <button
                   onClick={handlePopupClose}
                   style={{
                     border: "none",
                     backgroundColor: "inherit",
                     backgroundImage: "none",
-                  }}
-                >
+                  }}>
                   <ClearIcon style={{ fontSize: 30, color: "black" }} />
                 </button>
               </div>
@@ -200,8 +193,7 @@ export default function SearchGPT() {
                   alignItems: "center",
                   gap: 10,
                   padding: 50,
-                }}
-              >
+                }}>
                 <LockIcon style={{ fontSize: 80, color: "black" }} />
                 <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
                 <div style={{ display: "flex", gap: 5 }}>
@@ -238,8 +230,7 @@ export default function SearchGPT() {
                         backgroundColor: "transparent",
                         borderRadius: 15,
                         padding: 10,
-                      }}
-                    >
+                      }}>
                       <p
                         className={Styles.linkImg}
                         style={{
@@ -248,8 +239,7 @@ export default function SearchGPT() {
                           width: "fit-content",
                           border: "none",
                           margin: 0,
-                        }}
-                      >
+                        }}>
                         Buy Credits
                       </p>
                     </button>

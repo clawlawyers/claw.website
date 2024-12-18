@@ -7,3 +7,20 @@
   color: white;
   cursor: pointer;
 }
+.cardContainer h3 {
+  font-size: 30px; /* Adjust font size for smaller screens */
+  font-weight: 600px;
+}
+.cardContainer h5 {
+  font-size: 20px; /* Adjust font size for smaller screens */
+}
+
+@media (max-width: 768px) {
+  .cardContainer h3 {
+    font-size: 15px; /* Adjust font size for smaller screens */
+  }
+
+  .cardContainer h5 {
+    font-size: 12px; /* Adjust font size for smaller screens */
+  }
+}

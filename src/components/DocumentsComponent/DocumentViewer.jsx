@@ -31,22 +31,21 @@ const DocumentViewer = () => {
   return (
     <div className="pt-20 w-[80%] bg-gray-900 bg-transparent text-white m-auto flex flex-col gap-3">
       <div>
-        <h1 className="text-3xl font-semibold text-center">
+        <h1 className="text-3xl font-semibold text-center text-[18px] sm:text-3xl">
           Here are some of your{" "}
         </h1>
+
         <h3
-          className="w-full text-center"
+          className="w-full text-center text-[18px] sm:text-3xl"
           style={{
             background: "linear-gradient(rgb(0, 128, 128), rgb(0, 200, 128))",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
             color: "transparent",
-            fontSize: "3rem",
             fontWeight: "700",
             display: "inline-block",
-          }}
-        >
+          }}>
           Pre-Made Legal Document Samples
         </h3>
       </div>
@@ -55,9 +54,8 @@ const DocumentViewer = () => {
           <button
             key={doc.id}
             style={{ border: "2px solid rgb(0, 200, 128)" }}
-            className={`w-[300px] mx-1 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition-all`}
-            onClick={() => handleDocumentClick(doc)}
-          >
+            className={`w-[300px] mx-1 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition-all text-[13px] sm:text-base`}
+            onClick={() => handleDocumentClick(doc)}>
             {doc.name}
           </button>
         ))}
