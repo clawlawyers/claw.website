@@ -30,14 +30,21 @@ export const Slide = React.memo(function (StackedCarouselSlideProps) {
               {data[dataIndex].person}
             </p>
           </div>
+
           <div className="flex justify-end items-end p-2">
-            <Stack spacing={1}>
+            <Stack
+              spacing={1}
+              className="sm:space-y-2" // Adjust spacing for small screens
+            >
               {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
               <Rating
                 name="half-rating-read"
                 defaultValue={data[dataIndex].rating}
                 precision={0.5}
                 readOnly
+                sx={{
+                  fontSize: { xs: "12px", sm: "16px", md: "20px" }, // Dynamic size adjustment
+                }}
               />
             </Stack>
           </div>
@@ -50,9 +57,11 @@ export const Slide = React.memo(function (StackedCarouselSlideProps) {
             borderTop: "2px solid white",
           }}
         />
-        <div className="flex justify-center items-center w-full h-full sm:w-3/4 sm:h-3/4 md:w-full md:h-full">
-          <div className="px-3 italic font-semibold text-white text-[8px] sm:text-xs md:text-base">
-            <p>" {data[dataIndex].description} "</p>
+        <div className="flex justify-center items-center w-full h-screen sm:w-3/4 sm:h-3/4 md:w-full md:h-full">
+          <div className="px-4 py-2 italic font-semibold text-white text-[15px] sm:text-sm md:text-base lg:text-lg">
+            <p className="text-xs sm:text-[5px] md:text-base lg:text-xs">
+              " {data[dataIndex].description}"
+            </p>
           </div>
         </div>
       </div>

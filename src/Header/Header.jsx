@@ -441,7 +441,7 @@ function Header() {
             </button>
           </div>
           <List sx={{ padding: "10px" }}>
-            {navLinks.map(({ path, label, icon: Icon }, index) => (
+            {/* {navLinks.map(({ path, label, icon: Icon }, index) => (
               <ListItem
                 key={path}
                 sx={{ borderBottom: "1px solid white" }}
@@ -551,7 +551,202 @@ function Header() {
                   primary={!isAuthLoading && (currentUser ? "Logout" : "Login")}
                 />
               </ListItemButton>
-            </ListItem>
+            </ListItem> */}
+
+            <div className={Styles.headerGPT}>
+              <>
+                <button
+                  onClick={(e) =>
+                    currentUser ? handleClickProduct(e) : navigate("/login")
+                  }
+                  className={Styles.headerButton}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    //   backgroundColor: "transparent",
+                  }}>
+                  Products
+                </button>
+                {anchorElProduct && (
+                  <Popover
+                    sx={{ marginTop: "5px", opacity: "0.98" }}
+                    id={idProduct}
+                    open={openDialogProduct}
+                    anchorEl={anchorElProduct}
+                    onClose={handleCloseProduct}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}>
+                    <div
+                      className="p-3  w-52 bg-black z-20 border-2 border-[#00C37B] rounded"
+                      style={{
+                        background:
+                          "linear-gradient(135deg,#003723E5,#1D2330E5)",
+                      }}>
+                      <div>
+                        {!isAdiraLoading ? (
+                          <>
+                            {activeAdiraPlan && activeAdiraPlan.isActive ? (
+                              <p
+                                onClick={openAdiraAi}
+                                className="m-0 text-white border-b border-white  py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                                Adira
+                              </p>
+                            ) : (
+                              <Link
+                                to={"/pricing"}
+                                className="m-0 text-white border-b border-white py-2 cursor-pointer flex hover:bg-white hover:bg-opacity-5 "
+                                style={{ textDecoration: "none" }}>
+                                Adira
+                              </Link>
+                            )}
+                          </>
+                        ) : (
+                          <p className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                            <CircularProgress size={15} color="inherit" />
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        {true ? (
+                          <p
+                            className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                            onClick={openWarrrom}>
+                            War Room
+                          </p>
+                        ) : (
+                          <p
+                            className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                            onClick={handlePopupOpen}>
+                            War Room
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        {/* {activePlan ? (
+                      <>
+                        {activePlan[0]?.plan?.AICaseSearchAccess ? ( */}
+                        {/* <p
+                      className="m-0 w-full py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                      onClick={() => setAnchorElProduct(null)}
+                    >
+                      <Link
+                        className=" text-white hover:bg-white hover:bg-opacity-5 "
+                        style={{ textDecoration: "none" }}
+                        to="/case/search"
+                      >
+                        Case Search
+                      </Link>
+                    </p> */}
+                        {/* ) : (
+                          <p
+                            onClick={handlePopupOpen}
+                            className="m-0 text-white border-b border-white py-2 cursor-pointer"
+                          >
+                            Case Search
+                          </p>
+                        )}
+                      </>
+                    ) : (
+                      <p className="m-0 text-white border-b border-white p-1 cursor-pointer">
+                        <CircularProgress size={20} color="inherit" />
+                      </p>
+                    )} */}
+                      </div>
+                      {/*  <div> 
+                    <p className="m-0 py-2 border-b border-white cursor-pointer">
+                      <Link
+                        className=" text-white "
+                        style={{ textDecoration: "none" }}
+                        to="/gpt/legalGPT"
+                      >
+                        LegalGPT
+                      </Link>
+                    </p>
+                  </div>*/}
+                      {/* <div>
+                    <p className="m-0 py-2 border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                      <Link
+                        className=" text-white "
+                        style={{ textDecoration: "none" }}
+                        to="/gpt/socket"
+                      >
+                        LegalGPT
+                      </Link>
+                    </p>
+                  </div> */}
+                      <div>
+                        <p
+                          onClick={
+                            plan[0].planName === "FREE" &&
+                            plan[0].totalUsed >= 15
+                              ? handleLimitExceed
+                              : openLegalGpt
+                          }
+                          className="m-0 py-2 text-white border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                          LegalGPT
+                        </p>
+                      </div>
+                    </div>
+                  </Popover>
+                )}
+              </>
+              {!currentUser ? (
+                <button
+                  className={Styles.headerButton}
+                  // class="flex flex-1 items-center justify-center  text-white font-medium text-lg rounded-lg p-2.5 border-none "
+                  onClick={handleAuthChange}>
+                  {isAuthLoading ? (
+                    <CircularProgress size={16} style={{ color: "white" }} />
+                  ) : (
+                    "Login"
+                  )}
+                </button>
+              ) : (
+                <>
+                  <button
+                    className={Styles.headerButton2}
+                    onClick={currentUser ? handleClick : null}>
+                    {/* {!isAuthLoading && (currentUser ? <>My Account</> : <>Login</>)} */}
+                    <AccountCircleIcon></AccountCircleIcon>
+                  </button>
+                  {anchorEl && (
+                    <Popover
+                      sx={{ marginTop: "5px", opacity: "0.98" }}
+                      id={id}
+                      open={openDialog}
+                      anchorEl={anchorEl}
+                      onClose={handleClose}
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "left",
+                      }}>
+                      <div
+                        className="p-3 w-full bg-black z-20 border-2 border-[#00C37B] rounded"
+                        style={{
+                          background:
+                            "linear-gradient(135deg,#003723E5,#1D2330E5)",
+                        }}>
+                        <Link
+                          onClick={() => setAnchorEl(null)}
+                          style={{ textDecoration: "none" }}
+                          to={"/purchases"}>
+                          <p className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                            All Purchases
+                          </p>
+                        </Link>
+                        <p
+                          onClick={handleLogout}
+                          className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                          Logout
+                        </p>
+                      </div>
+                    </Popover>
+                  )}
+                </>
+              )}
+            </div>
           </List>
         </Drawer>
       </div>
