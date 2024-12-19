@@ -9,27 +9,27 @@ import MobileVideoComponent from "./MobileComponent/MobileVideoComponent";
 const videoArr = [
   {
     panel: "panel1",
-    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/cncwcytiraola9fmpeym.mp4`,
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/cpuomarsotsjx9wyush7.mp4`,
   },
   {
     panel: "panel2",
-    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/jzjldnltlcua5pfqnnzf.mp4  `,
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/sujyfh9ylpc204upafzo.mp4  `,
   },
   {
     panel: "panel3",
-    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/bixixvcvvjdu85i7lkr5.mp4`,
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/kcbmks7lus4ceelapnbi.mp4`,
   },
   {
     panel: "panel4",
-    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/hhursgp0kbpvh6p9bccr.mp4`,
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/haknhgegyyjstktzhlsg.mp4`,
   },
   {
     panel: "panel5",
-    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/rnu0dueaormfr3lgyleo.mp4`,
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/sn0zhogv6rr09m403sok.mp4`,
   },
   {
     panel: "panel6",
-    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1731065773/LegalGPT/ccbjqddkmceifxiwndsn.mp4`,
+    src: `https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/gzfcmrbdqt8afhzeinli.mp4`,
   },
 ];
 
