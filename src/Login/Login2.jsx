@@ -700,7 +700,7 @@ const LoginPage = () => {
               <p className="text-white">
                 New to Claw Legal Tech?{" "}
                 <Link
-                  to="/signup1"
+                  to="/signup"
                   className="text-teal-600 font-semibold hover:underline"
                 >
                   Register Now

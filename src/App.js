@@ -355,7 +355,7 @@ function App() {
           element: <Login2 />,
         },
         {
-          path: "signup1",
+          path: "signup",
           element: <SignUpPage />,
         },
         {

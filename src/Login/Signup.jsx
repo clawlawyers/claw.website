@@ -500,7 +500,7 @@ const SignUpPage = () => {
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                 />
-                <div className="flex">
+                <div className="flex gap-2">
                   <button
                     onClick={handleRetryClick}
                     disabled={isDisabled}
