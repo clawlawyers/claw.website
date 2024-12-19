@@ -4,6 +4,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import { CircularProgress } from "@mui/material";
+import MobileVideoComponent from "./MobileComponent/MobileVideoComponent";
 
 const videoArr = [
   {
@@ -90,7 +91,8 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}>
+              onChange={handleChange("panel1")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -102,7 +104,8 @@ const AdiraAiBanner = () => {
                 }}
                 //   expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
-                id="panel1bh-header">
+                id="panel1bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -111,7 +114,8 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Upload Your Document
                 </Typography>
               </AccordionSummary>
@@ -119,7 +123,8 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -127,27 +132,12 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Have a Document Sample which needs to be transformed into
                   Legal Format Document ?
                 </Typography>
-                {currentVid ? (
-                  <div className=" md:flex justify-center items-center p-1 rounded-lg z-20">
-                    <video
-                      className="rounded-lg h-30 "
-                      src={currentVid}
-                      autoPlay
-                      loop
-                      muted
-                      controls
-                      playsInline
-                    />
-                  </div>
-                ) : (
-                  <div className=" h-24 md:flex justify-center items-center bg-black z-20 rounded-lg">
-                    <CircularProgress size={30} color="inherit" />
-                  </div>
-                )}
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -155,7 +145,8 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel2"}
-              onChange={handleChange("panel2")}>
+              onChange={handleChange("panel2")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -166,7 +157,8 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel2bh-content"
-                id="panel2bh-header">
+                id="panel2bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -175,7 +167,8 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Create Document from Prompt
                 </Typography>
               </AccordionSummary>
@@ -183,7 +176,8 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -191,27 +185,12 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   You can also generate your desired Legal Prompt with the help
                   of Prompts
                 </Typography>
-                {currentVid ? (
-                  <div className=" md:flex justify-center items-center p-1 rounded-lg z-20">
-                    <video
-                      className="rounded-lg h-30 "
-                      src={currentVid}
-                      autoPlay
-                      loop
-                      muted
-                      controls
-                      playsInline
-                    />
-                  </div>
-                ) : (
-                  <div className=" h-24 md:flex justify-center items-center bg-black z-20 rounded-lg">
-                    <CircularProgress size={30} color="inherit" />
-                  </div>
-                )}
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -219,7 +198,8 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel3"}
-              onChange={handleChange("panel3")}>
+              onChange={handleChange("panel3")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -230,7 +210,8 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel3bh-content"
-                id="panel3bh-header">
+                id="panel3bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -239,7 +220,8 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Select Type of Document
                 </Typography>
               </AccordionSummary>
@@ -247,7 +229,8 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -255,27 +238,12 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   You can also Generate Document from a wide range of templated
                   Legal Documents
                 </Typography>
-                {currentVid ? (
-                  <div className=" md:flex justify-center items-center p-1 rounded-lg z-20">
-                    <video
-                      className="rounded-lg h-30 "
-                      src={currentVid}
-                      autoPlay
-                      loop
-                      muted
-                      controls
-                      playsInline
-                    />
-                  </div>
-                ) : (
-                  <div className=" h-24 md:flex justify-center items-center bg-black z-20 rounded-lg">
-                    <CircularProgress size={30} color="inherit" />
-                  </div>
-                )}
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -283,7 +251,8 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel4"}
-              onChange={handleChange("panel4")}>
+              onChange={handleChange("panel4")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -294,7 +263,8 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel4bh-content"
-                id="panel4bh-header">
+                id="panel4bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -303,7 +273,8 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Fill the Requirements
                 </Typography>
               </AccordionSummary>
@@ -311,7 +282,8 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -319,27 +291,12 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   When some details are missing from your side, Adira AI asks
                   them from you for best results
                 </Typography>
-                {currentVid ? (
-                  <div className=" md:flex justify-center items-center p-1 rounded-lg z-20">
-                    <video
-                      className="rounded-lg h-30 "
-                      src={currentVid}
-                      autoPlay
-                      loop
-                      muted
-                      controls
-                      playsInline
-                    />
-                  </div>
-                ) : (
-                  <div className=" h-24 md:flex justify-center items-center bg-black z-20 rounded-lg">
-                    <CircularProgress size={30} color="inherit" />
-                  </div>
-                )}
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -347,7 +304,8 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel5"}
-              onChange={handleChange("panel5")}>
+              onChange={handleChange("panel5")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -358,7 +316,8 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel5bh-content"
-                id="panel5bh-header">
+                id="panel5bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -367,7 +326,8 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Edit / Update Document
                 </Typography>
               </AccordionSummary>
@@ -375,7 +335,8 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -383,27 +344,12 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Once a document is generated, you have the option to edit
                   contents of document with prompt
                 </Typography>
-                {currentVid ? (
-                  <div className=" md:flex justify-center items-center p-1 rounded-lg z-20">
-                    <video
-                      className="rounded-lg h-30 "
-                      src={currentVid}
-                      autoPlay
-                      loop
-                      muted
-                      controls
-                      playsInline
-                    />
-                  </div>
-                ) : (
-                  <div className=" h-24 md:flex justify-center items-center bg-black z-20 rounded-lg">
-                    <CircularProgress size={30} color="inherit" />
-                  </div>
-                )}
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -411,7 +357,8 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel6"}
-              onChange={handleChange("panel6")}>
+              onChange={handleChange("panel6")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -422,7 +369,8 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel6bh-content"
-                id="panel6bh-header">
+                id="panel6bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -431,7 +379,8 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Find Document Details
                 </Typography>
               </AccordionSummary>
@@ -439,7 +388,8 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -447,27 +397,12 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   The Query bar assists not only in editing your document but
                   also find information from in it.
                 </Typography>
-                {currentVid ? (
-                  <div className=" md:flex justify-center items-center p-1 rounded-lg z-20">
-                    <video
-                      className="rounded-lg h-30 "
-                      src={currentVid}
-                      autoPlay
-                      loop
-                      muted
-                      controls
-                      playsInline
-                    />
-                  </div>
-                ) : (
-                  <div className=" h-24 md:flex justify-center items-center bg-black z-20 rounded-lg">
-                    <CircularProgress size={30} color="inherit" />
-                  </div>
-                )}
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -475,7 +410,8 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel7"}
-              onChange={handleChange("panel7")}>
+              onChange={handleChange("panel7")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -486,7 +422,8 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel7bh-content"
-                id="panel7bh-header">
+                id="panel7bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -495,7 +432,8 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Generate & Download Document
                 </Typography>
               </AccordionSummary>
@@ -503,7 +441,8 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -511,27 +450,12 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   At any point if you find that the document generated is
                   perfect, generate the summary and download it.
                 </Typography>
-                {currentVid ? (
-                  <div className=" md:flex justify-center items-center p-1 rounded-lg z-20">
-                    <video
-                      className="rounded-lg h-30 "
-                      src={currentVid}
-                      autoPlay
-                      loop
-                      muted
-                      controls
-                      playsInline
-                    />
-                  </div>
-                ) : (
-                  <div className=" h-24 md:flex justify-center items-center bg-black z-20 rounded-lg">
-                    <CircularProgress size={30} color="inherit" />
-                  </div>
-                )}
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -539,7 +463,8 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel8"}
-              onChange={handleChange("panel8")}>
+              onChange={handleChange("panel8")}
+            >
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -550,7 +475,8 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel8bh-content"
-                id="panel8bh-header">
+                id="panel8bh-header"
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -559,7 +485,8 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Chatbot
                 </Typography>
               </AccordionSummary>
@@ -567,7 +494,8 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}>
+                }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -575,27 +503,11 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}>
+                  }}
+                >
                   Talk to an expert to get any queries
                 </Typography>
-
-                {currentVid ? (
-                  <div className=" md:flex justify-center items-center p-1 rounded-lg z-20">
-                    <video
-                      className="rounded-lg h-30 "
-                      src={currentVid}
-                      autoPlay
-                      loop
-                      muted
-                      controls
-                      playsInline
-                    />
-                  </div>
-                ) : (
-                  <div className=" h-24 md:flex justify-center items-center bg-black z-20 rounded-lg">
-                    <CircularProgress size={30} color="inherit" />
-                  </div>
-                )}
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
           </div>
@@ -604,8 +516,8 @@ const AdiraAiBanner = () => {
               <video
                 className="rounded-lg h-80 "
                 src={currentVid}
-                autoPlay
-                loop
+                // autoPlay
+                // loop
                 muted
                 controls
                 playsInline
