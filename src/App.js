@@ -347,11 +347,11 @@ function App() {
           element: <Demovideo />,
         },
         {
-          path: "login",
+          path: "login2",
           element: <Login1 />,
         },
         {
-          path: "login2",
+          path: "login",
           element: <Login2 />,
         },
         {

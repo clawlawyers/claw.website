@@ -443,10 +443,10 @@ const LoginPage = () => {
         console.log(OTPdata);
         if (OTPdata.authtoken) {
           console.log(verifyToken);
-          // await loginToUser(OTPdata.authtoken);
+          await loginToUser(OTPdata.authtoken);
           setVerifyToken(OTPdata.authtoken);
         }
-        console.log(verifyToken);
+        // console.log(verifyToken);
         toast.success("Mobile number verified");
       } else throw new Error("Otp length should be of 6");
     } catch (error) {
@@ -459,7 +459,7 @@ const LoginPage = () => {
     }
   };
 
-  const loginToUser = async () => {
+  const loginToUser = async (authT) => {
     setIsLoading(true);
 
     try {
@@ -467,9 +467,8 @@ const LoginPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": verifyToken,
+          "auth-token": authT,
         },
-        body: JSON.stringify(formData),
       });
       console.log(response);
       const { data } = await response.json();
@@ -601,49 +600,93 @@ const LoginPage = () => {
   return (
     <div className=" min-h-screen flex items-center justify-center">
       {/* Main Card */}
-      <div className="bg-white max-w-4xl w-full rounded-lg shadow-lg overflow-hidden">
+      <div className="bg-white bg-opacity-25  w-[80%] rounded-lg shadow-lg overflow-hidden border ">
         {/* Title */}
-        <h2 className="text-3xl font-bold text-center text-teal-800 py-6">
+        <h2 className="text-3xl font-bold text-center text-white py-6">
           Log In to Claw Legaltech
         </h2>
 
         <div className="flex flex-col md:flex-row">
           {/* Left Section: Image */}
-          <div className="flex items-center justify-center md:w-1/2 bg-white">
+          <div className="flex items-center justify-center md:w-1/2">
             <img
               src={loginIcon}
               alt="Login Illustration"
-              className="w-[50%] h-[50%] md:w-[90%] lg:w-[100%] "
+              className="h-auto w-auto rounded-none"
             />
           </div>
 
           {/* Right Section: Form */}
           <div className="flex-1 p-6 md:p-10">
-            {/* Input: Mobile Number */}
-            <div className="mb-6">
-              <input
-                type="number"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                placeholder="Enter Valid Mobile Number *"
-                className="w-full p-3 border border-gray-300 text-gray-700 bg-[rgba(195,255,255,1)] rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none"
-              />
-            </div>
+            {!hasFilled ? (
+              <form onSubmit={sendOTP}>
+                <div className="mb-6">
+                  <input
+                    type="number"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    placeholder="Enter Valid Mobile Number *"
+                    className="w-full p-3 border border-gray-300 text-gray-700 bg-[rgba(195,255,255,1)] rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none"
+                  />
+                </div>
 
-            {/* Continue Button */}
-            <button className="w-full bg-teal-700 text-white p-3 rounded-md hover:bg-teal-800 transition duration-300">
-              Continue
-            </button>
+                {/* Continue Button */}
+                <button
+                  type="submit"
+                  className="w-full bg-teal-700 text-white p-3 rounded-md hover:bg-teal-800 transition duration-300"
+                >
+                  {otpLoading ? (
+                    <CircularProgress size={15} color="inherit" />
+                  ) : (
+                    "Send OTP"
+                  )}
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={verifyOTP}>
+                <div className="mb-6">
+                  <input
+                    type="number"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    placeholder="Enter OTP"
+                    className="w-full p-3 border border-gray-300 text-gray-700 bg-[rgba(195,255,255,1)] rounded-md focus:ring-2 focus:ring-teal-600 focus:outline-none"
+                  />
+                </div>
+
+                {/* Continue Button */}
+                <div className="flex flex-col md:flex-row justify-end gap-3">
+                  <button
+                    onClick={handleRetryClick}
+                    disabled={isDisabled}
+                    className="w-full bg-transparent border rounded px-5"
+                  >
+                    {isDisabled ? `Wait ${countdown} seconds...` : "Retry"}
+                  </button>
+                  <button
+                    type="submit"
+                    className="w-full bg-teal-700 text-white p-3 rounded-md hover:bg-teal-800 transition duration-300"
+                  >
+                    {isLoading ? (
+                      <CircularProgress size={15} color="inherit" />
+                    ) : (
+                      "Verify OTP"
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
+            {/* Input: Mobile Number */}
 
             {/* Divider */}
             <div className="flex items-center my-4">
-              <hr className="flex-grow border-gray-300" />
-              <span className="mx-2 text-gray-500">OR</span>
-              <hr className="flex-grow border-gray-300" />
+              <hr className="flex-grow border-white" />
+              <span className="mx-2 text-white">OR</span>
+              <hr className="flex-grow border-white" />
             </div>
 
             {/* Google Sign-In */}
-            <button className="w-full flex items-center justify-center border border-gray-300 p-3 rounded-md text-gray-700 hover:bg-gray-100 transition">
+            <button className="w-full flex items-center justify-center border border-white p-3 rounded-md text-white bg-teal-700 hover:bg-teal-800 transition">
               <img
                 src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
                 alt="Google Logo"
@@ -654,11 +697,11 @@ const LoginPage = () => {
 
             {/* Footer Links */}
             <div className="text-center mt-6">
-              <p className="text-gray-600">
+              <p className="text-white">
                 New to Claw Legal Tech?{" "}
                 <Link
                   to="/signup1"
-                  className="text-teal-700 font-semibold hover:underline"
+                  className="text-teal-600 font-semibold hover:underline"
                 >
                   Register Now
                 </Link>
