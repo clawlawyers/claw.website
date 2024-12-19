@@ -14,6 +14,7 @@ import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import { WARROOM_ENDPOINT } from "../../utils/utils";
 import { useSelector } from "react-redux";
+import MobileVideoComponent from "./MobileComponent/MobileVideoComponent";
 
 // const videoArr = [
 //   { panel: "panel1", src: `${getStartedVid}` },
@@ -139,15 +140,7 @@ const WarRoomBanner = () => {
                   Dive into a Quick Free Trial of AI Powered Court Arguments and
                   Counter-Arguments
                 </Typography>
-                <video
-                  className="rounded-lg pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -195,15 +188,7 @@ const WarRoomBanner = () => {
                   Keep Your Document Handy and Get started easily with arguments
                   and counter-arguments
                 </Typography>
-                <video
-                  className="rounded-lg pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -252,15 +237,7 @@ const WarRoomBanner = () => {
                   Trial of{" "}
                   <span className="text-white font-bold">30 Minutes</span>
                 </Typography>
-                <video
-                  className="rounded-lg pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -308,15 +285,7 @@ const WarRoomBanner = () => {
                   Place Your Arguments,and receive counter- arguments from War
                   Room AI
                 </Typography>
-                <video
-                  className="rounded-lg pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
           </div>
@@ -325,8 +294,8 @@ const WarRoomBanner = () => {
               <video
                 className="rounded-lg h-80"
                 src={currentVid}
-                autoPlay
-                loop
+                // autoPlay
+                // loop
                 muted
                 controls
                 playsInline

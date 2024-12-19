@@ -4,6 +4,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import { CircularProgress } from "@mui/material";
+import MobileVideoComponent from "./MobileComponent/MobileVideoComponent";
 
 const videoArr = [
   {
@@ -121,15 +122,7 @@ const LegalGptBanner = () => {
                   Get to know how to put your Question / Query in LegalGPT and
                   get the results
                 </Typography>
-                <video
-                  className="rounded-lg  pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
 
@@ -178,15 +171,7 @@ const LegalGptBanner = () => {
                   After you start a conversation LegalGPT analyzes your question
                   and helps you with more related questions to assist you
                 </Typography>
-                <video
-                  className="rounded-lg  pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -234,15 +219,7 @@ const LegalGptBanner = () => {
                   LegalGPT also finds all the Related Cases registered in Indian
                   High Courts
                 </Typography>
-                <video
-                  className="rounded-lg  pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -290,15 +267,7 @@ const LegalGptBanner = () => {
                   LegalGPT also allows you to choose a specific State High Court
                   according to your requirements
                 </Typography>
-                <video
-                  className="rounded-lg  pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -346,15 +315,7 @@ const LegalGptBanner = () => {
                   LegalGPT allows you to find Relevant Registered Cases in
                   Supreme Court of India
                 </Typography>
-                <video
-                  className="rounded-lg  pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -402,15 +363,7 @@ const LegalGptBanner = () => {
                   LegalGPT also finds all the Relevant Reference Cases based on
                   your input
                 </Typography>
-                <video
-                  className="rounded-lg  pt-3 md:hidden"
-                  src={currentVid}
-                  autoPlay
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
           </div>
@@ -419,8 +372,8 @@ const LegalGptBanner = () => {
               <video
                 className="rounded-lg h-80"
                 src={currentVid}
-                autoPlay
-                loop
+                // autoPlay
+                // loop
                 muted
                 controls
                 playsInline
