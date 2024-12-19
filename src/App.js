@@ -310,6 +310,10 @@ function App() {
           element: <TrackedNews />,
         },
         {
+          path: "/blog",
+          element: <AllBlogs />,
+        },
+        {
           path: "blog/:blogName",
           element: <Blog />,
         },
