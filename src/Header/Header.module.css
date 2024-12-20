@@ -103,8 +103,16 @@
     padding-top: 20px;
     padding-bottom: 20px;
   }
+  .headerContent {
+    height: 50px;
+    border-radius: 5px;
+  }
   .headerLinks {
     display: none;
+  }
+  .headerLogo img {
+    height: 20px;
+    width: 60px;
   }
   .headerButton {
     display: none;
@@ -114,9 +122,11 @@
   }
   .headerContent {
     width: 90%;
-    padding: 15px;
   }
   .mobileNav {
     display: block;
+  }
+  .headerLogo {
+    width: 110px;
   }
 }

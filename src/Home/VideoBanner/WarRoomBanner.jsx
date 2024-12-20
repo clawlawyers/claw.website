@@ -14,6 +14,7 @@ import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import { WARROOM_ENDPOINT } from "../../utils/utils";
 import { useSelector } from "react-redux";
+import MobileVideoComponent from "./MobileComponent/MobileVideoComponent";
 
 // const videoArr = [
 //   { panel: "panel1", src: `${getStartedVid}` },
@@ -82,7 +83,9 @@ const WarRoomBanner = () => {
   return (
     <div className="w-full">
       <div className="flex w-full items-center gap-3 pb-3">
-        <h1 className="text-2xl font-bold m-0">WarRoom</h1>
+        <h1 className="text-2xl font-bold m-0 text-[15px] sm:text-2xl">
+          WarRoom
+        </h1>
         <div className="flex-1 w-full bg-[#00C37B] h-[2px]"></div>
       </div>
       <div className="relative  p-3">
@@ -114,6 +117,9 @@ const WarRoomBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}>
                   Getting Started with WarRoom
                 </Typography>
@@ -123,10 +129,18 @@ const WarRoomBanner = () => {
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
                 }}>
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}>
                   Dive into a Quick Free Trial of AI Powered Court Arguments and
                   Counter-Arguments
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -151,6 +165,9 @@ const WarRoomBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}>
                   Upload Your Document
                 </Typography>
@@ -160,10 +177,18 @@ const WarRoomBanner = () => {
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
                 }}>
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}>
                   Keep Your Document Handy and Get started easily with arguments
                   and counter-arguments
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -188,6 +213,9 @@ const WarRoomBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}>
                   Free Trial Limit
                 </Typography>
@@ -197,11 +225,19 @@ const WarRoomBanner = () => {
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
                 }}>
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}>
                   Keep Your Arguments ready to get the most out of it in Free
                   Trial of{" "}
                   <span className="text-white font-bold">30 Minutes</span>
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -226,6 +262,9 @@ const WarRoomBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}>
                   Placing Arguments & Fighting Case
                 </Typography>
@@ -235,66 +274,76 @@ const WarRoomBanner = () => {
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
                 }}>
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}>
                   Place Your Arguments,and receive counter- arguments from War
                   Room AI
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
           </div>
           {currentVid ? (
-            <div className="flex justify-center items-center p-1 rounded-lg z-20">
+            <div className="hidden  md:flex justify-center items-center p-1 rounded-lg z-20">
               <video
                 className="rounded-lg h-80"
                 src={currentVid}
-                autoPlay
-                loop
+                // autoPlay
+                // loop
                 muted
                 controls
                 playsInline
               />
             </div>
           ) : (
-            <div className="h-80 flex justify-center items-center bg-black z-20 rounded-lg">
+            <div className=" hidden h-80 md:flex justify-center items-center bg-black z-20 rounded-lg">
               <CircularProgress size={30} color="inherit" />
             </div>
           )}
         </div>
-        <div className="flex items-center  justify-center w-full">
-          <div className="flex justify-between items-center space-x-8 text-white">
-            {/* Explore War Room */}
-            <div className="flex flex-col items-center">
-              <p className="mb-2 text-xl text-white opacity-90 text-center">
-                Want to Explore War Room?
-              </p>
-              <span
-                className=" py-1  font-medium no-underline border-1 border-white cursor-pointer text-white rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg w-48 text-center"
-                onClick={openWarrrom}
-                style={{
-                  background: "linear-gradient(30deg, #00767A, #003739)",
-                }}>
-                Explore
-              </span>
-            </div>
+        <div className="flex flex-col md:flex-row items-center  justify-center w-full gap-2">
+          {/* <div className="flex justify-between items-center space-x-8 text-white"> */}
+          {/* Explore War Room */}
+          <div className="flex flex-col px-5 items-center">
+            <p className="mb-2 text-white opacity-90 text-center text-sm:text-[15px] sm:text-xl">
+              Want to Explore War Room?
+            </p>
 
-            {/* Divider */}
-            <div className="h-16 mx-5 w-px bg-teal-500" />
-
-            {/* Unlock All Features */}
-            <div className="flex flex-col items-center">
-              <p className="mb-2 text-xl text-white opacity-90 text-center">
-                Unlock All Features Available
-              </p>
-              <Link
-                to="https://courtroom.clawlaw.in/"
-                className=" py-1 no-underline text-white font-medium border-1 border-white rounded-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg w-48 text-center"
-                style={{
-                  background: "linear-gradient(90deg, #00767A, #003739)",
-                }}>
-                Enter Courtroom
-              </Link>
-            </div>
+            <span
+              className="py-1 font-medium no-underline border-1 border-white cursor-pointer text-[15px] rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg w-48 text-center"
+              onClick={openWarrrom}
+              style={{
+                background: "linear-gradient(30deg, #00767A, #003739)",
+              }}>
+              Explore
+            </span>
           </div>
+
+          {/* Divider */}
+          <div className="hidden  md:h-16 md:mx-5 md:w-px md:bg-teal-500" />
+
+          {/* Unlock All Features */}
+          <div className="flex flex-col px-5 items-center">
+            <p className="mb-2 text-white opacity-90 text-center text-sm:text-[15px] sm:text-xl">
+              Unlock All Features Available
+            </p>
+
+            <Link
+              to="https://courtroom.clawlaw.in/"
+              className=" py-1 no-underline text-white font-medium border-1 border-white rounded-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg w-48 text-center text-[15px] sm:text-[15px]"
+              style={{
+                background: "linear-gradient(90deg, #00767A, #003739)",
+              }}>
+              Enter Courtroom
+            </Link>
+          </div>
+          {/* </div> */}
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import { CircularProgress } from "@mui/material";
+import MobileVideoComponent from "./MobileComponent/MobileVideoComponent";
 
 const videoArr = [
   {
@@ -73,7 +74,10 @@ const AdiraAiBanner = () => {
   return (
     <div className="w-full">
       <div className="flex w-full items-center gap-3 pb-3">
-        <h1 className="text-2xl font-bold m-0">Adira AI</h1>
+        <h1 className="text-2xl font-bold m-0 text-[15px] sm:text-2xl">
+          Adira AI
+        </h1>
+
         <div className="flex-1 w-full bg-[#00C37B] h-[2px]"></div>
       </div>
       <div className="relative  p-3">
@@ -107,6 +111,9 @@ const AdiraAiBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}
                 >
                   Upload Your Document
@@ -118,10 +125,19 @@ const AdiraAiBanner = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}
+                >
                   Have a Document Sample which needs to be transformed into
                   Legal Format Document ?
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -148,6 +164,9 @@ const AdiraAiBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}
                 >
                   Create Document from Prompt
@@ -159,10 +178,19 @@ const AdiraAiBanner = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}
+                >
                   You can also generate your desired Legal Prompt with the help
                   of Prompts
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -189,6 +217,9 @@ const AdiraAiBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}
                 >
                   Select Type of Document
@@ -200,10 +231,19 @@ const AdiraAiBanner = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}
+                >
                   You can also Generate Document from a wide range of templated
                   Legal Documents
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -230,6 +270,9 @@ const AdiraAiBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}
                 >
                   Fill the Requirements
@@ -241,10 +284,19 @@ const AdiraAiBanner = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}
+                >
                   When some details are missing from your side, Adira AI asks
                   them from you for best results
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -271,6 +323,9 @@ const AdiraAiBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}
                 >
                   Edit / Update Document
@@ -282,10 +337,19 @@ const AdiraAiBanner = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}
+                >
                   Once a document is generated, you have the option to edit
                   contents of document with prompt
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -312,6 +376,9 @@ const AdiraAiBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}
                 >
                   Find Document Details
@@ -323,10 +390,19 @@ const AdiraAiBanner = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}
+                >
                   The Query bar assists not only in editing your document but
                   also find information from in it.
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -353,6 +429,9 @@ const AdiraAiBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}
                 >
                   Generate & Download Document
@@ -364,10 +443,19 @@ const AdiraAiBanner = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}
+                >
                   At any point if you find that the document generated is
                   perfect, generate the summary and download it.
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -394,6 +482,9 @@ const AdiraAiBanner = () => {
                     color: "white",
                     fontSize: "1.4rem",
                     fontWeight: "500",
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
                   }}
                 >
                   Chatbot
@@ -405,26 +496,35 @@ const AdiraAiBanner = () => {
                   borderRadius: "10px",
                 }}
               >
-                <Typography sx={{ color: "white" }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "1rem", // Default for desktop
+                    "@media (max-width: 600px)": {
+                      fontSize: "15px", // Set size to 15px for mobile view
+                    },
+                  }}
+                >
                   Talk to an expert to get any queries
                 </Typography>
+                <MobileVideoComponent currentVid={currentVid} />
               </AccordionDetails>
             </Accordion>
           </div>
           {currentVid ? (
-            <div className="flex justify-center items-center p-1 rounded-lg z-20">
+            <div className=" hidden md:flex justify-center items-center p-1 rounded-lg z-20">
               <video
-                className="rounded-lg h-80"
+                className="rounded-lg h-80 "
                 src={currentVid}
-                autoPlay
-                loop
+                // autoPlay
+                // loop
                 muted
                 controls
                 playsInline
               />
             </div>
           ) : (
-            <div className="h-80 flex justify-center items-center bg-black z-20 rounded-lg">
+            <div className="hidden h-80 md:flex justify-center items-center bg-black z-20 rounded-lg">
               <CircularProgress size={30} color="inherit" />
             </div>
           )}

@@ -12,6 +12,13 @@
 .featuresCardContainer > div {
   height: 100%;
   border: 1px solid wheat;
+  text-align: center; /* Ensures text inside cards is centered */
+}
+
+.featuresCardContainer img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; /* Centers the icons */
 }
 
 .featuresSubHeading {
@@ -26,11 +33,11 @@
   font-weight: 600;
   width: 50%;
   text-align: center;
-  text-wrap: wrap;
   margin: auto;
   line-height: 1;
 }
 
+/* Mobile Styles */
 @media only screen and (max-width: 1200px) {
   .featuresCardContainer {
     grid-template-columns: 1fr 1fr;
@@ -41,11 +48,23 @@
   .featuresCardContainer {
     grid-template-columns: 1fr;
   }
+
+  /* Update featuresSubHeading for mobile */
   .featuresSubHeading {
-    font-size: 20px;
+    font-size: 10px;
   }
+
+  /* Update featuresHeading for mobile */
   .featuresHeading {
-    font-size: 40px;
+    font-size: 24px;
     width: 90%;
+  }
+
+  .featuresCardContainer .featureCard-heading {
+    font-size: 15px; /* Heading size for mobile */
+  }
+
+  .featuresCardContainer .featureCard-subheading {
+    font-size: 12px; /* Subheading size for mobile */
   }
 }

@@ -27,9 +27,8 @@ export const userSlice = createSlice({
     user: null,
     props: null,
     status: "idle",
-    autologout:false,
+    autologout: false,
     error: null,
-
   },
   reducers: {
     login(state, action) {
@@ -43,8 +42,9 @@ export const userSlice = createSlice({
     logout(state) {
       state.user = null;
       state.props = null;
-      
+
       localStorage.removeItem("auth");
+      localStorage.removeItem("legalgptUsed");
       return;
     },
     gptUserCreated(state) {
@@ -52,9 +52,9 @@ export const userSlice = createSlice({
       localStorage.setItem("auth", JSON.stringify(state));
       return;
     },
-    setAutoLogout(state){
+    setAutoLogout(state) {
       state.autologout = true;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(retrieveAuth.pending, (state) => {
@@ -70,18 +70,15 @@ export const userSlice = createSlice({
     builder.addCase(retrieveAuth.rejected, (state) => {
       state.status = "failed";
     });
-    builder.addCase(generateResponse.fulfilled, (state, action)=>{
-     if(action.payload==401){
-      console.log("hi")
-      state.autologout = true;
-      state.user = null;
-      state.props = null;
-      localStorage.removeItem("auth");
-    
-     }
-     
-  
-    })
+    builder.addCase(generateResponse.fulfilled, (state, action) => {
+      if (action.payload == 401) {
+        console.log("hi");
+        state.autologout = true;
+        state.user = null;
+        state.props = null;
+        localStorage.removeItem("auth");
+      }
+    });
     // builder.addCase(retrieveActivePlanUser.fulfilled, (state, action)=>{
     //  if(action.payload==401){
     //   console.log("hi")
@@ -89,14 +86,14 @@ export const userSlice = createSlice({
     //   state.user = null;
     //   state.props = null;
     //   localStorage.removeItem("auth");
-    
+
     //  }
-     
-  
+
     // })
   },
 });
 
-export const { login, logout, gptUserCreated , setAutoLogout } = userSlice.actions;
+export const { login, logout, gptUserCreated, setAutoLogout } =
+  userSlice.actions;
 
 export default userSlice.reducer;

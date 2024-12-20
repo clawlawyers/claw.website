@@ -411,7 +411,7 @@ const PricingPlans = () => {
                         {plan.discount}
                       </div>
                     )}
-                    <div className="flex-grow flex flex-col items-center justify-center space-y-2 mb-6 text-sm text-gray-300">
+                    <div className="flex-grow flex flex-col items-center justify-center space-y-2 mb-6 text-xs text-gray-300">
                       {plan.features.map((feature, idx) => (
                         <div key={idx}>{feature}</div>
                       ))}
@@ -420,10 +420,10 @@ const PricingPlans = () => {
                   <div className="text-center">
                     {plan.type !== "Free" && (
                       <div className="flex gap-3 justify-center">
-                        <p className="text-2xl font-bold text-white mb-4">
+                        <p className="text-xl font-bold text-white mb-4">
                           ₹ {plan.price} /-
                         </p>
-                        <p className="text-2xl font-bold text-white mb-4 line-through">
+                        <p className="text-xl font-bold text-white mb-4 line-through">
                           ₹ {plan.originalPrice} /-
                         </p>
                       </div>
@@ -630,7 +630,7 @@ const PricingPlans = () => {
                   />
 
                   {/* Accordion */}
-                  <div>
+                  <div className="my-2">
                     <Accordion
                       style={{
                         backgroundColor: "#3f4040",

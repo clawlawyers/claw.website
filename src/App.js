@@ -72,6 +72,7 @@ import { retrieveActivePlanUser, setPlan } from "./features/gpt/gptSlice.js";
 import TestSubscription from "./Pricing/TestSubscription.jsx";
 import UserPurchases from "./Purchases/UserPurchases.jsx";
 import Login1 from "./Login/Login1.jsx";
+import Login2 from "./Login/Login2.jsx";
 import { WindowRounded } from "@mui/icons-material";
 import WebSocketComponent from "./Gpt/WebSocket/WebSocket.jsx";
 import Prompts from "./Gpt/WebSocket/Prompts.jsx";
@@ -82,6 +83,10 @@ import NewPlanPayment from "./Pricing/NewPlanPayment.jsx";
 import { retrieveActiveAdiraPlan } from "./features/payment/paymentSlice.js";
 import AboutUs from "./AboutUs/AboutUs.jsx";
 import Contact from "./Contact/Contact.jsx";
+import { RiLayoutGrid2Line } from "react-icons/ri";
+import SignUpPage from "./Login/Signup.jsx";
+import PopupPage from "./Login/PopupPage.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google"; // Import the provider
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -306,6 +311,10 @@ function App() {
           element: <TrackedNews />,
         },
         {
+          path: "/blog",
+          element: <AllBlogs />,
+        },
+        {
           path: "blog/:blogName",
           element: <Blog />,
         },
@@ -339,8 +348,24 @@ function App() {
           element: <Demovideo />,
         },
         {
-          path: "login",
+          path: "login2",
           element: <Login1 />,
+        },
+        {
+          path: "login",
+          element: (
+            <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+              <Login2 />
+            </GoogleOAuthProvider>
+          ),
+        },
+        {
+          path: "signup",
+          element: <SignUpPage />,
+        },
+        {
+          path: "popup",
+          element: <PopupPage />,
         },
 
         {

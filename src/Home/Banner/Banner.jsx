@@ -13,8 +13,7 @@ function Banner() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-          }}
-        >
+          }}>
           <div style={{ flex: 1, paddingBottom: "10px" }} />
           {/* <div className={Style.typed}>with LegalGPT</div> */}
           <TypeAnimation

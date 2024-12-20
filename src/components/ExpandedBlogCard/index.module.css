@@ -46,11 +46,11 @@
 
 .blogCardContainer > img {
   width: 250px;
+  height: inherit;
 }
 
-.blogCardContainer button{
+.blogCardContainer button {
   background-image: url("../../assets/images/button-gradient.png");
-
 }
 
 @media only screen and (max-width: 768px) {
@@ -62,19 +62,23 @@
     margin-left: 5px;
     margin-right: 5px;
   }
+  .blogCardContent button {
+    font-size: 5px;
+  }
   .blogCardHeading {
     padding-top: 28px;
-    font-size: 30px;
+    font-size: 16px;
   }
   .blogCardOverlay {
     font-size: 37px;
   }
   .blogCardSubHeading {
-    font-size: 20px;
+    font-size: 12px;
     padding-bottom: 20px;
   }
   .blogCardContainer > img {
     width: 100%;
+    height: 150px;
   }
 }
 

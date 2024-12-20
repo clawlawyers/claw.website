@@ -95,4 +95,24 @@
   display: flex;
   flex-direction: column;
   margin: 10px;
+  font-size: 10px;
+}
+
+@media (max-width: 768px) {
+  .card-card {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Ensure content is centered */
+    width: 70%;
+    height: 70px;
+    margin-left: 50px;
+    margin-top: 120px;
+  }
+  .card-card .discription {
+    font-size: 10px;
+  }
+  .card .card-button {
+    z-index: 50; /* Ensure the button remains clickable */
+    pointer-events: auto; /* Ensure the button can be interacted with */
+  }
 }
