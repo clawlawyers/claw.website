@@ -63,6 +63,7 @@ export default function SearchGPT({
 
         const encodedStringBtoA = btoa(JSON.stringify(reqdObj));
         window.open(`${LEGALGPT_ENDPOINT}?user=${encodedStringBtoA}`, "self");
+        setQuery("");
       }
     } else {
       handleModalOpen();
@@ -71,6 +72,7 @@ export default function SearchGPT({
 
   const handleModalOpen = () => {
     const checkLegalDialogUsed = localStorage.getItem("legalgptUsed");
+    console.log(checkLegalDialogUsed);
     if (checkLegalDialogUsed) {
       toast.error("Please login to continue");
       navigate("/login");

@@ -44,7 +44,7 @@ export const userSlice = createSlice({
       state.props = null;
 
       localStorage.removeItem("auth");
-      localStorage.setItem("legalgptUsed", false);
+      localStorage.removeItem("legalgptUsed");
       return;
     },
     gptUserCreated(state) {
