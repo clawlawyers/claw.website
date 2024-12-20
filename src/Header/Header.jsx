@@ -122,7 +122,12 @@ function Header() {
   };
 
   const openLegalGpt = () => {
-    window.open(`${LEGALGPT_ENDPOINT}?user=${currentUser.jwt}`, "_self");
+    const reqdObj = {
+      token: currentUser.jwt,
+    };
+
+    const encodedStringBtoA = btoa(JSON.stringify(reqdObj));
+    window.open(`${LEGALGPT_ENDPOINT}?user=${encodedStringBtoA}`, "_self");
   };
 
   useEffect(() => {

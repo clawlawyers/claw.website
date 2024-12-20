@@ -740,7 +740,7 @@ const LoginPage = () => {
             <img
               src={loginIcon}
               alt="Login Illustration"
-              className="h-auto w-auto rounded-none"
+              className="p-3 h-auto w-auto rounded-none"
             />
           </div>
 
@@ -822,13 +822,14 @@ const LoginPage = () => {
               />
               Sign Up with Google
             </button> */}
-
-            <GoogleLogin
-              onSuccess={responseGoogle}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-            />
+            <div className="w-full flex justify-center">
+              <GoogleLogin
+                onSuccess={responseGoogle}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
+            </div>
 
             {/* Footer Links */}
             <div className="text-center mt-6">
