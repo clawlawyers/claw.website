@@ -178,6 +178,32 @@ const SignUpPage = () => {
     setOtpLoading(true);
 
     try {
+      const isValidUser = await fetch(
+        `${NODE_API_ENDPOINT}/client/validate-user`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            // email: formData.email,
+            phoneNumber: phoneNumber,
+          }),
+        }
+      );
+
+      if (!isValidUser.ok) {
+        const error = await isValidUser.json();
+        throw new Error(error.message);
+      }
+
+      const respo = await isValidUser.json();
+      if (respo.message === "User is valid") {
+        setIsDisabled(false);
+        setOtpLoading(false);
+        toast.error("This Number is already registered");
+        return;
+      }
       const handleOTPsend = await fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
         method: "POST",
         headers: {
@@ -264,6 +290,33 @@ const SignUpPage = () => {
     setIsLoading(true);
 
     try {
+      const isValidUser = await fetch(
+        `${NODE_API_ENDPOINT}/client/validate-user`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            // phoneNumber: phoneNumber,
+          }),
+        }
+      );
+
+      if (!isValidUser.ok) {
+        const error = await isValidUser.json();
+        throw new Error(error.message);
+      }
+
+      const respo = await isValidUser.json();
+      if (respo.message === "User is valid") {
+        setIsDisabled(false);
+        setOtpLoading(false);
+        toast.error("This Email is already registered");
+        return;
+      }
+
       const response = await fetch(`${NODE_API_ENDPOINT}/client/verifyCleint`, {
         method: "POST",
         headers: {
