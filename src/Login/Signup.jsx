@@ -313,6 +313,7 @@ const SignUpPage = () => {
       if (respo.message === "User is valid") {
         setIsDisabled(false);
         setOtpLoading(false);
+        setIsLoading(false);
         toast.error("This Email is already registered");
         return;
       }
@@ -553,7 +554,7 @@ const SignUpPage = () => {
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                 />
-                <div className="flex gap-2">
+                <div className="w-full flex flex-col md:flex-row  gap-2">
                   <button
                     onClick={handleRetryClick}
                     disabled={isDisabled}
