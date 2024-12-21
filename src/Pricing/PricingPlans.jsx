@@ -202,7 +202,8 @@ const PricingPlans = () => {
         }
         className={`border text-center cursor-pointer ${
           Hour == i ? "bg-teal-500 " : "border-white"
-        }  rounded p-1`}>
+        }  rounded p-1`}
+      >
         <span className="rounded">
           {time + ":" + `${i % 2 == 0 ? "30" : "00"}`}
         </span>
@@ -362,7 +363,8 @@ const PricingPlans = () => {
             flexDirection: "column",
             gap: 10,
             justifyContent: "center",
-          }}>
+          }}
+        >
           <CircularProgress style={{ color: "white" }} />
           <div>Pricing Plans Loading...</div>
         </div>
@@ -371,8 +373,9 @@ const PricingPlans = () => {
           <div
             className={`${
               isModalOpen ? "filter blur-md pointer-events-none" : ""
-            } w-full`}>
-            <h1 className="text-5xl text-center font-bold mb-4">
+            } w-full`}
+          >
+            <h1 className="text-4xl md:text-5xl text-center font-bold mb-4">
               Find the Perfect Pricing Option{" "}
               {/* <span className="text-teal-400">Adira AI</span> */}
             </h1>
@@ -391,7 +394,8 @@ const PricingPlans = () => {
                       ? "bg-teal-500 text-white"
                       : "bg-gray-700 text-gray-300"
                   }`}
-                  onClick={() => setActiveTab(tab)}>
+                  onClick={() => setActiveTab(tab)}
+                >
                   {tab}
                 </button>
               ))}
@@ -401,7 +405,8 @@ const PricingPlans = () => {
               {plansArr[activeTab].map((plan, index) => (
                 <div
                   key={index}
-                  className="bg-[#00808033] rounded-lg shadow-lg p-6 w-80 relative flex flex-col justify-between border-4 border-white">
+                  className="bg-[#00808033] rounded-lg shadow-lg p-6 w-80 relative flex flex-col justify-between border-4 border-white"
+                >
                   <div>
                     <h2 className="text-2xl font-bold text-center mb-2">
                       {plan.type.toUpperCase()}
@@ -411,7 +416,7 @@ const PricingPlans = () => {
                         {plan.discount}
                       </div>
                     )}
-                    <div className="flex-grow flex flex-col items-center justify-center space-y-2 mb-6 text-xs text-gray-300">
+                    <div className="text-center flex-grow flex flex-col items-center justify-center space-y-2 mb-6 text-xs text-gray-300">
                       {plan.features.map((feature, idx) => (
                         <div key={idx}>{feature}</div>
                       ))}
@@ -438,7 +443,8 @@ const PricingPlans = () => {
                         currentUser
                           ? handleGetNowClick(plan)
                           : navigate("/login")
-                      }>
+                      }
+                    >
                       {plan.type === activePlan?.planName?.split("_")[0] &&
                       activeTab === activePlan?.plan?.duration
                         ? "Currently Active"
@@ -485,7 +491,8 @@ const PricingPlans = () => {
                   </p>
                   <button
                     className="mt-2 px-4 py-2 w-full sm:w-auto bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition border border-white"
-                    onClick={() => setModalOpen(true)}>
+                    onClick={() => setModalOpen(true)}
+                  >
                     Get It Now
                   </button>
                 </div>
@@ -499,7 +506,8 @@ const PricingPlans = () => {
                 {/* Close Button */}
                 <button
                   className="absolute w-7 h-7 top-2 right-2 rounded-full text-gray-200 hover:text-gray-200 text-sm p-1"
-                  onClick={() => setModalOpen(false)}>
+                  onClick={() => setModalOpen(false)}
+                >
                   ✕
                 </button>
 
@@ -522,7 +530,8 @@ const PricingPlans = () => {
                     onSubmit={() => {
                       setModalOpen(false);
                       setFormOpen(true);
-                    }}>
+                    }}
+                  >
                     <input
                       type="text"
                       name="name"
@@ -566,10 +575,12 @@ const PricingPlans = () => {
                       required
                       value={formData.comments}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 text-gray-800 bg-gray-200 rounded border border-gray-700 focus:ring-2 focus:ring-teal-500 focus:outline-none"></textarea>
+                      className="w-full px-4 py-2 text-gray-800 bg-gray-200 rounded border border-gray-700 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                    ></textarea>
                     <button
                       type="submit"
-                      className="w-full px-4 py-2 bg-teal-500 text-white border-white border-2 rounded font-bold hover:bg-teal-600 transition-colors duration-300">
+                      className="w-full px-4 py-2 bg-teal-500 text-white border-white border-2 rounded font-bold hover:bg-teal-600 transition-colors duration-300"
+                    >
                       Proceed
                     </button>
                   </form>
@@ -587,7 +598,8 @@ const PricingPlans = () => {
                     onClick={() => {
                       setModalOpen(true);
                       setFormOpen(false);
-                    }}>
+                    }}
+                  >
                     <img
                       src={Back}
                       alt="back"
@@ -598,7 +610,8 @@ const PricingPlans = () => {
 
                   <button
                     className="w-7 h-7 rounded-full text-gray-200 hover:text-gray-200 text-sm p-1 flex items-center justify-center transition duration-300 ease-in-out transform hover:scale-110 hover:bg-gray-700"
-                    onClick={() => setFormOpen(false)}>
+                    onClick={() => setFormOpen(false)}
+                  >
                     ✕
                   </button>
                 </div>
@@ -637,7 +650,8 @@ const PricingPlans = () => {
                         boxShadow: "0px",
                         borderRadius: "5px",
                       }}
-                      className="rounded-md bg-[#3f4040]">
+                      className="rounded-md bg-[#3f4040]"
+                    >
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon className="text-white" />}
                         aria-controls="panel1-content"
@@ -646,11 +660,13 @@ const PricingPlans = () => {
                           backgroundColor: "rgba(34, 34, 34, 0.8)",
                           fontSize: 14,
                           color: "white",
-                        }}>
+                        }}
+                      >
                         Select A Time Slot
                       </AccordionSummary>
                       <AccordionDetails
-                        style={{ maxHeight: "150px", overflowY: "auto" }}>
+                        style={{ maxHeight: "150px", overflowY: "auto" }}
+                      >
                         <div className="grid text-xs text-white grid-cols-2 sm:grid-cols-4 gap-2">
                           {rows.map((val, index) => (
                             <div key={index} className="text-center rounded-md">
@@ -666,7 +682,8 @@ const PricingPlans = () => {
                   <div className="mt-auto">
                     <button
                       className="w-full bg-logo-gradient px-4 py-2 my-1 rounded-md text-white font-semibold hover:bg-teal-700 transition-colors duration-300"
-                      onClick={goToPaymentPage}>
+                      onClick={goToPaymentPage}
+                    >
                       Next
                     </button>
                   </div>

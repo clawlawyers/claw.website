@@ -74,7 +74,7 @@ export default function SearchGPT({
     const checkLegalDialogUsed = localStorage.getItem("legalgptUsed");
     console.log(checkLegalDialogUsed);
     if (checkLegalDialogUsed) {
-      toast.error("Please login to continue");
+      toast.error("Please login to continue for more!");
       navigate("/login");
     } else {
       setOpenLegalGptDialog(true);

@@ -248,7 +248,9 @@ function Header() {
           <>
             <button
               onClick={(e) =>
-                currentUser ? handleClickProduct(e) : navigate("/login")
+                currentUser && plan.length > 0
+                  ? handleClickProduct(e)
+                  : navigate("/login")
               }
               className={Styles.headerButton}
               style={{
@@ -663,7 +665,9 @@ function Header() {
               >
                 <ListItemButton
                   onClick={() =>
-                    currentUser ? setShowList("products") : handleProducts()
+                    currentUser && plan.length > 0
+                      ? setShowList("products")
+                      : handleProducts()
                   }
                   sx={{
                     textAlign: "center",
