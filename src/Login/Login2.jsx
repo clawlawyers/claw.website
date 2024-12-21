@@ -400,7 +400,8 @@ const LoginPage = () => {
       }
 
       const respo = await isValidUser.json();
-      if (respo.message === "Invalid user credentialss") {
+      console.log(respo);
+      if (respo.message === "Invalid user credentials") {
         setIsDisabled(false);
         setOtpLoading(false);
         toast.error("This Number not registered. Signup First");
