@@ -30,5 +30,5 @@ export const WARROOM_ENDPOINT =
 
 export const LEGALGPT_ENDPOINT =
   process.env.NODE_ENV === "production"
-    ? "https://claw-legalgpt.netlify.app"
+    ? "https://legalgpt.clawlaw.in"
     : "http://localhost:5173";
