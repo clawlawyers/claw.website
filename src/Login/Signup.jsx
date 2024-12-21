@@ -484,7 +484,7 @@ const SignUpPage = () => {
               name="firstName"
               onChange={handleOnChange}
               placeholder="Enter First Name"
-              className="p-2 border text-black border-gray-300 rounded-lg  bg-[rgba(195,255,255,1)] focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="col-span-2 md:col-span-1 p-2 border text-black border-gray-300 rounded-lg  bg-[rgba(195,255,255,1)] focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             <input
               type="text"
@@ -492,7 +492,7 @@ const SignUpPage = () => {
               name="lastName"
               onChange={handleOnChange}
               placeholder="Enter Last Name"
-              className="p-2 border border-gray-300 text-black rounded-lg  bg-[rgba(195,255,255,1)] focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="col-span-2 md:col-span-1 p-2 border border-gray-300 text-black rounded-lg  bg-[rgba(195,255,255,1)] focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             <input
               type="email"
@@ -504,17 +504,17 @@ const SignUpPage = () => {
             />
 
             {!hasFilled ? (
-              <div className="flex gap-2 col-span-2">
+              <div className="flex flex-col md:flex-row gap-2 col-span-2">
                 <input
                   type="number"
                   value={phoneNumber}
                   // name="email"
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="Enter Your Mobile Number *"
-                  className="p-2 flex-1 border border-gray-300 text-black bg-[rgba(195,255,255,1)] rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full p-2 flex-1 border border-gray-300 text-black bg-[rgba(195,255,255,1)] rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
                 <button
-                  className="w-36 bg-teal-700 text-white px-4 py-2   rounded-lg hover:bg-teal-800 transition"
+                  className="w-full md:w-2/6 bg-teal-700 text-white px-4 py-2   rounded-lg hover:bg-teal-800 transition"
                   onClick={sendOTP}
                 >
                   {otpLoading ? (
@@ -526,16 +526,16 @@ const SignUpPage = () => {
               </div>
             ) : (
               <div className="flex flex-col gap-2 w-full col-span-2">
-                <div className="w-full flex gap-2">
+                <div className="w-full flex flex-col md:flex-row gap-2">
                   <input
                     readOnly
                     type="number"
                     value={phoneNumber}
                     placeholder="Enter Your Mobile Number *"
-                    className="p-2 flex-1 border border-gray-300 text-black bg-[rgba(195,255,255,1)] rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full p-2 flex-1 border border-gray-300 text-black bg-[rgba(195,255,255,1)] rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                   <button
-                    className="w-36 bg-teal-700 text-white px-4 py-2  rounded-lg hover:bg-teal-800 transition"
+                    className="w-full md:w-2/6  bg-teal-700 text-white px-4 py-2  rounded-lg hover:bg-teal-800 transition"
                     onClick={() => {
                       setPhoneNumber("");
                       setHasFilled(false);
