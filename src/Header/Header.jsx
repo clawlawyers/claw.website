@@ -376,7 +376,9 @@ function Header() {
                   <div>
                     <p
                       onClick={
-                        plan[0].planName === "FREE" && plan[0].totalUsed >= 15
+                        plan !== null &&
+                        plan[0].planName === "FREE" &&
+                        plan[0].totalUsed >= 15
                           ? handleLimitExceed
                           : openLegalGpt
                       }
