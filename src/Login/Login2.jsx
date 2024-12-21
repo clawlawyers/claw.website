@@ -633,7 +633,7 @@ const LoginPage = () => {
       const token = response.credential;
 
       // Send the token to the backend for validation
-      fetch("http://localhost:8000/api/v1/client/google/callback", {
+      fetch(`${NODE_API_ENDPOINT}/client/google/callback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
