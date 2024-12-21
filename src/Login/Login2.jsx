@@ -71,6 +71,7 @@ const LoginPage = () => {
   const [areaName, setAreaName] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
   const [countdown, setCountdown] = useState(30);
+  const [googleAuthLoading, setGoogleAuthLoading] = useState(false);
 
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
@@ -627,6 +628,7 @@ const LoginPage = () => {
   };
 
   const responseGoogle = (response) => {
+    setGoogleAuthLoading(true);
     console.log("Google response:", response); // Log the entire Google response object
 
     if (response.credential) {
@@ -716,11 +718,12 @@ const LoginPage = () => {
           );
           dispatch(retrieveActivePlanUser());
           dispatch(retrieveActiveAdiraPlan());
-
+          setGoogleAuthLoading(false);
           // Handle success (e.g., save user data, redirect, etc.)
         })
         .catch((err) => {
           console.log("Error:", err); // Handle errors
+          setGoogleAuthLoading(false);
         });
     }
   };
@@ -823,12 +826,18 @@ const LoginPage = () => {
               Sign Up with Google
             </button> */}
             <div className="w-full flex justify-center">
-              <GoogleLogin
-                onSuccess={responseGoogle}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-              />
+              {googleAuthLoading ? (
+                <button className="bg-white rounded-lg w-44">
+                  <CircularProgress size={15} sx={{ color: "#055151" }} />
+                </button>
+              ) : (
+                <GoogleLogin
+                  onSuccess={responseGoogle}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                />
+              )}
             </div>
 
             {/* Footer Links */}
