@@ -709,7 +709,7 @@ const LoginPage = () => {
           dispatch(
             login({
               // uid,
-              phoneNumber,
+              phoneNumber: data.phoneNumber,
               jwt: data.jwt,
               expiresAt: data.expiresAt,
               newGptUser: data.newGptUser,

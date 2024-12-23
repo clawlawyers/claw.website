@@ -138,6 +138,8 @@ function Header() {
 
   const handleLimitExceed = () => {
     toast.error("Daily limit already used. Please buy a plan!");
+    navigate("/pricing");
+    setNavOpen(false);
   };
 
   const handleProducts = () => {
