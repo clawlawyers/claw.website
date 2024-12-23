@@ -40,7 +40,7 @@ import toast from "react-hot-toast";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
-  // { path: "/blog", label: "Blog", icon: BookIcon },
+  { path: "/blog", label: "Blog", icon: BookIcon },
   { path: "/pricing", label: "Pricing", icon: AttachMoneyIcon },
   // { path: "/leaders", label: "Leaders", icon: LeaderboardIcon },
   // { path: "/case/search", label: "Case Search", icon: SearchIcon },
@@ -248,21 +248,45 @@ function Header() {
 
         <div className={Styles.headerGPT}>
           <>
-            <button
-              onClick={(e) =>
-                currentUser && plan.length > 0
-                  ? handleClickProduct(e)
-                  : navigate("/login")
-              }
-              className={Styles.headerButton}
-              style={{
-                textDecoration: "none",
-                color: "white",
-                //   backgroundColor: "transparent",
-              }}
-            >
-              Products
-            </button>
+            {currentUser ? (
+              <>
+                {plan?.length > 0 ? (
+                  <button
+                    onClick={(e) => handleClickProduct(e)}
+                    className={Styles.headerButton}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      //   backgroundColor: "transparent",
+                    }}
+                  >
+                    Products
+                  </button>
+                ) : (
+                  <button
+                    className={Styles.headerButton}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      //   backgroundColor: "transparent",
+                    }}
+                  >
+                    <CircularProgress size={15} sx={{ color: "white" }} />
+                  </button>
+                )}
+              </>
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className={Styles.headerButton}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
+              >
+                Products
+              </button>
+            )}
             {anchorElProduct && (
               <Popover
                 sx={{ marginTop: "5px", opacity: "0.98" }}
