@@ -164,8 +164,9 @@ function Header() {
               className="w-full rounded-none"
               style={{
                 backgroundColor: "transparent",
-                // height: 80,
-                // width: 90,
+                height: "60px",
+                width: "100px",
+                objectFit: "contain",
               }}
               src={clawLogo}
             />
