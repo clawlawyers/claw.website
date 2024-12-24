@@ -539,7 +539,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
-      <FloatingButton />
+      {/* <FloatingButton /> */}
       <Toaster />
     </div>
   );
