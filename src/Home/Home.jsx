@@ -122,7 +122,6 @@ function Home({ featuresRef, engineReady, particleOptions }) {
           }}
         />
         <Features ref={featuresRef} />
-        <br />
         <div className="flex flex-col gap-4">
           <div className="flex flex-col justify-center items-center gap-1">
             <h1 className="font-bold text-[32px] md:text-7xl">Testimonials</h1>

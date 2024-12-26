@@ -26,6 +26,7 @@ const customDarkTheme = {
 const customTheme = { dark: customDarkTheme, light: customDarkTheme };
 
 export default function CreateBlog() {
+  const [avatarImageUrl, setAvatarImageUrl] = useState("");
   const [content, setContent] = useState([{}]);
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
@@ -42,7 +43,13 @@ export default function CreateBlog() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ heading, content, subHeading, html }),
+        body: JSON.stringify({
+          heading,
+          content,
+          subHeading,
+          html,
+          mainImg: avatarImageUrl,
+        }),
       });
       toast.success("Blog Published");
       setHeading("");
@@ -123,6 +130,29 @@ export default function CreateBlog() {
           minLength={2}
           type="text"
         />
+        <label>Image Url</label>
+        <input
+          style={{
+            width: "80%",
+            background: "#32353c",
+            color: "white",
+            padding: 10,
+            fontSize: 15,
+            borderRadius: 2,
+            outline: "none",
+            border: "none",
+          }}
+          onChange={(e) => setAvatarImageUrl(e.target.value)}
+          value={avatarImageUrl}
+          minLength={2}
+          type="text"
+        />
+        {avatarImageUrl !== "" && (
+          <div>
+            <label>Image Preview</label>
+            <img src={avatarImageUrl} />
+          </div>
+        )}
         <button
           type="submit"
           style={{

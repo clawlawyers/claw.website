@@ -54,6 +54,8 @@ export default function SearchGPT({
     if (currentUser) {
       if (plan[0].planName === "FREE" && plan[0].totalUsed >= 15) {
         toast.error("Daily limit already used. Please buy a plan!");
+        setQuery("");
+        navigate("/pricing");
       } else {
         const reqdObj = {
           token: currentUser.jwt,

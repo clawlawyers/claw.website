@@ -709,7 +709,7 @@ const LoginPage = () => {
           dispatch(
             login({
               // uid,
-              phoneNumber,
+              phoneNumber: data.phoneNumber,
               jwt: data.jwt,
               expiresAt: data.expiresAt,
               newGptUser: data.newGptUser,
@@ -732,7 +732,7 @@ const LoginPage = () => {
   return (
     <div className=" min-h-screen flex items-center justify-center">
       {/* Main Card */}
-      <div className="bg-white bg-opacity-25  w-[80%] rounded-lg shadow-lg overflow-hidden border ">
+      <div className="bg-white bg-opacity-25  w-[85%] md:w-[80%] rounded-lg shadow-lg overflow-hidden border ">
         {/* Title */}
         <h2 className="text-3xl font-bold text-center text-white py-6">
           Log In to Claw Legaltech

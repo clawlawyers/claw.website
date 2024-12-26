@@ -40,7 +40,7 @@ import toast from "react-hot-toast";
 
 const navLinks = [
   { path: "/", label: "Home", icon: HomeIcon },
-  // { path: "/blog", label: "Blog", icon: BookIcon },
+  { path: "/blog", label: "Blog", icon: BookIcon },
   { path: "/pricing", label: "Pricing", icon: AttachMoneyIcon },
   // { path: "/leaders", label: "Leaders", icon: LeaderboardIcon },
   // { path: "/case/search", label: "Case Search", icon: SearchIcon },
@@ -138,6 +138,8 @@ function Header() {
 
   const handleLimitExceed = () => {
     toast.error("Daily limit already used. Please buy a plan!");
+    navigate("/pricing");
+    setNavOpen(false);
   };
 
   const handleProducts = () => {
@@ -162,8 +164,9 @@ function Header() {
               className="w-full rounded-none"
               style={{
                 backgroundColor: "transparent",
-                // height: 80,
-                // width: 90,
+                height: "60px",
+                width: "100px",
+                objectFit: "contain",
               }}
               src={clawLogo}
             />
@@ -246,21 +249,45 @@ function Header() {
 
         <div className={Styles.headerGPT}>
           <>
-            <button
-              onClick={(e) =>
-                currentUser && plan.length > 0
-                  ? handleClickProduct(e)
-                  : navigate("/login")
-              }
-              className={Styles.headerButton}
-              style={{
-                textDecoration: "none",
-                color: "white",
-                //   backgroundColor: "transparent",
-              }}
-            >
-              Products
-            </button>
+            {currentUser ? (
+              <>
+                {plan?.length > 0 ? (
+                  <button
+                    onClick={(e) => handleClickProduct(e)}
+                    className={Styles.headerButton}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      //   backgroundColor: "transparent",
+                    }}
+                  >
+                    Products
+                  </button>
+                ) : (
+                  <button
+                    className={Styles.headerButton}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      //   backgroundColor: "transparent",
+                    }}
+                  >
+                    <CircularProgress size={15} sx={{ color: "white" }} />
+                  </button>
+                )}
+              </>
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className={Styles.headerButton}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                }}
+              >
+                Products
+              </button>
+            )}
             {anchorElProduct && (
               <Popover
                 sx={{ marginTop: "5px", opacity: "0.98" }}
