@@ -5,6 +5,7 @@ import { CircularProgress } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import ChatbotImg from "../assets/icons/Chatbot.png";
 import loaderGif from "../assets/icons/Chatbot.gif";
+import { Link } from "react-router-dom";
 
 const Chatbot = ({ handleClose }) => {
   const [chatArr, setChatArr] = useState([{ isUser: true, message: "loader" }]);
@@ -161,11 +162,20 @@ const Chatbot = ({ handleClose }) => {
                     <div className="w-5/6 flex justify-start">
                       <p
                         dangerouslySetInnerHTML={{ __html: x.message }}
-                        className=" bg-white p-2 text-sm text-black rounded-t-xl rounded-r-xl"
-                      ></p>
+                        className=" bg-white p-2 text-sm text-black rounded-t-xl rounded-r-xl"></p>
                     </div>
                   </div>
                 )}
+                {/* Add "Contact Us" button after specific conditions */}
+                {!x.isUser &&
+                  index === chatArr.length - 1 &&
+                  chatArr.filter((msg) => !msg.isUser).length > 1 && ( // Ensure at least 2 AI responses
+                    <div className=" w-full flex justify-start mt-4">
+                      <button className="px-4 py-2 bg-[#018081] text-white rounded-md hover:bg-[#016969] transition">
+                        Contact Us
+                      </button>
+                    </div>
+                  )}
               </>
             )}
           </div>
@@ -182,8 +192,7 @@ const Chatbot = ({ handleClose }) => {
         <button
           disabled={query === ""}
           className="bg-transparent p-0"
-          type="submit"
-        >
+          type="submit">
           <SendIcon />
         </button>
       </form>

@@ -3,6 +3,7 @@ import SearchOutlined from "@mui/icons-material/SearchOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
+import CloseIcon from "@mui/icons-material/Close";
 
 import Styles from "./SearchGPT.module.css";
 import globalStyles from "../../App.css";
@@ -37,6 +38,7 @@ export default function SearchGPT({
   const [activePlan, setActivePlan] = useState([]);
   const [openLegalGptDialog, setOpenLegalGptDialog] = useState(false);
   console.log(openLegalGptDialog);
+  const [login, setLogin] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -89,9 +91,16 @@ export default function SearchGPT({
 
   const handleModalClose = () => {
     setOpenLegalGptDialog(false);
+    setLogin(true);
+    // document.body.style.overflow = "hidden";
     setsummery("");
     setQuery("");
     localStorage.setItem("legalgptUsed", true);
+  };
+
+  const handleClose = () => {
+    setLogin(false);
+    // document.body.style.overflow = "auto"; // Enable scrolling
   };
 
   return (
@@ -104,16 +113,14 @@ export default function SearchGPT({
               backgroundColor: "transparent",
               display: "flex",
               padding: 10,
-            }}
-          >
+            }}>
             <div
               style={{
                 flex: 1,
                 backgroundColor: "transparent",
                 display: "flex",
                 alignItems: "center",
-              }}
-            >
+              }}>
               <SearchOutlined
                 style={{
                   backgroundColor: "transparent",
@@ -153,7 +160,7 @@ export default function SearchGPT({
             <Modal open={openLegalGptDialog} onClose={handleModalClose}>
               <div
                 // className={Styles.scrollable}
-                className="w-[80%] md:w-[60%] bg-white"
+                className="w-[80%] md:w-[60%]  bg-white"
                 style={{
                   // backgroundColor: "",
                   position: "absolute",
@@ -167,15 +174,22 @@ export default function SearchGPT({
                   // padding: 10,
                   transform: "translate(-50%, -50%)",
                   boxShadow: 24,
-                }}
-              >
-                <div className="w-full bg-[#0F0F0FCC] h-full rounded-lg p-2 flex flex-col border-2 border-white text-black ">
-                  <div className="flex justify-between items-center px-2">
-                    <div className="flex gap-2">
-                      <h1 className="text-3xl font-semibold m-0 text-[#018081]">
+                }}>
+                <div className="w-full bg-[#0F0F0FCC] h-full rounded-lg  pb-4 flex flex-col border-2 border-white text-black">
+                  {/* Header Section */}
+                  <div className="bg-white rounded-t-lg">
+                    <p className="text-teal-800 pt-2 font-bold  text-xl text-center">
+                      SINGLE USE TRIAL
+                    </p>
+                  </div>
+
+                  {/* Title and Close Button Section */}
+                  <div className="flex justify-between items-center mx-2 px-4 mt-2">
+                    <div className="flex gap-2 items-center">
+                      <h1 className="text-3xl font-semibold text-[#018081]">
                         LegalGPT
                       </h1>
-                      <p className="m-0 text-xs pt-1">by CLAW</p>
+                      <p className="text-xs pt-1 text-gray-300">by CLAW</p>
                     </div>
                     <Close
                       sx={{ color: "white" }}
@@ -183,36 +197,75 @@ export default function SearchGPT({
                       onClick={handleModalClose}
                     />
                   </div>
-                  <div className="flex-1 h-[90%] flex flex-col overflow-auto mt-2">
-                    <div className="flex gap-2 p-2">
+
+                  {/* Content Section */}
+                  <div className="flex-1 px-4 h-[40%] flex flex-col overflow-auto mt-2">
+                    {/* Query Section */}
+                    <div className="flex gap-2 p-2 items-center">
                       <AccountCircleIcon sx={{ color: "white" }} />
                       <p className="m-0 text-white">{query}</p>
                     </div>
+
+                    {/* Summary Section */}
                     <div className="flex-1">
                       {summery === "" ? (
                         <div className="h-full w-full p-3 flex flex-col gap-1">
-                          <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                          <div className="w-full h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                          <div className="w-[60%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
-                          <div className="w-[40%] h-2 bg-slate-600 animate-pulse  rounded-full"></div>
+                          {/* Loading Animation */}
+                          <div className="w-full h-2 bg-slate-600 animate-pulse rounded-full"></div>
+                          <div className="w-full h-2 bg-slate-600 animate-pulse rounded-full"></div>
+                          <div className="w-[60%] h-2 bg-slate-600 animate-pulse rounded-full"></div>
+                          <div className="w-[40%] h-2 bg-slate-600 animate-pulse rounded-full"></div>
                         </div>
                       ) : (
-                        // <div className="h-full flex flex-col overflow-auto pt-2">
                         <p
                           dangerouslySetInnerHTML={{
                             __html: summery,
                           }}
-                          className="text-white m-0 border-2 bg-[#222222ef] border-[#018081] rounded-lg p-2"
-                        >
-                          {/* {summery} */}
-                        </p>
-                        // </div>
+                          className="text-white m-0 border-2 bg-[#222222ef] border-[#018081] rounded-lg p-2"></p>
                       )}
                     </div>
                   </div>
                 </div>
               </div>
             </Modal>
+            {login && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center">
+                {/* Background Blur */}
+                <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+
+                {/* Modal Container */}
+                <div className="relative w-[600px] rounded-lg border border-[#018081] bg-[#0F1924] text-white shadow-lg">
+                  {/* Title and Close Icon */}
+                  <CloseIcon
+                    className="cursor-pointer right-2 top-2 absolute rounded-full border-2 border-bg-teal-800 text-white hover:text-gray-300"
+                    onClick={handleClose}
+                  />
+                  <div className="flex justify-center items-center px-6 py-6 pt-4">
+                    <div className="flex gap-2 items-center">
+                      <h1 className="text-3xl text-center font-bold text-[#018081]">
+                        LegalGPT
+                      </h1>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="px-6 py-4">
+                    <p className="text-center py-2 text-md text-gray-300 mb-6">
+                      To Continue Using Complete Features Of LegalGPT
+                      <br />
+                      Please Log In
+                    </p>
+                    <div className="flex justify-center w-full gap-4">
+                      <button className="px-6 py-2 border-2 border-bg-white w-full bg-[#018081] text-white rounded-md hover:bg-[#016969] transition">
+                        <Link className="text-white no-underline" to="/login">
+                          Log In
+                        </Link>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

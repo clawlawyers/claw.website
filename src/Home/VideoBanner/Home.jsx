@@ -1,8 +1,9 @@
 import React from "react";
-import LegalGptBanner from "./LegalGptBanner";
-import CaseSearchBanner from "./CaseSearchBanner";
-import AdiraAiBanner from "./AdiraAiBanner";
-import WarRoomBanner from "./WarRoomBanner";
+//import LegalGptBanner from "./LegalGptBanner";
+//import CaseSearchBanner from "./CaseSearchBanner";
+//import AdiraAiBanner from "./AdiraAiBanner";
+//import WarRoomBanner from "./WarRoomBanner";
+import VideoBanner from "./MobileComponent/VideoBanner";
 
 const VideoBannerHome = () => {
   return (
@@ -20,16 +21,16 @@ const VideoBannerHome = () => {
             backgroundClip: "text",
             color: "transparent",
           }}
-          className="text-base sm:text-3xl md:text-3xl lg:text-4xl font-bold mt-2"
-        >
+          className="text-base sm:text-3xl md:text-3xl lg:text-4xl font-bold mt-2">
           AI Powered Legal Research
         </h3>
       </div>
 
-      <LegalGptBanner />
+      {/* <LegalGptBanner />
       <CaseSearchBanner />
       <WarRoomBanner />
-      <AdiraAiBanner />
+      <AdiraAiBanner /> */}
+      <VideoBanner />
     </div>
   );
 };
