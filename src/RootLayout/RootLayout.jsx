@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../Header/Header";
 import FooterBanner from "../FooterBanner/FooterBanner";
 import { Helmet } from "react-helmet";
+import FloatingButton from "../Chatbot/ChatbotButton";
 
 export default function RootLayout() {
   return (
@@ -72,6 +73,7 @@ export default function RootLayout() {
             borderRadius: 428,
           }}
         /> */}
+        {/* <FloatingButton /> */}
         <FooterBanner />
       </div>
     </div>

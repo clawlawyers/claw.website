@@ -1,5 +1,6 @@
 import loginIcon from "../assets/images/loginIcon.gif";
 import { Link } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google"; // Import from react-oauth/google
 
 import React, { useState, useEffect } from "react";
 
@@ -70,6 +71,7 @@ const LoginPage = () => {
   const [areaName, setAreaName] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
   const [countdown, setCountdown] = useState(30);
+  const [googleAuthLoading, setGoogleAuthLoading] = useState(false);
 
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
@@ -378,6 +380,35 @@ const LoginPage = () => {
     setOtpLoading(true);
 
     try {
+      const isValidUser = await fetch(
+        `${NODE_API_ENDPOINT}/client/validate-user`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            // email: formData.email,
+            phoneNumber: phoneNumber,
+          }),
+        }
+      );
+
+      if (!isValidUser.ok) {
+        const error = await isValidUser.json();
+        throw new Error(error.message);
+      }
+
+      const respo = await isValidUser.json();
+      console.log(respo);
+      if (respo.message === "Invalid user credentials") {
+        setIsDisabled(false);
+        setOtpLoading(false);
+        toast.error("This Number not registered. Signup First");
+        navigate("/signup");
+        return;
+      }
+
       const handleOTPsend = await fetch(`${OTP_ENDPOINT}/generateOTPmobile`, {
         method: "POST",
         headers: {
@@ -597,10 +628,111 @@ const LoginPage = () => {
     }
   };
 
+  const responseGoogle = (response) => {
+    setGoogleAuthLoading(true);
+    console.log("Google response:", response); // Log the entire Google response object
+
+    if (response.credential) {
+      const token = response.credential;
+
+      // Send the token to the backend for validation
+      fetch(`${NODE_API_ENDPOINT}/client/google/callback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }), // Send token as JSON body
+      })
+        .then((res) => {
+          console.log("Backend response:", res); // Log the response object from backend
+          return res.json(); // Convert response to JSON
+        })
+        .then((data) => {
+          console.log("Authentication successful:", data); // Log the response data
+          if (data.message === "User not found") {
+            toast.error("User not found. Please sign up first.");
+            navigate("/signup");
+            return;
+          }
+          const userMongoId = data.mongoId;
+
+          if (
+            data?.sessions % 5 === 0 ||
+            !data?.sessions ||
+            !data?.stateLocation
+          ) {
+            if ("geolocation" in navigator) {
+              navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                  const { latitude, longitude } = position.coords;
+                  console.log(latitude + " " + longitude);
+                  setLocation({ latitude, longitude });
+
+                  try {
+                    area = await getAreaName(latitude, longitude);
+                    setAreaName(area);
+                    // console.log(area);
+
+                    console.log(areaName);
+
+                    const response = await fetch(
+                      `${NODE_API_ENDPOINT}/client/setState`,
+                      {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          id: userMongoId,
+                          location: area,
+                        }),
+                      }
+                    );
+                    const { data } = await response.json();
+                    // console.log(data);
+
+                    // console.log(area);
+                  } catch (error) {
+                    setError("Failed to get area name");
+                  }
+                },
+                (error) => {
+                  setError(error.message);
+                }
+              );
+            } else {
+              setError("Geolocation not supported");
+            }
+          } else {
+            localStorage.setItem("userLocation", data.stateLocation);
+          }
+          dispatch(
+            login({
+              // uid,
+              phoneNumber: data.phoneNumber,
+              jwt: data.jwt,
+              expiresAt: data.expiresAt,
+              newGptUser: data.newGptUser,
+              ambassador: data.ambassador,
+              stateLocation: area ? area : data.stateLocation,
+            })
+          );
+          dispatch(retrieveActivePlanUser());
+          dispatch(retrieveActiveAdiraPlan());
+          setGoogleAuthLoading(false);
+          // Handle success (e.g., save user data, redirect, etc.)
+        })
+        .catch((err) => {
+          console.log("Error:", err); // Handle errors
+          setGoogleAuthLoading(false);
+        });
+    }
+  };
+
   return (
     <div className=" min-h-screen flex items-center justify-center">
       {/* Main Card */}
-      <div className="bg-white bg-opacity-25  w-[80%] rounded-lg shadow-lg overflow-hidden border ">
+      <div className="bg-white bg-opacity-25  w-[85%] md:w-[80%] rounded-lg shadow-lg overflow-hidden border ">
         {/* Title */}
         <h2 className="text-3xl font-bold text-center text-white py-6">
           Log In to Claw Legaltech
@@ -612,7 +744,7 @@ const LoginPage = () => {
             <img
               src={loginIcon}
               alt="Login Illustration"
-              className="h-auto w-auto rounded-none"
+              className="p-3 h-auto w-auto rounded-none"
             />
           </div>
 
@@ -686,14 +818,28 @@ const LoginPage = () => {
             </div>
 
             {/* Google Sign-In */}
-            <button className="w-full flex items-center justify-center border border-white p-3 rounded-md text-white bg-teal-700 hover:bg-teal-800 transition">
+            {/* <button className="w-full flex items-center justify-center border border-white p-3 rounded-md text-white bg-teal-700 hover:bg-teal-800 transition">
               <img
                 src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
                 alt="Google Logo"
                 className="w-5 h-5 mr-2"
               />
               Sign Up with Google
-            </button>
+            </button> */}
+            <div className="w-full flex justify-center">
+              {googleAuthLoading ? (
+                <button className="bg-white rounded-lg w-44">
+                  <CircularProgress size={15} sx={{ color: "#055151" }} />
+                </button>
+              ) : (
+                <GoogleLogin
+                  onSuccess={responseGoogle}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                />
+              )}
+            </div>
 
             {/* Footer Links */}
             <div className="text-center mt-6">

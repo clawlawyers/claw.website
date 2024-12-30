@@ -10,9 +10,9 @@ export const NODE_API_ENDPOINT =
 
 export const ADIRA_ENDPOINT =
   process.env.NODE_ENV === "production"
-    ? // ? "https://claw-app-dev.onrender.com/api/v1"
-      "https://adira.clawlaw.in"
-    : "https://adira.clawlaw.in";
+    ? "https://documentdrafter.netlify.app"
+    : // "https://adira.clawlaw.in"
+      "https://adira.clawlaw.in";
 
 export const OTP_ENDPOINT =
   process.env.NODE_ENV === "production"
@@ -30,5 +30,5 @@ export const WARROOM_ENDPOINT =
 
 export const LEGALGPT_ENDPOINT =
   process.env.NODE_ENV === "production"
-    ? "https://claw-legalgpt.netlify.app"
+    ? "https://legalgpt.clawlaw.in"
     : "http://localhost:5173";

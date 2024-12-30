@@ -86,6 +86,8 @@ import Contact from "./Contact/Contact.jsx";
 import { RiLayoutGrid2Line } from "react-icons/ri";
 import SignUpPage from "./Login/Signup.jsx";
 import PopupPage from "./Login/PopupPage.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google"; // Import the provider
+import ChatbotButton from "./Chatbot/ChatbotButton.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -352,7 +354,11 @@ function App() {
         },
         {
           path: "login",
-          element: <Login2 />,
+          element: (
+            <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+              <Login2 />
+            </GoogleOAuthProvider>
+          ),
         },
         {
           path: "signup",
@@ -532,10 +538,9 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Provider store={store}> */}
       <RouterProvider router={router} />
+      <ChatbotButton />
       <Toaster />
-      {/* </Provider> */}
     </div>
   );
 }

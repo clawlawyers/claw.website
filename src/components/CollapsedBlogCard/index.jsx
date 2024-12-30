@@ -9,6 +9,7 @@ export function CollapsedBlogCard({
   heading,
   blogNo = 0,
   createdAt,
+  mainImg,
 }) {
   return (
     <div className={Styles.blogCardContainer}>
@@ -17,7 +18,9 @@ export function CollapsedBlogCard({
           width: "100%",
           height: "329px",
           borderRadius: 20,
-          backgroundImage: `var(--image-blog${parseInt(blogNo % 2)})`,
+          backgroundImage: mainImg
+            ? ""
+            : `var(--image-blog${parseInt(blogNo % 2)})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
@@ -56,6 +59,9 @@ export function CollapsedBlogCard({
         </div>
       </div>
       <div className={Styles.blogCardContent}>
+        <div className="absolute top-4 right-0 py-2 px-3">
+          <img className="rounded-3xl" src={mainImg} />
+        </div>
         <div>
           <h6 style={{ fontSize: 15, fontWeight: 400, color: "#D9D9DA" }}>
             {createdAt}

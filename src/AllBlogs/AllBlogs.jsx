@@ -57,6 +57,10 @@ const mapping = [
     value: "createdAt",
     transform: (date) => new Date(date).toDateString(),
   },
+  {
+    key: "mainImg",
+    value: "mainImg",
+  },
 ];
 
 export default function AllBlogs() {
