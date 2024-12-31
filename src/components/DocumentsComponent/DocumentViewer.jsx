@@ -29,7 +29,7 @@ const DocumentViewer = () => {
   };
 
   return (
-    <div className="pt-4 md:pt-16 w-[80%] bg-gray-900 bg-transparent text-white m-auto flex flex-col gap-3">
+    <div className="pt-16 md:pt-16 w-[80%] bg-gray-900 bg-transparent text-white m-auto flex flex-col gap-3">
       <div>
         <h1 className="text-3xl font-semibold text-center text-[18px] sm:text-3xl">
           Here are some of your{" "}
