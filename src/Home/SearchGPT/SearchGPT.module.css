@@ -31,7 +31,10 @@
 }
 
 .buttonContainer button:hover {
-  transform: scale(1.05);
+  /* transform: scale(1.05); */
+
+  background-image: none;
+  background: linear-gradient(275.22deg, #00ff9d 0.63%, #00e6ff 99.37%);
 }
 
 @media only screen and (max-width: 768px) {

@@ -99,6 +99,10 @@ const videoArrDetails = [
           "https://res.cloudinary.com/dyuov6i8c/video/upload/v1732692033/LegalGPT/bpmjc1zaxlv7cdevfub4.mp4",
       },
     ],
+    // buttons: [
+    //   { label: "Explore", onClick: () => alert("Explore WarRoom") },
+    //   { label: "Enter Courtroom", onClick: () => alert("Enter Courtroom") },
+    // ],
   },
   {
     type: " Adira AI",
@@ -173,54 +177,81 @@ const VideoBanner = () => {
   }, [activeButtonIndex]);
 
   return (
-    <div id="videoBanner" className="pt-20 w-[80%] m-auto flex flex-col gap-3">
+    <div id="videoBanner" className="pt-20 w-[95%] m-auto flex flex-col gap-3">
+      {/* Category Buttons */}
       <div className="flex flex-wrap justify-center gap-3">
-        {videoArrDetails.map((x, index) => (
+        {videoArrDetails.map((category, index) => (
           <button
+            key={index}
             onClick={() => setActiveButtonIndex(index)}
-            className={`w-[26rem] border-2 rounded-lg px-4 py-2 hover:bg-white hover:bg-opacity-25 ${
-              activeButtonIndex === index ? "bg-[#018585] border-[#0bc6c6]" : ""
-            }`}
-            key={index}>
-            {x.type.toUpperCase()}
+            className={`w-[26rem] border-2 rounded-full px-4 py-2 ${
+              activeButtonIndex === index
+                ? "bg-gray-600 text-white"
+                : "bg-gray-700 text-gray-300"
+            } hover:bg-gray-600 hover:text-white`}
+            style={{
+              border: "2px solid  rgba(0, 255, 157, 1)",
+            }}>
+            {category.type.toUpperCase()}
           </button>
         ))}
       </div>
+
+      {/* Video Details Section */}
       <div className="border-2 rounded-lg p-2 flex flex-col gap-3">
+        {/* Subcategories */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {videoArrDetails[activeButtonIndex].typeArr.map((x, index) => (
+          {videoArrDetails[activeButtonIndex].typeArr.map((video, index) => (
             <div
-              onClick={() => setActiveVideoIndex([x])}
               key={index}
+              onClick={() => setActiveVideoIndex([video])}
               className={`w-full flex text-center px-1 justify-center items-center border rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-25 ${
-                activeVideoIndex[0].name === x.name
+                activeVideoIndex[0].name === video.name
                   ? "bg-white bg-opacity-25"
                   : ""
               }`}>
-              <p className="m-0 text-center py-2">{x.name}</p>
+              <p className="m-0 text-center py-2">{video.name}</p>
             </div>
           ))}
         </div>
+
+        {/* Selected Video Details */}
         <div className="bg-black bg-opacity-25 rounded-lg p-3 flex flex-col md:flex-row gap-4">
-          {activeVideoIndex.map((x, index) => (
+          {activeVideoIndex.map((video, index) => (
             <div
               key={index}
               className="flex flex-col md:grid md:grid-cols-2 md:gap-4">
+              {/* Video Description */}
               <div className="mb-2 md:mb-0">
-                {/* Text Content */}
-                <p>{x.details}</p>
+                <p>{video.details}</p>
               </div>
+
+              {/* Video Player */}
               <div className="bg-black rounded-lg h-80">
-                {/* Video Content */}
                 <video
                   className="rounded-lg h-80 w-full"
-                  src={x.videoSrc}
-                  autoPlay
+                  src={video.videoSrc}
                   loop
                   muted
                   controls
                   playsInline
                 />
+
+                {/* Conditional Buttons for "WarRoom"
+                {videoArrDetails[activeButtonIndex].type === "WarRoom" && (
+                  <div className="flex justify-center gap-4 mt-4">
+                    {videoArrDetails[activeButtonIndex].buttons.map(
+                      (button, index) => (
+                        <button
+                          key={index}
+                          onClick={button.onClick}
+                          className="px-6 py-2 bg-[#018585] text-white rounded-lg hover:bg-opacity-75">
+                          {button.label}
+                        </button>
+                      )
+                    )}
+                  </div>
+                )} */}
               </div>
             </div>
           ))}
