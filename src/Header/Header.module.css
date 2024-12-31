@@ -16,7 +16,6 @@
   padding: 20px;
   border-radius: 20px;
   background-color: rgba(14, 16, 29, 0.6);
-  color: white;
 }
 
 .headerLogo {
@@ -49,7 +48,8 @@
 
 .headerLinks button:hover {
   background-color: transparent;
-  transform: scale(1.05);
+  /* transform: scale(1.05); */
+  color: rgba(0, 255, 157, 1);
 }
 
 .headerGPT {
@@ -88,10 +88,14 @@
 }
 
 .headerGPT > button:hover {
-  transform: scale(1.1);
+  color: #008080;
+  background-image: none;
+  background-color: white;
 }
 .headerButton:hover {
-  transform: scale(1.1);
+  background-image: none;
+  background-color: white;
+  color: #008080;
 }
 
 .mobileNav {

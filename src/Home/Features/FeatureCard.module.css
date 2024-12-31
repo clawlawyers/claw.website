@@ -7,6 +7,9 @@
   color: white;
   cursor: pointer;
 }
+.cardContainer:hover {
+  border-color: rgba(0, 255, 157, 1); /* Green color on hover */
+}
 .cardContainer h3 {
   font-size: 30px; /* Adjust font size for smaller screens */
   font-weight: 600px;
