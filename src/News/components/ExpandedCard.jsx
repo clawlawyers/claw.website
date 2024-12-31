@@ -43,8 +43,7 @@ export function ExpandedCard({ newsData }) {
             width: "fit-content",
             marginTop: 15,
             border: "none",
-          }}
-        >
+          }}>
           <a
             href={newsItem?.link}
             target="_blank"
@@ -56,8 +55,7 @@ export function ExpandedCard({ newsData }) {
               border: "none",
               backgroundColor: "transparent",
               textDecoration: "none",
-            }}
-          >
+            }}>
             Read More
           </a>
         </button>
