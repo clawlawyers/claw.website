@@ -561,6 +561,7 @@ const LoginPage = () => {
           newGptUser: data.newGptUser,
           ambassador: data.ambassador,
           stateLocation: area ? area : data.stateLocation,
+          email: data?.email ? data?.email : "",
         })
       );
       dispatch(retrieveActivePlanUser());
@@ -715,6 +716,7 @@ const LoginPage = () => {
               newGptUser: data.newGptUser,
               ambassador: data.ambassador,
               stateLocation: area ? area : data.stateLocation,
+              email: data?.email ? data?.email : "",
             })
           );
           dispatch(retrieveActivePlanUser());
