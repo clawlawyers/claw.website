@@ -9,7 +9,7 @@ import banner3 from "../../assets/icons/banner3.png";
 
 export default forwardRef(function Features(props, ref) {
   return (
-    <div ref={ref} style={{ width: "100%", paddingTop: 20, color: "white" }}>
+    <div ref={ref} style={{ width: "100%", paddingTop: 30, color: "white" }}>
       <div style={{ width: "100%" }}>
         <h3 className={`${Styles.featuresSubHeading} text-[10px] sm:text-base`}>
           Seamless Tool, Trusted Guidance

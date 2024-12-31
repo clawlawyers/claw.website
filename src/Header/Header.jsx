@@ -162,7 +162,8 @@ function Header() {
               textDecoration: "none",
               color: "white",
               backgroundColor: "transparent",
-            }}>
+            }}
+          >
             <img
               alt="Claw"
               className="w-full rounded-none"
@@ -188,7 +189,8 @@ function Header() {
                   transition: "color 0.3s ease",
                 }}
                 onMouseEnter={() => setHover1(true)}
-                onMouseLeave={() => setHover1(false)}>
+                onMouseLeave={() => setHover1(false)}
+              >
                 Pricing
               </Link>
             </button>
@@ -205,7 +207,8 @@ function Header() {
                   transition: "color 0.3s ease",
                 }}
                 onMouseEnter={() => setHover2(true)}
-                onMouseLeave={() => setHover2(false)}>
+                onMouseLeave={() => setHover2(false)}
+              >
                 Blog
               </Link>
             </button>
@@ -236,7 +239,8 @@ function Header() {
                   transition: "color 0.3s ease",
                 }}
                 onMouseEnter={() => setHover3(true)}
-                onMouseLeave={() => setHover3(false)}>
+                onMouseLeave={() => setHover3(false)}
+              >
                 News
               </Link>
             </button>
@@ -252,7 +256,8 @@ function Header() {
                   transition: "color 0.3s ease",
                 }}
                 onMouseEnter={() => setHover4(true)}
-                onMouseLeave={() => setHover4(false)}>
+                onMouseLeave={() => setHover4(false)}
+              >
                 Contact Us
               </Link>
             </button>
@@ -266,12 +271,15 @@ function Header() {
                 {plan?.length > 0 ? (
                   <button
                     onClick={(e) => handleClickProduct(e)}
-                    className={Styles.headerButton}
+                    className={`${Styles.headerButton} hover:text-red`}
                     style={{
                       textDecoration: "none",
-                      color: "white",
+                      color: hover ? "#055151" : "white",
                       //   backgroundColor: "transparent",
-                    }}>
+                    }}
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                  >
                     Products
                   </button>
                 ) : (
@@ -281,7 +289,8 @@ function Header() {
                       textDecoration: "none",
                       color: "white",
                       //   backgroundColor: "transparent",
-                    }}>
+                    }}
+                  >
                     <CircularProgress size={15} sx={{ color: "white" }} />
                   </button>
                 )}
@@ -289,14 +298,15 @@ function Header() {
             ) : (
               <button
                 onClick={() => navigate("/login")}
-                className={Styles.headerButton}
+                className={`${Styles.headerButton} text-yellow-600`}
                 style={{
                   textDecoration: "none",
-                  color: hover ? "#008080" : "white", // Text color changes on hover
+                  color: hover ? "#055151" : "white",
                   backgroundColor: hover ? "white" : "transparent",
                 }}
                 onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}>
+                onMouseLeave={() => setHover(false)}
+              >
                 Products
               </button>
             )}
@@ -310,26 +320,30 @@ function Header() {
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "left",
-                }}>
+                }}
+              >
                 <div
                   className="p-3  w-52 bg-black z-20 border-2 border-[#00C37B] rounded"
                   style={{
                     background: "linear-gradient(135deg,#003723E5,#1D2330E5)",
-                  }}>
+                  }}
+                >
                   <div>
                     {!isAdiraLoading ? (
                       <>
                         {activeAdiraPlan && activeAdiraPlan.isActive ? (
                           <p
                             onClick={openAdiraAi}
-                            className="m-0 text-white border-b border-white  py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                            className="m-0 text-white border-b border-white  py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                          >
                             Adira
                           </p>
                         ) : (
                           <Link
                             to={"/pricing"}
                             className="m-0 text-white border-b border-white py-2 cursor-pointer flex hover:bg-white hover:bg-opacity-5 "
-                            style={{ textDecoration: "none" }}>
+                            style={{ textDecoration: "none" }}
+                          >
                             Adira
                           </Link>
                         )}
@@ -344,13 +358,15 @@ function Header() {
                     {true ? (
                       <p
                         className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
-                        onClick={openWarrrom}>
+                        onClick={openWarrrom}
+                      >
                         War Room
                       </p>
                     ) : (
                       <p
                         className="m-0 text-white border-b border-white py-2 cursor-pointer hover:bg-white hover:bg-opacity-5 "
-                        onClick={handlePopupOpen}>
+                        onClick={handlePopupOpen}
+                      >
                         War Room
                       </p>
                     )}
@@ -417,7 +433,8 @@ function Header() {
                           ? handleLimitExceed
                           : openLegalGpt
                       }
-                      className="m-0 py-2 text-white border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                      className="m-0 py-2 text-white border-b border-white cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                    >
                       LegalGPT
                     </p>
                   </div>
@@ -429,7 +446,8 @@ function Header() {
             <button
               className={Styles.headerButton}
               // class="flex flex-1 items-center justify-center  text-white font-medium text-lg rounded-lg p-2.5 border-none "
-              onClick={handleAuthChange}>
+              onClick={handleAuthChange}
+            >
               {isAuthLoading ? (
                 <CircularProgress size={16} style={{ color: "white" }} />
               ) : (
@@ -440,7 +458,8 @@ function Header() {
             <>
               <button
                 className={Styles.headerButton2}
-                onClick={currentUser ? handleClick : null}>
+                onClick={currentUser ? handleClick : null}
+              >
                 {/* {!isAuthLoading && (currentUser ? <>My Account</> : <>Login</>)} */}
                 <AccountCircleIcon></AccountCircleIcon>
               </button>
@@ -454,23 +473,27 @@ function Header() {
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left",
-                  }}>
+                  }}
+                >
                   <div
                     className="p-3 w-full bg-black z-20 border-2 border-[#00C37B] rounded"
                     style={{
                       background: "linear-gradient(135deg,#003723E5,#1D2330E5)",
-                    }}>
+                    }}
+                  >
                     <Link
                       onClick={() => setAnchorEl(null)}
                       style={{ textDecoration: "none" }}
-                      to={"/purchases"}>
+                      to={"/purchases"}
+                    >
                       <p className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
                         All Purchases
                       </p>
                     </Link>
                     <p
                       onClick={handleLogout}
-                      className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 ">
+                      className="text-white border-b border-white p-1 cursor-pointer hover:bg-white hover:bg-opacity-5 "
+                    >
                       Logout
                     </p>
                   </div>
@@ -489,7 +512,8 @@ function Header() {
             border: "none",
             backgroundColor: "transparent",
             color: "white",
-          }}>
+          }}
+        >
           <TableRowsIcon />
         </button>
         <Drawer
@@ -504,13 +528,15 @@ function Header() {
           onClose={() => {
             setNavOpen(false);
             setShowList("");
-          }}>
+          }}
+        >
           <div
             style={{
               display: "flex",
               justifyContent: "flex-end",
               padding: "10px 10px 0px 0px",
-            }}>
+            }}
+          >
             <button
               style={{
                 backgroundColor: "inherit",
@@ -520,7 +546,8 @@ function Header() {
               onClick={() => {
                 setNavOpen(false);
                 setShowList("");
-              }}>
+              }}
+            >
               <ClearIcon />
             </button>
           </div>
@@ -529,7 +556,8 @@ function Header() {
               <ListItem
                 key={"purchase"}
                 sx={{ padding: "5px 0px" }}
-                disablePadding>
+                disablePadding
+              >
                 <ListItemButton
                   sx={{
                     textAlign: "center",
@@ -539,7 +567,8 @@ function Header() {
                   onClick={() => {
                     navigate("/purchases");
                     setNavOpen(false);
-                  }}>
+                  }}
+                >
                   <ListItemText primary={"All Purchases"} />
                 </ListItemButton>
               </ListItem>
@@ -553,7 +582,8 @@ function Header() {
                   onClick={() => {
                     handleLogout();
                     setNavOpen(false);
-                  }}>
+                  }}
+                >
                   <ListItemText primary={"Logout"} />
                 </ListItemButton>
               </ListItem>
@@ -566,7 +596,8 @@ function Header() {
                   }}
                   onClick={() => {
                     setShowList("");
-                  }}>
+                  }}
+                >
                   <ListItemText primary={"Back"} />
                 </ListItemButton>
               </ListItem>
@@ -576,12 +607,14 @@ function Header() {
               sx={{
                 padding: "10px",
                 background: "linear-gradient(90deg,#005F62,#00C37B)",
-              }}>
+              }}
+            >
               <h1 className="text-center">Products</h1>
               <ListItem
                 key={"LegalGPT"}
                 sx={{ borderBottom: "1px solid white" }}
-                disablePadding>
+                disablePadding
+              >
                 <ListItemButton
                   onClick={
                     plan !== null &&
@@ -590,17 +623,20 @@ function Header() {
                       ? handleLimitExceed
                       : openLegalGpt
                   }
-                  sx={{ textAlign: "center" }}>
+                  sx={{ textAlign: "center" }}
+                >
                   <ListItemText primary={"LEGALGPT"} />
                 </ListItemButton>
               </ListItem>
               <ListItem
                 key={"War Room"}
                 sx={{ borderBottom: "1px solid white" }}
-                disablePadding>
+                disablePadding
+              >
                 <ListItemButton
                   sx={{ textAlign: "center" }}
-                  onClick={openWarrrom}>
+                  onClick={openWarrrom}
+                >
                   <ListItemText primary={"WAR ROOM"} />
                 </ListItemButton>
               </ListItem>
@@ -608,7 +644,8 @@ function Header() {
                 <ListItem
                   key={"adira"}
                   sx={{ borderBottom: "1px solid white" }}
-                  disablePadding>
+                  disablePadding
+                >
                   <ListItemButton
                     sx={{ textAlign: "center" }}
                     onClick={() => {
@@ -616,7 +653,8 @@ function Header() {
                         ? openAdiraAi()
                         : navigate("/pricing");
                       setNavOpen(false);
-                    }}>
+                    }}
+                  >
                     <ListItemText primary={"ADIRA"} />
                   </ListItemButton>
                 </ListItem>
@@ -624,7 +662,8 @@ function Header() {
                 <ListItem
                   key={"adira"}
                   sx={{ borderBottom: "1px solid white" }}
-                  disablePadding>
+                  disablePadding
+                >
                   <ListItemButton sx={{ textAlign: "center" }}>
                     <ListItemText primary={"Adira Loading..."} />
                   </ListItemButton>
@@ -638,7 +677,8 @@ function Header() {
                     textAlign: "center",
                     background: "black",
                     borderRadius: "5px",
-                  }}>
+                  }}
+                >
                   <ListItemText primary={"Back"} />
                 </button>
               </ListItem>
@@ -649,13 +689,15 @@ function Header() {
                 <ListItem
                   key={path}
                   sx={{ borderBottom: "1px solid white" }}
-                  disablePadding>
+                  disablePadding
+                >
                   <ListItemButton
                     onClick={() => {
                       navigate(path);
                       setNavOpen(false);
                     }}
-                    sx={{ textAlign: "center" }}>
+                    sx={{ textAlign: "center" }}
+                  >
                     {/* <ListItemIcon>
                     <Icon style={{ color: "white" }} />
                   </ListItemIcon> */}
@@ -668,7 +710,8 @@ function Header() {
                 sx={{
                   padding: "5px 0px",
                 }}
-                disablePadding>
+                disablePadding
+              >
                 <ListItemButton
                   onClick={() =>
                     currentUser && plan.length > 0
@@ -679,7 +722,8 @@ function Header() {
                     textAlign: "center",
                     background: "linear-gradient(90deg,#005F62,#00C37B)",
                     borderRadius: "5px",
-                  }}>
+                  }}
+                >
                   <ListItemText primary={"Products"} />
                 </ListItemButton>
               </ListItem>
@@ -689,14 +733,16 @@ function Header() {
                   sx={{
                     padding: "5px 0px",
                   }}
-                  disablePadding>
+                  disablePadding
+                >
                   <ListItemButton
                     onClick={() => setShowList("login")}
                     sx={{
                       textAlign: "center",
                       background: "linear-gradient(90deg,#005F62,#00C37B)",
                       borderRadius: "5px",
-                    }}>
+                    }}
+                  >
                     <ListItemText primary={"My Account"} />
                   </ListItemButton>
                 </ListItem>
@@ -706,7 +752,8 @@ function Header() {
                   sx={{
                     padding: "5px 0px",
                   }}
-                  disablePadding>
+                  disablePadding
+                >
                   <ListItemButton
                     onClick={() => {
                       handleAuthChange();
@@ -716,7 +763,8 @@ function Header() {
                       textAlign: "center",
                       background: "linear-gradient(90deg,#005F62,#00C37B)",
                       borderRadius: "5px",
-                    }}>
+                    }}
+                  >
                     <ListItemText primary={"Login"} />
                   </ListItemButton>
                 </ListItem>
@@ -776,21 +824,24 @@ function Header() {
             padding: 10,
             transform: "translate(-50%, -50%)",
             boxShadow: 24,
-          }}>
+          }}
+        >
           <div
             style={{
               position: "sticky",
               top: 0,
               display: "flex",
               justifyContent: "flex-end",
-            }}>
+            }}
+          >
             <button
               onClick={handlePopupClose}
               style={{
                 border: "none",
                 backgroundColor: "inherit",
                 backgroundImage: "none",
-              }}>
+              }}
+            >
               <ClearIcon style={{ fontSize: 30, color: "black" }} />
             </button>
           </div>
@@ -802,7 +853,8 @@ function Header() {
               alignItems: "center",
               gap: 10,
               padding: 50,
-            }}>
+            }}
+          >
             <LockIcon style={{ fontSize: 80, color: "black" }} />
             <h3 style={{ fontSize: 28, fontWeight: 500 }}>Upgrade Now</h3>
             <div style={{ display: "flex", gap: 5 }}>
@@ -839,7 +891,8 @@ function Header() {
                     backgroundColor: "transparent",
                     borderRadius: 15,
                     padding: 10,
-                  }}>
+                  }}
+                >
                   <p
                     className={Styles.linkImg}
                     style={{
@@ -848,7 +901,8 @@ function Header() {
                       width: "fit-content",
                       border: "none",
                       margin: 0,
-                    }}>
+                    }}
+                  >
                     Buy Credits
                   </p>
                 </button>
