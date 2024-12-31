@@ -5,12 +5,14 @@ import { CircularProgress } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import ChatbotImg from "../assets/icons/Chatbot.png";
 import loaderGif from "../assets/icons/Chatbot.gif";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
-const Chatbot = ({ handleClose }) => {
+const Chatbot = ({ handleClose, navigate }) => {
   const [chatArr, setChatArr] = useState([{ isUser: true, message: "loader" }]);
   const [query, setQuery] = useState("");
   const [userId, setUserId] = useState("");
+  const currentUser = useSelector((state) => state.auth.user);
 
   const scrollRef = useRef(null);
 
@@ -127,6 +129,50 @@ const Chatbot = ({ handleClose }) => {
     }
   };
 
+  console.log(currentUser);
+  const [load, setload] = useState(false);
+
+  const handleContact = async () => {
+    if (currentUser) {
+      try {
+        setload(true);
+        const contactData = await fetch(
+          `${NODE_API_ENDPOINT}/chatBot/contact-us`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: userId,
+              email:
+                currentUser?.email === ""
+                  ? "example@gmail.com"
+                  : currentUser?.email,
+              phone: currentUser.phoneNumber,
+            }),
+          }
+        );
+
+        if (!contactData.ok) {
+          const error = await contactData.json();
+          setload(false);
+
+          throw new Error(error.message);
+        }
+        const contactResponse = await contactData.json();
+        console.log(contactResponse);
+        toast.success("Our team will contact you soon");
+        setload(false);
+      } catch (error) {
+        setload(false);
+
+        console.log(error);
+        toast.error("Failed to contact us");
+      }
+    }
+  };
+
   return (
     <div className="w-full h-full flex flex-col gap-2 bg-[#1D2330] text-white p-2  rounded-lg">
       <div className="flex justify-between items-center border-b pb-2">
@@ -142,8 +188,8 @@ const Chatbot = ({ handleClose }) => {
             {x.message === "loader" ? (
               <div className="w-full flex justify-start">
                 <div className="w-fit flex justify-start">
-                  <p className=" bg-white text-sm text-black rounded-t-xl rounded-r-xl">
-                    <img src={loaderGif} />
+                  <p className=" bg-white text-xs text-black rounded-t-xl rounded-r-xl">
+                    <img src={loaderGif} width={50} alt="loading" />
                   </p>
                 </div>
               </div>
@@ -162,7 +208,8 @@ const Chatbot = ({ handleClose }) => {
                     <div className="w-5/6 flex justify-start">
                       <p
                         dangerouslySetInnerHTML={{ __html: x.message }}
-                        className=" bg-white p-2 text-sm text-black rounded-t-xl rounded-r-xl"></p>
+                        className=" bg-white p-2 text-sm text-black rounded-t-xl rounded-r-xl"
+                      ></p>
                     </div>
                   </div>
                 )}
@@ -170,10 +217,31 @@ const Chatbot = ({ handleClose }) => {
                 {!x.isUser &&
                   index === chatArr.length - 1 &&
                   chatArr.filter((msg) => !msg.isUser).length > 1 && ( // Ensure at least 2 AI responses
-                    <div className=" w-full flex justify-start mt-4">
-                      <button className="px-4 py-2 bg-[#018081] text-white rounded-md hover:bg-[#016969] transition">
-                        Contact Us
-                      </button>
+                    <div className=" w-full flex justify-start mt-1">
+                      {currentUser ? (
+                        <button
+                          className="px-4 py-2 bg-[#018081] text-white rounded-md hover:bg-[#016969] transition"
+                          onClick={handleContact}
+                        >
+                          {load ? (
+                            <CircularProgress
+                              size={20}
+                              sx={{ color: "white" }}
+                            />
+                          ) : (
+                            "Contact Us"
+                          )}
+                        </button>
+                      ) : (
+                        <a href="/contact-us">
+                          <button
+                            className="px-4 py-2 bg-[#018081] text-white rounded-md hover:bg-[#016969] transition"
+                            // onClick={handleContact}
+                          >
+                            Contact Us
+                          </button>
+                        </a>
+                      )}
                     </div>
                   )}
               </>
@@ -192,7 +260,8 @@ const Chatbot = ({ handleClose }) => {
         <button
           disabled={query === ""}
           className="bg-transparent p-0"
-          type="submit">
+          type="submit"
+        >
           <SendIcon />
         </button>
       </form>
