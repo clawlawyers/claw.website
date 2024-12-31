@@ -8,8 +8,7 @@ export default function FeatureCard({ imageSrc, heading, subHeading }) {
       whileTap={{ scale: 0.98 }}
       whileHover={{ scale: 1.03 }}
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
-      className={Styles.cardContainer}
-    >
+      className={Styles.cardContainer}>
       <div style={{ textAlign: "center", backgroundColor: "#171E26" }}>
         <div style={{ backgroundColor: "#171E26" }}>
           <img

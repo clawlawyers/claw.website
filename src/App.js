@@ -87,7 +87,7 @@ import { RiLayoutGrid2Line } from "react-icons/ri";
 import SignUpPage from "./Login/Signup.jsx";
 import PopupPage from "./Login/PopupPage.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google"; // Import the provider
-import FloatingButton from "./FloatingButton.jsx";
+import ChatbotButton from "./Chatbot/ChatbotButton.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -539,7 +539,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
-      {/* <FloatingButton /> */}
+      <ChatbotButton />
       <Toaster />
     </div>
   );

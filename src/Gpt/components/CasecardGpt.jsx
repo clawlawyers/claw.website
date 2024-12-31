@@ -12,20 +12,24 @@ import markdownit from "markdown-it";
 import { activePlanFeatures } from "../../utils/checkActivePlanFeatures";
 
 const courtIdMapping = {
-  "Supreme Court of India": "1bgi-zbCWObiTNjkegNXryni4ZJzZyCFV",
+  "Supreme Court of India": "1bgi-zbCWObiTNjkegNXryni4ZJzZyCFV ",
   "Chattisgarh High Court": "10WjvWkkE5P9AZJTdBuK3rOB3FBfSuPON",
   "Sikkim High Court": "1LRcl09Lc2psq3kFjZ92oYEBV54Bgdr4q",
   "Uttarakhand High Court": "16ghA911ENkOJ5GDa-317ncVA_egwsy6J",
   "Calcutta High Court": "1CTxPb31Kvj-iyUxef5THaTL7pzJpXsE0",
   "Kerela High Court": "1ss5iK8rcrEzjWUjUl5Cg2qhKunTQX4II",
-  "Karnataka High Court": "1k8EEGMnzCbdyTKsNVGxboa4wqRiW2SNi",
+  "Karnataka High Court":
+    "1k8EEGMnzCbdyTKsNVGxboa4wqRiW2SNi, 12yzXXlf3hAxUAp1fmYTKCQrBV4O2TqwB, 1giA5ZiRlujgv1KwAEqBtH7-0wUi2I0qQ",
   "Jammu and Kashmir High Court": "15PrnIvUGB4OdKzSjvGtdpyVLLPlBEZ2M",
   "Jharkhand High Court": "1cKhGvZGPJpVVA5KFW1MH0PTgSTjlPV_5",
   "Delhi High Court": "1-4KMCL-J2HDD6RllAZbARzBJccxQPTYC",
   "Delhi District Court": "1PSrAbXpBsoUvqjV_ssoca3Xzzk71qP4a",
   "Madhya Pradesh High Court": "1exastQPw80VSb359G8xournBF1MPShdn",
-  "Allahabad High Court": "1qpWWufkZ4ciCskmJ3xPHLe72Z8oKWjcO",
-  "Gujarat High Court": "1NyOxx5lBZ-rFy3wtwdOlepTog668HUwJ",
+  "Allahabad High Court":
+    "1qpWWufkZ4ciCskmJ3xPHLe72Z8oKWjcO, 1--Ae2LBLKKeAJQ66PSXWwPqThK37csOk",
+  "Gujarat High Court":
+    "1NyOxx5lBZ-rFy3wtwdOlepTog668HUwJ, 1Hn_UM2BNWdJz_xHDeQox_3V8UE3HU89s",
+  "Rajasthan High Court": "153TCPW0SuDtXQzlgLUtqES3uwVUkaMtu",
 };
 
 const newCourtIdMapping = {
@@ -37,10 +41,13 @@ const newCourtIdMapping = {
   "Kerela High Court": "18IEun-9TPt0tywiGmuKheHWmdkJ6N7PC",
   "Karnataka High Court": "1b3C4lv_sASf7Et4wS2me_dSp1T08NN-e",
   "Jammu and Kashmir High Court": "1xroQ7bjQPDiTpPWfAi5YDbMeM1MPlNOH",
+
   "Jharkhand High Court": "1iQOmzXhtTPa2G7C-pGwcVorkrUFBATTh",
   "Delhi High Court": "1uLtctLYbGYy26A3KbUs8Wh2SwMq6WbpF",
   "Delhi District Court": "1NCDpBZGjKIGEYaq-7JPX2rTNDwi48YBv",
+
   "Madhya Pradesh High Court": "1qFppmDox-fKOcPFW4FGedfCsIsOWUF8i",
+
   "Allahabad High Court": "1e_EdyqEQkCEW3pXFEo9eFweVGYoiwQRW",
   "Gujarat High Court": "1GWbg3GnvbseAGRfCvQt6ImhXgsg4ZfXl",
   "Rajasthan High Court": "18VP7y7NKx8jwSq87T2iSUEh4KnDyImOX",
@@ -217,8 +224,7 @@ export function CasecardGpt({
         padding: 16,
         backgroundColor: "#008080",
         borderRadius: 10,
-      }}
-    >
+      }}>
       {/* <div className="flex justify-between gap-3"> */}
       <div style={{ flex: 1 }}>
         <h2 style={{ fontSize: 23, fontWeight: 700 }}>{name}</h2>
@@ -244,8 +250,7 @@ export function CasecardGpt({
             color: "white",
             border: "1px solid white",
             backgroundImage: "none",
-          }}
-        >
+          }}>
           View document
         </button>
         <button
@@ -267,8 +272,7 @@ export function CasecardGpt({
             border: "1px solid white",
             backgroundImage: "none",
             cursor: "pointer",
-          }}
-        >
+          }}>
           {isSummaryOpen ? "Hide summary" : "View summary"}
         </button>
       </div>
@@ -286,8 +290,7 @@ export function CasecardGpt({
                 <p>Here is the summary content.</p>
                 <p
                   style={{ color: "white" }}
-                  dangerouslySetInnerHTML={{ __html: summery }}
-                ></p>
+                  dangerouslySetInnerHTML={{ __html: summery }}></p>
               </>
             )}
           </>
@@ -297,8 +300,7 @@ export function CasecardGpt({
       <Modal
         open={openCase}
         onClose={handleClose}
-        aria-labelledby="child-modal-title"
-      >
+        aria-labelledby="child-modal-title">
         <div
           className={Styles.scrollable}
           style={{
@@ -314,21 +316,18 @@ export function CasecardGpt({
             padding: 10,
             transform: "translate(-50%, -50%)",
             boxShadow: 24,
-          }}
-        >
+          }}>
           <div
             style={{
               position: "sticky",
               top: 0,
               display: "flex",
               background: "white",
-            }}
-          >
+            }}>
             <div style={{ flex: 1 }} />
             <button
               onClick={handleClose}
-              style={{ border: "none", backgroundColor: "transparent" }}
-            >
+              style={{ border: "none", backgroundColor: "transparent" }}>
               <ClearIcon style={{ fontSize: 30, color: "black" }} />
             </button>
           </div>
@@ -341,8 +340,7 @@ export function CasecardGpt({
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                }}
-              >
+                }}>
                 <CircularProgress style={{ color: "black" }} />
               </div>
             ) : (
@@ -354,8 +352,7 @@ export function CasecardGpt({
                   fontSize: 16,
                   fontWeight: 500,
                   fontFamily: "serif",
-                }}
-              >
+                }}>
                 {Object.keys(content?.data?.fetchedData || {}).map((key) => {
                   function unicodeToChar(unicodeStr) {
                     return unicodeStr.replace(/\\u[\dA-Fa-f]{4}/g, (match) => {
@@ -372,8 +369,7 @@ export function CasecardGpt({
                     <div key={key}>
                       <p
                         style={{ color: "black" }}
-                        dangerouslySetInnerHTML={{ __html: data }}
-                      ></p>
+                        dangerouslySetInnerHTML={{ __html: data }}></p>
                     </div>
                   );
                 })}

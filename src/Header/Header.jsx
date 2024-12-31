@@ -53,6 +53,11 @@ const navLinks = [
 function Header() {
   const [navOpen, setNavOpen] = useState(false);
   const [activePlan, setActivePlan] = useState([]);
+  const [hover1, setHover1] = useState(false);
+  const [hover2, setHover2] = useState(false);
+  const [hover3, setHover3] = useState(false);
+  const [hover4, setHover4] = useState(false);
+  const [hover, setHover] = useState(false);
 
   const currentUser = useSelector((state) => state.auth.user);
   const authStatus = useSelector((state) => state.auth.status);
@@ -179,9 +184,12 @@ function Header() {
                 to="/pricing"
                 style={{
                   textDecoration: "none",
-                  color: "white",
+                  color: hover1 ? "rgba(0, 255, 157, 1)" : "white",
                   backgroundColor: "transparent",
+                  transition: "color 0.3s ease",
                 }}
+                onMouseEnter={() => setHover1(true)}
+                onMouseLeave={() => setHover1(false)}
               >
                 Pricing
               </Link>
@@ -194,9 +202,12 @@ function Header() {
                 to="/blog"
                 style={{
                   textDecoration: "none",
-                  color: "white",
+                  color: hover2 ? "rgba(0, 255, 157, 1)" : "white",
                   backgroundColor: "transparent",
+                  transition: "color 0.3s ease",
                 }}
+                onMouseEnter={() => setHover2(true)}
+                onMouseLeave={() => setHover2(false)}
               >
                 Blog
               </Link>
@@ -223,9 +234,12 @@ function Header() {
                 to="/news"
                 style={{
                   textDecoration: "none",
-                  color: "white",
+                  color: hover3 ? "rgba(0, 255, 157, 1)" : "white",
                   backgroundColor: "transparent",
+                  transition: "color 0.3s ease",
                 }}
+                onMouseEnter={() => setHover3(true)}
+                onMouseLeave={() => setHover3(false)}
               >
                 News
               </Link>
@@ -237,9 +251,12 @@ function Header() {
                 to="/contact-us"
                 style={{
                   textDecoration: "none",
-                  color: "white",
+                  color: hover4 ? " rgba(0, 255, 157, 1)" : "white",
                   backgroundColor: "transparent",
+                  transition: "color 0.3s ease",
                 }}
+                onMouseEnter={() => setHover4(true)}
+                onMouseLeave={() => setHover4(false)}
               >
                 Contact Us
               </Link>
@@ -254,12 +271,14 @@ function Header() {
                 {plan?.length > 0 ? (
                   <button
                     onClick={(e) => handleClickProduct(e)}
-                    className={Styles.headerButton}
+                    className={`${Styles.headerButton} hover:text-red`}
                     style={{
                       textDecoration: "none",
-                      color: "white",
+                      color: hover ? "#055151" : "white",
                       //   backgroundColor: "transparent",
                     }}
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
                   >
                     Products
                   </button>
@@ -279,11 +298,14 @@ function Header() {
             ) : (
               <button
                 onClick={() => navigate("/login")}
-                className={Styles.headerButton}
+                className={`${Styles.headerButton} text-yellow-600`}
                 style={{
                   textDecoration: "none",
-                  color: "white",
+                  color: hover ? "#055151" : "white",
+                  backgroundColor: hover ? "white" : "transparent",
                 }}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
               >
                 Products
               </button>
