@@ -168,16 +168,22 @@ const videoArrDetails = [
 
 const VideoBanner = () => {
   const [activeButtonIndex, setActiveButtonIndex] = useState(0);
-  const [activeVideoIndex, setActiveVideoIndex] = useState([
-    videoArrDetails[activeButtonIndex].typeArr[0],
-  ]);
+  const [activeVideoIndex, setActiveVideoIndex] = useState(
+    videoArrDetails[0].typeArr[0] // Default to the first video's details
+  );
 
   useEffect(() => {
-    setActiveVideoIndex([videoArrDetails[activeButtonIndex].typeArr[0]]);
+    // Update active video index when the button changes
+    setActiveVideoIndex(videoArrDetails[activeButtonIndex].typeArr[0]);
+  }, [activeButtonIndex]);
+
+  // Debug: Log active type
+  useEffect(() => {
+    console.log("Active type:", videoArrDetails[activeButtonIndex].type);
   }, [activeButtonIndex]);
 
   return (
-    <div id="videoBanner" className=" w-[95%] m-auto flex flex-col gap-3">
+    <div id="videoBanner" className="w-[95%] m-auto flex flex-col gap-3">
       {/* Category Buttons */}
       <div className="flex flex-wrap justify-center gap-3">
         {videoArrDetails.map((category, index) => (
@@ -190,9 +196,8 @@ const VideoBanner = () => {
                 : "bg-gray-700 text-gray-300"
             } hover:bg-gray-600 hover:text-white`}
             style={{
-              border: "2px solid  rgba(0, 255, 157, 1)",
-            }}
-          >
+              border: "2px solid rgba(0, 255, 157, 1)",
+            }}>
             {category.type.toUpperCase()}
           </button>
         ))}
@@ -200,18 +205,16 @@ const VideoBanner = () => {
 
       {/* Video Details Section */}
       <div className="border-2 rounded-lg p-2 flex flex-col gap-3">
-        {/* Subcategories */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {videoArrDetails[activeButtonIndex].typeArr.map((video, index) => (
             <div
               key={index}
-              onClick={() => setActiveVideoIndex([video])}
+              onClick={() => setActiveVideoIndex(video)}
               className={`w-full flex text-center px-1 justify-center items-center border rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-25 ${
-                activeVideoIndex[0].name === video.name
+                activeVideoIndex.name === video.name
                   ? "bg-white bg-opacity-25"
                   : ""
-              }`}
-            >
+              }`}>
               <p className="m-0 text-center py-2">{video.name}</p>
             </div>
           ))}
@@ -219,47 +222,43 @@ const VideoBanner = () => {
 
         {/* Selected Video Details */}
         <div className="bg-black bg-opacity-25 rounded-lg p-3 flex flex-col md:flex-row gap-4">
-          {activeVideoIndex.map((video, index) => (
-            <div
-              key={index}
-              className="flex flex-col md:grid md:grid-cols-2 md:gap-4"
-            >
-              {/* Video Description */}
-              <div className="mb-2 md:mb-0">
-                <p>{video.details}</p>
-              </div>
-
-              {/* Video Player */}
-              <div className="bg-black rounded-lg h-80">
-                <video
-                  className="rounded-lg h-80 w-full"
-                  src={video.videoSrc}
-                  loop
-                  muted
-                  controls
-                  playsInline
-                />
-
-                {/* Conditional Buttons for "WarRoom"
-                {videoArrDetails[activeButtonIndex].type === "WarRoom" && (
-                  <div className="flex justify-center gap-4 mt-4">
-                    {videoArrDetails[activeButtonIndex].buttons.map(
-                      (button, index) => (
-                        <button
-                          key={index}
-                          onClick={button.onClick}
-                          className="px-6 py-2 bg-[#018585] text-white rounded-lg hover:bg-opacity-75">
-                          {button.label}
-                        </button>
-                      )
-                    )}
-                  </div>
-                )} */}
-              </div>
+          <div className="flex flex-col md:grid md:grid-cols-2 md:gap-4">
+            {/* Video Description */}
+            <div className="mb-2 md:mb-0">
+              <p>{activeVideoIndex.details}</p>
             </div>
-          ))}
+
+            {/* Video Player */}
+            <div className="bg-black rounded-lg h-80">
+              <video
+                className="rounded-lg h-80 w-full"
+                src={activeVideoIndex.videoSrc}
+                loop
+                muted
+                controls
+                playsInline
+              />
+            </div>
+          </div>
         </div>
       </div>
+      {/* WarRoom Buttons */}
+      {videoArrDetails[activeButtonIndex].type === "WarRoom" && (
+        <div className="flex justify-center gap-4 mt-4">
+          <h1>Rahul Prajapati!!!!</h1>
+          {console.log("Rendering WarRoom Buttons")}
+          <button
+            onClick={() => alert("Explore WarRoom")}
+            className="px-6 py-2 bg-[#018585] text-white  rounded-lg hover:bg-opacity-75">
+            Explore
+          </button>
+          <button
+            onClick={() => alert("Enter Courtroom")}
+            className="px-6 py-2 bg-[#018585] text-white rounded-lg hover:bg-opacity-75">
+            Enter Courtroom
+          </button>
+        </div>
+      )}
     </div>
   );
 };
