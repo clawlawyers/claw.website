@@ -29,7 +29,7 @@ export function ExpandedBlogCard({
           style={{
             borderRadius: 15,
             backgroundImage: hover
-              ? "linear-gradient(275.22deg, #00ff9d 0.63%, #00e6ff 99.37%)"
+              ? "linear-gradient(275.22deg,  #00ff9d 0.63%, #00e6ff 99.37%) "
               : "none", // Apply gradient on hover
             backgroundColor: hover ? "transparent" : "#008080",
             padding: 10,
@@ -44,7 +44,7 @@ export function ExpandedBlogCard({
           <Link
             to={`/blog/${heading}`}
             style={{
-              color: hover ? "white" : "white", // Change text color on hover
+              color: hover ? "rgba(55, 112, 105, 1)" : "white", // Change text color on hover
               fontSize: 15,
               fontWeight: 600,
               border: "none",

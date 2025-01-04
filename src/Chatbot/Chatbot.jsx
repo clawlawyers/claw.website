@@ -174,7 +174,7 @@ const Chatbot = ({ handleClose, navigate }) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col gap-2 bg-[#1D2330] text-white p-2  rounded-lg">
+    <div className="w-full h-full flex flex-col gap-2 bg-[#1D2330] text-white p-3  rounded-md">
       <div className="flex justify-between items-center border-b pb-2">
         <div className="flex gap-1 items-center">
           <img className="w-8" src={ChatbotImg} />
@@ -208,8 +208,7 @@ const Chatbot = ({ handleClose, navigate }) => {
                     <div className="w-5/6 flex justify-start">
                       <p
                         dangerouslySetInnerHTML={{ __html: x.message }}
-                        className=" bg-white p-2 text-sm text-black rounded-t-xl rounded-r-xl"
-                      ></p>
+                        className=" bg-white p-2 text-sm text-black rounded-t-xl rounded-r-xl"></p>
                     </div>
                   </div>
                 )}
@@ -221,8 +220,7 @@ const Chatbot = ({ handleClose, navigate }) => {
                       {currentUser ? (
                         <button
                           className="px-4 py-2 bg-[#018081] text-white rounded-md hover:bg-[#016969] transition"
-                          onClick={handleContact}
-                        >
+                          onClick={handleContact}>
                           {load ? (
                             <CircularProgress
                               size={20}
@@ -260,8 +258,7 @@ const Chatbot = ({ handleClose, navigate }) => {
         <button
           disabled={query === ""}
           className="bg-transparent p-0"
-          type="submit"
-        >
+          type="submit">
           <SendIcon />
         </button>
       </form>

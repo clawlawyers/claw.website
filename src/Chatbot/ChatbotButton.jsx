@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ChatbotImg from "../assets/icons/Chatbot.png";
 import { Popover } from "@mui/material";
 import Chatbot from "./Chatbot";
+import { Tooltip } from "@mui/material";
 
 const ChatbotButton = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,7 +23,9 @@ const ChatbotButton = () => {
   return (
     <>
       <div onClick={handleClick} className="floating-button">
-        <img className="w-14" src={ChatbotImg} />
+        <Tooltip title="Chatbot" arrow>
+          <img className="w-14" src={ChatbotImg} />
+        </Tooltip>
       </div>
       <Popover
         id={id}
@@ -32,8 +35,7 @@ const ChatbotButton = () => {
         anchorOrigin={{
           vertical: "top",
           horizontal: "left",
-        }}
-      >
+        }}>
         <div className="h-[450px] w-[350px] border">
           <Chatbot handleClose={handleClose} />
         </div>

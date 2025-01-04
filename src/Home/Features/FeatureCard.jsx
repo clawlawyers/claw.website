@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 export default function FeatureCard({ imageSrc, heading, subHeading }) {
   return (
     <motion.div
-      whileTap={{ scale: 0.98 }}
-      whileHover={{ scale: 1.03 }}
+      // whileTap={{ scale: 0.98 }}
+      // whileHover={{ scale: 1.03 }}
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
       className={Styles.cardContainer}>
       <div style={{ textAlign: "center", backgroundColor: "#171E26" }}>
