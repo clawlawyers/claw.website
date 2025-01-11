@@ -10,9 +10,9 @@ export const NODE_API_ENDPOINT =
 
 export const ADIRA_ENDPOINT =
   process.env.NODE_ENV === "production"
-    ? "https://documentdrafter.netlify.app"
-    : // "https://adira.clawlaw.in"
-      "https://adira.clawlaw.in";
+    ? // ? "https://documentdrafter.netlify.app"
+      "https://adira.clawlaw.in"
+    : "http://localhost:5000";
 
 export const OTP_ENDPOINT =
   process.env.NODE_ENV === "production"
