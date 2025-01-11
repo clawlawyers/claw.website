@@ -310,40 +310,36 @@ const WarRoomBanner = () => {
         <div className="flex flex-col md:flex-row items-center  justify-center w-full gap-2">
           {/* <div className="flex justify-between items-center space-x-8 text-white"> */}
           {/* Explore War Room */}
-          <div className="flex flex-col px-5 items-center">
-            <p className="mb-2 text-white opacity-90 text-center text-sm:text-[15px] sm:text-xl">
-              Want to Explore War Room?
-            </p>
+          <div className="flex flex-col md:flex-row items-center justify-center w-full gap-8">
+            {/* Explore War Room */}
+            <div className="flex flex-col px-5 items-center">
+              <p className="mb-2 text-white opacity-90 text-center text-sm sm:text-xl">
+                Want to Explore War Room?
+              </p>
 
-            <span
-              className="py-1 font-medium no-underline border-1 border-white cursor-pointer text-[15px] rounded-md transition-transform duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg w-48 text-center"
-              onClick={openWarrrom}
-              style={{
-                background: "linear-gradient(30deg, #00767A, #003739)",
-              }}>
-              Explore
-            </span>
+              <button
+                className="bg-gradient-to-r from-teal-600 to-teal-800 text-white font-medium border border-white cursor-pointer text-[15px] rounded-md transition-transform duration-300 ease-in-out transform  px-4 py-2 w-48 text-center"
+                onClick={openWarrrom}>
+                <span className="hover:scale-105 block">Explore</span>
+              </button>
+            </div>
+
+            {/* Divider */}
+            <div className="hidden md:h-16 md:mx-5 md:w-px md:bg-teal-500" />
+
+            {/* Unlock All Features */}
+            <div className="flex flex-col px-5 items-center">
+              <p className="mb-2 text-white opacity-90 text-center text-sm sm:text-xl">
+                Unlock All Features Available
+              </p>
+
+              <Link
+                to="https://courtroom.clawlaw.in/"
+                className="bg-gradient-to-r from-teal-600 to-teal-800 text-white font-medium border border-white rounded-md no-underline transition-transform duration-300 ease-in-out transform  px-4 py-2 w-48 text-center">
+                <span className="hover:scale-105 block">Enter Courtroom</span>
+              </Link>
+            </div>
           </div>
-
-          {/* Divider */}
-          <div className="hidden  md:h-16 md:mx-5 md:w-px md:bg-teal-500" />
-
-          {/* Unlock All Features */}
-          <div className="flex flex-col px-5 items-center">
-            <p className="mb-2 text-white opacity-90 text-center text-sm:text-[15px] sm:text-xl">
-              Unlock All Features Available
-            </p>
-
-            <Link
-              to="https://courtroom.clawlaw.in/"
-              className=" py-1 no-underline text-white font-medium border-1 border-white rounded-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg w-48 text-center text-[15px] sm:text-[15px]"
-              style={{
-                background: "linear-gradient(90deg, #00767A, #003739)",
-              }}>
-              Enter Courtroom
-            </Link>
-          </div>
-          {/* </div> */}
         </div>
       </div>
     </div>

@@ -32,3 +32,13 @@ export const LEGALGPT_ENDPOINT =
   process.env.NODE_ENV === "production"
     ? "https://legalgpt.clawlaw.in"
     : "http://localhost:5173";
+
+export const LEGALGPT_ENDPOINT1 =
+  process.env.NODE_ENV === "production"
+    ? "https://legalgpt.clawlaw.in"
+    : "http://localhost:5173/gpt/socket";
+
+export const CASE_SEARCH =
+  process.env.NODE_ENV === "production"
+    ? "https://legalgpt.clawlaw.in/case/search"
+    : "http://localhost:5173/case/search";
