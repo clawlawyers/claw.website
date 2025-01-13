@@ -88,6 +88,7 @@ import SignUpPage from "./Login/Signup.jsx";
 import PopupPage from "./Login/PopupPage.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google"; // Import the provider
 import ChatbotButton from "./Chatbot/ChatbotButton.jsx";
+import AddScreen from "./Advt/AddScreen.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -368,6 +369,10 @@ function App() {
           path: "popup",
           element: <PopupPage />,
         },
+        {
+          path: "add",
+          element: <AddScreen />,
+        },
 
         {
           path: "leaders",
@@ -539,7 +544,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
-      <ChatbotButton />
+      {/* <ChatbotButton /> */}
       <Toaster />
     </div>
   );

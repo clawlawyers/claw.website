@@ -52,34 +52,48 @@ const Dashboard = () => {
       <div className="w-[80%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6">
         <div
           className="bg-[rgba(0,128,128,0.2)] border-2 cursor-pointer border-green-400 hover:scale-95 transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg"
-          onClick={openLegalGpt}>
+          onClick={openLegalGpt}
+        >
           <img src={LegalIcon} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold">LegalGPT</h2>
+          <h2 className="text-lg text-white font-semibold text-center">
+            LegalGPT
+          </h2>
         </div>
         <div
           className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 cursor-pointer hover:scale-95 transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg"
-          onClick={openCaseSearch}>
+          onClick={openCaseSearch}
+        >
           <img src={CaseSearch} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold">Case Search</h2>
+          <h2 className="text-lg text-white font-semibold text-center">
+            Case Search
+          </h2>
         </div>
 
         <div
           className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 cursor-pointer transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg"
-          onClick={openAdiraAi}>
+          onClick={openAdiraAi}
+        >
           <img src={AdiraAi} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold">Adira AI</h2>
+          <h2 className="text-lg text-white font-semibold text-center">
+            Adira AI
+          </h2>
         </div>
 
         <div
           className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 transition-all cursor-pointer duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg"
-          onClick={openWarrrom}>
+          onClick={openWarrrom}
+        >
           <img src={Warroom} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold">War Room</h2>
+          <h2 className="text-lg text-white font-semibold text-center">
+            War Room
+          </h2>
         </div>
 
         <div className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 transition-all duration-300 cursor-pointer text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg">
           <img src={CasePrediction} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold">Case Prediction</h2>
+          <h2 className="text-lg text-white font-semibold text-center">
+            Case Prediction
+          </h2>
         </div>
       </div>
     </div>
