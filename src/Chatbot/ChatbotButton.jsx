@@ -23,8 +23,8 @@ const ChatbotButton = () => {
   return (
     <>
       <div onClick={handleClick} className="floating-button">
-        <Tooltip title="Chatbot" arrow>
-          <img className="w-14" src={ChatbotImg} />
+        <Tooltip title="Claw Chatbot" arrow>
+          <img className="w-14 bg-[#1D2330] rounded-full" src={ChatbotImg} />
         </Tooltip>
       </div>
       <Popover
@@ -35,7 +35,8 @@ const ChatbotButton = () => {
         anchorOrigin={{
           vertical: "top",
           horizontal: "left",
-        }}>
+        }}
+      >
         <div className="h-[450px] w-[350px] border">
           <Chatbot handleClose={handleClose} />
         </div>

@@ -41,7 +41,8 @@ const VideoBanner = () => {
             }`}
             style={{
               border: "2px solid rgba(0,255,157,1)",
-            }}>
+            }}
+          >
             {button.name.toUpperCase()}
           </button>
         ))}
