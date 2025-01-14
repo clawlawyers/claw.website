@@ -118,7 +118,7 @@ export default function ContactUs() {
               get back to you in no time.
             </p>
           </div>
-          <div className="hidden md:visible md:w-full md:h-full">
+          <div className="hidden md:flex ">
             <img className="w-auto h-auto rounded-none" src={contactIcon} />
           </div>
         </div>
