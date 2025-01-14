@@ -30,7 +30,7 @@ export default function RootLayout() {
           content="tech, ai-driven, privacy policies, business law services, services, legal compliance, businesses, law firm automation, clawlaw"
         />
       </Helmet>
-      {/* <Header /> */}
+      <Header />
       <Outlet />
       <div style={{ position: "relative" }}>
         <div
@@ -46,7 +46,7 @@ export default function RootLayout() {
             borderRadius: 428,
           }}
         />
-        {/* <FooterBanner /> */}
+        <FooterBanner />
       </div>
     </div>
   );

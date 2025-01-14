@@ -291,6 +291,10 @@ function App() {
       path: "quiz",
       element: <TrackedQuizMain />,
     },
+    {
+      path: "add",
+      element: <AddScreen />,
+    },
 
     {
       path: "/",
@@ -369,10 +373,10 @@ function App() {
           path: "popup",
           element: <PopupPage />,
         },
-        {
-          path: "add",
-          element: <AddScreen />,
-        },
+        // {
+        //   path: "add",
+        //   element: <AddScreen />,
+        // },
 
         {
           path: "leaders",

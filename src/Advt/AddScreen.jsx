@@ -114,7 +114,7 @@ const AddScreen = () => {
         <div className="w-full grid grid-cols-2 gap-2   items-center justify-center">
           <video
             className="rounded-lg"
-            src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/sujyfh9ylpc204upafzo.mp4"
+            src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1736837849/advertisementVideo/znbgaifwhet17asndf1h.mp4"
             // autoPlay
             // loop
             muted
@@ -123,7 +123,7 @@ const AddScreen = () => {
           />
           <video
             className="rounded-lg"
-            src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/sujyfh9ylpc204upafzo.mp4"
+            src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1736837849/advertisementVideo/qmlrslf4jl7cktpmegrj.mp4"
             // autoPlay
             // loop
             muted
@@ -132,7 +132,7 @@ const AddScreen = () => {
           />
           <video
             className="rounded-lg"
-            src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/sujyfh9ylpc204upafzo.mp4"
+            src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1736837849/advertisementVideo/fsdcokvkbs6ai1jma2oz.mp4"
             // autoPlay
             // loop
             muted
@@ -141,7 +141,7 @@ const AddScreen = () => {
           />
           <video
             className="rounded-lg"
-            src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/sujyfh9ylpc204upafzo.mp4"
+            src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1736837849/advertisementVideo/xbgdfsimi6x9mlhhntnh.mp4"
             // autoPlay
             // loop
             muted
@@ -220,7 +220,10 @@ const AddScreen = () => {
             <p className="m-0 text-black text-2xl font-semibold">
               Enter your Details
             </p>
-            <Close />
+            <Close
+              className="cursor-pointer"
+              onClick={() => setPaymentDialog(false)}
+            />
           </div>
           <div className="flex flex-col mt-4">
             <input

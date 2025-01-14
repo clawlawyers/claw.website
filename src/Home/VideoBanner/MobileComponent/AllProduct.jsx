@@ -11,6 +11,7 @@ import {
   CASE_SEARCH,
 } from "../../../utils/utils";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
   const currentUser = useSelector((state) => state.auth.user);
@@ -45,6 +46,10 @@ const Dashboard = () => {
 
     const encodedStringBtoA = btoa(JSON.stringify(reqdObj));
     window.open(`${LEGALGPT_ENDPOINT1}?user=${encodedStringBtoA}`, "_self");
+  };
+
+  const handleCasePrediction = () => {
+    toast("Coming Soon!");
   };
 
   return (
@@ -89,7 +94,10 @@ const Dashboard = () => {
           </h2>
         </div>
 
-        <div className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 transition-all duration-300 cursor-pointer text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg">
+        <div
+          onClick={handleCasePrediction}
+          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 transition-all duration-300 cursor-pointer text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg"
+        >
           <img src={CasePrediction} className="text-4xl mb-4" />
           <h2 className="text-lg text-white font-semibold text-center">
             Case Prediction
