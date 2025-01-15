@@ -23,7 +23,8 @@ export function CollapsedBlogCard({
             : `var(--image-blog${parseInt(blogNo % 2)})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-        }}>
+        }}
+      >
         <div className={Styles.blogCardOverlay}>
           <div
             style={{
@@ -33,14 +34,16 @@ export function CollapsedBlogCard({
               flexDirection: "column",
               justifyContent: "center",
               textAlign: "center",
-            }}>
+            }}
+          >
             <div
               style={{
                 textDecoration: "underline",
                 backgroundColor: "transparent",
                 fontFamily: "Syne",
                 fontSize: 25,
-              }}>
+              }}
+            >
               {mainImg ? "" : imageHeading}
             </div>
             <div
@@ -48,7 +51,8 @@ export function CollapsedBlogCard({
                 backgroundColor: "transparent",
                 fontFamily: "Syne",
                 fontSize: 25,
-              }}>
+              }}
+            >
               {mainImg ? "" : imageSubHeading}
             </div>
           </div>
@@ -56,7 +60,12 @@ export function CollapsedBlogCard({
       </div>
       <div className={Styles.blogCardContent}>
         <div className="w-full absolute top-4 right-0 py-2 px-3 flex justify-between items-center">
-          <img className="rounded-3xl max-h-80" src={mainImg} />
+          <img
+            style={{ minWidth: "100%" }}
+            className="rounded-3xl max-h-80 min-h-80"
+            src={mainImg}
+            alt={heading}
+          />
         </div>
         <div>
           <h6 style={{ fontSize: 15, fontWeight: 400, color: "#D9D9DA" }}>
@@ -71,7 +80,8 @@ export function CollapsedBlogCard({
             padding: 10,
             width: "fit-content",
             border: "none",
-          }}>
+          }}
+        >
           <Link
             to={`/blog/${heading}`}
             state={{ blogNo }}
@@ -82,7 +92,8 @@ export function CollapsedBlogCard({
               border: "none",
               backgroundColor: "transparent",
               textDecoration: "none",
-            }}>
+            }}
+          >
             Read more
           </Link>
         </button>
