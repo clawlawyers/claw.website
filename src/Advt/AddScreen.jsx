@@ -115,10 +115,10 @@ const AddScreen = () => {
             <video
               className="rounded-lg"
               src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1734506059/LegalGPT/sujyfh9ylpc204upafzo.mp4"
-              // autoPlay
-              // loop
+              autoPlay
+              loop
               muted
-              controls
+              // controls
               playsInline
             />
           </div>
@@ -126,37 +126,37 @@ const AddScreen = () => {
             <video
               className="rounded-lg"
               src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1736837849/advertisementVideo/znbgaifwhet17asndf1h.mp4"
-              // autoPlay
-              // loop
+              autoPlay
+              loop
               muted
-              controls
+              // controls
               playsInline
             />
             <video
               className="rounded-lg"
               src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1736837849/advertisementVideo/qmlrslf4jl7cktpmegrj.mp4"
-              // autoPlay
-              // loop
+              autoPlay
+              loop
               muted
-              controls
+              // controls
               playsInline
             />
             <video
               className="rounded-lg"
               src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1736837849/advertisementVideo/fsdcokvkbs6ai1jma2oz.mp4"
-              // autoPlay
-              // loop
+              autoPlay
+              loop
               muted
-              controls
+              // controls
               playsInline
             />
             <video
               className="rounded-lg"
               src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1736837849/advertisementVideo/xbgdfsimi6x9mlhhntnh.mp4"
-              // autoPlay
-              // loop
+              autoPlay
+              loop
               muted
-              controls
+              // controls
               playsInline
             />
           </div>
