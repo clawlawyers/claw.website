@@ -88,6 +88,7 @@ import SignUpPage from "./Login/Signup.jsx";
 import PopupPage from "./Login/PopupPage.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google"; // Import the provider
 import ChatbotButton from "./Chatbot/ChatbotButton.jsx";
+import AddScreen from "./Advt/AddScreen.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -290,6 +291,10 @@ function App() {
       path: "quiz",
       element: <TrackedQuizMain />,
     },
+    {
+      path: "add",
+      element: <AddScreen />,
+    },
 
     {
       path: "/",
@@ -352,14 +357,23 @@ function App() {
           path: "login2",
           element: <Login1 />,
         },
+        // {
+        //   path: "login",
+        //   element: (
+        //     <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+        //       <Login2 />
+        //     </GoogleOAuthProvider>
+        //   ),
+        // },
         {
           path: "login",
           element: (
-            <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+            <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
               <Login2 />
             </GoogleOAuthProvider>
           ),
         },
+
         {
           path: "signup",
           element: <SignUpPage />,
@@ -368,6 +382,10 @@ function App() {
           path: "popup",
           element: <PopupPage />,
         },
+        // {
+        //   path: "add",
+        //   element: <AddScreen />,
+        // },
 
         {
           path: "leaders",

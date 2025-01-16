@@ -5,7 +5,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Style from "./LegalGPT.module.css";
 import { Prompt } from "./components/Prompt";
 import { CasecardGpt } from "./components/CasecardGpt.jsx";
-import clawImg from "../assets/images/gptclaw.PNG";
+//import clawImg from "../assets/images/gptclaw.PNG";
 import { NODE_API_ENDPOINT } from "../utils/utils";
 import { useAuthState } from "../hooks/useAuthState";
 import { CustomLoader } from "./components/CustomLoader";
@@ -422,8 +422,7 @@ export default function SessionGPT({ model, primaryColor }) {
               width: "100%",
               height: "100%",
               borderRadius: "10px",
-            }}
-          >
+            }}>
             {prompts?.map(({ text, isUser, id }, idx) => (
               <Prompt
                 ref={promptsRef}
@@ -465,8 +464,7 @@ export default function SessionGPT({ model, primaryColor }) {
                           <p
                             onClick={() => setSelectedAiSuggestion(x)}
                             className="border-2 border-gray-400 rounded py-2 px-4 cursor-pointer"
-                            key={index}
-                          >
+                            key={index}>
                             {x}
                           </p>
                         ))}
@@ -497,8 +495,7 @@ export default function SessionGPT({ model, primaryColor }) {
                       width: "fit-content",
                       border: "none",
                     }}
-                    onClick={handlePopupOpen}
-                  >
+                    onClick={handlePopupOpen}>
                     Upgrade
                   </button>
                 ) : (
@@ -515,8 +512,7 @@ export default function SessionGPT({ model, primaryColor }) {
                       }}
                       onClick={() => {
                         fetchRelatedCases();
-                      }}
-                    >
+                      }}>
                       Load cases
                     </button>
                   </div>
@@ -542,15 +538,13 @@ export default function SessionGPT({ model, primaryColor }) {
                               background: "white",
                               borderRadius: "4px",
                             }}
-                            size="small"
-                          >
+                            size="small">
                             <Select
                               value={courtName}
                               onChange={handleHighCourtChange}
                               displayEmpty
                               autoWidth
-                              inputProps={{ "aria-label": "Without label" }}
-                            >
+                              inputProps={{ "aria-label": "Without label" }}>
                               <MenuItem disabled value="">
                                 <em>Select a High Court</em>
                               </MenuItem>
@@ -570,8 +564,7 @@ export default function SessionGPT({ model, primaryColor }) {
                           gap: 5,
                           marginTop: 5,
                           padding: "0px 10px",
-                        }}
-                      >
+                        }}>
                         {relatedCases.cases
                           .slice(0, caseCount)
                           .map((relatedCase) => {
@@ -595,8 +588,7 @@ export default function SessionGPT({ model, primaryColor }) {
                         <>
                           {activePlan[0]?.plan?.AICaseSearchAccess ? (
                             <Link
-                              to={`/case/search?id=${relatedCases.messageId}`}
-                            >
+                              to={`/case/search?id=${relatedCases.messageId}`}>
                               <button
                                 className="px-1"
                                 style={{
@@ -606,8 +598,7 @@ export default function SessionGPT({ model, primaryColor }) {
                                   textDecoration: "none",
                                   width: "fit-content",
                                   border: "1px solid white",
-                                }}
-                              >
+                                }}>
                                 Case search
                               </button>
                             </Link>
@@ -622,8 +613,7 @@ export default function SessionGPT({ model, primaryColor }) {
                                 textDecoration: "none",
                                 width: "fit-content",
                                 border: "1px solid white",
-                              }}
-                            >
+                              }}>
                               Case search
                             </button>
                           )}
@@ -638,8 +628,7 @@ export default function SessionGPT({ model, primaryColor }) {
                             textDecoration: "none",
                             width: "fit-content",
                             border: "1px solid white",
-                          }}
-                        >
+                          }}>
                           <CircularProgress size={20} color="inherit" />
                         </button>
                       )}
@@ -654,8 +643,7 @@ export default function SessionGPT({ model, primaryColor }) {
                           // padding: 10,
                           width: "fit-content",
                           border: "1px solid white",
-                        }}
-                      >
+                        }}>
                         References
                       </button>
                       <button
@@ -669,8 +657,7 @@ export default function SessionGPT({ model, primaryColor }) {
                           // padding: 10,
                           width: "fit-content",
                           border: "1px solid white",
-                        }}
-                      >
+                        }}>
                         Supreme Court Judgement
                       </button>
                       {/* </div> */}
@@ -687,8 +674,7 @@ export default function SessionGPT({ model, primaryColor }) {
                         }}
                         onClick={() =>
                           setCaseCount((caseCount) => caseCount + 2)
-                        }
-                      >
+                        }>
                         Load more
                       </button>
                     </div>
@@ -717,8 +703,7 @@ export default function SessionGPT({ model, primaryColor }) {
                               className="text-sm"
                               dangerouslySetInnerHTML={{
                                 __html: refRelevantCase,
-                              }}
-                            >
+                              }}>
                               {/* <ReactMarkdown>{refRelevantCase}</ReactMarkdown> */}
                               {/* (refRelevantCase) */}
                             </div>
@@ -746,8 +731,7 @@ export default function SessionGPT({ model, primaryColor }) {
                             display: "flex",
                             flexDirection: "column",
                             gap: "12px",
-                          }}
-                        >
+                          }}>
                           <div className="flex justify-between items-center">
                             <p className="font-bold m-0 px-3 text-2xl text-white">
                               Reference to Supreme Court Judgements
@@ -758,8 +742,7 @@ export default function SessionGPT({ model, primaryColor }) {
                               className="text-sm"
                               dangerouslySetInnerHTML={{
                                 __html: refSupremeCase,
-                              }}
-                            >
+                              }}>
                               {/* <ReactMarkdown>{refSupremeCase}</ReactMarkdown> */}
                               {/* {refSupremeCase}/ */}
                             </div>

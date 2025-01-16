@@ -55,7 +55,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
     boxShadow: 24,
     p: 4,
     height: "45%",
-    width: "40%",
+    // width: "40%",
   };
 
   const subscriptionStyle = {
@@ -152,8 +152,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             zIndex: 4,
             border: "none",
             backgroundImage: "none",
-          }}
-        >
+          }}>
           <MenuOutlinedIcon
             onClick={() => dispatch(toggle())}
             style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }}
@@ -170,8 +169,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             backgroundImage: "none",
             zIndex: 8,
             border: "none",
-          }}
-        >
+          }}>
           <MenuOutlinedIcon
             onClick={() => dispatch(toggle())}
             style={{ color: "white", fontSize: 40, backgroundColor: "inherit" }}
@@ -194,8 +192,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             height: "100%",
             display: "flex",
             backgroundColor: "transparent",
-          }}
-        >
+          }}>
           <div className={Style.sidebar}>
             <div
               style={{
@@ -205,8 +202,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 width: "100%",
                 flex: 1,
                 overflow: "hidden",
-              }}
-            >
+              }}>
               <div
                 onClick={handleAccount}
                 style={{
@@ -218,16 +214,14 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   padding: 15,
                   gap: 15,
                   borderRadius: 10,
-                }}
-              >
+                }}>
                 <div
                   style={{
                     display: "flex",
                     gap: "10px",
                     height: "100%",
                     alignItems: "center",
-                  }}
-                >
+                  }}>
                   <div
                     style={{
                       height: 40,
@@ -237,8 +231,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                    }}
-                  >
+                    }}>
                     <StarIcon style={{ backgroundColor: "transparent" }} />
                   </div>
                   {!isAuthLoading ? (
@@ -285,8 +278,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 borderRadius: 5,
                                 backgroundColor: primaryColor,
                               }}
-                              onClick={() => dispatch(open())}
-                            >
+                              onClick={() => dispatch(open())}>
                               Upgrade
                             </button>
                             <button
@@ -300,8 +292,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                 marginTop: 5,
                                 borderRadius: 5,
                                 background: "white",
-                              }}
-                            >
+                              }}>
                               End Subscription
                             </button>
                           </div>
@@ -326,16 +317,14 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   flex: 1,
                   gap: 10,
                   overflow: "hidden",
-                }}
-              >
+                }}>
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
                     padding: 12,
                     gap: 15,
-                  }}
-                >
+                  }}>
                   <div>
                     <img src={whatLegal} />
                     {/* <ChatBubbleOutlineIcon
@@ -344,8 +333,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   </div>
                   <div
                     className="hover:cursor-pointer"
-                    onClick={() => setLegalGptOpen(true)}
-                  >
+                    onClick={() => setLegalGptOpen(true)}>
                     What is {keyword}GPT
                   </div>
                 </div>
@@ -359,8 +347,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     borderRadius: 10,
                     backgroundColor: primaryColor,
                   }}
-                  onClick={handleNewConversation}
-                >
+                  onClick={handleNewConversation}>
                   <div>
                     <AddIcon style={{ backgroundColor: "transparent" }} />
                   </div>
@@ -387,8 +374,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-              }}
-            >
+              }}>
               <div className={HeaderStyles.headerLogo}>
                 <Link
                   to="/"
@@ -399,8 +385,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     display: "flex",
                     alignItems: "center",
                     gap: 5,
-                  }}
-                >
+                  }}>
                   <Home />
                   <img
                     alt="Claw"
@@ -457,12 +442,10 @@ export default function Sidebar({ keyword, primaryColor, model }) {
               display: "flex",
               flexDirection: "row-reverse",
               backgroundColor: "transparent",
-            }}
-          >
+            }}>
             <div
               className={Style.sidebar}
-              style={{ background: "#018081", height: "100vh" }}
-            >
+              style={{ background: "#018081", height: "100vh" }}>
               <div
                 style={{
                   display: "flex",
@@ -471,8 +454,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   width: "100%",
                   flex: 1,
                   overflow: "hidden",
-                }}
-              >
+                }}>
                 <div
                   onClick={handleAccount}
                   style={{
@@ -484,16 +466,14 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     padding: 15,
                     gap: 15,
                     borderRadius: 10,
-                  }}
-                >
+                  }}>
                   <div
                     style={{
                       display: "flex",
                       gap: "10px",
                       height: "100%",
                       alignItems: "center",
-                    }}
-                  >
+                    }}>
                     <div
                       style={{
                         height: 40,
@@ -503,8 +483,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                      }}
-                    >
+                      }}>
                       <StarIcon style={{ backgroundColor: "transparent" }} />
                     </div>
                     {!isAuthLoading ? (
@@ -553,8 +532,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                   borderRadius: 5,
                                   backgroundColor: primaryColor,
                                 }}
-                                onClick={() => dispatch(open())}
-                              >
+                                onClick={() => dispatch(open())}>
                                 Upgrade
                               </button>
                               <button
@@ -570,8 +548,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                                   marginTop: 5,
                                   borderRadius: 5,
                                   background: "white",
-                                }}
-                              >
+                                }}>
                                 End Subscription
                               </button>
                             </div>
@@ -596,16 +573,14 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                     flex: 1,
                     gap: 10,
                     overflow: "hidden",
-                  }}
-                >
+                  }}>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
                       padding: 12,
                       gap: 15,
-                    }}
-                  >
+                    }}>
                     <div>
                       <img src={whatLegal} />
                       {/* <ChatBubbleOutlineIcon
@@ -629,8 +604,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       borderRadius: 10,
                       backgroundColor: primaryColor,
                     }}
-                    onClick={handleNewConversation}
-                  >
+                    onClick={handleNewConversation}>
                     <div>
                       <AddIcon style={{ backgroundColor: "transparent" }} />
                     </div>
@@ -657,8 +631,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                }}
-              >
+                }}>
                 <div className={HeaderStyles.headerLogo}>
                   <Link
                     to="/"
@@ -669,8 +642,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
                       display: "flex",
                       alignItems: "center",
                       gap: 5,
-                    }}
-                  >
+                    }}>
                     <Home />
                     <img
                       alt="Claw"
@@ -712,12 +684,10 @@ export default function Sidebar({ keyword, primaryColor, model }) {
           setLegalGptOpen(false);
         }}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box
           sx={style}
-          className="overflow-scroll  gap-6 flex flex-col rounded-xl"
-        >
+          className="overflow-scroll  gap-6 flex flex-col rounded-xl">
           <div className="font-sans text-lg text-justify text-white">
             LegalGPT leverages advanced AI technology to provide insightful
             legal assistance, automate document creation, and streamline legal
@@ -740,8 +710,7 @@ export default function Sidebar({ keyword, primaryColor, model }) {
         //   setCancelSubscriptionDialog(false);
         // }}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={subscriptionStyle} className="gap-6 flex flex-col rounded-xl">
           <div className="font-sans text-center">
             <h3 className="text-4xl text-[#018081] font-bold">
@@ -755,14 +724,12 @@ export default function Sidebar({ keyword, primaryColor, model }) {
             <button
               onClick={() => setCancelSubscriptionDialog(false)}
               className="px-5 rounded bg-transparent text-[#018081]"
-              style={{ border: "2px solid #018081" }}
-            >
+              style={{ border: "2px solid #018081" }}>
               No
             </button>
             <button
               onClick={() => handleCancelSubscription(activePlan[0]?.planName)}
-              className="px-5 rounded"
-            >
+              className="px-5 rounded">
               {cancelSubLoading ? (
                 <CircularProgress size={15} color="inherit" />
               ) : (

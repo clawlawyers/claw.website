@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import Styles from "./index.module.css";
-import { Link } from "react-router-dom";
 import blog0 from "../../assets/icons/blog0.png";
 
 export function ExpandedBlogCard({
@@ -12,6 +12,8 @@ export function ExpandedBlogCard({
   subHeading,
   blogNo = 0,
 }) {
+  const [hover, setHover] = useState(false); // Define hover state
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -26,23 +28,31 @@ export function ExpandedBlogCard({
         <button
           style={{
             borderRadius: 15,
-            backgroundColor: "#008080",
+            backgroundImage: hover
+              ? "linear-gradient(275.22deg,  #00ff9d 0.63%, #00e6ff 99.37%) "
+              : "none", // Apply gradient on hover
+            backgroundColor: hover ? "transparent" : "#008080",
             padding: 10,
             width: "fit-content",
+
             marginTop: 15,
             border: "none",
-          }}>
+            transition: "background-color 0.3s ease", // Smooth transition
+          }}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}>
           <Link
             to={`/blog/${heading}`}
             style={{
-              color: "white",
+              color: hover ? "rgba(55, 112, 105, 1)" : "white", // Change text color on hover
               fontSize: 15,
               fontWeight: 600,
               border: "none",
               backgroundColor: "transparent",
               textDecoration: "none",
+              transition: "color 0.3s ease", // Smooth transition for text color
             }}>
-            Read more
+            Read More
           </Link>
         </button>
       </div>

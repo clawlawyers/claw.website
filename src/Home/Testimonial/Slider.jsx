@@ -1,5 +1,5 @@
 import React from "react";
-import { StackedCarouselSlideProps } from "react-stacked-center-carousel";
+//import { StackedCarouselSlideProps } from "react-stacked-center-carousel";
 import "./Slide.css";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";

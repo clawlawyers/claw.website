@@ -36,6 +36,7 @@
 }
 .headerLinks button {
   text-decoration: none;
+  margin-top: 0px;
   color: inherit;
   background-color: transparent;
   border: none;
@@ -48,8 +49,8 @@
 
 .headerLinks button:hover {
   background-color: transparent;
-  /* transform: scale(1.05); */
-  color: rgba(0, 255, 157, 1);
+  transform: scale(1.05);
+  /* color: rgba(0, 255, 157, 1); */
 }
 
 .headerGPT {
@@ -88,14 +89,21 @@
 }
 
 .headerGPT > button:hover {
-  color: #008080;
-  background-image: none;
-  background-color: white;
+  /* color: #008080; */
+  /* background-image: none;
+  background-color: white; */
+  transform: scale(1.05);
 }
 .headerButton:hover {
-  background-image: none;
+  /* background-image: none;
+  background-color: white; */
+  /* color: #008080; */
+  transform: scale(1.05);
+}
+
+.headerButton:active {
   background-color: white;
-  color: #008080;
+  color: teal;
 }
 
 .mobileNav {
@@ -118,7 +126,7 @@
     height: 20px;
     width: 60px;
   }
-  .headerButton {
+  .header {
     display: none;
   }
   .headerButton2 {

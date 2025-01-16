@@ -248,7 +248,7 @@ export function CasecardGpt({
             fontSize: 14,
             textDecoration: "none",
             color: "white",
-            border: "1px solid white",
+            // border: "1px solid white",
             backgroundImage: "none",
           }}>
           View document
@@ -269,7 +269,7 @@ export function CasecardGpt({
             fontSize: 14,
             textDecoration: "none",
             color: "white",
-            border: "1px solid white",
+            // border: "1px solid white",
             backgroundImage: "none",
             cursor: "pointer",
           }}>

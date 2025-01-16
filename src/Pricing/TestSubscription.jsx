@@ -10,13 +10,13 @@ const paymentDetails = {
   plan: "Monthly",
   planType: "Essential",
   sessions: 2,
-  totalPrice: 99,
+  totalPrice: 1199,
   isDiscount: false,
   createdAt: "2024-10-01T05:27:56.247Z",
   trialDays: 0,
   refferalCode: null,
   couponCode: "",
-  refundAmount: 0,
+  refundAmount: 1087,
   existingSubscription: "",
   paymentProceedType: "regular",
 };
@@ -160,17 +160,17 @@ const TestSubscription = () => {
 
         // Request the backend to create a subscription
         const result = await axios.post(
-          `${NODE_API_ENDPOINT}/payment/test-create-subscription`,
+          `${NODE_API_ENDPOINT}/payment/create-subscription`,
           {
             // amount: paymentDetails?.totalPrice,
             // currency: "INR",
             // receipt: receipt,
-            plan: "Test",
+            plan: planeName?.toUpperCase(),
             billingCycle: paymentDetails?.plan.toUpperCase(),
             session: paymentDetails?.sessions,
-            phoneNumber: "9027640571",
-            // trialDays: paymentDetails?.trialDays,
-            // isDiscount: paymentDetails?.isDiscount,
+            phoneNumber: currentUser?.phoneNumber,
+            trialDays: paymentDetails?.trialDays,
+            isDiscount: paymentDetails?.isDiscount,
           }
         );
 
@@ -183,7 +183,6 @@ const TestSubscription = () => {
 
         const options = {
           key: "rzp_live_vlDmt5SV4QPDhN",
-          // key: "rzp_test_UWcqHHktRV6hxM",
           subscription_id: subscription_id, // Pass the subscription_id instead of order_id
           name: "CLAW LEGALTECH PRIVATE LIMITED",
           description: "Subscription",
@@ -199,26 +198,25 @@ const TestSubscription = () => {
               _id,
               // isUpgrade: paymentDetails?.isUpgrade,
               // createdAt: paymentDetails?.createdAt,
-              // createdAt: resultDate,
+              createdAt: resultDate,
               // trialDays: paymentDetails?.trialDays,
-              // refferalCode: paymentDetails?.refferalCode,
-              // couponCode: paymentDetails?.couponCode,
+              refferalCode: paymentDetails?.refferalCode,
+              couponCode: paymentDetails?.couponCode,
               // refundAmount: paymentDetails?.refundAmount,
-              // existingSubscription: paymentDetails?.existingSubscription,
-              // isDiscount: paymentDetails?.isDiscount,
+              existingSubscription: paymentDetails?.existingSubscription,
+              isDiscount: paymentDetails?.isDiscount,
             };
 
             console.log(response);
 
             // Verify the subscription payment with the backend
             const result = await axios.post(
-              `${NODE_API_ENDPOINT}/payment/test-verify-subscription`,
+              `${NODE_API_ENDPOINT}/payment/verify-subscription`,
               data
             );
             alert(result.data.status);
             setPaymentVerified(true);
-            console.log(result);
-            // dispatch(retrieveActivePlanUser());
+            dispatch(retrieveActivePlanUser());
           },
           prefill: {
             name: currentUser?.name,
