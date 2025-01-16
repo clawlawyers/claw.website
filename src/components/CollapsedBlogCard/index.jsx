@@ -60,12 +60,16 @@ export function CollapsedBlogCard({
       </div>
       <div className={Styles.blogCardContent}>
         <div className="w-full absolute top-4 right-0 py-2 px-3 flex justify-between items-center">
-          <img
-            style={{ minWidth: "100%" }}
-            className="rounded-3xl max-h-80 min-h-80"
-            src={mainImg}
-            alt={heading}
-          />
+          {mainImg ? (
+            <img
+              style={{ minWidth: "100%" }}
+              className="rounded-3xl max-h-80 min-h-80"
+              src={mainImg}
+              // alt={heading}
+            />
+          ) : (
+            ""
+          )}
         </div>
         <div>
           <h6 style={{ fontSize: 15, fontWeight: 400, color: "#D9D9DA" }}>
