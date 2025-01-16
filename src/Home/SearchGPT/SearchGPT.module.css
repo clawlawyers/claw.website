@@ -35,6 +35,7 @@
 
   background-image: none;
   background: linear-gradient(275.22deg, #00ff9d 0.63%, #00e6ff 99.37%);
+  color: rgba(55, 112, 105, 1);
 }
 
 @media only screen and (max-width: 768px) {

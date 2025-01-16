@@ -72,6 +72,13 @@ export default function ContactUs() {
         const result = await response.json();
         toast.error(result.message || "Failed to send the message.");
         setLoading(false);
+        const script = document.createElement("script");
+        script.innerHTML = `
+           gtag('event', 'ads_conversion_Contact_Us_1', {
+            // <event_parameters>
+          });
+        `;
+        document.body.appendChild(script);
       }
     } catch (error) {
       // Handle network or other errors
@@ -111,7 +118,7 @@ export default function ContactUs() {
               get back to you in no time.
             </p>
           </div>
-          <div className="hidden md:visible md:w-full md:h-full">
+          <div className="hidden md:flex ">
             <img className="w-auto h-auto rounded-none" src={contactIcon} />
           </div>
         </div>

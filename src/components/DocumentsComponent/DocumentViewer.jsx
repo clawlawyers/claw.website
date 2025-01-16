@@ -10,6 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 const DocumentViewer = () => {
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [activeDocId, setActiveDocId] = useState(null);
 
   const documents = [
     { id: 1, name: "Non-Disclosure Agreement (NDA)", image: Non },
@@ -45,19 +46,28 @@ const DocumentViewer = () => {
             color: "transparent",
             fontWeight: "700",
             display: "inline-block",
-          }}
-        >
+          }}>
           Pre-Made Legal Document Samples
         </h3>
       </div>
       <div className="flex flex-wrap justify-center mb-8 gap-y-4">
-        {documents.map((doc, index) => (
+        {documents.map((doc) => (
           <button
             key={doc.id}
-            style={{ border: "2px solid rgb(0, 200, 128)" }}
-            className={`w-[300px] mx-1 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition-all text-[13px] sm:text-base`}
-            onClick={() => handleDocumentClick(doc)}
-          >
+            style={{
+              border: "2px solid",
+              borderColor:
+                activeDocId === doc.id ? "white" : "rgb(0, 200, 128)",
+            }}
+            className={`w-[300px] mx-1 rounded-full transition-all text-[13px] sm:text-base ${
+              activeDocId === doc.id
+                ? "bg-rgba(0, 129, 127, 0.2) text-white"
+                : "bg-gray-700 text-white hover:bg-gray-600"
+            }`}
+            onClick={() => {
+              setActiveDocId(doc.id); // Set the active document ID
+              handleDocumentClick(doc); // Call the click handler
+            }}>
             {doc.name}
           </button>
         ))}

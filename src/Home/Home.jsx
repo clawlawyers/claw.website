@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Banner from "./Banner/Banner";
-import SearchGPT from "./SearchGPT/SearchGPT";
+//import SearchGPT from "./SearchGPT/SearchGPT";
+import AllProduct from "./VideoBanner/MobileComponent/AllProduct";
 import "./Home.module.css";
 import Features from "./Features/Features";
 import Blogs from "./Blogs/Blogs";
@@ -97,17 +98,18 @@ function Home({ featuresRef, engineReady, particleOptions }) {
     <div style={{ position: "relative", width: "100%" }}>
       {engineReady && <Particles id="tsparticles" options={particleOptions} />}
       <Banner />
-      <SearchGPT
+      {/* <SearchGPT
         sendReferenceMessage={sendReferenceMessage}
         summery={summery}
         setsummery={setsummery}
-      />
+      /> */}
+
+      <AllProduct />
       <VideoBannerHome />
       <DocumentViewer />
       <div
         className="relative bg-transparent flex flex-col gap-10"
-        style={{ position: "relative", backgroundColor: "transparent" }}
-      >
+        style={{ position: "relative", backgroundColor: "transparent" }}>
         <div
           style={{
             position: "absolute",

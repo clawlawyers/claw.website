@@ -11,10 +11,9 @@ export function BlogDetail({ resource }) {
   return (
     <div className={Styles.blogDetailContainer}>
       <Helmet>
-        <meta charSet="utf-8" />
-        <title>
-          {heading}: {subHeading}
-        </title>
+        <title>{heading}</title>
+        <meta charSet="utf-8" name="description" content={subHeading} />
+        <meta charSet="utf-8" name="keywords" content={subHeading} />
       </Helmet>
       <div
         className={`${Styles.blogDetailContent} rounded-none`}

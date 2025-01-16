@@ -9,8 +9,7 @@ export function CollapsedCard({ newsData }) {
     <div
       className="card"
       style={{ backgroundColor: "transparent" }}
-      key={newsData?.id}
-    >
+      key={newsData?.id}>
       {newsData.image_url ? (
         <LazyLoadImage
           src={newsData?.image_url}
@@ -21,8 +20,7 @@ export function CollapsedCard({ newsData }) {
         // <img src={newsData?.image_url} alt={newsData?.title} loading="lazy" />
         <div
           style={{ backgroundColor: "#444444", display: "flex" }}
-          className="placeholder"
-        >
+          className="placeholder">
           <p>{newsData?.title}</p>
         </div>
       )}
@@ -36,8 +34,7 @@ export function CollapsedCard({ newsData }) {
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
-          }}
-        >
+          }}>
           <button
             style={{
               borderRadius: 15,
@@ -46,8 +43,7 @@ export function CollapsedCard({ newsData }) {
               width: "fit-content",
               marginTop: 15,
               border: "none",
-            }}
-          >
+            }}>
             <a
               href={newsData.link}
               target="_blank"
@@ -59,8 +55,7 @@ export function CollapsedCard({ newsData }) {
                 border: "none",
                 backgroundColor: "transparent",
                 textDecoration: "none",
-              }}
-            >
+              }}>
               Read More
             </a>
           </button>

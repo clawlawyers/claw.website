@@ -73,13 +73,13 @@ const AdiraAiBanner = () => {
   };
   return (
     <div className="w-full">
-      <div className="flex w-full items-center gap-3 pb-3">
+      {/* <div className="flex w-full items-center gap-3 pb-3">
         <h1 className="text-2xl font-bold m-0 text-[15px] sm:text-2xl">
           Adira AI
         </h1>
 
         <div className="flex-1 w-full bg-[#00C37B] h-[2px]"></div>
-      </div>
+      </div> */}
       <div className="relative  p-3">
         <div className="grid md:grid-cols-[40%_60%] gap-3 items-center rounded-lg p-3">
           <div className="w-full absolute inset-0  rounded-lg h-full bg-black opacity-40">
@@ -91,8 +91,7 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}
-            >
+              onChange={handleChange("panel1")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -104,8 +103,7 @@ const AdiraAiBanner = () => {
                 }}
                 //   expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
+                id="panel1bh-header">
                 <Typography
                   sx={{
                     color: "white",
@@ -114,8 +112,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Upload Your Document
                 </Typography>
               </AccordionSummary>
@@ -123,8 +120,7 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography
                   sx={{
                     color: "white",
@@ -132,8 +128,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Have a Document Sample which needs to be transformed into
                   Legal Format Document ?
                 </Typography>
@@ -145,8 +140,7 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel2"}
-              onChange={handleChange("panel2")}
-            >
+              onChange={handleChange("panel2")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -157,8 +151,7 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel2bh-content"
-                id="panel2bh-header"
-              >
+                id="panel2bh-header">
                 <Typography
                   sx={{
                     color: "white",
@@ -167,8 +160,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Create Document from Prompt
                 </Typography>
               </AccordionSummary>
@@ -176,8 +168,7 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography
                   sx={{
                     color: "white",
@@ -185,8 +176,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   You can also generate your desired Legal Prompt with the help
                   of Prompts
                 </Typography>
@@ -198,8 +188,7 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel3"}
-              onChange={handleChange("panel3")}
-            >
+              onChange={handleChange("panel3")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -210,8 +199,7 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel3bh-content"
-                id="panel3bh-header"
-              >
+                id="panel3bh-header">
                 <Typography
                   sx={{
                     color: "white",
@@ -220,8 +208,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Select Type of Document
                 </Typography>
               </AccordionSummary>
@@ -229,8 +216,7 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography
                   sx={{
                     color: "white",
@@ -238,8 +224,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   You can also Generate Document from a wide range of templated
                   Legal Documents
                 </Typography>
@@ -251,8 +236,7 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel4"}
-              onChange={handleChange("panel4")}
-            >
+              onChange={handleChange("panel4")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -263,8 +247,7 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel4bh-content"
-                id="panel4bh-header"
-              >
+                id="panel4bh-header">
                 <Typography
                   sx={{
                     color: "white",
@@ -273,8 +256,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Fill the Requirements
                 </Typography>
               </AccordionSummary>
@@ -282,8 +264,7 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography
                   sx={{
                     color: "white",
@@ -291,8 +272,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   When some details are missing from your side, Adira AI asks
                   them from you for best results
                 </Typography>
@@ -304,8 +284,7 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel5"}
-              onChange={handleChange("panel5")}
-            >
+              onChange={handleChange("panel5")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -316,8 +295,7 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel5bh-content"
-                id="panel5bh-header"
-              >
+                id="panel5bh-header">
                 <Typography
                   sx={{
                     color: "white",
@@ -326,8 +304,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Edit / Update Document
                 </Typography>
               </AccordionSummary>
@@ -335,8 +312,7 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography
                   sx={{
                     color: "white",
@@ -344,8 +320,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Once a document is generated, you have the option to edit
                   contents of document with prompt
                 </Typography>
@@ -357,8 +332,7 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel6"}
-              onChange={handleChange("panel6")}
-            >
+              onChange={handleChange("panel6")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -369,8 +343,7 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel6bh-content"
-                id="panel6bh-header"
-              >
+                id="panel6bh-header">
                 <Typography
                   sx={{
                     color: "white",
@@ -379,8 +352,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Find Document Details
                 </Typography>
               </AccordionSummary>
@@ -388,8 +360,7 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography
                   sx={{
                     color: "white",
@@ -397,8 +368,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   The Query bar assists not only in editing your document but
                   also find information from in it.
                 </Typography>
@@ -410,8 +380,7 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel7"}
-              onChange={handleChange("panel7")}
-            >
+              onChange={handleChange("panel7")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -422,8 +391,7 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel7bh-content"
-                id="panel7bh-header"
-              >
+                id="panel7bh-header">
                 <Typography
                   sx={{
                     color: "white",
@@ -432,8 +400,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Generate & Download Document
                 </Typography>
               </AccordionSummary>
@@ -441,8 +408,7 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography
                   sx={{
                     color: "white",
@@ -450,8 +416,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   At any point if you find that the document generated is
                   perfect, generate the summary and download it.
                 </Typography>
@@ -463,8 +428,7 @@ const AdiraAiBanner = () => {
                 background: "transparent",
               }}
               expanded={expanded === "panel8"}
-              onChange={handleChange("panel8")}
-            >
+              onChange={handleChange("panel8")}>
               <AccordionSummary
                 sx={{
                   border: "1px solid rgb(23, 30, 38)",
@@ -475,8 +439,7 @@ const AdiraAiBanner = () => {
                       : "transparent",
                 }}
                 aria-controls="panel8bh-content"
-                id="panel8bh-header"
-              >
+                id="panel8bh-header">
                 <Typography
                   sx={{
                     color: "white",
@@ -485,8 +448,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Chatbot
                 </Typography>
               </AccordionSummary>
@@ -494,8 +456,7 @@ const AdiraAiBanner = () => {
                 sx={{
                   backgroundColor: "rgb(23, 30, 38)",
                   borderRadius: "10px",
-                }}
-              >
+                }}>
                 <Typography
                   sx={{
                     color: "white",
@@ -503,8 +464,7 @@ const AdiraAiBanner = () => {
                     "@media (max-width: 600px)": {
                       fontSize: "15px", // Set size to 15px for mobile view
                     },
-                  }}
-                >
+                  }}>
                   Talk to an expert to get any queries
                 </Typography>
                 <MobileVideoComponent currentVid={currentVid} />
