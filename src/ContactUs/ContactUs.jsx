@@ -96,8 +96,7 @@ export default function ContactUs() {
         zIndex: 2,
         // padding: 20,
         position: "inherit",
-      }}
-    >
+      }}>
       <Helmet>
         <title>Contact us!</title>
         <meta
@@ -125,8 +124,7 @@ export default function ContactUs() {
         <div>
           <form
             onSubmit={handleSubmit}
-            className="py-8 grid grid-cols-2 gap-3 "
-          >
+            className="py-8 grid grid-cols-2 gap-3 ">
             <div className="flex flex-col col-span-2 md:col-span-1 gap-1">
               <label className="text-xs">First Name</label>
               <input
@@ -189,8 +187,7 @@ export default function ContactUs() {
             </div>
             <div
               className="grid col-span-2 justify-center items-center mb-2 gap-2"
-              style={{ wordSpacing: "2px" }}
-            >
+              style={{ wordSpacing: "2px" }}>
               <h2 className="text-lg m-0 text-white leading-none">
                 Preferred Contact Mode :{" "}
               </h2>
@@ -220,27 +217,26 @@ export default function ContactUs() {
             <button
               type="submit"
               className="rounded-full col-span-2"
-              style={{ background: "linear-gradient(90deg,#001B1B,#00FDFF)" }}
-            >
-              {loading ? (
-                <CircularProgress color="inherit" size={20} />
-              ) : (
-                "Send Message"
-              )}
+              style={{ background: "linear-gradient(90deg,#001B1B,#00FDFF)" }}>
+              <p className="hover:scale-105">
+                {loading ? (
+                  <CircularProgress color="inherit" size={20} />
+                ) : (
+                  "Send Message"
+                )}
+              </p>
             </button>
           </form>
         </div>
       </div>
       <div
         className="w-full p-3 flex justify-between items-center"
-        style={{ background: "linear-gradient(90deg,#6DFEFF,#001B1B)" }}
-      >
+        style={{ background: "linear-gradient(90deg,#6DFEFF,#001B1B)" }}>
         <button
           onClick={() => navigate(-1)}
           className="px-5 py-1 rounded-lg"
-          style={{ background: "linear-gradient(90deg,#001B1B,#018081)" }}
-        >
-          Go Back
+          style={{ background: "linear-gradient(90deg,#001B1B,#018081)" }}>
+          <p className="hover:scale-105">Go Back</p>
         </button>
         {/* <div className="flex gap-2">
           <InstagramIcon className="cursor-pointer" />

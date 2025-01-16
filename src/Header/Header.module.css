@@ -132,6 +132,9 @@
   .headerButton2 {
     display: none;
   }
+  .headerButton {
+    display: none;
+  }
   .headerContent {
     width: 90%;
   }

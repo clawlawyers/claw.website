@@ -112,6 +112,7 @@ function FooterBanner() {
               style={{ display: "flex", gap: 5 }}>
               <div
                 style={{
+                  marginTop: "20px",
                   flex: 1,
                   display: "flex",
                   gap: 10,
@@ -147,11 +148,14 @@ function FooterBanner() {
                   color: "white",
                   borderRadius: 4,
                 }}>
-                {isLoading ? (
-                  <CircularProgress style={{ padding: 10 }} />
-                ) : (
-                  "Submit"
-                )}
+                <p className="hover:scale-105">
+                  {" "}
+                  {isLoading ? (
+                    <CircularProgress style={{ padding: 10 }} />
+                  ) : (
+                    "Submit"
+                  )}
+                </p>
               </button>
             </form>
           </div>

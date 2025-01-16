@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Styles from "./index.module.css";
 import { Link } from "react-router-dom";
@@ -11,6 +11,7 @@ export function CollapsedBlogCard({
   createdAt,
   mainImg,
 }) {
+  const [hover, setHover] = useState(false);
   return (
     <div className={Styles.blogCardContainer}>
       <div
@@ -56,7 +57,11 @@ export function CollapsedBlogCard({
       </div>
       <div className={Styles.blogCardContent}>
         <div className="w-full absolute top-4 right-0 py-2 px-3 flex justify-between items-center">
-          <img className="rounded-3xl max-h-80" src={mainImg} />
+          <img
+            className="rounded-3xl max-w-84 max-h-60"
+            src={mainImg}
+            alt="Img not found"
+          />
         </div>
         <div>
           <h6 style={{ fontSize: 15, fontWeight: 400, color: "#D9D9DA" }}>
@@ -67,16 +72,21 @@ export function CollapsedBlogCard({
         <button
           style={{
             borderRadius: 15,
-            backgroundColor: "#008080",
+            backgroundImage: hover
+              ? "linear-gradient(275.22deg,  #00ff9d 0.63%, #00e6ff 99.37%) "
+              : "none", // Apply gradient on hover
+            backgroundColor: hover ? "transparent" : "#008080",
             padding: 10,
             width: "fit-content",
             border: "none",
-          }}>
+          }}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}>
           <Link
             to={`/blog/${heading}`}
             state={{ blogNo }}
             style={{
-              color: "white",
+              color: hover ? "rgba(55, 112, 105, 1)" : "white",
               fontSize: 17,
               fontWeight: 600,
               border: "none",

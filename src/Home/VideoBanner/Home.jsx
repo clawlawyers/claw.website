@@ -7,7 +7,7 @@ import VideoBanner from "./MobileComponent/VideoBanner";
 
 const VideoBannerHome = () => {
   return (
-    <div className="m-auto w-[80%] flex flex-col justify-center items-center pt-2 md:pt-16 gap-3">
+    <div className="m-auto w-[80%] flex flex-col justify-center items-center pt-2 md:pt-8 gap-3">
       <div className="flex flex-col justify-center items-center text-center px-4">
         <h1 className="font-bold text-base sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl m-0">
           Your Guide to
