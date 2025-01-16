@@ -57,17 +57,17 @@ const TestSubscription = () => {
         }
 
         const result = await axios.post(
-          `${NODE_API_ENDPOINT}/payment/create-order`,
+          `${NODE_API_ENDPOINT}/payment/test-create-subscription`,
           {
-            amount: paymentDetails?.refundAmount
-              ? paymentDetails?.refundAmount
-              : paymentDetails?.totalPrice,
-            currency: "INR",
-            receipt: receipt,
+            // amount: paymentDetails?.refundAmount
+            //   ? paymentDetails?.refundAmount
+            //   : paymentDetails?.totalPrice,
+            // currency: "INR",
+            // receipt: receipt,
             plan: planeName?.toUpperCase(),
             billingCycle: paymentDetails?.plan.toUpperCase(),
             session: paymentDetails?.sessions,
-            phoneNumber: currentUser?.phoneNumber,
+            phoneNumber: "9027640571",
           }
         );
 
@@ -92,31 +92,31 @@ const TestSubscription = () => {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
               _id,
-              createdAt: resultDate,
-              expiresAt:
-                paymentDetails.plan === "Monthly"
-                  ? new Date(
-                      new Date(createdAt).getTime() +
-                        expiryTotalDays * 24 * 60 * 60 * 1000
-                    ).toISOString()
-                  : new Date(
-                      new Date(createdAt).getTime() +
-                        expiryTotalDays * 24 * 60 * 60 * 1000
-                    ).toISOString(),
-              refferalCode: paymentDetails?.refferalCode,
-              couponCode: paymentDetails?.couponCode,
-              existingSubscription: paymentDetails?.existingSubscription,
+              // createdAt: resultDate,
+              // expiresAt:
+              //   paymentDetails.plan === "Monthly"
+              //     ? new Date(
+              //         new Date(createdAt).getTime() +
+              //           expiryTotalDays * 24 * 60 * 60 * 1000
+              //       ).toISOString()
+              //     : new Date(
+              //         new Date(createdAt).getTime() +
+              //           expiryTotalDays * 24 * 60 * 60 * 1000
+              //       ).toISOString(),
+              // refferalCode: paymentDetails?.refferalCode,
+              // couponCode: paymentDetails?.couponCode,
+              // existingSubscription: paymentDetails?.existingSubscription,
               // amount: paymentDetails?.refundAmount
               //   ? paymentDetails?.refundAmount
               //   : paymentDetails?.totalPrice,
-              amount: paymentDetails?.totalPrice,
-              trialDays: paymentDetails?.trialDays,
+              // amount: paymentDetails?.totalPrice,
+              // trialDays: paymentDetails?.trialDays,
             };
 
             console.log(response);
 
             const result = await axios.post(
-              `${NODE_API_ENDPOINT}/payment/verifyPayment`,
+              `${NODE_API_ENDPOINT}/payment/test-verify-subscription`,
               data
             );
             alert(result.data.status);
