@@ -30,6 +30,23 @@ const TestSubscription = () => {
   const [paymentVerified, setPaymentVerified] = useState(false);
   const currentUser = useSelector((state) => state.auth.user);
   // console.log(paymentDetails);
+  const [paymentMethod, setPaymentMethod] = useState("card");
+  console.log(paymentMethod);
+  const handlePaymentMethodChange = (event) => {
+    const selectedMethod = event.target.value;
+    setPaymentMethod(selectedMethod);
+
+    // Optionally, you can take further actions based on selected payment method
+    console.log(`Selected Payment Method: ${selectedMethod}`);
+
+    if (selectedMethod === "card") {
+      // Handle card payment logic here
+      console.log("Card payment selected");
+    } else if (selectedMethod === "upi") {
+      // Handle UPI payment logic here
+      console.log("UPI payment selected");
+    }
+  };
 
   const loadRazorpay = async () => {
     setLoading(true);
@@ -77,7 +94,7 @@ const TestSubscription = () => {
         const { _id } = result.data.createdOrder;
 
         const options = {
-          key: "rzp_live_vlDmt5SV4QPDhN",
+          key: "rzp_test_UWcqHHktRV6hxM",
           amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
@@ -169,6 +186,7 @@ const TestSubscription = () => {
             billingCycle: paymentDetails?.plan.toUpperCase(),
             session: paymentDetails?.sessions,
             phoneNumber: "9027640571",
+            paymentOptionCard: paymentMethod === "card" ? true : false,
             // trialDays: paymentDetails?.trialDays,
             // isDiscount: paymentDetails?.isDiscount,
           }
@@ -311,6 +329,25 @@ const TestSubscription = () => {
                 </div>
               </div>
             </div>
+            <div class="w-full max-w-sm mx-auto p-6 text-white shadow-md rounded-lg">
+              <label
+                for="payment-method"
+                class="block text-white text-sm font-semibold mb-2"
+              >
+                Select Payment Option
+              </label>
+              <select
+                id="payment-method"
+                name="payment-method"
+                value={paymentMethod} // Bind value to the state
+                onChange={handlePaymentMethodChange} // Attach the handler
+                class="block w-full p-3 border bg-black border-gray-300 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <option value="card">Card</option>
+                <option value="upi">UPI</option>
+              </select>
+            </div>
+
             <button
               onClick={loadRazorpaySubscription}
               className="w-full rounded py-2"
