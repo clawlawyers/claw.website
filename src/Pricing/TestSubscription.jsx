@@ -177,7 +177,7 @@ const TestSubscription = () => {
 
         // Request the backend to create a subscription
         const result = await axios.post(
-          `${NODE_API_ENDPOINT}/payment/test-create-subscription`,
+          `${NODE_API_ENDPOINT}/payment/create-subscription`,
           {
             // amount: paymentDetails?.totalPrice,
             // currency: "INR",
@@ -185,7 +185,7 @@ const TestSubscription = () => {
             plan: "Test",
             billingCycle: paymentDetails?.plan.toUpperCase(),
             session: paymentDetails?.sessions,
-            phoneNumber: "9027640571",
+            phoneNumber: "8954475410",
             paymentOptionCard: paymentMethod === "card" ? true : false,
             // trialDays: paymentDetails?.trialDays,
             // isDiscount: paymentDetails?.isDiscount,
@@ -195,13 +195,13 @@ const TestSubscription = () => {
         console.log(result);
 
         const { id: subscription_id } = result.data.razorpaySubscription;
-        const { _id } = result.data.createdOrder;
+        // const { _id } = result.data.createdOrder;
 
         console.log(subscription_id);
 
         const options = {
-          key: "rzp_live_vlDmt5SV4QPDhN",
-          // key: "rzp_test_UWcqHHktRV6hxM",
+          // key: "rzp_live_vlDmt5SV4QPDhN",
+          key: "rzp_test_UWcqHHktRV6hxM",
           subscription_id: subscription_id, // Pass the subscription_id instead of order_id
           name: "CLAW LEGALTECH PRIVATE LIMITED",
           description: "Subscription",
@@ -214,7 +214,7 @@ const TestSubscription = () => {
               razorpay_subscription_id: response.razorpay_subscription_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
-              _id,
+              phoneNumber: "8954475410",
               // isUpgrade: paymentDetails?.isUpgrade,
               // createdAt: paymentDetails?.createdAt,
               // createdAt: resultDate,
@@ -230,7 +230,7 @@ const TestSubscription = () => {
 
             // Verify the subscription payment with the backend
             const result = await axios.post(
-              `${NODE_API_ENDPOINT}/payment/test-verify-subscription`,
+              `${NODE_API_ENDPOINT}/payment/verify-subscription`,
               data
             );
             alert(result.data.status);
