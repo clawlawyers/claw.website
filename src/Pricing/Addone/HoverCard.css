@@ -1,4 +1,4 @@
-/* HoverCard.css */
+/* 
 .cardContainer {
   position: relative;
   width: 250px;
@@ -8,7 +8,6 @@
 }
 
 .card {
-  /* position: absolute; */
   top: 0;
   left: 0;
   width: 100%;
@@ -91,4 +90,4 @@ button {
 
 button:hover {
   background-color: darkcyan;
-}
+} */
