@@ -56,16 +56,25 @@ const allproduct = () => {
     <div className=" flex items-center mt-8 justify-center ">
       <div className="w-[80%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6">
         <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 cursor-pointer border-green-400 hover:scale-95 transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg"
+          className="bg-[rgba(0,128,128,0.2)] border-2 cursor-pointer border-green-400 hover:scale-95 transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center shadow-lg p-4 relative"
           onClick={openLegalGpt}>
-          <img src={LegalIcon} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold pt-4 text-center">
+          {/* Free Badge */}
+          <div className="absolute top-2 left-2 bg-[rgba(0,128,128,0.2)] text-white text-xs font-bold px-3 py-1 rounded-md border border-[rgba(0,255,17,1)]">
+            FREE
+          </div>
+          {/* Icon */}
+          <img src={LegalIcon} alt="Legal Icon" className="w-16 h-16 mb-4" />
+          {/* Title */}
+          <h3 className="text-lg text-white font-semibold pt-4 text-center">
             LegalGPT
-          </h2>
+          </h3>
         </div>
         <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 cursor-pointer hover:scale-95 transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg"
+          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 cursor-pointer hover:scale-95 transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 relative shadow-lg"
           onClick={openCaseSearch}>
+          <div className="absolute top-2 left-2 bg-[rgba(0,128,128,0.2)] text-white text-xs font-bold px-3 py-1 rounded-md border border-[rgba(0,255,17,1)]">
+            FREE
+          </div>
           <img src={CaseSearch} className="text-4xl mb-4" />
           <h2 className="text-lg text-white font-semibold pt-4 text-center">
             Case Search
@@ -82,8 +91,11 @@ const allproduct = () => {
         </div>
 
         <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 transition-all cursor-pointer duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg"
+          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 transition-all cursor-pointer duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 relative shadow-lg"
           onClick={openWarrrom}>
+          <div className="absolute top-2 left-2 bg-[rgba(0,128,128,0.2)] text-white text-xs font-bold px-3 py-1 rounded-md border border-[rgba(0,255,17,1)]">
+            FREE
+          </div>
           <img src={Warroom} className="text-4xl mb-4" />
           <h2 className="text-lg text-white font-semibold pt-4 text-center">
             War Room
