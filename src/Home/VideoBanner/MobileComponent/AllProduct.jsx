@@ -54,59 +54,77 @@ const allproduct = () => {
 
   return (
     <div className=" flex items-center mt-8 justify-center ">
-      <div className="w-[80%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6">
+      <div className="w-[80%] grid grid-cols-3 sm:grid-cols-2 items-center gap-6 md:grid-cols-3 lg:grid-cols-5 ">
         <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 cursor-pointer border-green-400 hover:scale-95 transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center shadow-lg p-4 relative"
+          className="bg-[rgba(0,128,128,0.2)] border-2 border-[#00C37B] sm:pt-4 rounded-lg flex flex-col items-center justify-between shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 w-[100px] h-[110px] sm:w-52 sm:h-52 "
           onClick={openLegalGpt}>
-          {/* Free Badge */}
-          <div className="absolute top-2 left-2 bg-[rgba(0,128,128,0.2)] text-white text-xs font-bold px-3 py-1 rounded-md border border-[rgba(0,255,17,1)]">
-            FREE
-          </div>
-          {/* Icon */}
-          <img src={LegalIcon} alt="Legal Icon" className="w-16 h-16 mb-4" />
-          {/* Title */}
-          <h3 className="text-lg text-white font-semibold pt-4 text-center">
+          <img
+            src={LegalIcon}
+            alt="Legal Icon"
+            className="w-8 h-12 pt-4 sm:pt:0  sm:w-16 sm:h-20"
+          />
+          <h3 className="text-[12px] sm:text-lg text-white font-semibold text-center ">
             LegalGPT
           </h3>
-        </div>
-        <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 cursor-pointer hover:scale-95 transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 relative shadow-lg"
-          onClick={openCaseSearch}>
-          <div className="absolute top-2 left-2 bg-[rgba(0,128,128,0.2)] text-white text-xs font-bold px-3 py-1 rounded-md border border-[rgba(0,255,17,1)]">
+          <div className="w-full bg-[#00C37B] text-center text-[10px] sm:text-lg rounded-b-md text-white font-bold">
             FREE
           </div>
-          <img src={CaseSearch} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold pt-4 text-center">
-            Case Search
-          </h2>
         </div>
 
         <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 cursor-pointer transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg"
+          className="bg-[rgba(0,128,128,0.2)] border-2 border-[#00C37B] sm:pt-6 rounded-lg flex flex-col items-center justify-between shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 mx-1 w-[100px] h-[110px] sm:w-52 sm:h-52 "
+          onClick={openCaseSearch}>
+          <img
+            src={CaseSearch}
+            alt="Case Search Icon"
+            className="w-8 h-12  pt-4 sm:pt:0  sm:w-16 sm:h-20"
+          />
+
+          <h3 className="text-[12px] sm:text-lg text-white font-semibold text-center ">
+            Case Search
+          </h3>
+          <div className="w-full bg-[#00C37B] text-center text-[10px] sm:text-lg  rounded-b-md text-white font-bold">
+            FREE
+          </div>
+        </div>
+
+        <div
+          className="bg-[rgba(0,128,128,0.2)] border-2 mx-1 border-green-400 hover:scale-95 cursor-pointer transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center  sm:pt-5 shadow-lg w-[100px] h-[110px]  sm:w-52 sm:h-52"
           onClick={openAdiraAi}>
-          <img src={AdiraAi} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold pt-4 text-center">
+          <img
+            src={AdiraAi}
+            className="w-8 pt-4  h-12 sm:pt-0  sm:w-16 sm:h-16 mb-2"
+          />
+          <h2 className="text-[12px] sm:text-lg mt-2 text-white font-semibold  text-center">
             Adira AI
           </h2>
         </div>
 
         <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 transition-all cursor-pointer duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center p-6 relative shadow-lg"
+          className="bg-[rgba(0,128,128,0.2)] border-2 border-[#00C37B] sm:pt-6 rounded-lg flex flex-col items-center justify-between shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 mx-1 w-[100px] h-[110px] sm:w-52 sm:h-52 "
           onClick={openWarrrom}>
-          <div className="absolute top-2 left-2 bg-[rgba(0,128,128,0.2)] text-white text-xs font-bold px-3 py-1 rounded-md border border-[rgba(0,255,17,1)]">
+          <img
+            src={Warroom}
+            alt="Case Search Icon"
+            className="w-8 h-12  pt-4 sm:pt:0  sm:w-16 sm:h-20"
+          />
+
+          <h3 className="text-[12px] sm:text-lg text-white font-semibold text-center ">
+            War Room
+          </h3>
+          <div className="w-full bg-[#00C37B] text-center text-[10px] sm:text-lg  rounded-b-md text-white font-bold">
             FREE
           </div>
-          <img src={Warroom} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold pt-4 text-center">
-            War Room
-          </h2>
         </div>
 
         <div
           onClick={handleCasePrediction}
-          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 hover:scale-95 transition-all duration-300 cursor-pointer text-green-400 rounded-lg flex flex-col items-center justify-center p-6 shadow-lg">
-          <img src={CasePrediction} className="text-4xl mb-4" />
-          <h2 className="text-lg text-white font-semibold pt-4 text-center">
+          className="bg-[rgba(0,128,128,0.2)] border-2 mx-1 border-green-400 hover:scale-95 cursor-pointer transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center  sm:pt-6 shadow-lg w-[100px] h-[110px]  sm:w-52 sm:h-52">
+          <img
+            src={CasePrediction}
+            className="w-8 pt-4  h-12  sm:w-16 sm:h-16 sm:pt-0 mb-4 "
+          />
+          <h2 className="text-[12px] sm:text-lg text-white font-semibold  text-center">
             Case Prediction
           </h2>
         </div>
