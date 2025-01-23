@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Intell from "../../assets/Intell.png";
-import Memo from "../../assets/memorand.png";
-import Non from "../../assets/Nondesclosure.png";
-import Vendor from "../../assets/vendor.png";
-import Rent from "../../assets/rental.png";
+import Intell from "../../HomeImg/Intellectual";
+import Memo from "../../HomeImg/Memorandum";
+import Non from "../../HomeImg/NonDisclosure";
+import Vendor from "../../HomeImg/Vendor";
+import Rent from "../../HomeImg/Rental";
 import { Close } from "@mui/icons-material";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -13,11 +13,16 @@ const DocumentViewer = () => {
   const [activeDocId, setActiveDocId] = useState(null);
 
   const documents = [
-    { id: 1, name: "Non-Disclosure Agreement (NDA)", image: Non },
-    { id: 2, name: "Intellectual Property Agreement", image: Intell },
-    { id: 3, name: "Memorandum of Understanding", image: Memo },
-    { id: 4, name: "Vendor Agreement", image: Vendor },
-    { id: 5, name: "Rent Agreement", image: Rent },
+    // { id: 1, name: "Non-Disclosure Agreement (NDA)", image: Non },
+    // { id: 2, name: "Intellectual Property Agreement", image: Intell },
+    // { id: 3, name: "Memorandum of Understanding", image: Memo },
+    // { id: 4, name: "Vendor Agreement", image: Vendor },
+    // { id: 5, name: "Rent Agreement", image: Rent },
+    { id: 1, name: "Non-Disclosure Agreement (NDA)", component: <Non /> },
+    { id: 2, name: "Intellectual Property Agreement", component: <Intell /> },
+    { id: 3, name: "Memorandum of Understanding", component: <Memo /> },
+    { id: 4, name: "Vendor Agreement", component: <Vendor /> },
+    { id: 5, name: "Rent Agreement", component: <Rent /> },
   ];
 
   const handleDocumentClick = (doc) => {
@@ -98,11 +103,14 @@ const DocumentViewer = () => {
                   </button>
                 </div>
               </div>
-              <img
+              {/* <img
                 src={selectedDocument.image}
                 alt={selectedDocument.name}
                 className="w-full h-full rounded"
-              />
+              /> */}
+              <div className="w-full h-full rounded">
+                {selectedDocument.component}
+              </div>
             </div>
           </div>
         </div>
