@@ -85,17 +85,19 @@ const DocumentViewer = () => {
       )}
 
       {selectedDocument && !loading && (
-        <div className="relative bg-black opacity-80 text-white p-6 rounded-lg md:w-[90%] mx-auto shadow-lg">
+        <div className="relative bg-black/80 text-white p-4 sm:p-6 rounded-lg w-full sm:w-[90%] h-[500px] sm:h-[500px] mx-auto shadow-lg">
           <Close
             onClick={() => setSelectedDocument(null)}
             className="absolute top-2 right-2 text-gray-400 hover:text-white cursor-pointer"
           />
           <div className="text-center">
-            <h2 className="text-xl font-bold mb-8">{selectedDocument.name}</h2>
+            <h2 className="sm:text-xl text-[14px] font-bold mb-8">
+              {selectedDocument.name}
+            </h2>
             <div className="relative" style={{ height: "600px" }}>
-              <div className="absolute flex justify-center bottom-0 inset-0 bg-gradient-to-t from-black via-black/80 to-black/10 rounded text-white p-4">
+              <div className="absolute flex flex-col sm:flex-row justify-center bottom-56 inset-x-0 bg-gradient-to-t from-black via-black/80 to-black/10 rounded text-white px-2 sm:px-4 py-2 sm:py-4 w-full h-40 sm:h-auto overflow-y-auto text-center sm:text-left">
                 <div className="absolute  bottom-0 flex flex-col md:flex-row items-center gap-2 md:gap-32">
-                  <p className="text-2xl font-bold m-0">
+                  <p className="sm:text-2xl text-[15px] font-bold m-0">
                     Want to Unlock Full Document?
                   </p>
                   <button className="px-4 py-2 text-white rounded hover:bg-opacity-25 transition-all">
@@ -108,7 +110,7 @@ const DocumentViewer = () => {
                 alt={selectedDocument.name}
                 className="w-full h-full rounded"
               /> */}
-              <div className="w-full h-full rounded">
+              <div className="w-full  sm:h-full rounded-lg">
                 {selectedDocument.component}
               </div>
             </div>

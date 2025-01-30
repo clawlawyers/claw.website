@@ -53,17 +53,17 @@ const allproduct = () => {
   };
 
   return (
-    <div className=" flex items-center mt-8 justify-center ">
-      <div className="w-[80%] grid grid-cols-3 sm:grid-cols-2 items-center gap-6 md:grid-cols-3 lg:grid-cols-5 ">
+    <div className="flex items-center mt-8 justify-center">
+      <div className="w-[80%] grid grid-cols-3 sm:grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
         <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 border-[#00C37B] sm:pt-4 rounded-lg flex flex-col items-center justify-between shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 w-[100px] h-[110px] sm:w-52 sm:h-52 "
+          className="bg-[rgba(0,128,128,0.2)] border-2 border-[#00C37B] rounded-lg flex flex-col items-center justify-between shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 w-[100px] h-[110px] sm:w-52 sm:h-52"
           onClick={openLegalGpt}>
           <img
             src={LegalIcon}
             alt="Legal Icon"
-            className="w-8 h-12 pt-4 sm:pt:0  sm:w-16 sm:h-20"
+            className="w-8 h-12 pt-4 sm:w-16 sm:h-20"
           />
-          <h3 className="text-[12px] sm:text-lg text-white font-semibold text-center ">
+          <h3 className="text-[12px] sm:text-lg text-white font-semibold text-center">
             LegalGPT
           </h3>
           <div className="w-full bg-[#00C37B] text-center text-[10px] sm:text-lg rounded-b-md text-white font-bold">
@@ -72,61 +72,58 @@ const allproduct = () => {
         </div>
 
         <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 border-[#00C37B] sm:pt-6 rounded-lg flex flex-col items-center justify-between shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 mx-1 w-[100px] h-[110px] sm:w-52 sm:h-52 "
+          className="bg-[rgba(0,128,128,0.2)] border-2 border-[#00C37B] rounded-lg flex flex-col items-center justify-between shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 w-[100px] h-[110px] sm:w-52 sm:h-52"
           onClick={openCaseSearch}>
           <img
             src={CaseSearch}
             alt="Case Search Icon"
-            className="w-8 h-12  pt-4 sm:pt:0  sm:w-16 sm:h-20"
+            className="w-8 h-12 pt-4 sm:w-16 sm:h-20"
           />
-
-          <h3 className="text-[12px] sm:text-lg text-white font-semibold text-center ">
+          <h3 className="text-[12px] sm:text-lg text-white font-semibold text-center">
             Case Search
           </h3>
-          <div className="w-full bg-[#00C37B] text-center text-[10px] sm:text-lg  rounded-b-md text-white font-bold">
+          <div className="w-full bg-[#00C37B] text-center text-[10px] sm:text-lg rounded-b-md text-white font-bold">
             FREE
           </div>
         </div>
 
         <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 mx-1 border-green-400 hover:scale-95 cursor-pointer transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center  sm:pt-5 shadow-lg w-[100px] h-[110px]  sm:w-52 sm:h-52"
+          className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 rounded-lg flex flex-col items-center justify-center shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 w-[100px] h-[110px] sm:w-52 sm:h-52"
           onClick={openAdiraAi}>
-          <img
-            src={AdiraAi}
-            className="w-8 pt-4  h-12 sm:pt-0  sm:w-16 sm:h-16 mb-2"
-          />
-          <h2 className="text-[12px] sm:text-lg mt-2 text-white font-semibold  text-center">
+          <img src={AdiraAi} className="w-8 pt-4 h-12 sm:w-16 sm:h-16 mb-2" />
+          <h2 className="text-[12px] sm:text-lg mt-2 text-white font-semibold text-center">
             Adira AI
           </h2>
         </div>
 
-        <div
-          className="bg-[rgba(0,128,128,0.2)] border-2 border-[#00C37B] sm:pt-6 rounded-lg flex flex-col items-center justify-between shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 mx-1 w-[100px] h-[110px] sm:w-52 sm:h-52 "
-          onClick={openWarrrom}>
-          <img
-            src={Warroom}
-            alt="Case Search Icon"
-            className="w-8 h-12  pt-4 sm:pt:0  sm:w-16 sm:h-20"
-          />
-
-          <h3 className="text-[12px] sm:text-lg text-white font-semibold text-center ">
-            War Room
-          </h3>
-          <div className="w-full bg-[#00C37B] text-center text-[10px] sm:text-lg  rounded-b-md text-white font-bold">
-            FREE
+        <div className="col-span-3 flex justify-center gap-6">
+          <div
+            className="bg-[rgba(0,128,128,0.2)] border-2 border-[#00C37B] rounded-lg flex flex-col items-center justify-between shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 w-[100px] h-[110px] sm:w-52 sm:h-52"
+            onClick={openWarrrom}>
+            <img
+              src={Warroom}
+              alt="War Room Icon"
+              className="w-8 h-12 pt-4 sm:w-16 sm:h-20"
+            />
+            <h3 className="text-[12px] sm:text-lg text-white font-semibold text-center">
+              War Room
+            </h3>
+            <div className="w-full bg-[#00C37B] text-center text-[10px] sm:text-lg rounded-b-md text-white font-bold">
+              FREE
+            </div>
           </div>
-        </div>
 
-        <div
-          onClick={handleCasePrediction}
-          className="bg-[rgba(0,128,128,0.2)] border-2 mx-1 border-green-400 hover:scale-95 cursor-pointer transition-all duration-300 text-green-400 rounded-lg flex flex-col items-center justify-center  sm:pt-6 shadow-lg w-[100px] h-[110px]  sm:w-52 sm:h-52">
-          <img
-            src={CasePrediction}
-            className="w-8 pt-4  h-12  sm:w-16 sm:h-16 sm:pt-0 mb-4 "
-          />
-          <h2 className="text-[12px] sm:text-lg text-white font-semibold  text-center">
-            Case Prediction
-          </h2>
+          <div
+            onClick={handleCasePrediction}
+            className="bg-[rgba(0,128,128,0.2)] border-2 border-green-400 rounded-lg flex flex-col items-center justify-center shadow-lg cursor-pointer transition-all hover:scale-95 duration-300 w-[100px] h-[110px] sm:w-52 sm:h-52">
+            <img
+              src={CasePrediction}
+              className="w-8 pt-4 h-12 sm:w-16 sm:h-16 mb-4"
+            />
+            <h2 className="text-[12px] sm:text-lg text-white font-semibold text-center">
+              Case Prediction
+            </h2>
+          </div>
         </div>
       </div>
     </div>

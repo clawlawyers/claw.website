@@ -142,6 +142,7 @@ function FooterBanner() {
                 disabled={isLoading}
                 type="submit"
                 style={{
+                  marginTop: "20px",
                   padding: "10px 20px",
                   backgroundColor: "#008080",
                   border: "none",
