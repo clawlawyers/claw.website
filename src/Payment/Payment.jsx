@@ -135,7 +135,7 @@ export default function Payment() {
         const { amount, id, currency } = result.data.razorpayOrder;
         const { _id } = result.data.createdOrder;
         const options = {
-          key: "rzp_test_UWcqHHktRV6hxM",
+          key: import.meta.env.VITE_RAZORPAY_API_KEY,
           amount: String(amount),
 
           currency: currency,
@@ -195,8 +195,7 @@ export default function Payment() {
 
   return (
     <div
-      style={{ width: "80%", margin: "auto", position: "relative", zIndex: 2 }}
-    >
+      style={{ width: "80%", margin: "auto", position: "relative", zIndex: 2 }}>
       <div>
         <h2>Let’s Make Payment</h2>
         <p>
@@ -234,8 +233,7 @@ export default function Payment() {
               marginTop: 25,
             }}
             onClick={loadRazorpay}
-            disabled={loading}
-          >
+            disabled={loading}>
             {loading ? <CircularProgress /> : " Pay now"}
           </button>
           <br />
@@ -262,8 +260,7 @@ export default function Payment() {
               color: "white",
               alignSelf: "flex-start",
               marginTop: 25,
-            }}
-          >
+            }}>
             Apply Coupon
           </button>
           {discountApplied && (
@@ -278,8 +275,7 @@ export default function Payment() {
             flexDirection: "column",
             backgroundColor: "rgba(0,0,0,0.1)",
             padding: "70px 40px",
-          }}
-        >
+          }}>
           <div>
             <h4 style={{ fontSize: 24, color: "#777" }}>
               {" "}
@@ -302,8 +298,7 @@ export default function Payment() {
               display: "flex",
               justifyContent: "space-between",
               marginTop: 45,
-            }}
-          >
+            }}>
             <h3>Pro/{plan}</h3>
             <h3>{total}</h3>
           </div>
@@ -321,8 +316,7 @@ export default function Payment() {
                 display: "flex",
                 justifyContent: "space-between",
                 marginTop: 20,
-              }}
-            >
+              }}>
               <h3 style={{ fontSize: 26, fontWeight: 500 }}>Tax</h3>
               <h3 style={{ fontSize: 26, fontWeight: 500 }}>₹ 0</h3>
             </div>
@@ -331,8 +325,7 @@ export default function Payment() {
                 display: "flex",
                 justifyContent: "space-between",
                 marginTop: 20,
-              }}
-            >
+              }}>
               <h3 style={{ fontSize: 26, fontWeight: 500 }}>Redeem Code</h3>
               <h3 style={{ fontSize: 26, fontWeight: 500 }}>{discount} %</h3>
             </div>

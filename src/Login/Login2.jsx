@@ -206,7 +206,7 @@ const LoginPage = () => {
   }
 
   const getAreaName = async (latitude, longitude) => {
-    const API_KEY = "AIzaSyB2FE83jbNZ8_dREtBnzEwG-XH5E831NAA";
+    const API_KEY = import.meta.env.VITE_GEOLOCATION_API_KEY;
     const response = await axios.get(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`
     );
@@ -767,8 +767,7 @@ const LoginPage = () => {
                 {/* Continue Button */}
                 <button
                   type="submit"
-                  className="w-full bg-teal-700 text-white p-3 rounded-md hover:bg-teal-800 transition duration-300"
-                >
+                  className="w-full bg-teal-700 text-white p-3 rounded-md hover:bg-teal-800 transition duration-300">
                   {otpLoading ? (
                     <CircularProgress size={15} color="inherit" />
                   ) : (
@@ -793,14 +792,12 @@ const LoginPage = () => {
                   <button
                     onClick={handleRetryClick}
                     disabled={isDisabled}
-                    className="w-full bg-transparent border rounded px-5"
-                  >
+                    className="w-full bg-transparent border rounded px-5">
                     {isDisabled ? `Wait ${countdown} seconds...` : "Retry"}
                   </button>
                   <button
                     type="submit"
-                    className="w-full bg-teal-700 text-white p-3 rounded-md hover:bg-teal-800 transition duration-300"
-                  >
+                    className="w-full bg-teal-700 text-white p-3 rounded-md hover:bg-teal-800 transition duration-300">
                     {isLoading ? (
                       <CircularProgress size={15} color="inherit" />
                     ) : (
@@ -849,8 +846,7 @@ const LoginPage = () => {
                 New to Claw Legal Tech?{" "}
                 <Link
                   to="/signup"
-                  className="text-teal-600 font-semibold hover:underline"
-                >
+                  className="text-teal-600 font-semibold hover:underline">
                   Register Now
                 </Link>
               </p>

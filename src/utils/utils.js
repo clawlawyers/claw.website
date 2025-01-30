@@ -5,32 +5,32 @@ export const FLASK_API_ENDPOINT =
 
 export const NODE_API_ENDPOINT =
   process.env.NODE_ENV === "production"
-    ? "https://claw-app-dev.onrender.com/api/v1"
+    ? import.meta.env.VITE_NODE_API_ENDPOINT
     : "http://localhost:8000/api/v1";
 
 export const ADIRA_ENDPOINT =
   process.env.NODE_ENV === "production"
     ? // ? "https://documentdrafter.netlify.app"
-      "https://adira.clawlaw.in"
+      import.meta.env.VITE_ADIRA_ENDPOINT
     : "http://localhost:5000";
 
 export const OTP_ENDPOINT =
   process.env.NODE_ENV === "production"
-    ? "https://claw-app.onrender.com"
+    ? import.meta.env.VITE_OTP_ENDPOINT
     : "https://claw-app.onrender.com";
 // : "http://localhost:7000";
 
 export const WARROOM_ENDPOINT =
   process.env.NODE_ENV === "production"
     ? // ? "https://claw-app-dev.onrender.com/api/v1"
-      "https://warroom.clawlaw.in/"
+      import.meta.env.VITE_WARROOM_ENDPOINT
     : "https://warroom.clawlaw.in/";
 
 // export const OTP_ENDPOINT = "https://claw-app.onrender.com"
 
 export const LEGALGPT_ENDPOINT =
   process.env.NODE_ENV === "production"
-    ? "https://legalgpt.clawlaw.in"
+    ? import.meta.env.VITE_LEGALGPT_ENDPOINT
     : "http://localhost:5173";
 
 export const LEGALGPT_ENDPOINT1 =

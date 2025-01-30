@@ -44,7 +44,7 @@ const AddScreen = () => {
         // const { _id } = result.data.createdOrder;
 
         const options = {
-          key: "rzp_test_UWcqHHktRV6hxM",
+          key: import.meta.env.VITE_RAZORPAY_API_KEY,
           //   amount: String(amount),
           currency: currency,
           name: "CLAW LEGALTECH PRIVATE LIMITED",
@@ -107,8 +107,7 @@ const AddScreen = () => {
       radial-gradient(circle at 100% 90%, #018585, transparent 15%)
       `,
         width: "100%",
-      }}
-    >
+      }}>
       <div className="h-screen w-[95%] m-auto flex flex-col justify-between">
         <div className=" grid md:grid-cols-2 items-center justify-center pt-3 gap-5 md:gap-2">
           <div className="w-full">
@@ -172,8 +171,7 @@ const AddScreen = () => {
             <button
               onClick={handlePaymentDialog}
               style={{ border: "2px solid #05F182" }}
-              className="w-full md:w-1/2 rounded-full bg-white bg-opacity-10 uppercase"
-            >
+              className="w-full md:w-1/2 rounded-full bg-white bg-opacity-10 uppercase">
               Subscribe Now
             </button>
           </div>
@@ -188,24 +186,21 @@ const AddScreen = () => {
               style={{ color: "white" }}
               href="https://www.instagram.com/claw__lawyers?igsh=a25qZzJkZW84anBt"
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
               <InstagramIcon />
             </a>
             <a
               style={{ color: "white" }}
               href="https://www.linkedin.com/company/claw-lawyers/"
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
               <LinkedInIcon />
             </a>
             <a
               style={{ color: "white" }}
               href="https://youtube.com/@clawlegaltech?si=iehyWC9uSmzk657K"
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
               <YouTubeIcon />
             </a>
           </div>
@@ -225,8 +220,7 @@ const AddScreen = () => {
               padding: 10,
               transform: "translate(-50%, -50%)",
               boxShadow: 24,
-            }}
-          >
+            }}>
             <div className="w-full flex justify-between items-center">
               <p className="m-0 text-white text-xl font-semibold">
                 Enter Your Details
