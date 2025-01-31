@@ -2,8 +2,10 @@ import React from "react";
 
 const MemorandumOfUnderstanding = () => {
   return (
-    <div className="h-92  bg-gray-50 rounded-md flex justify-center items-center">
-      <div className="bg-white shadow-lg rounded-md p-4 sm:p-6 w-full max-w-md sm:max-w-5xl h-80 sm:h-[330px] overflow-y-auto">
+    <div className="relative h-92 flex justify-center items-center">
+      {/* Content Box */}
+      <div className="relative bg-white shadow-lg rounded-md p-4 sm:p-6 w-full max-w-md sm:max-w-5xl h-80 sm:h-[330px] overflow-y-auto">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/100"></div>
         {/* <h1 className="text-2xl text-black font-bold mb-4 text-center">
           Memorandum of Understanding
         </h1> */}
