@@ -89,6 +89,7 @@ import PopupPage from "./Login/PopupPage.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google"; // Import the provider
 import ChatbotButton from "./Chatbot/ChatbotButton.jsx";
 import AddScreen from "./Advt/AddScreen.jsx";
+import AdminLogin from "./Login/AdminLogin.jsx";
 
 function App() {
   const BATCH_INTERVAL = 60 * 1000; //  (1 minute = 60 seconds * 1000 milliseconds/second)
@@ -356,6 +357,10 @@ function App() {
         {
           path: "login2",
           element: <Login1 />,
+        },
+        {
+          path: "/AdminLogin",
+          element: <AdminLogin />,
         },
         // {
         //   path: "login",
