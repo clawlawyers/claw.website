@@ -40,10 +40,15 @@ const allproduct = () => {
   };
 
   const openCaseSearch = () => {
-    var encodedStringBtoA = btoa(JSON.stringify(currentUser));
+    console.log("first");
+    const reqdObj = {
+      token: currentUser.jwt,
+    };
+    var encodedStringBtoA = btoa(JSON.stringify(reqdObj));
     console.log(currentUser);
+    console.log("Rahul ");
     console.log(encodedStringBtoA);
-    window.open(`${CASE_SEARCH}?user=${encodedStringBtoA}`);
+    window.open(`${CASE_SEARCH}?user=${encodedStringBtoA}`, "_self");
   };
 
   const openLegalGpt = () => {
